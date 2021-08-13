@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/layouts/layout_screen.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/screens/login_screen.dart';
 
 import 'models/bloc/cubits/cubit.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            home: LayoutScreen(),
+            home: LoginScreen(),
           );
         },
       ),
