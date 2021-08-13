@@ -72,7 +72,13 @@ class LayoutScreen extends StatelessWidget {
                       Screen: SearchScrean(),
                     );
                   },
-                )
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 7),
+                  child: CircleAvatar(
+                    radius: 20,
+                  ),
+                ),
               ],
               elevation: 0,
               backwardsCompatibility: false,
