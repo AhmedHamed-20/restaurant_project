@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:resturant/screens/detailes_screen.dart';
 import 'package:resturant/widgets/all_fodods.dart';
+import 'package:resturant/widgets/navigate.dart';
 
 Widget allFoodWidget(state) {
   return Expanded(
@@ -8,15 +10,20 @@ Widget allFoodWidget(state) {
       itemCount: 5,
       shrinkWrap: true,
       itemBuilder: (context, index) {
-        return allFoods(
-          name: 'Pizza',
-          context: context,
-          state: state,
-          index: index,
-          imageurl: 'assets/images/pizza.jpg',
-          price: '5',
-          description:
-              'Pizza (Italian: [ˈpittsa], Neapolitan: [ˈpittsə]) is an Italian dish consisting of a usually round',
+        return InkWell(
+          onTap: () {
+            Navigate(Screen: DetailesScreen(), context: context);
+          },
+          child: allFoods(
+            name: 'Pizza',
+            context: context,
+            state: state,
+            index: index,
+            imageurl: 'assets/images/pizza.jpg',
+            price: '5',
+            description:
+                'Pizza (Italian: [ˈpittsa], Neapolitan: [ˈpittsə]) is an Italian dish consisting of a usually round',
+          ),
         );
       },
     ),
