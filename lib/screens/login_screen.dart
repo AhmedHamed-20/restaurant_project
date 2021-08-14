@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resturant/layouts/layout_screen.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/widgets/navigate.dart';
 
 class LoginScreen extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -94,7 +96,12 @@ class LoginScreen extends StatelessWidget {
                     width: double.infinity,
                     child: MaterialButton(
                       padding: EdgeInsets.all(12),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigate(
+                          context: context,
+                          Screen: LayoutScreen(),
+                        );
+                      },
                       child: Text(
                         'Login',
                         style: TextStyle(

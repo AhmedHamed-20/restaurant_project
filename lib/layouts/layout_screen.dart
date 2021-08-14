@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/screens/search_screen.dart';
+import 'package:resturant/screens/user_account_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
 class LayoutScreen extends StatelessWidget {
@@ -75,8 +76,13 @@ class LayoutScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 7),
-                  child: CircleAvatar(
-                    radius: 20,
+                  child: InkWell(
+                    onTap: () {
+                      Navigate(Screen: UserAccount(), context: context);
+                    },
+                    child: CircleAvatar(
+                      radius: 20,
+                    ),
                   ),
                 ),
               ],

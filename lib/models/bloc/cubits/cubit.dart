@@ -7,6 +7,7 @@ import 'package:resturant/screens/categories_screen.dart';
 import 'package:resturant/screens/favorite_screen.dart';
 import 'package:resturant/screens/home_screen.dart';
 import 'package:resturant/screens/order_screen.dart';
+import 'package:sqflite/sqflite.dart';
 
 class Appcubit extends Cubit<AppState> {
   Appcubit() : super(AppintiState());
