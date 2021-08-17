@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/screens/search_screen.dart';
@@ -30,23 +31,23 @@ class LayoutScreen extends StatelessWidget {
               currentIndex: cubit.currentindex,
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home_filled),
+                  icon: Icon(IconlyBroken.home),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.category_outlined),
+                  icon: Icon(IconlyBroken.category),
                   label: 'Categories',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart_outlined),
+                  icon: Icon(IconlyBroken.buy),
                   label: 'Cart',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.storefront_outlined),
+                  icon: Icon(IconlyBroken.bag),
                   label: 'Orders',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_outline),
+                  icon: Icon(IconlyBroken.heart),
                   label: 'Favorites',
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/layouts/layout_screen.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
@@ -52,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                             labelText: 'Email',
                             labelStyle: TextStyle(color: Colors.black),
                             prefixIcon: Icon(
-                              Icons.email,
+                              Icons.email_outlined,
                               color: Colors.black,
                             ),
                             border: OutlineInputBorder(
@@ -88,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                             labelText: 'Password',
                             labelStyle: TextStyle(color: Colors.black),
                             prefixIcon: Icon(
-                              Icons.lock,
+                              IconlyBroken.lock,
                               color: Colors.black,
                             ),
                             border: OutlineInputBorder(
