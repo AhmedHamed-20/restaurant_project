@@ -137,6 +137,42 @@ class SignUpScreen extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
+                    TextField(
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      textDirection: TextDirection.rtl,
+                      cursorColor: Colors.black,
+                      controller: passwordController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                      onSubmitted: (val) {},
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
+                        labelText: 'Confirm Password',
+                        labelStyle: TextStyle(color: Colors.black),
+                        prefixIcon: Icon(
+                          IconlyBroken.lock,
+                          color: Colors.black,
+                        ),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                          color: Colors.black,
+                        )),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Container(
                       width: double.infinity,
                       child: MaterialButton(
