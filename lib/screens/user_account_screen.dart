@@ -33,165 +33,167 @@ class UserAccount extends StatelessWidget {
           ),
           body: Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Center(
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/pizza.jpg'),
-                    radius: 65,
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                TextField(
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  textDirection: TextDirection.rtl,
-                  cursorColor: Colors.black,
-                  controller: userName,
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {},
-                  onSubmitted: (val) {},
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Center(
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage('assets/images/pizza.jpg'),
+                      radius: 65,
                     ),
-                    labelText: 'User Name',
-                    labelStyle: TextStyle(color: Colors.black),
-                    prefixIcon: Icon(
-                      IconlyBroken.profile,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextField(
+                    style: TextStyle(
                       color: Colors.black,
                     ),
-                    border: OutlineInputBorder(
+                    textDirection: TextDirection.rtl,
+                    cursorColor: Colors.black,
+                    controller: userName,
+                    keyboardType: TextInputType.text,
+                    onChanged: (value) {},
+                    onSubmitted: (val) {},
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                      color: Colors.black,
-                    )),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      labelText: 'User Name',
+                      labelStyle: TextStyle(color: Colors.black),
+                      prefixIcon: Icon(
+                        IconlyBroken.profile,
                         color: Colors.black,
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                TextField(
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                  textDirection: TextDirection.rtl,
-                  cursorColor: Colors.black,
-                  controller: emailcontroller,
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {},
-                  onSubmitted: (val) {},
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
                         color: Colors.black,
-                      ),
-                    ),
-                    labelText: 'Email',
-                    labelStyle: TextStyle(color: Colors.black),
-                    prefixIcon: Icon(
-                      Icons.email_outlined,
-                      color: Colors.black,
-                    ),
-                    border: OutlineInputBorder(
+                      )),
+                      disabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                      color: Colors.black,
-                    )),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                TextField(
-                  style: TextStyle(
-                    color: Colors.black,
+                  SizedBox(
+                    height: 15,
                   ),
-                  textDirection: TextDirection.rtl,
-                  cursorColor: Colors.black,
-                  controller: password,
-                  keyboardType: TextInputType.text,
-                  onChanged: (value) {},
-                  onSubmitted: (val) {},
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: Colors.black),
-                    prefixIcon: Icon(
-                      IconlyBroken.lock,
+                  TextField(
+                    style: TextStyle(
                       color: Colors.black,
                     ),
-                    border: OutlineInputBorder(
+                    textDirection: TextDirection.rtl,
+                    cursorColor: Colors.black,
+                    controller: emailcontroller,
+                    keyboardType: TextInputType.text,
+                    onChanged: (value) {},
+                    onSubmitted: (val) {},
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                      color: Colors.black,
-                    )),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: Colors.black),
+                      prefixIcon: Icon(
+                        Icons.email_outlined,
                         color: Colors.black,
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  width: double.infinity,
-                  child: MaterialButton(
-                    padding: EdgeInsets.all(12),
-                    onPressed: () {},
-                    child: Text(
-                      'Update',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Bakta',
-                        fontWeight: FontWeight.w900,
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Colors.black,
+                      )),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                    color: Colors.orangeAccent,
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  width: double.infinity,
-                  child: MaterialButton(
-                    padding: EdgeInsets.all(12),
-                    onPressed: () {
-                      Navigate(Screen: LoginScreen(), context: context);
-                    },
-                    child: Text(
-                      'LogOut',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: 'Bakta',
-                        fontWeight: FontWeight.w900,
+                  SizedBox(
+                    height: 15,
+                  ),
+                  TextField(
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    textDirection: TextDirection.rtl,
+                    cursorColor: Colors.black,
+                    controller: password,
+                    keyboardType: TextInputType.text,
+                    onChanged: (value) {},
+                    onSubmitted: (val) {},
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: Colors.black),
+                      prefixIcon: Icon(
+                        IconlyBroken.lock,
+                        color: Colors.black,
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Colors.black,
+                      )),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                    color: Colors.orangeAccent,
                   ),
-                ),
-              ],
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    child: MaterialButton(
+                      padding: EdgeInsets.all(12),
+                      onPressed: () {},
+                      child: Text(
+                        'Update',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Bakta',
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      color: Colors.orangeAccent,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    child: MaterialButton(
+                      padding: EdgeInsets.all(12),
+                      onPressed: () {
+                        Navigate(Screen: LoginScreen(), context: context);
+                      },
+                      child: Text(
+                        'LogOut',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Bakta',
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                      color: Colors.orangeAccent,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );

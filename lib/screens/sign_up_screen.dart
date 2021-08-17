@@ -14,19 +14,22 @@ class SignUpScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Sign Up',
-                style: TextStyle(
-                  fontSize: 34,
-                  fontFamily: 'Bakta',
-                  fontWeight: FontWeight.w900,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Sign Up',
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontFamily: 'Bakta',
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Column(
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.2,
+                ),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextField(
@@ -227,8 +230,8 @@ class SignUpScreen extends StatelessWidget {
                     )
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

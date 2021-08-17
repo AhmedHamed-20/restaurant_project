@@ -19,19 +19,22 @@ class LoginScreen extends StatelessWidget {
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 34,
-                      fontFamily: 'Bakta',
-                      fontWeight: FontWeight.w900,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Login',
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontFamily: 'Bakta',
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    child: Column(
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                    ),
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextField(
@@ -160,8 +163,8 @@ class LoginScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
