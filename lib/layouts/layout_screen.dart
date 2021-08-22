@@ -9,6 +9,8 @@ import 'package:resturant/screens/user_account_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
 class LayoutScreen extends StatelessWidget {
+  Map<String, dynamic> userDate;
+  LayoutScreen(this.userDate);
   @override
   Widget build(BuildContext context) {
     var cubit = Appcubit.get(context);
@@ -69,6 +71,7 @@ class LayoutScreen extends StatelessWidget {
                     color: Colors.grey[800],
                   ),
                   onPressed: () {
+                    print(userDate);
                     Navigate(
                       context: context,
                       Screen: SearchScrean(),
@@ -83,9 +86,13 @@ class LayoutScreen extends StatelessWidget {
                     },
                     child: CircleAvatar(
                       radius: 20,
+                      //   backgroundImage: NetworkImage(
+                      //    userDate['data']['user']['photo'],
                     ),
+                    //   backgroundImage: ,
                   ),
                 ),
+                //    ),
               ],
               elevation: 0,
               backwardsCompatibility: false,
