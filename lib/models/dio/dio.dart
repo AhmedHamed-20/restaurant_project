@@ -8,7 +8,7 @@ class DioFunc {
     return response = await dio.get(url);
   }
 
-  static void postData(String url, Map data) async {
-    response = await dio.post(url, queryParameters: data);
+  static Future<dynamic> postData(String url, Map<String, dynamic> data) async {
+    return response = await dio.post(url, data: data);
   }
 }
