@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resturant/models/bloc/states/sign_up_states.dart';
+import 'package:resturant/models/cach/chach.dart';
+import 'package:resturant/models/class_models/sign_up_model.dart';
+import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -26,18 +29,33 @@ class SignUpCubit extends Cubit<SignUpState> {
     ).then(
       (value) {
         SignUpDate = Map<String, dynamic>.from(value.data);
+        EndPoints.signUpModel = SignUpModel.fromjson(value.data);
         print(SignUpDate);
-        emit(SignUpSuccess());
-        Fluttertoast.showToast(
-          msg: 'Welcome ${SignUpDate['data']['user']['name']}',
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 5,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0,
-        );
-        Navigate(context: context, Screen: screen);
+        CachFunc.putStringDate(
+          key: 'token',
+          data: EndPoints.signUpModel.token,
+        ).then((value) {
+          emit(SignUpSuccess());
+          DataBaseFun.insertIntoDataBase(
+            email: EndPoints.signUpModel.data.user.email,
+            photourl: EndPoints.signUpModel.data.user.photo,
+            name: EndPoints.signUpModel.data.user.name,
+          );
+          Fluttertoast.showToast(
+            msg: EndPoints.signUpModel.data.user.name == null
+                ? '${EndPoints.signUpModel.status}'
+                : 'Welcome ${EndPoints.signUpModel.data.user.name}',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 5,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+          Navigate(context: context, Screen: screen);
+        }).catchError((onError) {
+          print(onError);
+        });
       },
     ).onError(
       (error, stackTrace) {

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/login_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
@@ -12,9 +14,14 @@ class UserAccount extends StatelessWidget {
     TextEditingController emailcontroller = TextEditingController();
     TextEditingController userName = TextEditingController();
     TextEditingController password = TextEditingController();
+
+    emailcontroller.text = DataBaseFun.storedData[0]['email'];
+    userName.text = DataBaseFun.storedData[0]['name'];
+
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
+        var cubit = Appcubit.get(context);
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -38,7 +45,8 @@ class UserAccount extends StatelessWidget {
                 children: [
                   Center(
                     child: CircleAvatar(
-                      backgroundImage: AssetImage('assets/images/pizza.jpg'),
+                      backgroundImage:
+                          NetworkImage(DataBaseFun.storedData[0]['photourl']),
                       radius: 65,
                     ),
                   ),
@@ -49,7 +57,6 @@ class UserAccount extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black,
                     ),
-                    textDirection: TextDirection.rtl,
                     cursorColor: Colors.black,
                     controller: userName,
                     keyboardType: TextInputType.text,
@@ -85,7 +92,6 @@ class UserAccount extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black,
                     ),
-                    textDirection: TextDirection.rtl,
                     cursorColor: Colors.black,
                     controller: emailcontroller,
                     keyboardType: TextInputType.text,
@@ -121,7 +127,6 @@ class UserAccount extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.black,
                     ),
-                    textDirection: TextDirection.rtl,
                     cursorColor: Colors.black,
                     controller: password,
                     keyboardType: TextInputType.text,
@@ -178,7 +183,13 @@ class UserAccount extends StatelessWidget {
                     child: MaterialButton(
                       padding: EdgeInsets.all(12),
                       onPressed: () {
-                        Navigate(Screen: LoginScreen(), context: context);
+                        cubit.logout('token').then((value) {
+                          if (cubit.IslogedOut) {
+                            NavigateandReplace(
+                                context: context, Screen: LoginScreen());
+                          }
+                          cubit.deleteFromDataBase(0, context);
+                        });
                       },
                       child: Text(
                         'LogOut',

@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DataBaseFun {
   static Database database;
+  static List<Map> storedData;
   static void createData() {
     openDatabase(
       'favorite.db',
@@ -11,7 +12,7 @@ class DataBaseFun {
       onCreate: (createdDataBase, ver) {
         createdDataBase
             .execute(
-                'CREATE TABLE favorite (id INTEGER PRIMARY KEY, name TEXT, url TEXT)')
+                'CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, photourl TEXT,email TEXT)')
             .then(
               (value) => {
                 print('database created'),
@@ -20,6 +21,7 @@ class DataBaseFun {
       },
       onOpen: (createdDataBase) {
         getdataFromDataBase(createdDataBase).then((value) {
+          storedData = value;
           database = createdDataBase;
         });
         print('database opened');
@@ -30,30 +32,33 @@ class DataBaseFun {
   }
 
   static Future<List<Map>> getdataFromDataBase(createdDataBase) async {
-    return await createdDataBase.rawQuery('SELECT * FROM favorite');
+    return await createdDataBase.rawQuery('SELECT * FROM user');
   }
 
-  static void deleteFromDataBase(int id, BuildContext context) async {
-    await database
-        .rawDelete('DELETE FROM favorite WHERE id = ?', [id]).then((value) {
+  static Future deleteFromDataBase(int id, BuildContext context) async {
+    return await database.rawDelete('DELETE FROM user').then((value) {
       getdataFromDataBase(database).then((value) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Deleted ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            backgroundColor: Colors.teal[200],
-            duration: Duration(seconds: 2),
-          ),
-        );
+        storedData = value;
       });
     }).catchError((onError) {
       print(onError);
+    });
+  }
+
+  static insertIntoDataBase({
+    String name,
+    String photourl,
+    String email,
+  }) async {
+    await database.transaction((txn) async {
+      await txn.rawInsert(
+        'INSERT INTO user(name, photourl, email) VALUES(?, ?, ?)',
+        ['$name', '$photourl', '${email}'],
+      ).then((value) {
+        getdataFromDataBase(database).then((value) {
+          storedData = value;
+        });
+      });
     });
   }
 }

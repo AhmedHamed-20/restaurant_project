@@ -7,10 +7,15 @@ class CachFunc {
   }
 
   static Future<bool> putStringDate({String key, String data}) async {
+    sharedPreferences = await SharedPreferences.getInstance();
     return await sharedPreferences.setString(key, data);
   }
 
-  static dynamic getData(String key) {
-    return sharedPreferences.get(key);
+  static String getData(String key) {
+    return sharedPreferences.getString(key);
+  }
+
+  static Future<bool> deleteData(String key) async {
+    return await sharedPreferences.remove(key);
   }
 }
