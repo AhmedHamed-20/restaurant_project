@@ -4,13 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/cach/chach.dart';
+import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/search_screen.dart';
 import 'package:resturant/screens/user_account_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
 class LayoutScreen extends StatelessWidget {
-  Map<String, dynamic> userDate;
-  LayoutScreen(this.userDate);
+  // Map<String, dynamic> userDate;
+  // LayoutScreen(this.userDate);
   @override
   Widget build(BuildContext context) {
     var cubit = Appcubit.get(context);
@@ -71,7 +74,6 @@ class LayoutScreen extends StatelessWidget {
                     color: Colors.grey[800],
                   ),
                   onPressed: () {
-                    print(userDate);
                     Navigate(
                       context: context,
                       Screen: SearchScrean(),
@@ -84,15 +86,17 @@ class LayoutScreen extends StatelessWidget {
                     onTap: () {
                       Navigate(Screen: UserAccount(), context: context);
                     },
-                    child: CircleAvatar(
-                      radius: 20,
-                      //   backgroundImage: NetworkImage(
-                      //    userDate['data']['user']['photo'],
-                    ),
-                    //   backgroundImage: ,
+                    child: DataBaseFun.storedData != null
+                        ? CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(
+                              DataBaseFun.storedData[0]['photourl'],
+                            ),
+                            //   backgroundImage: ,
+                          )
+                        : CircularProgressIndicator(),
                   ),
                 ),
-                //    ),
               ],
               elevation: 0,
               backwardsCompatibility: false,

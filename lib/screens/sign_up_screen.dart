@@ -223,7 +223,7 @@ class SignUpScreen extends StatelessWidget {
                                   passwordController.text,
                                   passwordConfirmController.text,
                                   context: context,
-                                  screen: LayoutScreen(signUpcubit.SignUpDate),
+                                  screen: LayoutScreen(),
                                 );
                               },
                               child: state is SignUpLoadingState

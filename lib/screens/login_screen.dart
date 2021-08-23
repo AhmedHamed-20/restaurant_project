@@ -136,7 +136,7 @@ class LoginScreen extends StatelessWidget {
                                     emailController.text,
                                     passwordController.text,
                                     context: context,
-                                    screen: LayoutScreen(loginCubit.loginData),
+                                    screen: LayoutScreen(),
                                   );
                                 },
                                 child: state is LoginLoadingState

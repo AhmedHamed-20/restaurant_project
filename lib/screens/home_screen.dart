@@ -4,12 +4,19 @@ import 'package:resturant/components/all_food_widget.dart';
 import 'package:resturant/components/popular_widget.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/cach/chach.dart';
+import 'package:resturant/models/class_models/login_model.dart';
+import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/dio/dio.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 import 'package:resturant/widgets/popular_foods.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var cubit = Appcubit.get(context);
+
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -41,7 +48,33 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            allFoodWidget(state),
+            Expanded(
+              flex: 4,
+              child: ListView.builder(
+                itemCount: 5,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      //  print(EndPoints.loginModel.status);
+                      //  var token = CachFunc.getData('token');
+                      //     print(DataBaseFun.storedData[0]['photourl']);
+                      DioFunc.getdate(url: EndPoints.allRecipies);
+                    },
+                    child: allFoods(
+                      name: 'Pizza',
+                      context: context,
+                      state: state,
+                      index: index,
+                      imageurl: 'assets/images/pizza.jpg',
+                      price: '5',
+                      description:
+                          'Pizza (Italian: [ˈpittsa], Neapolitan: [ˈpittsə]) is an Italian dish consisting of a usually round',
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         );
       },
