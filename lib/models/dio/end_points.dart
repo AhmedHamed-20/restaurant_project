@@ -6,6 +6,7 @@ class EndPoints {
   static String SignUp = url + '/users/signup';
   static String Login = url + '/users/login';
   static String allRecipies = url + '/recipes/';
+  static String categories = url + '/categories/';
   static LoginModel loginModel;
   static SignUpModel signUpModel;
 }

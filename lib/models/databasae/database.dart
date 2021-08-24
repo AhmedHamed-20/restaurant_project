@@ -9,8 +9,8 @@ class DataBaseFun {
     openDatabase(
       'favorite.db',
       version: 1,
-      onCreate: (createdDataBase, ver) {
-        createdDataBase
+      onCreate: (createdDataBase, ver) async {
+        await createdDataBase
             .execute(
                 'CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, photourl TEXT,email TEXT)')
             .then(
@@ -19,8 +19,8 @@ class DataBaseFun {
               },
             );
       },
-      onOpen: (createdDataBase) {
-        getdataFromDataBase(createdDataBase).then((value) {
+      onOpen: (createdDataBase) async {
+        await getdataFromDataBase(createdDataBase).then((value) {
           storedData = value;
           database = createdDataBase;
         });

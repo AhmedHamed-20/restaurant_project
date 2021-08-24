@@ -17,3 +17,5 @@ class DataBaseCreated extends AppState {}
 class LogoutState extends AppState {}
 
 class DeleteDataBase extends AppState {}
+
+class NumState extends AppState {}

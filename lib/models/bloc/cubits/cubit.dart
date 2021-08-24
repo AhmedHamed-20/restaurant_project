@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/states/states.dart';
-import 'package:flutter/material.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/dio.dart';
@@ -40,10 +40,13 @@ class Appcubit extends Cubit<AppState> {
     emit(ChangebottomState());
   }
 
+  Map<String, dynamic> allRecipies;
+  Map<String, dynamic> allCategories;
   getRecipies() async {
     await DioFunc.getdate(url: EndPoints.allRecipies).then(
       (value) {
-        print(value);
+        allRecipies = Map<String, dynamic>.from(value.data);
+        print(allRecipies);
         //  print(EndPoints.token);
       },
     ).catchError(
@@ -54,9 +57,37 @@ class Appcubit extends Cubit<AppState> {
     );
   }
 
-  dataBase() {
-    DataBaseFun.createData();
+  getGetogries() async {
+    await DioFunc.getdate(url: EndPoints.categories).then(
+      (value) {
+        allCategories = Map<String, dynamic>.from(value.data);
+        print(allCategories);
+        //  print(EndPoints.token);
+      },
+    ).catchError(
+      (error) {
+        print(error);
+        //     print(EndPoints.token);
+      },
+    );
+  }
+
+  dataBase() async {
+    await DataBaseFun.createData();
     emit(DataBaseCreated());
+  }
+
+  int numberOFricipes = 0;
+  incrementNum() {
+    numberOFricipes++;
+    emit(NumState());
+  }
+
+  decrementNum() {
+    if (numberOFricipes > 0) {
+      numberOFricipes--;
+      emit(NumState());
+    }
   }
 
   bool IslogedOut = false;

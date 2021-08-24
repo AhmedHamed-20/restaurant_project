@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 
 Widget popularFoods(
@@ -13,7 +12,7 @@ Widget popularFoods(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CircleAvatar(
-          backgroundImage: AssetImage(
+          backgroundImage: NetworkImage(
             imageUrl,
           ),
           radius: 55,
