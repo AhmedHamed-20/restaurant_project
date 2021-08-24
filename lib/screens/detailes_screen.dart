@@ -10,12 +10,19 @@ class DetailesScreen extends StatelessWidget {
   final String imageurl;
   final String price;
   final int index;
+  final List Ingridients;
 
   const DetailesScreen(
-      {this.name, this.descripthion, this.imageurl, this.price, this.index});
+      {this.name,
+      this.descripthion,
+      this.imageurl,
+      this.price,
+      this.index,
+      this.Ingridients});
 
   @override
   Widget build(BuildContext context) {
+    var cubit = Appcubit.get(context);
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -41,6 +48,7 @@ class DetailesScreen extends StatelessWidget {
                 left: 12,
                 right: 12,
                 top: 12,
+                bottom: 12,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +75,7 @@ class DetailesScreen extends StatelessWidget {
                           height: 200,
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage('assets/images/pizza.jpg'),
+                              image: NetworkImage(imageurl),
                             ),
                           ),
                         ),
@@ -79,7 +87,7 @@ class DetailesScreen extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      'Pizza',
+                      name,
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontSize: 28,
@@ -93,7 +101,7 @@ class DetailesScreen extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      '\$5',
+                      '${price}\$',
                       style: TextStyle(
                         color: Colors.grey[800],
                         fontSize: 24,
@@ -105,13 +113,15 @@ class DetailesScreen extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    'Pizza (Italian: [ˈpittsa], Neapolitan: [ˈpittsə]) is an Italian dish consisting of a usually round',
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w900,
+                  Center(
+                    child: Text(
+                      descripthion,
+                      textAlign: TextAlign.justify,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -119,14 +129,42 @@ class DetailesScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 15, bottom: 10),
-                    child: Text(
-                      'Ingridients',
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                        fontFamily: 'Batka',
-                      ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Ingridients',
+                          style: TextStyle(
+                            color: Colors.grey[800],
+                            fontSize: 24,
+                            fontWeight: FontWeight.w900,
+                            fontFamily: 'Batka',
+                          ),
+                        ),
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: Ingridients.length,
+                            itemBuilder: (context, index) {
+                              return Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      '${index + 1}- ',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${Ingridients[index].toString()}',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            })
+                      ],
                     ),
                   ),
                   Center(
@@ -137,9 +175,19 @@ class DetailesScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconButton(
-                                icon: Icon(Icons.remove), onPressed: () {}),
-                            Text('0'),
-                            IconButton(icon: Icon(Icons.add), onPressed: () {}),
+                                icon: Icon(Icons.remove),
+                                onPressed: () {
+                                  cubit.decrementNum();
+                                }),
+                            Text(
+                              cubit.numberOFricipes.toString(),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () {
+                                cubit.incrementNum();
+                              },
+                            ),
                           ],
                         ),
                       ),
@@ -157,7 +205,9 @@ class DetailesScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(25),
                         ),
                         color: Colors.red[300],
-                        onPressed: () {},
+                        onPressed: () {
+                          print(Ingridients);
+                        },
                         child: Text(
                           'Add To Cart',
                           style: TextStyle(
