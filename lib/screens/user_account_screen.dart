@@ -4,9 +4,6 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/databasae/database.dart';
-import 'package:resturant/models/dio/end_points.dart';
-import 'package:resturant/screens/login_screen.dart';
-import 'package:resturant/widgets/navigate.dart';
 
 class UserAccount extends StatelessWidget {
   @override
@@ -44,11 +41,13 @@ class UserAccount extends StatelessWidget {
               child: Column(
                 children: [
                   Center(
-                    child: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(DataBaseFun.storedData[0]['photourl']),
-                      radius: 65,
-                    ),
+                    child: DataBaseFun.storedData.isEmpty
+                        ? CircularProgressIndicator()
+                        : CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                DataBaseFun.storedData[0]['photourl']),
+                            radius: 65,
+                          ),
                   ),
                   SizedBox(
                     height: 15,
@@ -183,12 +182,10 @@ class UserAccount extends StatelessWidget {
                     child: MaterialButton(
                       padding: EdgeInsets.all(12),
                       onPressed: () {
-                        cubit.logout('token').then((value) {
+                        cubit.logout('token', context).then((value) {
                           if (cubit.IslogedOut) {
-                            NavigateandReplace(
-                                context: context, Screen: LoginScreen());
+                            cubit.deleteFromDataBase(0, context);
                           }
-                          cubit.deleteFromDataBase(0, context);
                         });
                       },
                       child: Text(

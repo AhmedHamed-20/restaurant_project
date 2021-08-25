@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
+import 'package:resturant/models/databasae/cart_favorite_database.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
@@ -10,7 +11,9 @@ import 'package:resturant/screens/cart_screen.dart';
 import 'package:resturant/screens/categories_screen.dart';
 import 'package:resturant/screens/favorite_screen.dart';
 import 'package:resturant/screens/home_screen.dart';
+import 'package:resturant/screens/login_screen.dart';
 import 'package:resturant/screens/order_screen.dart';
+import 'package:resturant/widgets/navigate.dart';
 
 class Appcubit extends Cubit<AppState> {
   Appcubit() : super(AppintiState());
@@ -47,11 +50,13 @@ class Appcubit extends Cubit<AppState> {
       (value) {
         allRecipies = Map<String, dynamic>.from(value.data);
         print(allRecipies);
+        emit(DataGetSucces());
         //  print(EndPoints.token);
       },
     ).catchError(
       (error) {
         print(error);
+        emit(DataGeterror());
         //     print(EndPoints.token);
       },
     );
@@ -61,11 +66,13 @@ class Appcubit extends Cubit<AppState> {
     await DioFunc.getdate(url: EndPoints.categories).then(
       (value) {
         allCategories = Map<String, dynamic>.from(value.data);
+        emit(DataGetSucces());
         print(allCategories);
         //  print(EndPoints.token);
       },
     ).catchError(
       (error) {
+        emit(DataGeterror());
         print(error);
         //     print(EndPoints.token);
       },
@@ -74,6 +81,7 @@ class Appcubit extends Cubit<AppState> {
 
   dataBase() async {
     await DataBaseFun.createData();
+    await CartDataBaseFun.createData();
     emit(DataBaseCreated());
   }
 
@@ -91,9 +99,10 @@ class Appcubit extends Cubit<AppState> {
   }
 
   bool IslogedOut = false;
-  Future<bool> logout(String key) async {
+  Future<bool> logout(String key, BuildContext context) async {
     await CachFunc.deleteData(key).then((value) {
       IslogedOut = value;
+      NavigateandReplace(context: context, Screen: LoginScreen());
       emit(LogoutState());
       return value;
     }).catchError((onError) {
