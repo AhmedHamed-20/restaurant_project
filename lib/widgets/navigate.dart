@@ -8,8 +8,6 @@ Navigate({Widget Screen, BuildContext context}) {
 }
 
 NavigateandReplace({Widget Screen, BuildContext context}) {
-  Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (context) => Screen),
-  );
+  Navigator.pushAndRemoveUntil(context,
+      MaterialPageRoute(builder: (context) => Screen), (route) => false);
 }
