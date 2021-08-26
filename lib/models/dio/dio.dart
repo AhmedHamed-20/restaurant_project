@@ -5,12 +5,14 @@ class DioFunc {
   static Response response;
   static var dio = Dio();
 
-  static Future<dynamic> getdate({String url}) async {
+  static Future<dynamic> getdate(
+      {String url, Map<String, dynamic> query}) async {
     // dio.options.headers = {
     //   'Postman-Token': EndPoints.token,
     // };
     return response = await dio.get(
       url,
+      queryParameters: query,
     );
   }
 

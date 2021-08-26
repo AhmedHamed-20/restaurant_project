@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/components/popular_widget.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/class_models/login_model.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/detailes_screen.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -15,8 +17,7 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
-        cubit.getRecipies();
-        return cubit.allRecipies.isEmpty
+        return EndPoints.allRecipiesMap.isEmpty
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -51,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     flex: 4,
                     child: ListView.builder(
-                      itemCount: cubit.allRecipies['results'],
+                      itemCount: EndPoints.allRecipiesMap['results'],
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -60,33 +61,35 @@ class HomeScreen extends StatelessWidget {
                               context: context,
                               Screen: DetailesScreen(
                                 index: index,
-                                name: cubit.allRecipies['data']['data'][index]
-                                    ['name'],
-                                imageurl: cubit.allRecipies['data']['data']
-                                    [index]['imageCover'],
-                                price: cubit.allRecipies['data']['data'][index]
-                                        ['price']
+                                name: EndPoints.allRecipiesMap['data']['data']
+                                    [index]['name'],
+                                imageurl: EndPoints.allRecipiesMap['data']
+                                    ['data'][index]['imageCover'],
+                                price: EndPoints.allRecipiesMap['data']['data']
+                                        [index]['price']
                                     .toString(),
-                                descripthion: cubit.allRecipies['data']['data']
-                                    [index]['slug'],
-                                Ingridients: cubit.allRecipies['data']['data']
-                                    [index]['ingredients'],
+                                descripthion: EndPoints.allRecipiesMap['data']
+                                    ['data'][index]['slug'],
+                                Ingridients: EndPoints.allRecipiesMap['data']
+                                    ['data'][index]['ingredients'],
+                                email: EndPoints.loginModel.data.user.email,
+                                userId: EndPoints.loginModel.data.user.id,
                               ),
                             );
                           },
                           child: allFoods(
-                            name: cubit.allRecipies['data']['data'][index]
-                                ['name'],
+                            name: EndPoints.allRecipiesMap['data']['data']
+                                [index]['name'],
                             context: context,
                             state: state,
                             index: index,
-                            imageurl: cubit.allRecipies['data']['data'][index]
-                                ['imageCover'],
-                            price: cubit.allRecipies['data']['data'][index]
-                                    ['price']
+                            imageurl: EndPoints.allRecipiesMap['data']['data']
+                                [index]['imageCover'],
+                            price: EndPoints.allRecipiesMap['data']['data']
+                                    [index]['price']
                                 .toString(),
-                            description: cubit.allRecipies['data']['data']
-                                [index]['slug'],
+                            description: EndPoints.allRecipiesMap['data']
+                                ['data'][index]['slug'],
                           ),
                         );
                       },

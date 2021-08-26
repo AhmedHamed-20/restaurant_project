@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/detailes_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 import 'package:resturant/widgets/popular_foods.dart';
@@ -11,7 +12,7 @@ Widget popularWidget(BuildContext context) {
     child: ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
-      itemCount: cubit.allRecipies['results'],
+      itemCount: EndPoints.allRecipiesMap['results'],
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
@@ -19,22 +20,25 @@ Widget popularWidget(BuildContext context) {
               context: context,
               Screen: DetailesScreen(
                 index: index,
-                name: cubit.allRecipies['data']['data'][index]['name'],
-                imageurl: cubit.allRecipies['data']['data'][index]
+                name: EndPoints.allRecipiesMap['data']['data'][index]['name'],
+                imageurl: EndPoints.allRecipiesMap['data']['data'][index]
                     ['imageCover'],
-                price: cubit.allRecipies['data']['data'][index]['price']
+                price: EndPoints.allRecipiesMap['data']['data'][index]['price']
                     .toString(),
-                descripthion: cubit.allRecipies['data']['data'][index]['slug'],
-                Ingridients: cubit.allRecipies['data']['data'][index]
+                descripthion: EndPoints.allRecipiesMap['data']['data'][index]
+                    ['slug'],
+                Ingridients: EndPoints.allRecipiesMap['data']['data'][index]
                     ['ingredients'],
               ),
             );
           },
           child: popularFoods(
-            name: cubit.allRecipies['data']['data'][index]['name'],
+            name: EndPoints.allRecipiesMap['data']['data'][index]['name'],
             context: context,
-            price: cubit.allRecipies['data']['data'][index]['price'].toString(),
-            imageUrl: cubit.allRecipies['data']['data'][index]['imageCover'],
+            price: EndPoints.allRecipiesMap['data']['data'][index]['price']
+                .toString(),
+            imageUrl: EndPoints.allRecipiesMap['data']['data'][index]
+                ['imageCover'],
           ),
         );
       },

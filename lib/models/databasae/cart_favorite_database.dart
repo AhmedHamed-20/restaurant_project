@@ -58,6 +58,7 @@ class CartDataBaseFun {
       ).then((value) {
         getdataFromDataBase(database).then((value) {
           CartAndFavorite = value;
+          print(CartAndFavorite);
         });
       });
     });

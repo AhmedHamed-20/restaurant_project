@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/databasae/cart_favorite_database.dart';
 
 class DetailesScreen extends StatelessWidget {
   final String name;
@@ -11,6 +12,8 @@ class DetailesScreen extends StatelessWidget {
   final String price;
   final int index;
   final List Ingridients;
+  final String email;
+  final String userId;
 
   const DetailesScreen(
       {this.name,
@@ -18,7 +21,9 @@ class DetailesScreen extends StatelessWidget {
       this.imageurl,
       this.price,
       this.index,
-      this.Ingridients});
+      this.Ingridients,
+      this.email,
+      this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +211,13 @@ class DetailesScreen extends StatelessWidget {
                         ),
                         color: Colors.red[300],
                         onPressed: () {
-                          print(Ingridients);
+                          CartDataBaseFun.insertIntoDataBase(
+                            email: email,
+                            photourl: imageurl,
+                            IsFavorite: 0,
+                            recipeName: name,
+                            userId: userId,
+                          );
                         },
                         child: Text(
                           'Add To Cart',

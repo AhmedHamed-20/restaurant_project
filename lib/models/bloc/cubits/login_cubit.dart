@@ -34,7 +34,6 @@ class LoginCubit extends Cubit<LoginState> {
         loginData = Map<String, dynamic>.from(value.data);
 
         //  print(loginData);
-        emit(LoginSuccess());
 
         CachFunc.putStringDate(key: 'token', data: EndPoints.loginModel.token)
             .then((value) {
@@ -42,17 +41,45 @@ class LoginCubit extends Cubit<LoginState> {
               name: EndPoints.loginModel.data.user.name,
               email: EndPoints.loginModel.data.user.email,
               photourl: EndPoints.loginModel.data.user.photo);
+          DioFunc.getdate(url: EndPoints.allRecipies).then(
+            (value) {
+              EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
+              print(EndPoints.allRecipiesMap);
+              DioFunc.getdate(url: EndPoints.categories).then(
+                (value) {
+                  EndPoints.allCategoriesMap =
+                      Map<String, dynamic>.from(value.data);
+                  emit(HomeScreenGetSucces());
+                  print(EndPoints.allCategoriesMap);
+                  Fluttertoast.showToast(
+                    msg: 'Welcome ${loginData['data']['user']['name']}',
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 5,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
+                  Navigate(context: context, Screen: screen);
+                  //  print(EndPoints.token);
+                },
+              ).catchError(
+                (error) {
+                  emit(HomeScreenGetError());
+                  print(error);
+                  //     print(EndPoints.token);
+                },
+              );
 
-          Fluttertoast.showToast(
-            msg: 'Welcome ${loginData['data']['user']['name']}',
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 5,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0,
+              //  print(EndPoints.token);
+            },
+          ).catchError(
+            (error) {
+              print(error);
+              emit(HomeScreenGetError());
+              //     print(EndPoints.token);
+            },
           );
-          Navigate(context: context, Screen: screen);
         }).catchError((onError) {
           print(onError);
         });

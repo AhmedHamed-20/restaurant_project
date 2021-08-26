@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 
-Widget allFoods({
-  BuildContext context,
-  String name,
-  String imageurl,
-  String description,
-  String price,
-  AppState state,
-  int index,
-}) {
+Widget allFoods(
+    {BuildContext context,
+    String name,
+    String imageurl,
+    String description,
+    String price,
+    AppState state,
+    int index,
+    List Ingredients,
+    String cookingTime}) {
   var cubit = Appcubit.get(context);
   return Card(
     margin: EdgeInsets.all(8),

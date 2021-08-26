@@ -43,40 +43,19 @@ class Appcubit extends Cubit<AppState> {
     emit(ChangebottomState());
   }
 
-  Map<String, dynamic> allRecipies;
-  Map<String, dynamic> allCategories;
-  getRecipies() async {
-    await DioFunc.getdate(url: EndPoints.allRecipies).then(
-      (value) {
-        allRecipies = Map<String, dynamic>.from(value.data);
-        print(allRecipies);
-        emit(DataGetSucces());
-        //  print(EndPoints.token);
-      },
-    ).catchError(
-      (error) {
-        print(error);
-        emit(DataGeterror());
-        //     print(EndPoints.token);
-      },
-    );
-  }
-
-  getGetogries() async {
-    await DioFunc.getdate(url: EndPoints.categories).then(
-      (value) {
-        allCategories = Map<String, dynamic>.from(value.data);
-        emit(DataGetSucces());
-        print(allCategories);
-        //  print(EndPoints.token);
-      },
-    ).catchError(
-      (error) {
-        emit(DataGeterror());
-        print(error);
-        //     print(EndPoints.token);
-      },
-    );
+  Map<String, dynamic> searchMap;
+  search(String text) {
+    DioFunc.getdate(
+      url: EndPoints.search,
+      query: {'s': '${text}'},
+    ).then((value) {
+      searchMap = Map<String, dynamic>.from(value.data);
+      print(searchMap);
+      print(searchMap.length);
+      emit(DataGetSucces());
+    }).catchError((error) {
+      print(error);
+    });
   }
 
   dataBase() async {
