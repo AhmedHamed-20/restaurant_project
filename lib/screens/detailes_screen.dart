@@ -217,7 +217,11 @@ class DetailesScreen extends StatelessWidget {
                             IsFavorite: 0,
                             recipeName: name,
                             userId: userId,
+                            price: price.toString(),
+                            slug: descripthion,
                           );
+                          // cubit.getbyuserid(EndPoints.loginModel.data.user.id,
+                          //     CartDataBaseFun.database);
                         },
                         child: Text(
                           'Add To Cart',

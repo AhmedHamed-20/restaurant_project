@@ -40,6 +40,7 @@ class SignUpCubit extends Cubit<SignUpState> {
             email: EndPoints.signUpModel.data.user.email,
             photourl: EndPoints.signUpModel.data.user.photo,
             name: EndPoints.signUpModel.data.user.name,
+            userId: EndPoints.loginModel.data.user.id,
           );
           Fluttertoast.showToast(
             msg: EndPoints.signUpModel.data.user.name == null

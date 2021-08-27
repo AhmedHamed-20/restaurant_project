@@ -13,3 +13,7 @@ class HidePasswordState extends LoginState {}
 class HomeScreenGetSucces extends LoginState {}
 
 class HomeScreenGetError extends LoginState {}
+
+class DataGetSucces extends LoginState {}
+
+class DataGeterror extends LoginState {}

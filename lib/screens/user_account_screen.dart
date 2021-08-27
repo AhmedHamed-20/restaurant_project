@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 
 class UserAccount extends StatelessWidget {
   @override
@@ -122,38 +123,6 @@ class UserAccount extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  TextField(
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                    cursorColor: Colors.black,
-                    controller: password,
-                    keyboardType: TextInputType.text,
-                    onChanged: (value) {},
-                    onSubmitted: (val) {},
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(color: Colors.black),
-                      prefixIcon: Icon(
-                        IconlyBroken.lock,
-                        color: Colors.black,
-                      ),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                        color: Colors.black,
-                      )),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
                   SizedBox(
                     height: 15,
                   ),
@@ -185,6 +154,7 @@ class UserAccount extends StatelessWidget {
                         cubit.logout('token', context).then((value) {
                           if (cubit.IslogedOut) {
                             cubit.deleteFromDataBase(0, context);
+                            EndPoints.FilteredCartDataBase = [];
                           }
                         });
                       },

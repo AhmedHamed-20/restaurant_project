@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:resturant/models/dio/end_points.dart';
 
 class DioFunc {
   static Response response;
@@ -18,5 +17,11 @@ class DioFunc {
 
   static Future<dynamic> postData(String url, Map<String, dynamic> data) async {
     return response = await dio.post(url, data: data);
+  }
+
+  static Future<dynamic> patchdata(
+      String url, Map<String, dynamic> data, String id) async {
+    return response =
+        await dio.patch(url, data: data, queryParameters: {'bearer': id});
   }
 }

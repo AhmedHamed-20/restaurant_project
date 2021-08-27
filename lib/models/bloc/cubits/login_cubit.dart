@@ -1,22 +1,33 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resturant/models/bloc/states/login_states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/class_models/login_model.dart';
+import 'package:resturant/models/databasae/cart_favorite_database.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/navigate.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(AppintiState());
   static LoginCubit get(context) => BlocProvider.of(context);
 
   Map<String, dynamic> loginData;
+  getbyuserid(String id, database) async {
+    await CartDataBaseFun.getdataFromDataBaseByID(database, id).then((value) {
+      EndPoints.FilteredCartDataBase = value;
+      emit(DataGetSucces());
+      print(EndPoints.FilteredCartDataBase);
+    }).catchError((onError) {
+      emit(DataGeterror());
+      print(onError);
+    });
+  }
+
   CachFunc cach;
   login(String email, String password, {BuildContext context, Widget screen}) {
     emit(LoginLoadingState());
@@ -38,9 +49,11 @@ class LoginCubit extends Cubit<LoginState> {
         CachFunc.putStringDate(key: 'token', data: EndPoints.loginModel.token)
             .then((value) {
           DataBaseFun.insertIntoDataBase(
-              name: EndPoints.loginModel.data.user.name,
-              email: EndPoints.loginModel.data.user.email,
-              photourl: EndPoints.loginModel.data.user.photo);
+            name: EndPoints.loginModel.data.user.name,
+            email: EndPoints.loginModel.data.user.email,
+            photourl: EndPoints.loginModel.data.user.photo,
+            userId: EndPoints.loginModel.data.user.id,
+          );
           DioFunc.getdate(url: EndPoints.allRecipies).then(
             (value) {
               EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
@@ -49,6 +62,10 @@ class LoginCubit extends Cubit<LoginState> {
                 (value) {
                   EndPoints.allCategoriesMap =
                       Map<String, dynamic>.from(value.data);
+                  getbyuserid(
+                    EndPoints.loginModel.data.user.id,
+                    CartDataBaseFun.database,
+                  );
                   emit(HomeScreenGetSucces());
                   print(EndPoints.allCategoriesMap);
                   Fluttertoast.showToast(

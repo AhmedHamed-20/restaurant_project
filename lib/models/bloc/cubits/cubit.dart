@@ -37,6 +37,7 @@ class Appcubit extends Cubit<AppState> {
     'Favorites',
   ];
 
+//  searchinlist(String)
   void changBottomnav(int index) {
     currentindex = index;
 

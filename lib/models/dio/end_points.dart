@@ -12,4 +12,5 @@ class EndPoints {
   static SignUpModel signUpModel;
   static Map<String, dynamic> allRecipiesMap;
   static Map<String, dynamic> allCategoriesMap;
+  static List FilteredCartDataBase;
 }

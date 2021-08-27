@@ -12,7 +12,7 @@ class DataBaseFun {
       onCreate: (createdDataBase, ver) async {
         await createdDataBase
             .execute(
-                'CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, photourl TEXT,email TEXT)')
+                'CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, photourl TEXT,email TEXT,userId TEXT)')
             .then(
               (value) => {
                 print('database created'),
@@ -49,14 +49,21 @@ class DataBaseFun {
     String name,
     String photourl,
     String email,
+    String userId,
   }) async {
     await database.transaction((txn) async {
       await txn.rawInsert(
-        'INSERT INTO user(name, photourl, email) VALUES(?, ?, ?)',
-        ['$name', '$photourl', '${email}'],
+        'INSERT INTO user(name, photourl, email,userId) VALUES(?, ?, ?, ?)',
+        [
+          '$name',
+          '$photourl',
+          '${email}',
+          ' ${userId}',
+        ],
       ).then((value) {
         getdataFromDataBase(database).then((value) {
           storedData = value;
+          print(storedData);
         });
       });
     });

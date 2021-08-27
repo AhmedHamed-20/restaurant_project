@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:sqflite/sqflite.dart';
 
 class CartDataBaseFun {
@@ -12,7 +13,7 @@ class CartDataBaseFun {
       onCreate: (createdDataBase, ver) async {
         await createdDataBase
             .execute(
-                'CREATE TABLE userdata (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,isFavorite INTEGER)')
+                'CREATE TABLE userdata (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,isFavorite INTEGER)')
             .then(
               (value) => {
                 print('database created'),
@@ -35,6 +36,12 @@ class CartDataBaseFun {
     return await createdDataBase.rawQuery('SELECT * FROM userdata');
   }
 
+  static Future<List<Map>> getdataFromDataBaseByID(
+      createdDataBase, String id) async {
+    return await createdDataBase
+        .rawQuery('SELECT * FROM userdata WHERE userId = "$id"');
+  }
+
   static Future deleteFromDataBase(int id, BuildContext context) async {
     return await database.rawDelete('DELETE FROM userdata').then((value) {
       getdataFromDataBase(database).then((value) {
@@ -50,14 +57,27 @@ class CartDataBaseFun {
       String recipeName,
       String photourl,
       String email,
+      String price,
+      String slug,
       int IsFavorite}) async {
     await database.transaction((txn) async {
       await txn.rawInsert(
-        'INSERT INTO userdata(userId ,recipeName, photourl, email,isFavorite) VALUES(? , ?, ?, ?, ?)',
-        ['${userId}', '$recipeName', '$photourl', '${email}', IsFavorite],
+        'INSERT INTO userdata(userId ,recipeName, photourl, email,price,slug,isFavorite) VALUES(? , ?, ?, ?, ?, ?,?)',
+        [
+          '${userId}',
+          '$recipeName',
+          '$photourl',
+          '${email}',
+          '$price',
+          '$slug',
+          IsFavorite
+        ],
       ).then((value) {
         getdataFromDataBase(database).then((value) {
           CartAndFavorite = value;
+          getdataFromDataBaseByID(database, userId).then((value) {
+            EndPoints.FilteredCartDataBase = value;
+          });
           print(CartAndFavorite);
         });
       });
