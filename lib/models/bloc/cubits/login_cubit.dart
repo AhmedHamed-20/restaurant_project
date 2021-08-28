@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resturant/models/bloc/states/login_states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/class_models/login_model.dart';
-import 'package:resturant/models/databasae/cart_favorite_database.dart';
+import 'package:resturant/models/databasae/cart_database.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
@@ -63,7 +63,7 @@ class LoginCubit extends Cubit<LoginState> {
                   EndPoints.allCategoriesMap =
                       Map<String, dynamic>.from(value.data);
                   getbyuserid(
-                    EndPoints.loginModel.data.user.id,
+                    DataBaseFun.storedData[0]['userId'],
                     CartDataBaseFun.database,
                   );
                   emit(HomeScreenGetSucces());

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/layouts/layout_screen.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
-import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/login_screen.dart';
 
 import 'models/bloc/cubits/cubit.dart';
@@ -25,7 +24,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => Appcubit()..dataBase(),
+          create: (BuildContext context) => Appcubit()
+            ..dataBase()
+            ..getdata(),
         ),
       ],
       child: BlocConsumer<Appcubit, AppState>(
@@ -34,7 +35,11 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            home: token == null ? LoginScreen() : LayoutScreen(),
+            home: token == null
+                ? LoginScreen()
+                : LayoutScreen(
+                    token: token,
+                  ),
           );
         },
       ),

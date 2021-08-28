@@ -13,4 +13,5 @@ class EndPoints {
   static Map<String, dynamic> allRecipiesMap;
   static Map<String, dynamic> allCategoriesMap;
   static List FilteredCartDataBase;
+  static List FavoriteDataBase;
 }

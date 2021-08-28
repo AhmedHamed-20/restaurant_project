@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
-import 'package:resturant/models/databasae/cart_favorite_database.dart';
+import 'package:resturant/models/databasae/cart_database.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
@@ -20,6 +20,54 @@ class Appcubit extends Cubit<AppState> {
   static Appcubit get(context) => BlocProvider.of(context);
 
   int currentindex = 0;
+
+  getbyuserid(String id, database) async {
+    await CartDataBaseFun.getdataFromDataBaseByID(database, id).then((value) {
+      EndPoints.FilteredCartDataBase = value;
+      emit(DataGetSucces());
+      print(EndPoints.FilteredCartDataBase);
+    }).catchError((onError) {
+      emit(DataGeterror());
+      print(onError);
+    });
+  }
+
+  getbyuseridandFavorite(String id, database) async {
+    await CartDataBaseFun.getdataFromDataBaseByIDandFavorite(
+            CartDataBaseFun.database, id, 1)
+        .then((value) {
+      EndPoints.FavoriteDataBase = value;
+      emit(DataGetSucces());
+      print(EndPoints.FavoriteDataBase);
+    }).catchError((onError) {
+      emit(DataGeterror());
+      print(onError);
+    });
+  }
+
+  getdata() {
+    DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
+      EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
+      print(EndPoints.allRecipiesMap);
+      DioFunc.getdate(url: EndPoints.categories).then(
+        (value) {
+          EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
+          getbyuserid(
+            DataBaseFun.storedData[0]['userId'],
+            CartDataBaseFun.database,
+          );
+          emit(DataGetSucces());
+          print(EndPoints.allCategoriesMap);
+        },
+      ).catchError(
+        (error) {
+          emit(DataGeterror());
+          print(error);
+          //     print(EndPoints.token);
+        },
+      );
+    });
+  }
 
   List<Widget> screen = [
     HomeScreen(),

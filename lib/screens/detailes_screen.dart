@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
-import 'package:resturant/models/databasae/cart_favorite_database.dart';
+import 'package:resturant/models/databasae/cart_database.dart';
 
 class DetailesScreen extends StatelessWidget {
   final String name;
@@ -147,6 +147,7 @@ class DetailesScreen extends StatelessWidget {
                         ),
                         ListView.builder(
                             shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
                             itemCount: Ingridients.length,
                             itemBuilder: (context, index) {
                               return Center(
@@ -174,27 +175,35 @@ class DetailesScreen extends StatelessWidget {
                   ),
                   Center(
                     child: Container(
-                      width: 130,
-                      child: Card(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                                icon: Icon(Icons.remove),
-                                onPressed: () {
-                                  cubit.decrementNum();
-                                }),
-                            Text(
-                              cubit.numberOFricipes.toString(),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Card(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                    icon: Icon(Icons.remove),
+                                    onPressed: () {
+                                      cubit.decrementNum();
+                                    }),
+                                Text(
+                                  cubit.numberOFricipes.toString(),
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    cubit.incrementNum();
+                                  },
+                                ),
+                              ],
                             ),
-                            IconButton(
-                              icon: Icon(Icons.add),
-                              onPressed: () {
-                                cubit.incrementNum();
-                              },
-                            ),
-                          ],
-                        ),
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.favorite_border))
+                        ],
                       ),
                     ),
                   ),
@@ -225,6 +234,31 @@ class DetailesScreen extends StatelessWidget {
                         },
                         child: Text(
                           'Add To Cart',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Bakta',
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Center(
+                    child: Container(
+                      width: 250,
+                      height: 50,
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        color: Colors.lightGreen,
+                        onPressed: () {},
+                        child: Text(
+                          'Order Now',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,

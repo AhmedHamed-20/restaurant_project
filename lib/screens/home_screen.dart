@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/components/popular_widget.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/databasae/cart_database.dart';
+import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/detailes_screen.dart';
 import 'package:resturant/widgets/all_fodods.dart';
@@ -16,7 +18,7 @@ class HomeScreen extends StatelessWidget {
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return EndPoints.allRecipiesMap.isEmpty
+        return EndPoints.allRecipiesMap == null
             ? Center(
                 child: CircularProgressIndicator(),
               )
@@ -60,6 +62,9 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
+                              cubit.getbyuseridandFavorite(
+                                  DataBaseFun.storedData[0]['userId'],
+                                  CartDataBaseFun.database);
                               Navigate(
                                 context: context,
                                 Screen: DetailesScreen(
@@ -75,8 +80,8 @@ class HomeScreen extends StatelessWidget {
                                       ['data'][index]['slug'],
                                   Ingridients: EndPoints.allRecipiesMap['data']
                                       ['data'][index]['ingredients'],
-                                  email: EndPoints.loginModel.data.user.email,
-                                  userId: EndPoints.loginModel.data.user.id,
+                                  email: DataBaseFun.storedData[0]['email'],
+                                  userId: DataBaseFun.storedData[0]['userId'],
                                 ),
                               );
                             },

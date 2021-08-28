@@ -42,6 +42,12 @@ class CartDataBaseFun {
         .rawQuery('SELECT * FROM userdata WHERE userId = "$id"');
   }
 
+  static Future<List<Map>> getdataFromDataBaseByIDandFavorite(
+      createdDataBase, String id, int isFavorite) async {
+    return await createdDataBase.rawQuery(
+        'SELECT * FROM userdata WHERE userId = "$id" AND isFavorite=$isFavorite');
+  }
+
   static Future deleteFromDataBase(int id, BuildContext context) async {
     return await database.rawDelete('DELETE FROM userdata').then((value) {
       getdataFromDataBase(database).then((value) {
@@ -49,6 +55,16 @@ class CartDataBaseFun {
       });
     }).catchError((onError) {
       print(onError);
+    });
+  }
+
+  static updateDataBase(int isFavorite, String id, String recipeName) async {
+    await database.rawUpdate(
+        'UPDATE userdata SET isFavorite = ? WHERE userId = ? AND recipeName= ?',
+        [isFavorite, '${id}', '${recipeName}']).then((value) {
+      print(value);
+    }).catchError((error) {
+      print(error);
     });
   }
 
