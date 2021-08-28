@@ -20,8 +20,8 @@ class DioFunc {
   }
 
   static Future<dynamic> patchdata(
-      String url, Map<String, dynamic> data, String id) async {
+      String url, Map<String, dynamic> data, String token) async {
     return response =
-        await dio.patch(url, data: data, queryParameters: {'bearer': id});
+        await dio.patch(url, data: data, queryParameters: {'bearer': token});
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
@@ -220,15 +221,33 @@ class DetailesScreen extends StatelessWidget {
                         ),
                         color: Colors.red[300],
                         onPressed: () {
-                          CartDataBaseFun.insertIntoDataBase(
-                            email: email,
-                            photourl: imageurl,
-                            IsFavorite: 0,
-                            recipeName: name,
-                            userId: userId,
-                            price: price.toString(),
-                            slug: descripthion,
-                          );
+                          bool isInside = false;
+                          for (int i = 0;
+                              i < CartDataBaseFun.CartAndFavorite.length;
+                              i++) {
+                            if (name ==
+                                CartDataBaseFun.CartAndFavorite[i]
+                                    ['recipeName']) {
+                              isInside = true;
+                            } else {
+                              isInside = false;
+                            }
+                          }
+                          if (isInside) {
+                            Fluttertoast.showToast(
+                                msg: 'Recipe is in cart',
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white);
+                          } else {
+                            CartDataBaseFun.insertIntoDataBase(
+                                userId: userId,
+                                recipeName: name,
+                                slug: descripthion,
+                                price: price,
+                                email: email,
+                                photourl: imageurl);
+                          }
+
                           // cubit.getbyuserid(EndPoints.loginModel.data.user.id,
                           //     CartDataBaseFun.database);
                         },
