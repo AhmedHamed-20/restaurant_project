@@ -13,74 +13,91 @@ class OrderScreen extends StatelessWidget {
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                  itemCount: cubit.OrdersMap['data'].length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      margin: EdgeInsets.all(8),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15)),
-                      color: Color(0xfff8f8f8),
-                      elevation: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              flex: 2,
-                              child: Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      cubit.OrdersMap['data'][index]
-                                          ['orderContent'][0]['recipeName'],
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: 'Batka',
-                                        color: Colors.grey[800],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      cubit.OrdersMap['data'][index]
-                                              ['orderContent'][0]
-                                              ['recipeAmount']
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      '\$ ${cubit.OrdersMap['data'][index]['orderContent'][0]['recipePrice'].toString()}',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: 'Batka',
-                                        color: Colors.grey[800],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+        return state is LoadingState
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : cubit.OrdersMap.isEmpty
+                ? Center(
+                    child: Text(
+                      'order your recipe now',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
                       ),
-                    );
-                  }),
-            )
-          ],
-        );
+                    ),
+                  )
+                : Column(
+                    children: [
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: cubit.OrdersMap['data'].length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                margin: EdgeInsets.all(8),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                color: Color(0xfff8f8f8),
+                                elevation: 1,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Container(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                cubit.OrdersMap['data'][index]
+                                                        ['orderContent'][0]
+                                                    ['recipeName'],
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'Batka',
+                                                  color: Colors.grey[800],
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              Text(
+                                                cubit.OrdersMap['data'][index]
+                                                        ['orderContent'][0]
+                                                        ['recipeAmount']
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 8,
+                                              ),
+                                              Text(
+                                                '\$ ${cubit.OrdersMap['data'][index]['orderContent'][0]['recipePrice'].toString()}',
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily: 'Batka',
+                                                  color: Colors.grey[800],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      )
+                    ],
+                  );
       },
     );
   }

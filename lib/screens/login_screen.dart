@@ -1,11 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/layouts/layout_screen.dart';
-import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/cubits/login_cubit.dart';
 import 'package:resturant/models/bloc/states/login_states.dart';
-import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/screens/sign_up_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
@@ -21,27 +20,49 @@ class LoginScreen extends StatelessWidget {
         builder: (context, state) {
           var loginCubit = LoginCubit.get(context);
           return Scaffold(
+            backgroundColor: Colors.grey[200],
             body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Login',
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontFamily: 'Bakta',
-                          fontWeight: FontWeight.w900,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/login2.png'),
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.3,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      padding: const EdgeInsets.all(20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
+                        ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 60,
+                              top: 10,
+                            ),
+                            child: Text(
+                              'Login',
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontFamily: 'Bakta',
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
                           TextField(
                             style: TextStyle(
                               color: Colors.black,
@@ -194,8 +215,8 @@ class LoginScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

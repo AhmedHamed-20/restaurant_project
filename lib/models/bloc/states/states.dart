@@ -27,3 +27,7 @@ class NumState extends AppState {}
 class DataSentSuccess extends AppState {}
 
 class DataSenterror extends AppState {}
+
+class OrdersDatageterror extends AppState {}
+
+class OrdersDatagetSuccess extends AppState {}

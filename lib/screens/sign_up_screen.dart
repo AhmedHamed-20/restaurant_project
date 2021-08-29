@@ -21,27 +21,47 @@ class SignUpScreen extends StatelessWidget {
         builder: (context, state) {
           var signUpcubit = SignUpCubit.get(context);
           return Scaffold(
+            backgroundColor: Colors.grey[200],
             body: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontFamily: 'Bakta',
-                          fontWeight: FontWeight.w900,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/login2.png'),
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.2,
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
+                        ),
                       ),
-                      Column(
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              bottom: 20,
+                            ),
+                            child: Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                fontSize: 34,
+                                fontFamily: 'Bakta',
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
                           TextField(
                             style: TextStyle(
                               color: Colors.black,
@@ -281,8 +301,8 @@ class SignUpScreen extends StatelessWidget {
                           )
                         ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

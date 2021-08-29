@@ -104,6 +104,7 @@ class Appcubit extends Cubit<AppState> {
 
   Map<String, dynamic> OrdersMap;
   getmyOrders(String token) {
+    emit(LoadingState());
     DioFunc.getdate(
       url: EndPoints.order,
       token: {
@@ -113,10 +114,10 @@ class Appcubit extends Cubit<AppState> {
     ).then((value) {
       OrdersMap = value.data;
       print(OrdersMap);
-      emit(DataGetSuccess());
+      emit(OrdersDatagetSuccess());
     }).onError((error, stackTrace) {
       print(error);
-      emit(DataGetError());
+      emit(OrdersDatageterror());
     });
   }
 

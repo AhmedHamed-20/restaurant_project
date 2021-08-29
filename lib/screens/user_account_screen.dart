@@ -155,6 +155,7 @@ class UserAccount extends StatelessWidget {
                           if (cubit.IslogedOut) {
                             cubit.deleteFromDataBase(0, context);
                             EndPoints.FilteredCartDataBase = [];
+                            cubit.OrdersMap = {};
                           }
                         });
                       },
