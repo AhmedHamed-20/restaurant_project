@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
+import 'package:resturant/widgets/custome_dialog.dart';
 
 class DetailesScreen extends StatelessWidget {
   final String name;
@@ -15,20 +17,26 @@ class DetailesScreen extends StatelessWidget {
   final List Ingridients;
   final String email;
   final String userId;
+  final String recipeId;
 
-  const DetailesScreen(
-      {this.name,
-      this.descripthion,
-      this.imageurl,
-      this.price,
-      this.index,
-      this.Ingridients,
-      this.email,
-      this.userId});
+  const DetailesScreen({
+    this.name,
+    this.descripthion,
+    this.imageurl,
+    this.price,
+    this.index,
+    this.Ingridients,
+    this.email,
+    this.userId,
+    this.recipeId,
+  });
 
   @override
   Widget build(BuildContext context) {
     var cubit = Appcubit.get(context);
+    String token = CachFunc.getData('token');
+    TextEditingController addressController = TextEditingController();
+    TextEditingController PhoneNumberController = TextEditingController();
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -240,12 +248,15 @@ class DetailesScreen extends StatelessWidget {
                                 textColor: Colors.white);
                           } else {
                             CartDataBaseFun.insertIntoDataBase(
-                                userId: userId,
-                                recipeName: name,
-                                slug: descripthion,
-                                price: price,
-                                email: email,
-                                photourl: imageurl);
+                              userId: userId,
+                              recipeName: name,
+                              slug: descripthion,
+                              price: price,
+                              email: email,
+                              photourl: imageurl,
+                              recipeId: recipeId,
+                              amount: cubit.numberOFricipes,
+                            );
                           }
 
                           // cubit.getbyuserid(EndPoints.loginModel.data.user.id,
@@ -275,7 +286,19 @@ class DetailesScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(25),
                         ),
                         color: Colors.lightGreen,
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => customeDialog(
+                              addressController,
+                              PhoneNumberController,
+                              context,
+                              recipeId,
+                              token,
+                              cubit.numberOFricipes,
+                            ),
+                          );
+                        },
                         child: Text(
                           'Order Now',
                           style: TextStyle(

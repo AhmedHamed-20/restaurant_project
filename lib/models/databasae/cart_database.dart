@@ -13,7 +13,7 @@ class CartDataBaseFun {
       onCreate: (createdDataBase, ver) async {
         await createdDataBase
             .execute(
-                'CREATE TABLE userdata (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,isFavorite INTEGER)')
+                'CREATE TABLE userdata (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,isFavorite INTEGER,recipeId TEXT,amount INTEGER)')
             .then(
               (value) => {
                 print('database created'),
@@ -42,11 +42,11 @@ class CartDataBaseFun {
         .rawQuery('SELECT * FROM userdata WHERE userId = "$id"');
   }
 
-  static Future<List<Map>> getdataFromDataBaseByIDandFavorite(
-      createdDataBase, String id, int isFavorite) async {
-    return await createdDataBase.rawQuery(
-        'SELECT * FROM userdata WHERE userId = "$id" AND isFavorite=$isFavorite');
-  }
+  // static Future<List<Map>> getdataFromDataBaseByIDandFavorite(
+  //     createdDataBase, String id, int isFavorite) async {
+  //   return await createdDataBase.rawQuery(
+  //       'SELECT * FROM userdata WHERE userId = "$id" AND isFavorite=$isFavorite');
+  // }
 
   static Future deleteFromDataBase(int id, BuildContext context) async {
     return await database.rawDelete('DELETE FROM userdata').then((value) {
@@ -68,17 +68,20 @@ class CartDataBaseFun {
     });
   }
 
-  static insertIntoDataBase(
-      {String userId,
-      String recipeName,
-      String photourl,
-      String email,
-      String price,
-      String slug,
-      int IsFavorite}) async {
+  static insertIntoDataBase({
+    String userId,
+    String recipeName,
+    String photourl,
+    String email,
+    String price,
+    String slug,
+    int IsFavorite,
+    String recipeId,
+    int amount,
+  }) async {
     await database.transaction((txn) async {
       await txn.rawInsert(
-        'INSERT INTO userdata(userId ,recipeName, photourl, email,price,slug,isFavorite) VALUES(? , ?, ?, ?, ?, ?,?)',
+        'INSERT INTO userdata(userId ,recipeName, photourl, email,price,slug,isFavorite,recipeId,amount) VALUES(? , ?, ?, ?, ?, ?,?,?,?)',
         [
           '${userId}',
           '$recipeName',
@@ -86,7 +89,9 @@ class CartDataBaseFun {
           '${email}',
           '$price',
           '$slug',
-          IsFavorite
+          IsFavorite,
+          '$recipeId',
+          amount,
         ],
       ).then((value) {
         getdataFromDataBase(database).then((value) {

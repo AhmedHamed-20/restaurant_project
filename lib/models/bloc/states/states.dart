@@ -1,6 +1,6 @@
 abstract class AppState {}
 
-class AppintiState extends AppState {}
+class Appintistate extends AppState {}
 
 class ChangebottomState extends AppState {}
 
@@ -16,10 +16,14 @@ class DataBaseCreated extends AppState {}
 
 class LogoutState extends AppState {}
 
-class DataGetSucces extends AppState {}
+class DataGetSuccess extends AppState {}
 
-class DataGeterror extends AppState {}
+class DataGetError extends AppState {}
 
 class DeleteDataBase extends AppState {}
 
 class NumState extends AppState {}
+
+class DataSentSuccess extends AppState {}
+
+class DataSenterror extends AppState {}

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
@@ -16,7 +17,7 @@ import 'package:resturant/screens/order_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
 class Appcubit extends Cubit<AppState> {
-  Appcubit() : super(AppintiState());
+  Appcubit() : super(Appintistate());
   static Appcubit get(context) => BlocProvider.of(context);
 
   int currentindex = 0;
@@ -24,25 +25,57 @@ class Appcubit extends Cubit<AppState> {
   getbyuserid(String id, database) async {
     await CartDataBaseFun.getdataFromDataBaseByID(database, id).then((value) {
       EndPoints.FilteredCartDataBase = value;
-      emit(DataGetSucces());
+      emit(DataGetSuccess());
       print(EndPoints.FilteredCartDataBase);
     }).catchError((onError) {
-      emit(DataGeterror());
+      emit(DataGetError());
       print(onError);
     });
   }
 
-  getbyuseridandFavorite(String id, database) async {
-    await CartDataBaseFun.getdataFromDataBaseByIDandFavorite(
-            CartDataBaseFun.database, id, 1)
-        .then((value) {
-      EndPoints.FavoriteDataBase = value;
-      emit(DataGetSucces());
-      print(EndPoints.FavoriteDataBase);
-    }).catchError((onError) {
-      emit(DataGeterror());
-      print(onError);
-    });
+  // getbyuseridandFavorite(String id, database) async {
+  //   await CartDataBaseFun.getdataFromDataBaseByIDandFavorite(
+  //           CartDataBaseFun.database, id, 1)
+  //       .then((value) {
+  //     EndPoints.FavoriteDataBase = value;
+  //     emit(DataGetSucces());
+  //     print(EndPoints.FavoriteDataBase);
+  //   }).catchError((onError) {
+  //     emit(DataGeterror());
+  //     print(onError);
+  //   });
+  // }
+
+  createOrder(Map<String, dynamic> orderContent, String address,
+      String phoneNum, String token, context) {
+    DioFunc.postData(
+      EndPoints.order,
+      {
+        'orderContent': [orderContent],
+        'customerAddress': '$address',
+        'customerPhoneNumber': '$phoneNum'
+      },
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then(
+      (value) {
+        print(value);
+        emit(DataSentSuccess());
+        Fluttertoast.showToast(
+          msg: 'Ordered Success',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        Navigator.of(context).pop();
+      },
+    ).catchError(
+      (onError) {
+        print(onError);
+        emit(DataSenterror());
+      },
+    );
   }
 
   getdata() {
@@ -56,16 +89,34 @@ class Appcubit extends Cubit<AppState> {
             DataBaseFun.storedData[0]['userId'],
             CartDataBaseFun.database,
           );
-          emit(DataGetSucces());
+          emit(DataGetSuccess());
           print(EndPoints.allCategoriesMap);
         },
       ).catchError(
         (error) {
-          emit(DataGeterror());
+          emit(DataGetError());
           print(error);
           //     print(EndPoints.token);
         },
       );
+    });
+  }
+
+  Map<String, dynamic> OrdersMap;
+  getmyOrders(String token) {
+    DioFunc.getdate(
+      url: EndPoints.order,
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((value) {
+      OrdersMap = value.data;
+      print(OrdersMap);
+      emit(DataGetSuccess());
+    }).onError((error, stackTrace) {
+      print(error);
+      emit(DataGetError());
     });
   }
 
@@ -101,7 +152,7 @@ class Appcubit extends Cubit<AppState> {
       searchMap = Map<String, dynamic>.from(value.data);
       print(searchMap);
       print(searchMap.length);
-      emit(DataGetSucces());
+      emit(DataGetSuccess());
     }).catchError((error) {
       print(error);
     });

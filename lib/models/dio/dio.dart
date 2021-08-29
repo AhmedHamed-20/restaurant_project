@@ -5,18 +5,20 @@ class DioFunc {
   static var dio = Dio();
 
   static Future<dynamic> getdate(
-      {String url, Map<String, dynamic> query}) async {
-    // dio.options.headers = {
-    //   'Postman-Token': EndPoints.token,
-    // };
+      {String url,
+      Map<String, dynamic> query,
+      Map<String, dynamic> token}) async {
     return response = await dio.get(
       url,
       queryParameters: query,
+      options: Options(headers: token),
     );
   }
 
-  static Future<dynamic> postData(String url, Map<String, dynamic> data) async {
-    return response = await dio.post(url, data: data);
+  static Future<dynamic> postData(String url, Map<String, dynamic> data,
+      {Map<String, dynamic> token}) async {
+    return response =
+        await dio.post(url, data: data, options: Options(headers: token));
   }
 
   static Future<dynamic> patchdata(

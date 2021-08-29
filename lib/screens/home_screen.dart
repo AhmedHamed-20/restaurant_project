@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/components/popular_widget.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
-import 'package:resturant/models/databasae/cart_database.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/detailes_screen.dart';
@@ -62,9 +61,10 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () {
-                              cubit.getbyuseridandFavorite(
-                                  DataBaseFun.storedData[0]['userId'],
-                                  CartDataBaseFun.database);
+                              // cubit.getbyuseridandFavorite(
+                              //     DataBaseFun.storedData[0]['userId'],
+                              //     CartDataBaseFun.database);
+                              print(cubit.OrdersMap['data'].length);
                               Navigate(
                                 context: context,
                                 Screen: DetailesScreen(
@@ -82,6 +82,8 @@ class HomeScreen extends StatelessWidget {
                                       ['data'][index]['ingredients'],
                                   email: DataBaseFun.storedData[0]['email'],
                                   userId: DataBaseFun.storedData[0]['userId'],
+                                  recipeId: EndPoints.allRecipiesMap['data']
+                                      ['data'][index]['_id'],
                                 ),
                               );
                             },
