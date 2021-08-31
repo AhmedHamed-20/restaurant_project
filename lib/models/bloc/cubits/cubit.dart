@@ -6,6 +6,7 @@ import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
 import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/databasae/favorite_database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/cart_screen.dart';
@@ -45,6 +46,22 @@ class Appcubit extends Cubit<AppState> {
   //     print(onError);
   //   });
   // }
+  insertIntoFavorite(String photourl, String recipeName, String price,
+      String email, String slug, String userId) {
+    FavoriteDataBaseFun.insertIntoDataBase(
+      photourl: photourl,
+      price: price,
+      email: email,
+      slug: slug,
+      userId: userId,
+      recipeName: recipeName,
+    ).then((value) {
+      emit(favoriteInsertedSucces());
+    }).catchError((onError) {
+      print(onError);
+      emit(favoriteInsertederror());
+    });
+  }
 
   createOrder(Map<String, dynamic> orderContent, String address,
       String phoneNum, String token, context) {
@@ -124,10 +141,51 @@ class Appcubit extends Cubit<AppState> {
   List<Widget> screen = [
     HomeScreen(),
     CategoriesScreen(),
-    CardScreen(),
+    CartScreen(),
     OrderScreen(),
     FavoriteScreen(),
   ];
+  bool changeLoveIconState = false;
+  bool isInside = false;
+  bool SearchIntoFavorite(String recipeName) {
+    for (int i = 0; i < FavoriteDataBaseFun.FavoriteDataBase.length; i++) {
+      if (recipeName == FavoriteDataBaseFun.FavoriteDataBase[i]['recipeName']) {
+        isInside = true;
+        break;
+      } else {
+        isInside = false;
+      }
+    }
+    if (isInside) return true;
+    return false;
+  }
+
+  deleteFromFavorite(int id, context) {
+    FavoriteDataBaseFun.deleteFromDataBase(id, context).then((value) {
+      print('success');
+      changeLoveIconState = false;
+      emit(DataDealetedSuccess());
+    }).catchError((onError) {
+      emit(DataDealetedError());
+      print(onError);
+    });
+  }
+
+  deleteFromFavoriteByName(String name, context) {
+    FavoriteDataBaseFun.deleteFromDataBaseName(name, context).then((value) {
+      print('success');
+      changeLoveIconState = false;
+      emit(DataDealetedSuccess());
+    }).catchError((onError) {
+      emit(DataDealetedError());
+      print(onError);
+    });
+  }
+
+  changeLoveIcon() {
+    changeLoveIconState = !changeLoveIconState;
+    emit(ChangeIconState());
+  }
 
   List<String> title = [
     'Home',
@@ -162,6 +220,7 @@ class Appcubit extends Cubit<AppState> {
   dataBase() async {
     await DataBaseFun.createData();
     await CartDataBaseFun.createData();
+    await FavoriteDataBaseFun.createData();
     emit(DataBaseCreated());
   }
 

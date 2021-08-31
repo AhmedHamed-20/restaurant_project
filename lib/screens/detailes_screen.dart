@@ -210,8 +210,20 @@ class DetailesScreen extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.favorite_border))
+                              onPressed: () {
+                                cubit.changeLoveIcon();
+                                if (cubit.SearchIntoFavorite(name)) {
+                                  cubit.deleteFromFavoriteByName(name, context);
+                                } else {
+                                  cubit.insertIntoFavorite(imageurl, name,
+                                      price, email, descripthion, userId);
+                                }
+                              },
+                              icon: cubit.SearchIntoFavorite(name)
+                                  ? Icon(Icons.favorite)
+                                  : cubit.changeLoveIconState
+                                      ? Icon(Icons.favorite)
+                                      : Icon(Icons.favorite_border))
                         ],
                       ),
                     ),

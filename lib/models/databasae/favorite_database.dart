@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:resturant/models/dio/end_points.dart';
 import 'package:sqflite/sqflite.dart';
 
 class FavoriteDataBaseFun {
@@ -13,10 +12,10 @@ class FavoriteDataBaseFun {
       onCreate: (createdDataBase, ver) async {
         await createdDataBase
             .execute(
-                'CREATE TABLE favorite (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,isFavorite INTEGER)')
+                'CREATE TABLE favorite (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,recipeId TEXT)')
             .then(
               (value) => {
-                print('database created'),
+                print('favorite database created '),
               },
             );
       },
@@ -33,23 +32,35 @@ class FavoriteDataBaseFun {
   }
 
   static Future<List<Map>> getdataFromDataBase(createdDataBase) async {
-    return await createdDataBase.rawQuery('SELECT * FROM userdata');
+    return await createdDataBase.rawQuery('SELECT * FROM favorite');
   }
 
   static Future<List<Map>> getdataFromDataBaseByID(
       createdDataBase, String id) async {
     return await createdDataBase
-        .rawQuery('SELECT * FROM userdata WHERE userId = "$id"');
+        .rawQuery('SELECT * FROM favorite WHERE userId = "$id"');
   }
 
   static Future<List<Map>> getdataFromDataBaseByIDandFavorite(
       createdDataBase, String id, int isFavorite) async {
     return await createdDataBase.rawQuery(
-        'SELECT * FROM userdata WHERE userId = "$id" AND isFavorite=$isFavorite');
+        'SELECT * FROM favorite WHERE userId = "$id" AND isFavorite=$isFavorite');
   }
 
   static Future deleteFromDataBase(int id, BuildContext context) async {
-    return await database.rawDelete('DELETE FROM userdata').then((value) {
+    return await database
+        .rawDelete('DELETE FROM favorite WHERE id = ?', [id]).then((value) {
+      getdataFromDataBase(database).then((value) {
+        FavoriteDataBase = value;
+      });
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+
+  static deleteFromDataBaseName(String name, BuildContext context) async {
+    return await database.rawDelete(
+        'DELETE FROM favorite WHERE recipeName = ?', [name]).then((value) {
       getdataFromDataBase(database).then((value) {
         FavoriteDataBase = value;
       });
@@ -60,7 +71,7 @@ class FavoriteDataBaseFun {
 
   static updateDataBase(int isFavorite, String id, String recipeName) async {
     await database.rawUpdate(
-        'UPDATE userdata SET isFavorite = ? WHERE userId = ? AND recipeName= ?',
+        'UPDATE favorite SET isFavorite = ? WHERE userId = ? AND recipeName= ?',
         [isFavorite, '${id}', '${recipeName}']).then((value) {
       print(value);
     }).catchError((error) {
@@ -68,17 +79,17 @@ class FavoriteDataBaseFun {
     });
   }
 
-  static insertIntoDataBase(
-      {String userId,
-      String recipeName,
-      String photourl,
-      String email,
-      String price,
-      String slug,
-      int IsFavorite}) async {
+  static Future insertIntoDataBase({
+    String userId,
+    String recipeName,
+    String photourl,
+    String email,
+    String price,
+    String slug,
+  }) async {
     await database.transaction((txn) async {
-      await txn.rawInsert(
-        'INSERT INTO userdata(userId ,recipeName, photourl, email,price,slug,isFavorite) VALUES(? , ?, ?, ?, ?, ?,?)',
+      return await txn.rawInsert(
+        'INSERT INTO favorite(userId ,recipeName, photourl, email,price,slug) VALUES(? , ?, ?, ?, ?,?)',
         [
           '${userId}',
           '$recipeName',
@@ -86,14 +97,11 @@ class FavoriteDataBaseFun {
           '${email}',
           '$price',
           '$slug',
-          IsFavorite
         ],
       ).then((value) {
         getdataFromDataBase(database).then((value) {
           FavoriteDataBase = value;
-          getdataFromDataBaseByID(database, userId).then((value) {
-            EndPoints.FilteredCartDataBase = value;
-          });
+
           print(FavoriteDataBase);
         });
       });

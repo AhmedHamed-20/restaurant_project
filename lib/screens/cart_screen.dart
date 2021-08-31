@@ -5,7 +5,7 @@ import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 
-class CardScreen extends StatelessWidget {
+class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Appcubit, AppState>(

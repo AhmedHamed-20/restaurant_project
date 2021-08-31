@@ -16,7 +16,7 @@ class CartDataBaseFun {
                 'CREATE TABLE userdata (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,isFavorite INTEGER,recipeId TEXT,amount INTEGER)')
             .then(
               (value) => {
-                print('database created'),
+                print('cart database created'),
               },
             );
       },

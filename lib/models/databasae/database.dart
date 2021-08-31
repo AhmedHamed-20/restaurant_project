@@ -7,7 +7,7 @@ class DataBaseFun {
   static List<Map> storedData;
   static void createData() {
     openDatabase(
-      'favorite.db',
+      'user.db',
       version: 1,
       onCreate: (createdDataBase, ver) async {
         await createdDataBase
@@ -15,7 +15,7 @@ class DataBaseFun {
                 'CREATE TABLE user (id INTEGER PRIMARY KEY, name TEXT, photourl TEXT,email TEXT,userId TEXT)')
             .then(
               (value) => {
-                print('database created'),
+                print('user database created'),
               },
             );
       },

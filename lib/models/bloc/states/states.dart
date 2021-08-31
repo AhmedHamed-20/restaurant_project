@@ -31,3 +31,13 @@ class DataSenterror extends AppState {}
 class OrdersDatageterror extends AppState {}
 
 class OrdersDatagetSuccess extends AppState {}
+
+class favoriteInsertedSucces extends AppState {}
+
+class favoriteInsertederror extends AppState {}
+
+class ChangeIconState extends AppState {}
+
+class DataDealetedSuccess extends AppState {}
+
+class DataDealetedError extends AppState {}
