@@ -41,8 +41,9 @@ class DetailesScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: Color(0xffFBE7C6),
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.white,
             elevation: 0,
             title: Text(
               'Detailes',
@@ -57,38 +58,24 @@ class DetailesScreen extends StatelessWidget {
             centerTitle: true,
           ),
           body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 12,
-                right: 12,
-                top: 12,
-                bottom: 12,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Stack(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Stack(
                     children: [
-                      Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                          width: 350,
-                          height: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.green[100],
-                          ),
-                        ),
-                      ),
                       Align(
                         alignment: Alignment.center,
                         child: Container(
                           width: 200,
                           height: 200,
                           decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
+                              fit: BoxFit.cover,
                               image: NetworkImage(imageurl),
                             ),
                           ),
@@ -96,235 +83,268 @@ class DetailesScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Text(
-                      name,
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 28,
-                        fontFamily: 'Bakta',
-                        fontWeight: FontWeight.w900,
-                      ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(25),
+                      topLeft: Radius.circular(25),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Text(
-                      '${price}\$',
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                        fontSize: 24,
-                        fontFamily: 'Bakta',
-                        fontWeight: FontWeight.w900,
+                  child: Column(
+                    children: [
+                      Center(
+                        child: Text(
+                          name,
+                          style: TextStyle(
+                            color: Colors.grey[800],
+                            fontSize: 28,
+                            fontFamily: 'Bakta',
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Text(
-                      descripthion,
-                      textAlign: TextAlign.justify,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w900,
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, bottom: 10),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Ingridients',
+                      Center(
+                        child: Text(
+                          '${price}\$',
                           style: TextStyle(
                             color: Colors.grey[800],
                             fontSize: 24,
+                            fontFamily: 'Bakta',
                             fontWeight: FontWeight.w900,
-                            fontFamily: 'Batka',
                           ),
                         ),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: Ingridients.length,
-                            itemBuilder: (context, index) {
-                              return Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '${index + 1}- ',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                      ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Text(
+                          descripthion,
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, bottom: 10),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Ingridients',
+                              style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 24,
+                                fontWeight: FontWeight.w900,
+                                fontFamily: 'Batka',
+                              ),
+                            ),
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: Ingridients.length,
+                                itemBuilder: (context, index) {
+                                  return Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '${index + 1}- ',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        Text(
+                                          '${Ingridients[index].toString()}',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ],
                                     ),
+                                  );
+                                })
+                          ],
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Card(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                        icon: Icon(Icons.remove),
+                                        onPressed: () {
+                                          cubit.decrementNum();
+                                        }),
                                     Text(
-                                      '${Ingridients[index].toString()}',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                      ),
+                                      cubit.numberOFricipes.toString(),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.add),
+                                      onPressed: () {
+                                        cubit.incrementNum();
+                                      },
                                     ),
                                   ],
                                 ),
-                              );
-                            })
-                      ],
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Card(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                    icon: Icon(Icons.remove),
-                                    onPressed: () {
-                                      cubit.decrementNum();
-                                    }),
-                                Text(
-                                  cubit.numberOFricipes.toString(),
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.add),
+                              ),
+                              IconButton(
                                   onPressed: () {
-                                    cubit.incrementNum();
+                                    cubit.changeLoveIcon();
+                                    if (cubit.SearchIntoFavorite(name)) {
+                                      cubit.deleteFromFavoriteByName(
+                                          name, context);
+                                    } else {
+                                      cubit.insertIntoFavorite(
+                                        imageurl,
+                                        name,
+                                        price,
+                                        email,
+                                        descripthion,
+                                        userId,
+                                        recipeId,
+                                      );
+                                    }
                                   },
-                                ),
-                              ],
-                            ),
+                                  icon: cubit.SearchIntoFavorite(name)
+                                      ? Icon(
+                                          Icons.favorite,
+                                          color: Color(0xfff8d0a1),
+                                        )
+                                      : cubit.changeLoveIconState
+                                          ? Icon(
+                                              Icons.favorite,
+                                              color: Color(0xfff8d0a1),
+                                            )
+                                          : Icon(
+                                              Icons.favorite_border,
+                                              color: Color(0xfff8d0a1),
+                                            ))
+                            ],
                           ),
-                          IconButton(
-                              onPressed: () {
-                                cubit.changeLoveIcon();
-                                if (cubit.SearchIntoFavorite(name)) {
-                                  cubit.deleteFromFavoriteByName(name, context);
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Container(
+                          width: 250,
+                          height: 50,
+                          child: MaterialButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            color: Color(0xfff8d0a1),
+                            onPressed: () {
+                              bool isInside = false;
+                              for (int i = 0;
+                                  i < CartDataBaseFun.CartAndFavorite.length;
+                                  i++) {
+                                if (name ==
+                                    CartDataBaseFun.CartAndFavorite[i]
+                                        ['recipeName']) {
+                                  isInside = true;
                                 } else {
-                                  cubit.insertIntoFavorite(imageurl, name,
-                                      price, email, descripthion, userId);
+                                  isInside = false;
                                 }
-                              },
-                              icon: cubit.SearchIntoFavorite(name)
-                                  ? Icon(Icons.favorite)
-                                  : cubit.changeLoveIconState
-                                      ? Icon(Icons.favorite)
-                                      : Icon(Icons.favorite_border))
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Container(
-                      width: 250,
-                      height: 50,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        color: Colors.red[300],
-                        onPressed: () {
-                          bool isInside = false;
-                          for (int i = 0;
-                              i < CartDataBaseFun.CartAndFavorite.length;
-                              i++) {
-                            if (name ==
-                                CartDataBaseFun.CartAndFavorite[i]
-                                    ['recipeName']) {
-                              isInside = true;
-                            } else {
-                              isInside = false;
-                            }
-                          }
-                          if (isInside) {
-                            Fluttertoast.showToast(
-                                msg: 'Recipe is in cart',
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white);
-                          } else {
-                            CartDataBaseFun.insertIntoDataBase(
-                              userId: userId,
-                              recipeName: name,
-                              slug: descripthion,
-                              price: price,
-                              email: email,
-                              photourl: imageurl,
-                              recipeId: recipeId,
-                              amount: cubit.numberOFricipes,
-                            );
-                          }
+                              }
+                              if (isInside) {
+                                Fluttertoast.showToast(
+                                    msg: 'Recipe is in cart',
+                                    backgroundColor: Colors.red,
+                                    textColor: Colors.white);
+                              } else {
+                                CartDataBaseFun.insertIntoDataBase(
+                                  userId: userId,
+                                  recipeName: name,
+                                  slug: descripthion,
+                                  price: price,
+                                  email: email,
+                                  photourl: imageurl,
+                                  recipeId: recipeId,
+                                  amount: cubit.numberOFricipes,
+                                );
+                              }
 
-                          // cubit.getbyuserid(EndPoints.loginModel.data.user.id,
-                          //     CartDataBaseFun.database);
-                        },
-                        child: Text(
-                          'Add To Cart',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'Bakta',
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Container(
-                      width: 250,
-                      height: 50,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        color: Colors.lightGreen,
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => customeDialog(
-                              addressController,
-                              PhoneNumberController,
-                              context,
-                              recipeId,
-                              token,
-                              cubit.numberOFricipes,
+                              // cubit.getbyuserid(EndPoints.loginModel.data.user.id,
+                              //     CartDataBaseFun.database);
+                            },
+                            child: Text(
+                              'Add To Cart',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Bakta',
+                                fontWeight: FontWeight.w900,
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          'Order Now',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: 'Bakta',
-                            fontWeight: FontWeight.w900,
                           ),
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Container(
+                          width: 250,
+                          height: 50,
+                          child: MaterialButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            color: Color(0xff7b9c72),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) => customeDialog(
+                                  addressController,
+                                  PhoneNumberController,
+                                  context,
+                                  recipeId,
+                                  token,
+                                  cubit.numberOFricipes,
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Order Now',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Bakta',
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

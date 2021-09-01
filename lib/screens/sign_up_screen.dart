@@ -72,7 +72,13 @@ class SignUpScreen extends StatelessWidget {
                             onChanged: (value) {},
                             onSubmitted: (val) {},
                             decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.orangeAccent,
+                                  )),
                               enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
                                   color: Colors.black,
                                 ),
@@ -107,7 +113,13 @@ class SignUpScreen extends StatelessWidget {
                             onChanged: (value) {},
                             onSubmitted: (val) {},
                             decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.orangeAccent,
+                                  )),
                               enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
                                   color: Colors.black,
                                 ),
@@ -143,6 +155,11 @@ class SignUpScreen extends StatelessWidget {
                             onSubmitted: (val) {},
                             obscureText: signUpcubit.hidePassword1,
                             decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.orangeAccent,
+                                  )),
                               suffixIcon: MaterialButton(
                                 child: signUpcubit.hidePassword1
                                     ? Icon(
@@ -158,6 +175,7 @@ class SignUpScreen extends StatelessWidget {
                                 },
                               ),
                               enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
                                   color: Colors.black,
                                 ),
@@ -169,10 +187,12 @@ class SignUpScreen extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
-                                color: Colors.black,
-                              )),
+                                    color: Colors.black,
+                                  )),
                               disabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
                                   color: Colors.black,
                                 ),
@@ -193,6 +213,11 @@ class SignUpScreen extends StatelessWidget {
                             onSubmitted: (val) {},
                             obscureText: signUpcubit.hidePassword2,
                             decoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.orangeAccent,
+                                  )),
                               suffixIcon: MaterialButton(
                                 child: signUpcubit.hidePassword2
                                     ? Icon(
@@ -208,6 +233,7 @@ class SignUpScreen extends StatelessWidget {
                                 },
                               ),
                               enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
                                   color: Colors.black,
                                 ),
@@ -233,6 +259,10 @@ class SignUpScreen extends StatelessWidget {
                             height: 15,
                           ),
                           Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(25),
+                              color: Colors.orangeAccent,
+                            ),
                             width: double.infinity,
                             child: MaterialButton(
                               padding: EdgeInsets.all(12),
@@ -266,7 +296,6 @@ class SignUpScreen extends StatelessWidget {
                                         fontWeight: FontWeight.w900,
                                       ),
                                     ),
-                              color: Colors.orangeAccent,
                             ),
                           ),
                           SizedBox(

@@ -13,7 +13,7 @@ class CartDataBaseFun {
       onCreate: (createdDataBase, ver) async {
         await createdDataBase
             .execute(
-                'CREATE TABLE userdata (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,isFavorite INTEGER,recipeId TEXT,amount INTEGER)')
+                'CREATE TABLE cart (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,isFavorite INTEGER,recipeId TEXT,amount INTEGER)')
             .then(
               (value) => {
                 print('cart database created'),
@@ -25,7 +25,7 @@ class CartDataBaseFun {
           CartAndFavorite = value;
           database = createdDataBase;
         });
-        print('database opened');
+        print('cart database opened');
       },
     ).then((value) {
       database = value;
@@ -33,13 +33,13 @@ class CartDataBaseFun {
   }
 
   static Future<List<Map>> getdataFromDataBase(createdDataBase) async {
-    return await createdDataBase.rawQuery('SELECT * FROM userdata');
+    return await createdDataBase.rawQuery('SELECT * FROM cart');
   }
 
   static Future<List<Map>> getdataFromDataBaseByID(
       createdDataBase, String id) async {
     return await createdDataBase
-        .rawQuery('SELECT * FROM userdata WHERE userId = "$id"');
+        .rawQuery('SELECT * FROM cart WHERE userId = "$id"');
   }
 
   // static Future<List<Map>> getdataFromDataBaseByIDandFavorite(
@@ -49,7 +49,7 @@ class CartDataBaseFun {
   // }
 
   static Future deleteFromDataBase(int id, BuildContext context) async {
-    return await database.rawDelete('DELETE FROM userdata').then((value) {
+    return await database.rawDelete('DELETE FROM cart').then((value) {
       getdataFromDataBase(database).then((value) {
         CartAndFavorite = value;
       });
@@ -60,7 +60,7 @@ class CartDataBaseFun {
 
   static updateDataBase(int isFavorite, String id, String recipeName) async {
     await database.rawUpdate(
-        'UPDATE userdata SET isFavorite = ? WHERE userId = ? AND recipeName= ?',
+        'UPDATE cart SET isFavorite = ? WHERE userId = ? AND recipeName= ?',
         [isFavorite, '${id}', '${recipeName}']).then((value) {
       print(value);
     }).catchError((error) {
@@ -81,7 +81,7 @@ class CartDataBaseFun {
   }) async {
     await database.transaction((txn) async {
       await txn.rawInsert(
-        'INSERT INTO userdata(userId ,recipeName, photourl, email,price,slug,isFavorite,recipeId,amount) VALUES(? , ?, ?, ?, ?, ?,?,?,?)',
+        'INSERT INTO cart(userId ,recipeName, photourl, email,price,slug,isFavorite,recipeId,amount) VALUES(? , ?, ?, ?, ?, ?,?,?,?)',
         [
           '${userId}',
           '$recipeName',

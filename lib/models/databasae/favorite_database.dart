@@ -24,7 +24,7 @@ class FavoriteDataBaseFun {
           FavoriteDataBase = value;
           database = createdDataBase;
         });
-        print('database opened');
+        print('favorite database opened');
       },
     ).then((value) {
       database = value;
@@ -79,17 +79,17 @@ class FavoriteDataBaseFun {
     });
   }
 
-  static Future insertIntoDataBase({
-    String userId,
-    String recipeName,
-    String photourl,
-    String email,
-    String price,
-    String slug,
-  }) async {
+  static Future insertIntoDataBase(
+      {String userId,
+      String recipeName,
+      String photourl,
+      String email,
+      String price,
+      String slug,
+      String recipeId}) async {
     await database.transaction((txn) async {
       return await txn.rawInsert(
-        'INSERT INTO favorite(userId ,recipeName, photourl, email,price,slug) VALUES(? , ?, ?, ?, ?,?)',
+        'INSERT INTO favorite(userId ,recipeName, photourl, email,price,slug,recipeId) VALUES(? , ?, ?, ?, ?,?,?)',
         [
           '${userId}',
           '$recipeName',
@@ -97,6 +97,7 @@ class FavoriteDataBaseFun {
           '${email}',
           '$price',
           '$slug',
+          '$recipeId',
         ],
       ).then((value) {
         getdataFromDataBase(database).then((value) {

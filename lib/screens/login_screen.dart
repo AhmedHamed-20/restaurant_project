@@ -74,6 +74,7 @@ class LoginScreen extends StatelessWidget {
                             onSubmitted: (val) {},
                             decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
                                   color: Colors.black,
                                 ),
@@ -84,10 +85,16 @@ class LoginScreen extends StatelessWidget {
                                 Icons.email_outlined,
                                 color: Colors.black,
                               ),
-                              border: OutlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
-                                color: Colors.black,
-                              )),
+                                    color: Colors.orangeAccent,
+                                  )),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                  )),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.black,
@@ -110,11 +117,17 @@ class LoginScreen extends StatelessWidget {
                             obscureText: loginCubit.hidePassword,
                             decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
                                   color: Colors.black,
                                 ),
                               ),
                               labelText: 'Password',
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.orangeAccent,
+                                  )),
                               suffixIcon: MaterialButton(
                                 child: loginCubit.hidePassword
                                     ? Icon(
@@ -135,12 +148,13 @@ class LoginScreen extends StatelessWidget {
                                 color: Colors.black,
                               ),
                               border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
-                                color: Colors.black,
-                              )),
+                                    color: Colors.orangeAccent,
+                                  )),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: Colors.orangeAccent,
                                 ),
                               ),
                             ),
@@ -149,39 +163,43 @@ class LoginScreen extends StatelessWidget {
                             height: 10,
                           ),
                           Container(
+                            decoration: BoxDecoration(
+                              color: Colors.orangeAccent,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
                             width: double.infinity,
                             child: MaterialButton(
-                                padding: EdgeInsets.all(12),
-                                onPressed: () {
-                                  loginCubit.login(
-                                    emailController.text,
-                                    passwordController.text,
-                                    context: context,
-                                    screen: LayoutScreen(),
-                                  );
-                                },
-                                child: state is LoginLoadingState
-                                    ? Center(
-                                        child: Theme(
-                                          data: ThemeData(
-                                            accentColor: Colors.green,
-                                          ),
-                                          child: CircularProgressIndicator(
-                                            backgroundColor:
-                                                Colors.orangeAccent,
-                                          ),
+                              padding: EdgeInsets.all(12),
+                              onPressed: () {
+                                loginCubit.login(
+                                  emailController.text,
+                                  passwordController.text,
+                                  context: context,
+                                  screen: LayoutScreen(),
+                                );
+                              },
+                              child: state is LoginLoadingState
+                                  ? Center(
+                                      child: Theme(
+                                        data: ThemeData(
+                                          accentColor: Colors.green,
                                         ),
-                                      )
-                                    : Text(
-                                        'Login',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontFamily: 'Bakta',
-                                          fontWeight: FontWeight.w900,
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: Color(0xfff8d0a1),
                                         ),
-                                      )),
-                            color: Colors.orangeAccent,
+                                      ),
+                                    )
+                                  : Text(
+                                      'Login',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontFamily: 'Bakta',
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                            ),
+                            //
                           ),
                           SizedBox(
                             height: 10,

@@ -12,10 +12,10 @@ class CartScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = Appcubit.get(context);
-        return EndPoints.FilteredCartDataBase == null
+        return EndPoints.FilteredCartDataBase.isEmpty
             ? Center(
                 child: Text(
-                  'Shop and add your best food to cart now',
+                  'Shop and add your best foods to cart now',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,

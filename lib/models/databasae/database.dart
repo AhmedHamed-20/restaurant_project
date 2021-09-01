@@ -24,7 +24,7 @@ class DataBaseFun {
           storedData = value;
           database = createdDataBase;
         });
-        print('database opened');
+        print('user database opened');
       },
     ).then((value) {
       database = value;
@@ -45,14 +45,14 @@ class DataBaseFun {
     });
   }
 
-  static insertIntoDataBase({
+  static Future insertIntoDataBase({
     String name,
     String photourl,
     String email,
     String userId,
   }) async {
     await database.transaction((txn) async {
-      await txn.rawInsert(
+      return await txn.rawInsert(
         'INSERT INTO user(name, photourl, email,userId) VALUES(?, ?, ?, ?)',
         [
           '$name',
@@ -64,6 +64,8 @@ class DataBaseFun {
         getdataFromDataBase(database).then((value) {
           storedData = value;
           print(storedData);
+        }).catchError((onError) {
+          print(onError);
         });
       });
     });

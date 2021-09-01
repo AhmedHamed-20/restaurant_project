@@ -47,15 +47,16 @@ class Appcubit extends Cubit<AppState> {
   //   });
   // }
   insertIntoFavorite(String photourl, String recipeName, String price,
-      String email, String slug, String userId) {
+      String email, String slug, String userId, String recipeId) {
     FavoriteDataBaseFun.insertIntoDataBase(
-      photourl: photourl,
-      price: price,
-      email: email,
-      slug: slug,
-      userId: userId,
-      recipeName: recipeName,
-    ).then((value) {
+            photourl: photourl,
+            price: price,
+            email: email,
+            slug: slug,
+            userId: userId,
+            recipeName: recipeName,
+            recipeId: recipeId)
+        .then((value) {
       emit(favoriteInsertedSucces());
     }).catchError((onError) {
       print(onError);

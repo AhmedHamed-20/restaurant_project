@@ -127,6 +127,10 @@ class UserAccount extends StatelessWidget {
                     height: 15,
                   ),
                   Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Colors.orangeAccent,
+                    ),
                     width: double.infinity,
                     child: MaterialButton(
                       padding: EdgeInsets.all(12),
@@ -140,13 +144,16 @@ class UserAccount extends StatelessWidget {
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      color: Colors.orangeAccent,
                     ),
                   ),
                   SizedBox(
                     height: 15,
                   ),
                   Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25),
+                      color: Colors.orangeAccent,
+                    ),
                     width: double.infinity,
                     child: MaterialButton(
                       padding: EdgeInsets.all(12),
@@ -168,7 +175,6 @@ class UserAccount extends StatelessWidget {
                           fontWeight: FontWeight.w900,
                         ),
                       ),
-                      color: Colors.orangeAccent,
                     ),
                   ),
                 ],

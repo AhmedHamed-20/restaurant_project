@@ -41,19 +41,28 @@ class SignUpCubit extends Cubit<SignUpState> {
             photourl: EndPoints.signUpModel.data.user.photo,
             name: EndPoints.signUpModel.data.user.name,
             userId: EndPoints.loginModel.data.user.id,
-          );
-          Fluttertoast.showToast(
-            msg: EndPoints.signUpModel.data.user.name == null
-                ? '${EndPoints.signUpModel.status}'
-                : 'Welcome ${EndPoints.signUpModel.data.user.name}',
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 5,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0,
-          );
-          Navigate(context: context, Screen: screen);
+          ).then((value) {
+            DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
+              EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
+              print(EndPoints.allRecipiesMap);
+              DioFunc.getdate(url: EndPoints.categories).then((value) {
+                EndPoints.allCategoriesMap =
+                    Map<String, dynamic>.from(value.data);
+                Fluttertoast.showToast(
+                  msg: DataBaseFun.storedData == null
+                      ? 'error'
+                      : 'Welcome ${DataBaseFun.storedData[0]['name']}',
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 5,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
+                Navigate(context: context, Screen: screen);
+              });
+            });
+          });
         }).catchError((onError) {
           print(onError);
         });

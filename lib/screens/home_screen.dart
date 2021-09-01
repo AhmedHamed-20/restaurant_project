@@ -64,11 +64,8 @@ class HomeScreen extends StatelessWidget {
                               // cubit.getbyuseridandFavorite(
                               //     DataBaseFun.storedData[0]['userId'],
                               //     CartDataBaseFun.database);
-                              // print(
-                              //   cubit.SearchIntoFavorite(
-                              //       EndPoints.allRecipiesMap['data']['data']
-                              //           [index]['name']),
-                              // );
+                              print(EndPoints.allRecipiesMap['data']['data']
+                                  [index]['_id']);
                               cubit.changeLoveIconState = false;
                               Navigate(
                                 context: context,
