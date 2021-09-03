@@ -89,7 +89,7 @@ class LayoutScreen extends StatelessWidget {
                     onTap: () {
                       Navigate(Screen: UserAccount(), context: context);
                     },
-                    child: DataBaseFun.storedData.isEmpty
+                    child: DataBaseFun.storedData == null
                         ? CircularProgressIndicator(
                             strokeWidth: 1,
                           )

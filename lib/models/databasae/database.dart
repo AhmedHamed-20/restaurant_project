@@ -45,6 +45,19 @@ class DataBaseFun {
     });
   }
 
+  static updateDataBase(String email, String name) async {
+    await database.rawUpdate('UPDATE user SET name = ? , email= ?',
+        ['$name', '$email']).then((value) {
+      print(value);
+      getdataFromDataBase(database).then((value) {
+        storedData = value;
+        print(storedData);
+      });
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   static Future insertIntoDataBase({
     String name,
     String photourl,

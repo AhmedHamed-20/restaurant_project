@@ -267,7 +267,9 @@ class Appcubit extends Cubit<AppState> {
       email: email,
       token: token,
     ).then((value) {
-      print(value);
+      DataBaseFun.updateDataBase(email, name);
+      print(name + email);
+      //  print(value);
     }).catchError(
       (onError) {
         print(onError);
