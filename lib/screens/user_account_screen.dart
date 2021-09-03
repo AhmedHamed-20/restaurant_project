@@ -65,7 +65,13 @@ class UserAccount extends StatelessWidget {
                     onChanged: (value) {},
                     onSubmitted: (val) {},
                     decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.orangeAccent,
+                          )),
                       enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide(
                           color: Colors.black,
                         ),
@@ -77,10 +83,12 @@ class UserAccount extends StatelessWidget {
                         color: Colors.black,
                       ),
                       border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(
-                        color: Colors.black,
-                      )),
+                            color: Colors.black,
+                          )),
                       disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide(
                           color: Colors.black,
                         ),
@@ -100,7 +108,13 @@ class UserAccount extends StatelessWidget {
                     onChanged: (value) {},
                     onSubmitted: (val) {},
                     decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.orangeAccent,
+                          )),
                       enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide(
                           color: Colors.black,
                         ),
@@ -112,10 +126,12 @@ class UserAccount extends StatelessWidget {
                         color: Colors.black,
                       ),
                       border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(
-                        color: Colors.black,
-                      )),
+                            color: Colors.black,
+                          )),
                       disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide(
                           color: Colors.black,
                         ),
@@ -151,7 +167,7 @@ class UserAccount extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'Bakta',
+                          fontFamily: 'Batka',
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -182,7 +198,7 @@ class UserAccount extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
-                          fontFamily: 'Bakta',
+                          fontFamily: 'Batka',
                           fontWeight: FontWeight.w900,
                         ),
                       ),

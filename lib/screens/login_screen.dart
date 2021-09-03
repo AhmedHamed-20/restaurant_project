@@ -58,7 +58,7 @@ class LoginScreen extends StatelessWidget {
                               'Login',
                               style: TextStyle(
                                 fontSize: 34,
-                                fontFamily: 'Bakta',
+                                fontFamily: 'Batka',
                                 fontWeight: FontWeight.w900,
                               ),
                             ),
@@ -194,7 +194,7 @@ class LoginScreen extends StatelessWidget {
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
-                                        fontFamily: 'Bakta',
+                                        fontFamily: 'Batka',
                                         fontWeight: FontWeight.w900,
                                       ),
                                     ),

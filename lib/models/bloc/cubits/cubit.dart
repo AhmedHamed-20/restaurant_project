@@ -34,18 +34,6 @@ class Appcubit extends Cubit<AppState> {
     });
   }
 
-  // getbyuseridandFavorite(String id, database) async {
-  //   await CartDataBaseFun.getdataFromDataBaseByIDandFavorite(
-  //           CartDataBaseFun.database, id, 1)
-  //       .then((value) {
-  //     EndPoints.FavoriteDataBase = value;
-  //     emit(DataGetSucces());
-  //     print(EndPoints.FavoriteDataBase);
-  //   }).catchError((onError) {
-  //     emit(DataGeterror());
-  //     print(onError);
-  //   });
-  // }
   insertIntoFavorite(String photourl, String recipeName, String price,
       String email, String slug, String userId, String recipeId) {
     FavoriteDataBaseFun.insertIntoDataBase(
@@ -207,7 +195,7 @@ class Appcubit extends Cubit<AppState> {
   ];
 
 //  searchinlist(String)
-  void changBottomnav(int index) {
+  changBottomnav(int index) {
     currentindex = index;
 
     emit(ChangebottomState());

@@ -33,9 +33,19 @@ class SearchScrean extends StatelessWidget {
           body: Column(
             children: [
               search(context),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+              ),
               cubit.searchMap == null
                   ? Center(
-                      child: Text('Search Now'),
+                      child: Text(
+                        'Search Now',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontFamily: 'Batka',
+                        ),
+                      ),
                     )
                   : Expanded(
                       child: ListView.builder(

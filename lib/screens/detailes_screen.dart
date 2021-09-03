@@ -104,7 +104,7 @@ class DetailesScreen extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.grey[800],
                             fontSize: 28,
-                            fontFamily: 'Bakta',
+                            fontFamily: 'Batka',
                             fontWeight: FontWeight.w900,
                           ),
                         ),
@@ -118,7 +118,7 @@ class DetailesScreen extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.grey[800],
                             fontSize: 24,
-                            fontFamily: 'Bakta',
+                            fontFamily: 'Batka',
                             fontWeight: FontWeight.w900,
                           ),
                         ),
@@ -297,7 +297,7 @@ class DetailesScreen extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
-                                fontFamily: 'Bakta',
+                                fontFamily: 'Batka',
                                 fontWeight: FontWeight.w900,
                               ),
                             ),
@@ -336,7 +336,7 @@ class DetailesScreen extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
-                                fontFamily: 'Bakta',
+                                fontFamily: 'Batka',
                                 fontWeight: FontWeight.w900,
                               ),
                             ),

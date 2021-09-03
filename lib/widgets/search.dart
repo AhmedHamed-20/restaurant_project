@@ -18,7 +18,13 @@ Widget search(context) {
         cubit.search(controller.text);
       },
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: Colors.orangeAccent,
+            )),
         enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
             color: Colors.black,
           ),
@@ -30,10 +36,12 @@ Widget search(context) {
           color: Colors.black,
         ),
         border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
-          color: Colors.black,
-        )),
+              color: Colors.black,
+            )),
         disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide(
             color: Colors.black,
           ),

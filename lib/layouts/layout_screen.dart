@@ -39,23 +39,33 @@ class LayoutScreen extends StatelessWidget {
               currentIndex: cubit.currentindex,
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(IconlyBroken.home),
+                  icon: cubit.currentindex == 0
+                      ? Icon(IconlyBold.home)
+                      : Icon(IconlyBroken.home),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(IconlyBroken.category),
+                  icon: cubit.currentindex == 1
+                      ? Icon(IconlyBold.category)
+                      : Icon(IconlyBroken.category),
                   label: 'Categories',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(IconlyBroken.buy),
+                  icon: cubit.currentindex == 2
+                      ? Icon(IconlyBold.buy)
+                      : Icon(IconlyBroken.buy),
                   label: 'Cart',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(IconlyBroken.bag),
+                  icon: cubit.currentindex == 3
+                      ? Icon(IconlyBold.bag)
+                      : Icon(IconlyBroken.bag),
                   label: 'Orders',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(IconlyBroken.heart),
+                  icon: cubit.currentindex == 4
+                      ? Icon(IconlyBold.heart)
+                      : Icon(IconlyBroken.heart),
                   label: 'Favorites',
                 ),
               ],

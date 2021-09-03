@@ -57,7 +57,7 @@ class SignUpScreen extends StatelessWidget {
                               'Sign Up',
                               style: TextStyle(
                                 fontSize: 34,
-                                fontFamily: 'Bakta',
+                                fontFamily: 'Batka',
                                 fontWeight: FontWeight.w900,
                               ),
                             ),
@@ -292,7 +292,7 @@ class SignUpScreen extends StatelessWidget {
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
-                                        fontFamily: 'Bakta',
+                                        fontFamily: 'Batka',
                                         fontWeight: FontWeight.w900,
                                       ),
                                     ),
