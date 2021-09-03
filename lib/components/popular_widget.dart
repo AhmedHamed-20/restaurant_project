@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
+import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/detailes_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -26,6 +27,9 @@ Widget popularWidget(BuildContext context) {
                   ['slug'],
               Ingridients: EndPoints.allRecipiesMap['data']['data'][index]
                   ['ingredients'],
+              email: DataBaseFun.storedData[0]['email'],
+              userId: DataBaseFun.storedData[0]['userId'],
+              recipeId: EndPoints.allRecipiesMap['data']['data'][index]['_id'],
             ),
           );
         },

@@ -22,8 +22,21 @@ class DioFunc {
   }
 
   static Future<dynamic> patchdata(
-      String url, Map<String, dynamic> data, String token) async {
-    return response =
-        await dio.patch(url, data: data, queryParameters: {'bearer': token});
+      {String url, String name, String email, String token}) async {
+    return response = await dio
+        .patch(url,
+            data: {
+              'name': '${name}',
+              'email': '${email}',
+            },
+            options: Options(headers: {
+              'Authorization': 'Bearer ${token}',
+            }))
+        .then((value) {
+      print(value);
+    }).onError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
+    });
   }
 }

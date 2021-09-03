@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 
@@ -20,6 +21,7 @@ class UserAccount extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = Appcubit.get(context);
+        String token = CachFunc.getData('token');
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -134,7 +136,16 @@ class UserAccount extends StatelessWidget {
                     width: double.infinity,
                     child: MaterialButton(
                       padding: EdgeInsets.all(12),
-                      onPressed: () {},
+                      onPressed: () {
+                        cubit.updateUser(
+                          name: userName.text,
+                          email: emailcontroller.text,
+                          token: token,
+                        );
+                        print(userName.text);
+                        print(emailcontroller.text);
+                        print(token);
+                      },
                       child: Text(
                         'Update',
                         style: TextStyle(

@@ -11,7 +11,8 @@ Widget allFoods(
     AppState state,
     int index,
     List Ingredients,
-    String cookingTime}) {
+    String cookingTime,
+    Widget button}) {
   var cubit = Appcubit.get(context);
   return Card(
     margin: EdgeInsets.all(8),
@@ -58,6 +59,7 @@ Widget allFoods(
                       color: Colors.grey[800],
                     ),
                   ),
+                  button != null ? Center(child: button) : SizedBox(),
                 ],
               ),
             ),

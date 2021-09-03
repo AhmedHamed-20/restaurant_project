@@ -58,6 +58,28 @@ class CartDataBaseFun {
     });
   }
 
+  static Future deleteFromDataBaseNameandId(
+      String name, BuildContext context, String userId) async {
+    return await database
+        .rawDelete(
+            'DELETE  FROM cart WHERE recipeName = "$name" AND userId= "$userId"')
+        .then((value) {
+      getdataFromDataBase(database).then((value) {
+        CartAndFavorite = value;
+
+        print('success');
+      }).then((value) {
+        getdataFromDataBaseByID(database, userId).then(
+          (value) {
+            EndPoints.FilteredCartDataBase = value;
+          },
+        );
+      });
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+
   static updateDataBase(int isFavorite, String id, String recipeName) async {
     await database.rawUpdate(
         'UPDATE cart SET isFavorite = ? WHERE userId = ? AND recipeName= ?',
@@ -96,6 +118,7 @@ class CartDataBaseFun {
       ).then((value) {
         getdataFromDataBase(database).then((value) {
           CartAndFavorite = value;
+
           getdataFromDataBaseByID(database, userId).then((value) {
             EndPoints.FilteredCartDataBase = value;
           });

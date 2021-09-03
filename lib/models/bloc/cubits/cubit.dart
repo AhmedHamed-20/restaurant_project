@@ -64,8 +64,14 @@ class Appcubit extends Cubit<AppState> {
     });
   }
 
-  createOrder(Map<String, dynamic> orderContent, String address,
-      String phoneNum, String token, context) {
+  createOrder(
+      Map<String, dynamic> orderContent,
+      String address,
+      String phoneNum,
+      String token,
+      context,
+      String recipeName,
+      String userId) {
     DioFunc.postData(
       EndPoints.order,
       {
@@ -80,13 +86,17 @@ class Appcubit extends Cubit<AppState> {
     ).then(
       (value) {
         print(value);
-        emit(DataSentSuccess());
-        Fluttertoast.showToast(
-          msg: 'Ordered Success',
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-        );
-        Navigator.of(context).pop();
+
+        CartDataBaseFun.deleteFromDataBaseNameandId(recipeName, context, userId)
+            .then((value) {
+          Fluttertoast.showToast(
+            msg: 'Ordered Success',
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+          );
+          Navigator.of(context).pop();
+          emit(DataSentSuccess());
+        });
       },
     ).catchError(
       (onError) {
@@ -248,6 +258,21 @@ class Appcubit extends Cubit<AppState> {
     }).catchError((onError) {
       print(onError);
     });
+  }
+
+  updateUser({String name, String email, @required String token}) {
+    DioFunc.patchdata(
+      url: EndPoints.updateMe,
+      name: name,
+      email: email,
+      token: token,
+    ).then((value) {
+      print(value);
+    }).catchError(
+      (onError) {
+        print(onError);
+      },
+    );
   }
 
   deleteFromDataBase(int id, BuildContext context) {

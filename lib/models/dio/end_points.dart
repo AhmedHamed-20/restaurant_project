@@ -8,7 +8,7 @@ class EndPoints {
   static String allRecipies = url + '/recipes/';
   static String categories = url + '/categories/';
   static String search = url + '/recipes/search';
-  static String updateMe = url + '/updateMe';
+  static String updateMe = url + '/users/updateMe';
   static String order = url + '/orders/';
   static LoginModel loginModel;
   static SignUpModel signUpModel;

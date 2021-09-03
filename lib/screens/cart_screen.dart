@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/all_fodods.dart';
+import 'package:resturant/widgets/custome_dialog.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -11,6 +13,9 @@ class CartScreen extends StatelessWidget {
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
+        String token = CachFunc.getData('token');
+        TextEditingController addressController = TextEditingController();
+        TextEditingController PhoneNumberController = TextEditingController();
         var cubit = Appcubit.get(context);
         return EndPoints.FilteredCartDataBase.isEmpty
             ? Center(
@@ -33,6 +38,37 @@ class CartScreen extends StatelessWidget {
                         .toString(),
                     imageurl: EndPoints.FilteredCartDataBase[index]['photourl'],
                     description: EndPoints.FilteredCartDataBase[index]['slug'],
+                    button: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xff7b9c72),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: MaterialButton(
+                        elevation: 3,
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => customeDialog(
+                              addressController,
+                              PhoneNumberController,
+                              context,
+                              EndPoints.FilteredCartDataBase[index]['recipeId'],
+                              token,
+                              EndPoints.FilteredCartDataBase[index]['amount'],
+                              EndPoints.FilteredCartDataBase[index]
+                                  ['recipeName'],
+                              EndPoints.FilteredCartDataBase[index]['userId'],
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Order Now',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
                   );
                 });
       },

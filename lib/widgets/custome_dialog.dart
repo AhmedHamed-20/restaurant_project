@@ -7,7 +7,10 @@ Widget customeDialog(
     BuildContext context,
     String recipeId,
     String token,
-    int amount) {
+    int amount,
+    String recipeName,
+    String userId,
+    {bool isCart}) {
   var cubit = Appcubit.get(context);
   return Dialog(
     shape: RoundedRectangleBorder(
@@ -108,7 +111,9 @@ Widget customeDialog(
                     addressController.text,
                     PhoneNumberController.text,
                     token,
-                    context);
+                    context,
+                    recipeName,
+                    userId);
               },
               child: Text(
                 'Order Now',

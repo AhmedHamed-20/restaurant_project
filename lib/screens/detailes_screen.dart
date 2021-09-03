@@ -326,6 +326,8 @@ class DetailesScreen extends StatelessWidget {
                                   recipeId,
                                   token,
                                   cubit.numberOFricipes,
+                                  name,
+                                  userId,
                                 ),
                               );
                             },
