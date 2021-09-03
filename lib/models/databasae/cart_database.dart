@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -121,6 +122,11 @@ class CartDataBaseFun {
 
           getdataFromDataBaseByID(database, userId).then((value) {
             EndPoints.FilteredCartDataBase = value;
+            Fluttertoast.showToast(
+              msg: 'Added to cart',
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+            );
           });
           print(CartAndFavorite);
         });

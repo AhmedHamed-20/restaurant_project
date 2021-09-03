@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/detailes_screen.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -34,7 +36,7 @@ class SearchScrean extends StatelessWidget {
             children: [
               search(context),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.3,
+                height: MediaQuery.of(context).size.height * 0.2,
               ),
               cubit.searchMap == null
                   ? Center(
@@ -68,6 +70,10 @@ class SearchScrean extends StatelessWidget {
                                     index: index,
                                     Ingridients: cubit.searchMap['data']['data']
                                         [index]['ingredients'],
+                                    email: DataBaseFun.storedData[0]['email'],
+                                    userId: DataBaseFun.storedData[0]['userId'],
+                                    recipeId: EndPoints.allRecipiesMap['data']
+                                        ['data'][index]['_id'],
                                   ),
                                 );
                               },

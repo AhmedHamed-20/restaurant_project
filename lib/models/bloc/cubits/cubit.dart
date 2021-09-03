@@ -45,6 +45,11 @@ class Appcubit extends Cubit<AppState> {
             recipeName: recipeName,
             recipeId: recipeId)
         .then((value) {
+      Fluttertoast.showToast(
+          msg: 'Added to favorite',
+          textColor: Colors.white,
+          backgroundColor: Colors.green);
+      changeLoveIconState = false;
       emit(favoriteInsertedSucces());
     }).catchError((onError) {
       print(onError);
@@ -147,15 +152,16 @@ class Appcubit extends Cubit<AppState> {
   bool changeLoveIconState = false;
   bool isInside = false;
   bool SearchIntoFavorite(String recipeName) {
-    for (int i = 0; i < FavoriteDataBaseFun.FavoriteDataBase.length; i++) {
-      if (recipeName == FavoriteDataBaseFun.FavoriteDataBase[i]['recipeName']) {
-        isInside = true;
-        break;
-      } else {
-        isInside = false;
+    for (int i = 0; i <= FavoriteDataBaseFun.FavoriteDataBase.length; i++) {
+      try {
+        if (recipeName ==
+            FavoriteDataBaseFun.FavoriteDataBase[i]['recipeName']) {
+          return true;
+        }
+      } catch (onerror) {
+        print(onerror);
       }
     }
-    if (isInside) return true;
     return false;
   }
 
@@ -173,8 +179,14 @@ class Appcubit extends Cubit<AppState> {
   deleteFromFavoriteByName(String name, context) {
     FavoriteDataBaseFun.deleteFromDataBaseName(name, context).then((value) {
       print('success');
-      changeLoveIconState = false;
+      //    print(value);
+      Fluttertoast.showToast(
+        msg: 'Deleted from favorite',
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
       emit(DataDealetedSuccess());
+      changeLoveIconState = false;
     }).catchError((onError) {
       emit(DataDealetedError());
       print(onError);

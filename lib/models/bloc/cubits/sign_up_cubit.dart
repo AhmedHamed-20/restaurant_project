@@ -71,6 +71,12 @@ class SignUpCubit extends Cubit<SignUpState> {
       (error, stackTrace) {
         print(email);
         print(error);
+        Fluttertoast.showToast(
+          msg: 'error ): make sure that your data is correct',
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          gravity: ToastGravity.SNACKBAR,
+        );
         emit(SignUpErrorState());
       },
     );
