@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 
-Widget bottomSheetContent({
-  TextEditingController addressController,
-  TextEditingController PhoneNumberController,
-  BuildContext context,
-  List<Map> orders,
-  String token,
-  String userId,
-}) {
+Widget bottomSheetContent(
+    {TextEditingController addressController,
+    TextEditingController PhoneNumberController,
+    BuildContext context,
+    List<Map> orders,
+    String token,
+    String userId,
+    bool isAll}) {
   var cubit = Appcubit.get(context);
   return SingleChildScrollView(
     child: Container(
-      height: MediaQuery.of(context).size.height * 0.8,
+      height: MediaQuery.of(context).size.height * 0.7,
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(25),
+          topRight: Radius.circular(25),
+        ),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -37,7 +44,12 @@ Widget bottomSheetContent({
               onChanged: (value) {},
               onSubmitted: (val) {},
               decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(
                     color: Colors.black,
                   ),
@@ -72,7 +84,12 @@ Widget bottomSheetContent({
               onChanged: (value) {},
               onSubmitted: (val) {},
               decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.orangeAccent),
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(
                     color: Colors.black,
                   ),
@@ -106,7 +123,7 @@ Widget bottomSheetContent({
                   PhoneNumberController.text,
                   token,
                   context,
-                  true,
+                  isAll,
                   userId: userId,
                 );
               },

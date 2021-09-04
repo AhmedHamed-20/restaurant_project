@@ -82,8 +82,9 @@ class Appcubit extends Cubit<AppState> {
                   backgroundColor: Colors.green,
                   textColor: Colors.white,
                 );
+
                 Navigator.of(context).pop();
-                emit(DataSentSuccess());
+                emit(orderdSucces());
               })
             : CartDataBaseFun.deleteFromDataBaseNameandId(
                     recipeName, context, userId)
@@ -93,8 +94,9 @@ class Appcubit extends Cubit<AppState> {
                   backgroundColor: Colors.green,
                   textColor: Colors.white,
                 );
-                emit(orderdSucces());
+
                 Navigator.of(context).pop();
+                emit(orderdSucces());
               });
       },
     ).catchError(

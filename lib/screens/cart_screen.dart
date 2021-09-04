@@ -7,7 +7,6 @@ import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 import 'package:resturant/widgets/bottomSheetContent.dart';
-import 'package:resturant/widgets/custome_dialog.dart';
 
 class CartScreen extends StatelessWidget {
   @override
@@ -30,7 +29,6 @@ class CartScreen extends StatelessWidget {
                 ),
               )
             : Scaffold(
-                backgroundColor: Colors.white,
                 floatingActionButtonLocation:
                     FloatingActionButtonLocation.endFloat,
                 floatingActionButton: Container(
@@ -62,7 +60,7 @@ class CartScreen extends StatelessWidget {
                           });
                       }
                       print(orders);
-                      showModalBottomSheet(
+                      showBottomSheet(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(25),
@@ -72,6 +70,7 @@ class CartScreen extends StatelessWidget {
                           context: context,
                           builder: (_) {
                             return bottomSheetContent(
+                              isAll: true,
                               addressController: addressController,
                               PhoneNumberController: PhoneNumberController,
                               token: token,
@@ -83,6 +82,7 @@ class CartScreen extends StatelessWidget {
                     },
                   ),
                 ),
+                backgroundColor: Colors.white,
                 body: ListView.builder(
                     reverse: true,
                     shrinkWrap: true,
@@ -107,23 +107,29 @@ class CartScreen extends StatelessWidget {
                           child: MaterialButton(
                             elevation: 3,
                             onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (_) => customeDialog(
-                                  addressController,
-                                  PhoneNumberController,
-                                  context,
-                                  EndPoints.FilteredCartDataBase[index]
-                                      ['recipeId'],
-                                  token,
-                                  EndPoints.FilteredCartDataBase[index]
-                                      ['amount'],
-                                  EndPoints.FilteredCartDataBase[index]
-                                      ['recipeName'],
-                                  EndPoints.FilteredCartDataBase[index]
-                                      ['userId'],
-                                ),
-                              );
+                              showBottomSheet(
+                                  context: context,
+                                  builder: (_) {
+                                    return bottomSheetContent(
+                                      isAll: false,
+                                      context: context,
+                                      userId: DataBaseFun.storedData[0]
+                                          ['userId'],
+                                      token: token,
+                                      addressController: addressController,
+                                      PhoneNumberController:
+                                          PhoneNumberController,
+                                      orders: [
+                                        {
+                                          'recipeId':
+                                              '${EndPoints.FilteredCartDataBase[index]['recipeId']}',
+                                          'amount': EndPoints
+                                                  .FilteredCartDataBase[index]
+                                              ['amount'],
+                                        },
+                                      ],
+                                    );
+                                  });
                             },
                             child: Text(
                               'Order Now',

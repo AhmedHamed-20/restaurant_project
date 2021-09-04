@@ -76,13 +76,12 @@ class CartDataBaseFun {
         CartAndFavorite = value;
 
         print('success');
-      }).then((value) {
-        getdataFromDataBaseByID(database, userId).then(
-          (value) {
-            EndPoints.FilteredCartDataBase = value;
-          },
-        );
-      });
+      }).then((value) {});
+      getdataFromDataBaseByID(database, userId).then(
+        (value) {
+          EndPoints.FilteredCartDataBase = value;
+        },
+      );
     }).catchError((onError) {
       print(onError);
     });
