@@ -57,18 +57,13 @@ class Appcubit extends Cubit<AppState> {
     });
   }
 
-  createOrder(
-      Map<String, dynamic> orderContent,
-      String address,
-      String phoneNum,
-      String token,
-      context,
-      String recipeName,
-      String userId) {
+  createOrder(List<Map> orderContent, String address, String phoneNum,
+      String token, context, bool isAll,
+      {String recipeName, String userId}) {
     DioFunc.postData(
       EndPoints.order,
       {
-        'orderContent': [orderContent],
+        'orderContent': orderContent,
         'customerAddress': '$address',
         'customerPhoneNumber': '$phoneNum'
       },
@@ -80,16 +75,27 @@ class Appcubit extends Cubit<AppState> {
       (value) {
         print(value);
 
-        CartDataBaseFun.deleteFromDataBaseNameandId(recipeName, context, userId)
-            .then((value) {
-          Fluttertoast.showToast(
-            msg: 'Ordered Success',
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-          );
-          Navigator.of(context).pop();
-          emit(DataSentSuccess());
-        });
+        isAll
+            ? CartDataBaseFun.deleteFromDataBase(userId).then((value) {
+                Fluttertoast.showToast(
+                  msg: 'Ordered Success',
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                );
+                Navigator.of(context).pop();
+                emit(DataSentSuccess());
+              })
+            : CartDataBaseFun.deleteFromDataBaseNameandId(
+                    recipeName, context, userId)
+                .then((value) {
+                Fluttertoast.showToast(
+                  msg: 'Ordered Success',
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                );
+                emit(orderdSucces());
+                Navigator.of(context).pop();
+              });
       },
     ).catchError(
       (onError) {
@@ -235,14 +241,14 @@ class Appcubit extends Cubit<AppState> {
     emit(DataBaseCreated());
   }
 
-  int numberOFricipes = 0;
+  int numberOFricipes = 1;
   incrementNum() {
     numberOFricipes++;
     emit(NumState());
   }
 
   decrementNum() {
-    if (numberOFricipes > 0) {
+    if (numberOFricipes > 1) {
       numberOFricipes--;
       emit(NumState());
     }
@@ -268,6 +274,11 @@ class Appcubit extends Cubit<AppState> {
       token: token,
     ).then((value) {
       DataBaseFun.updateDataBase(email, name);
+      Fluttertoast.showToast(
+        msg: 'Updated successfully',
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
       print(name + email);
       //  print(value);
     }).catchError(

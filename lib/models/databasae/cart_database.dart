@@ -49,11 +49,18 @@ class CartDataBaseFun {
   //       'SELECT * FROM userdata WHERE userId = "$id" AND isFavorite=$isFavorite');
   // }
 
-  static Future deleteFromDataBase(int id, BuildContext context) async {
-    return await database.rawDelete('DELETE FROM cart').then((value) {
+  static Future deleteFromDataBase(String id) async {
+    return await database
+        .rawDelete('DELETE FROM cart WHERE userId="$id"')
+        .then((value) {
       getdataFromDataBase(database).then((value) {
         CartAndFavorite = value;
       });
+      getdataFromDataBaseByID(database, id).then(
+        (value) {
+          EndPoints.FilteredCartDataBase = value;
+        },
+      );
     }).catchError((onError) {
       print(onError);
     });

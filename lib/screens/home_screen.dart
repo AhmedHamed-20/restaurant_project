@@ -26,7 +26,8 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 15, bottom: 10),
+                      padding:
+                          const EdgeInsets.only(left: 15, bottom: 10, top: 10),
                       child: Text(
                         'Popular Foods',
                         style: TextStyle(
@@ -79,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                                           ['data'][index]['price']
                                       .toString(),
                                   descripthion: EndPoints.allRecipiesMap['data']
-                                      ['data'][index]['slug'],
+                                      ['data'][index]['category'],
                                   Ingridients: EndPoints.allRecipiesMap['data']
                                       ['data'][index]['ingredients'],
                                   email: DataBaseFun.storedData[0]['email'],
@@ -101,7 +102,7 @@ class HomeScreen extends StatelessWidget {
                                       [index]['price']
                                   .toString(),
                               description: EndPoints.allRecipiesMap['data']
-                                  ['data'][index]['slug'],
+                                  ['data'][index]['category'],
                             ),
                           );
                         },

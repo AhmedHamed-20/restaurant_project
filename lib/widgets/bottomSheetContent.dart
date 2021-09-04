@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 
-Widget customeDialog(
-    TextEditingController addressController,
-    TextEditingController PhoneNumberController,
-    BuildContext context,
-    String recipeId,
-    String token,
-    int amount,
-    String recipeName,
-    String userId,
-    {bool isCart}) {
+Widget bottomSheetContent({
+  TextEditingController addressController,
+  TextEditingController PhoneNumberController,
+  BuildContext context,
+  List<Map> orders,
+  String token,
+  String userId,
+}) {
   var cubit = Appcubit.get(context);
-  return Dialog(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(25),
-    ),
-    elevation: 2,
+  return SingleChildScrollView(
     child: Container(
-      height: double.infinity,
+      height: MediaQuery.of(context).size.height * 0.8,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -106,11 +100,15 @@ Widget customeDialog(
             height: 50,
             child: MaterialButton(
               onPressed: () {
-                cubit.createOrder([
-                  {'recipeId': '$recipeId', 'amount': amount}
-                ], addressController.text, PhoneNumberController.text, token,
-                    context, false,
-                    recipeName: recipeName, userId: userId);
+                cubit.createOrder(
+                  orders,
+                  addressController.text,
+                  PhoneNumberController.text,
+                  token,
+                  context,
+                  true,
+                  userId: userId,
+                );
               },
               child: Text(
                 'Order Now',

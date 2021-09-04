@@ -71,6 +71,7 @@ class LayoutScreen extends StatelessWidget {
               ],
             ),
             appBar: AppBar(
+              leading: Container(),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               title: Text(

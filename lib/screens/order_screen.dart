@@ -31,6 +31,8 @@ class OrderScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ListView.builder(
+                            reverse: true,
+                            shrinkWrap: true,
                             itemCount: cubit.OrdersMap['data'].length,
                             itemBuilder: (context, index) {
                               return Card(

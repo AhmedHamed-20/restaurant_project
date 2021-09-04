@@ -41,3 +41,7 @@ class ChangeIconState extends AppState {}
 class DataDealetedSuccess extends AppState {}
 
 class DataDealetedError extends AppState {}
+
+class orderdSucces extends AppState {}
+
+class orderderror extends AppState {}

@@ -24,7 +24,7 @@ Widget popularWidget(BuildContext context) {
               price: EndPoints.allRecipiesMap['data']['data'][index]['price']
                   .toString(),
               descripthion: EndPoints.allRecipiesMap['data']['data'][index]
-                  ['slug'],
+                  ['category'],
               Ingridients: EndPoints.allRecipiesMap['data']['data'][index]
                   ['ingredients'],
               email: DataBaseFun.storedData[0]['email'],

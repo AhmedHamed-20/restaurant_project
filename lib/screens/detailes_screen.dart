@@ -200,6 +200,7 @@ class DetailesScreen extends StatelessWidget {
                                         }),
                                     Text(
                                       cubit.numberOFricipes.toString(),
+                                      style: TextStyle(fontFamily: 'Batka'),
                                     ),
                                     IconButton(
                                       icon: Icon(Icons.add),

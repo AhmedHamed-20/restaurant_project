@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
+import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/all_fodods.dart';
+import 'package:resturant/widgets/bottomSheetContent.dart';
 import 'package:resturant/widgets/custome_dialog.dart';
 
 class CartScreen extends StatelessWidget {
@@ -27,50 +29,113 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
               )
-            : ListView.builder(
-                itemCount: EndPoints.FilteredCartDataBase.length,
-                itemBuilder: (context, index) {
-                  return allFoods(
-                    context: context,
-                    index: index,
-                    name: EndPoints.FilteredCartDataBase[index]['recipeName'],
-                    price: EndPoints.FilteredCartDataBase[index]['price']
-                        .toString(),
-                    imageurl: EndPoints.FilteredCartDataBase[index]['photourl'],
-                    description: EndPoints.FilteredCartDataBase[index]['slug'],
-                    button: Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xff7b9c72),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: MaterialButton(
-                        elevation: 3,
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => customeDialog(
-                              addressController,
-                              PhoneNumberController,
-                              context,
-                              EndPoints.FilteredCartDataBase[index]['recipeId'],
-                              token,
-                              EndPoints.FilteredCartDataBase[index]['amount'],
-                              EndPoints.FilteredCartDataBase[index]
-                                  ['recipeName'],
-                              EndPoints.FilteredCartDataBase[index]['userId'],
-                            ),
-                          );
-                        },
-                        child: Text(
-                          'Order Now',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
+            : Scaffold(
+                backgroundColor: Colors.white,
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.endFloat,
+                floatingActionButton: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.orangeAccent,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: MaterialButton(
+                    elevation: 5,
+                    child: Text(
+                      'Add All',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Batka',
                       ),
                     ),
-                  );
-                });
+                    onPressed: () {
+                      List<Map> orders = [];
+                      for (int i = 0;
+                          i < EndPoints.FilteredCartDataBase.length;
+                          i++) {
+                        if (DataBaseFun.storedData[0]['userId'] ==
+                            EndPoints.FilteredCartDataBase[i]['userId'])
+                          orders.add({
+                            'recipeId':
+                                '${EndPoints.FilteredCartDataBase[i]['recipeId']}',
+                            'amount': EndPoints.FilteredCartDataBase[i]
+                                ['amount'],
+                          });
+                      }
+                      print(orders);
+                      showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(25),
+                              topLeft: Radius.circular(25),
+                            ),
+                          ),
+                          context: context,
+                          builder: (_) {
+                            return bottomSheetContent(
+                              addressController: addressController,
+                              PhoneNumberController: PhoneNumberController,
+                              token: token,
+                              context: context,
+                              orders: orders,
+                              userId: DataBaseFun.storedData[0]['userId'],
+                            );
+                          });
+                    },
+                  ),
+                ),
+                body: ListView.builder(
+                    reverse: true,
+                    shrinkWrap: true,
+                    itemCount: EndPoints.FilteredCartDataBase.length,
+                    itemBuilder: (context, index) {
+                      return allFoods(
+                        context: context,
+                        index: index,
+                        name: EndPoints.FilteredCartDataBase[index]
+                            ['recipeName'],
+                        price: EndPoints.FilteredCartDataBase[index]['price']
+                            .toString(),
+                        imageurl: EndPoints.FilteredCartDataBase[index]
+                            ['photourl'],
+                        description: EndPoints.FilteredCartDataBase[index]
+                            ['slug'],
+                        button: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xff7b9c72),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: MaterialButton(
+                            elevation: 3,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (_) => customeDialog(
+                                  addressController,
+                                  PhoneNumberController,
+                                  context,
+                                  EndPoints.FilteredCartDataBase[index]
+                                      ['recipeId'],
+                                  token,
+                                  EndPoints.FilteredCartDataBase[index]
+                                      ['amount'],
+                                  EndPoints.FilteredCartDataBase[index]
+                                      ['recipeName'],
+                                  EndPoints.FilteredCartDataBase[index]
+                                      ['userId'],
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Order Now',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              );
       },
     );
   }
