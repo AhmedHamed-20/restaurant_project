@@ -64,6 +64,7 @@ class DetailesScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Container(
+                  height: MediaQuery.of(context).size.height * 0.3,
                   padding: EdgeInsets.only(top: 10),
                   child: Stack(
                     children: [
@@ -88,6 +89,7 @@ class DetailesScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Container(
+                  height: MediaQuery.of(context).size.height * 0.8,
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.white,
