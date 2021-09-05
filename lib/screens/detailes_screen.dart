@@ -6,6 +6,7 @@ import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/custome_dialog.dart';
 
 class DetailesScreen extends StatelessWidget {
@@ -264,12 +265,16 @@ class DetailesScreen extends StatelessWidget {
                             onPressed: () {
                               bool isInside = false;
                               for (int i = 0;
-                                  i < CartDataBaseFun.CartAndFavorite.length;
+                                  i < EndPoints.FilteredCartDataBase.length;
                                   i++) {
+                                print(name + '   hi');
+                                print(EndPoints.FilteredCartDataBase[i]
+                                    ['recipeName']);
                                 if (name ==
-                                    CartDataBaseFun.CartAndFavorite[i]
+                                    EndPoints.FilteredCartDataBase[i]
                                         ['recipeName']) {
                                   isInside = true;
+                                  break;
                                 } else {
                                   isInside = false;
                                 }

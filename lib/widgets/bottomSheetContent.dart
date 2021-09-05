@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 
-Widget bottomSheetContent(
-    {TextEditingController addressController,
-    TextEditingController PhoneNumberController,
-    BuildContext context,
-    List<Map> orders,
-    String token,
-    String userId,
-    bool isAll}) {
+Widget bottomSheetContent({
+  TextEditingController addressController,
+  TextEditingController PhoneNumberController,
+  BuildContext context,
+  List<Map> orders,
+  String token,
+  String userId,
+  bool isAll,
+  String recipeName,
+}) {
   var cubit = Appcubit.get(context);
   return SingleChildScrollView(
     child: Container(
@@ -118,13 +120,14 @@ Widget bottomSheetContent(
             child: MaterialButton(
               onPressed: () {
                 cubit.createOrder(
-                  orders,
-                  addressController.text,
-                  PhoneNumberController.text,
-                  token,
-                  context,
-                  isAll,
+                  orderContent: orders,
+                  address: addressController.text,
+                  phoneNum: PhoneNumberController.text,
+                  token: token,
+                  context: context,
+                  isAll: isAll,
                   userId: userId,
+                  recipeName: recipeName,
                 );
               },
               child: Text(

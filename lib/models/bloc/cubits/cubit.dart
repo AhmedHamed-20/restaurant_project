@@ -57,9 +57,15 @@ class Appcubit extends Cubit<AppState> {
     });
   }
 
-  createOrder(List<Map> orderContent, String address, String phoneNum,
-      String token, context, bool isAll,
-      {String recipeName, String userId}) {
+  createOrder(
+      {List<Map> orderContent,
+      String address,
+      String phoneNum,
+      String token,
+      context,
+      bool isAll,
+      String recipeName,
+      String userId}) {
     DioFunc.postData(
       EndPoints.order,
       {
@@ -82,9 +88,8 @@ class Appcubit extends Cubit<AppState> {
                   backgroundColor: Colors.green,
                   textColor: Colors.white,
                 );
-
+                emit(orderSucces());
                 Navigator.of(context).pop();
-                emit(orderdSucces());
               })
             : CartDataBaseFun.deleteFromDataBaseNameandId(
                     recipeName, context, userId)
@@ -94,9 +99,8 @@ class Appcubit extends Cubit<AppState> {
                   backgroundColor: Colors.green,
                   textColor: Colors.white,
                 );
-
+                emit(orderallSucces());
                 Navigator.of(context).pop();
-                emit(orderdSucces());
               });
       },
     ).catchError(
@@ -105,6 +109,10 @@ class Appcubit extends Cubit<AppState> {
         emit(DataSenterror());
       },
     );
+  }
+
+  chagestate() {
+    emit(orderallerror());
   }
 
   getdata() {

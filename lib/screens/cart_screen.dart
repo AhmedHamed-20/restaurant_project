@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
@@ -8,13 +10,21 @@ import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 import 'package:resturant/widgets/bottomSheetContent.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<Appcubit, AppState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        print(state);
+      },
       builder: (context, state) {
         String token = CachFunc.getData('token');
+
         TextEditingController addressController = TextEditingController();
         TextEditingController PhoneNumberController = TextEditingController();
         var cubit = Appcubit.get(context);
@@ -111,6 +121,9 @@ class CartScreen extends StatelessWidget {
                                   context: context,
                                   builder: (_) {
                                     return bottomSheetContent(
+                                      recipeName:
+                                          EndPoints.FilteredCartDataBase[index]
+                                              ['recipeName'],
                                       isAll: false,
                                       context: context,
                                       userId: DataBaseFun.storedData[0]

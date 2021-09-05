@@ -42,6 +42,10 @@ class DataDealetedSuccess extends AppState {}
 
 class DataDealetedError extends AppState {}
 
-class orderdSucces extends AppState {}
+class orderSucces extends AppState {}
 
-class orderderror extends AppState {}
+class ordererror extends AppState {}
+
+class orderallSucces extends AppState {}
+
+class orderallerror extends AppState {}

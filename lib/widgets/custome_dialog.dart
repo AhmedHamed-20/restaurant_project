@@ -106,11 +106,18 @@ Widget customeDialog(
             height: 50,
             child: MaterialButton(
               onPressed: () {
-                cubit.createOrder([
-                  {'recipeId': '$recipeId', 'amount': amount}
-                ], addressController.text, PhoneNumberController.text, token,
-                    context, false,
-                    recipeName: recipeName, userId: userId);
+                cubit.createOrder(
+                  orderContent: [
+                    {'recipeId': '$recipeId', 'amount': amount}
+                  ],
+                  address: addressController.text,
+                  phoneNum: PhoneNumberController.text,
+                  token: token,
+                  context: context,
+                  isAll: false,
+                  recipeName: recipeName,
+                  userId: userId,
+                );
               },
               child: Text(
                 'Order Now',
