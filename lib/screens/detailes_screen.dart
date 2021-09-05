@@ -44,6 +44,13 @@ class DetailesScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: Color(0xffFBE7C6),
           appBar: AppBar(
+            leading: MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                cubit.numberOFricipes = 1;
+              },
+              child: Icon(Icons.arrow_back_ios),
+            ),
             backgroundColor: Colors.white,
             elevation: 0,
             title: Text(
