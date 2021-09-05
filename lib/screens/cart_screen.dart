@@ -109,6 +109,7 @@ class _CartScreenState extends State<CartScreen> {
                                   context,
                                   DataBaseFun.storedData[0]['userId'])
                               .then((value) {
+                            cubit.chagestate();
                             Fluttertoast.showToast(
                               msg: 'Deleted Success',
                               backgroundColor: Colors.green,

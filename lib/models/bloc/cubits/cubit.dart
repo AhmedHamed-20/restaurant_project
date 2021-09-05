@@ -57,7 +57,7 @@ class Appcubit extends Cubit<AppState> {
     });
   }
 
-  createOrder(
+  Future createOrder(
       {List<Map> orderContent,
       String address,
       String phoneNum,
@@ -66,7 +66,7 @@ class Appcubit extends Cubit<AppState> {
       bool isAll,
       String recipeName,
       String userId}) {
-    DioFunc.postData(
+    return DioFunc.postData(
       EndPoints.order,
       {
         'orderContent': orderContent,

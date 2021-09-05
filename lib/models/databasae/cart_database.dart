@@ -53,16 +53,15 @@ class CartDataBaseFun {
     return await database
         .rawDelete('DELETE FROM cart WHERE userId="$id"')
         .then((value) {
-      getdataFromDataBase(database).then((value) {
-        CartAndFavorite = value;
-      });
       getdataFromDataBaseByID(database, id).then(
         (value) {
           EndPoints.FilteredCartDataBase = value;
         },
-      );
-    }).catchError((onError) {
-      print(onError);
+      ).then((value) {
+        CartAndFavorite = value;
+      }).catchError((onError) {
+        print(onError);
+      });
     });
   }
 
@@ -72,18 +71,17 @@ class CartDataBaseFun {
         .rawDelete(
             'DELETE  FROM cart WHERE recipeName = "$name" AND userId= "$userId"')
         .then((value) {
-      getdataFromDataBase(database).then((value) {
-        CartAndFavorite = value;
-
-        print('success');
-      }).then((value) {});
       getdataFromDataBaseByID(database, userId).then(
         (value) {
           EndPoints.FilteredCartDataBase = value;
         },
-      );
-    }).catchError((onError) {
-      print(onError);
+      ).then((value) {
+        CartAndFavorite = value;
+
+        print('success');
+      }).catchError((onError) {
+        print(onError);
+      });
     });
   }
 
