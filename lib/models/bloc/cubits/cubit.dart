@@ -185,6 +185,11 @@ class Appcubit extends Cubit<AppState> {
     FavoriteDataBaseFun.deleteFromDataBase(id, context).then((value) {
       print('success');
       changeLoveIconState = false;
+      Fluttertoast.showToast(
+        msg: 'Deleted Success',
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
       emit(DataDealetedSuccess());
     }).catchError((onError) {
       emit(DataDealetedError());

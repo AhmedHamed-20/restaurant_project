@@ -9,3 +9,5 @@ class SignUpErrorState extends SignUpState {}
 class SignUpLoadingState extends SignUpState {}
 
 class HidePasswordState extends SignUpState {}
+
+class GetdataError extends SignUpState {}

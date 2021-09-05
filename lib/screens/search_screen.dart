@@ -18,6 +18,12 @@ class SearchScrean extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            leading: MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Icon(Icons.arrow_back_ios),
+            ),
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(

@@ -72,6 +72,15 @@ class SignUpCubit extends Cubit<SignUpState> {
         });
       });
     }).catchError((onError) {
+      emit(GetdataError());
+      Fluttertoast.showToast(
+        toastLength: Toast.LENGTH_LONG,
+        msg:
+            'error ): make sure that your password greater than 8 digit and email have (@example.com)',
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        gravity: ToastGravity.SNACKBAR,
+      );
       print(onError);
     });
   }

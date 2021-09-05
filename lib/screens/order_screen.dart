@@ -84,6 +84,8 @@ class OrderScreen extends StatelessWidget {
                                         color: Colors.grey,
                                       ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'TotalPrice: ${cubit.OrdersMap['data'][index1]['totalPrice'].toString()}\$',
@@ -94,7 +96,8 @@ class OrderScreen extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            ' ${cubit.OrdersMap['data'][index1]['createdAt'].toString()}',
+                                            ' ${cubit.OrdersMap['data'][index1]['createdAt'].toString()}'
+                                                .substring(1, 11),
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontFamily: 'Batka',

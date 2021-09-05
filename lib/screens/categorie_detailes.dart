@@ -11,6 +11,12 @@ class CategoriesDetailes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: MaterialButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back_ios),
+        ),
         title: Text('Categories Detailes'),
         backgroundColor: Colors.transparent,
         elevation: 0,
