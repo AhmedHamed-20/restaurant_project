@@ -150,46 +150,51 @@ class DetailesScreen extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15, bottom: 10),
-                        child: Column(
-                          children: [
-                            Text(
-                              'Ingridients',
-                              style: TextStyle(
-                                color: Colors.grey[800],
-                                fontSize: 24,
-                                fontWeight: FontWeight.w900,
-                                fontFamily: 'Batka',
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        color: Colors.grey[50],
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 15,
+                            bottom: 10,
+                            top: 10,
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Ingridients',
+                                style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w900,
+                                  fontFamily: 'Batka',
+                                ),
                               ),
-                            ),
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: Ingridients.length,
-                                itemBuilder: (context, index) {
-                                  return Center(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          '${index + 1}- ',
-                                          style: TextStyle(
-                                            fontSize: 20,
+                              ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: Ingridients.length,
+                                  itemBuilder: (context, index) {
+                                    return Center(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            '${Ingridients[index].toString()}',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          '${Ingridients[index].toString()}',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                })
-                          ],
+                                        ],
+                                      ),
+                                    );
+                                  })
+                            ],
+                          ),
                         ),
                       ),
                       Center(

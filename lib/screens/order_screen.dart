@@ -40,8 +40,8 @@ class OrderScreen extends StatelessWidget {
                                 margin: EdgeInsets.all(8),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
-                                color: Color(0xfff8f8f8),
-                                elevation: 1,
+                                color: Colors.grey[50],
+                                elevation: 3,
                                 child: Container(
                                   padding: EdgeInsets.all(10),
                                   // height: 100,

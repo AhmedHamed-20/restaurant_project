@@ -4,6 +4,7 @@ import 'package:resturant/layouts/layout_screen.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/screens/login_screen.dart';
+import 'package:splash_screen_view/SplashScreenView.dart';
 
 import 'models/bloc/cubits/cubit.dart';
 
@@ -12,11 +13,13 @@ void main() async {
   await CachFunc.init();
   String token = CachFunc.getData('token');
   print(token);
+
   runApp(MyApp(token));
 }
 
 class MyApp extends StatelessWidget {
   String token;
+
   MyApp(this.token);
   // This widget is the root of your application.
   @override
@@ -26,12 +29,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => Appcubit()
             ..dataBase()
-            ..getdata(),
+            ..getdata(context),
         ),
       ],
       child: BlocConsumer<Appcubit, AppState>(
         listener: (context, state) {},
         builder: (context, state) {
+          var cubit = Appcubit.get(context);
           return MaterialApp(
             theme: ThemeData(
               primaryColor: Colors.orangeAccent,
@@ -39,11 +43,26 @@ class MyApp extends StatelessWidget {
             ),
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            home: token == null
-                ? LoginScreen()
-                : LayoutScreen(
-                    token: token,
-                  ),
+            home: SplashScreenView(
+              navigateRoute: cubit.result
+                  ? token == null
+                      ? LoginScreen()
+                      : LayoutScreen(
+                          token: token,
+                        )
+                  : SizedBox(),
+              backgroundColor: Colors.orange,
+              imageSrc: 'assets/images/restaurant.png',
+              imageSize: 130,
+              duration: 4000,
+              text: 'Panda Restaurant',
+              textType: TextType.TyperAnimatedText,
+              textStyle: TextStyle(
+                fontSize: 30.0,
+                color: Colors.white,
+                fontFamily: 'Batka',
+              ),
+            ),
           );
         },
       ),

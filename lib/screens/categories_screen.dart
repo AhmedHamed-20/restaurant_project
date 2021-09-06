@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
@@ -19,7 +20,7 @@ class CategoriesScreen extends StatelessWidget {
               ? Center(
                   child: CircularProgressIndicator(),
                 )
-              : ListView.separated(
+              : GridView.builder(
                   itemCount: EndPoints.allCategoriesMap['results'],
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -39,17 +40,27 @@ class CategoriesScreen extends StatelessWidget {
                           },
                         );
                       },
-                      child: ListTile(
-                        title: Text(
-                            '${EndPoints.allCategoriesMap['data']['data'][index]['name']}'),
+                      child: Card(
+                        margin: EdgeInsets.all(8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        elevation: 3,
+                        child: Center(
+                          child: Text(
+                            '${EndPoints.allCategoriesMap['data']['data'][index]['name']}',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Batka',
+                            ),
+                          ),
+                        ),
                       ),
                     );
                   },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Divider(
-                      color: Colors.grey,
-                    );
-                  },
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 150,
+                  ),
                 );
         });
   }

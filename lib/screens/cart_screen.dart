@@ -183,6 +183,7 @@ class _CartScreenState extends State<CartScreen> {
                             description: EndPoints.FilteredCartDataBase[index]
                                 ['slug'],
                             button: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(

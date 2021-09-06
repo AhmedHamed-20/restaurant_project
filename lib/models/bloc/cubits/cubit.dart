@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
@@ -139,28 +140,40 @@ class Appcubit extends Cubit<AppState> {
     emit(decrementstate());
   }
 
-  getdata() {
-    DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
-      EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
-      print(EndPoints.allRecipiesMap);
-      DioFunc.getdate(url: EndPoints.categories).then(
-        (value) {
-          EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
-          getbyuserid(
-            DataBaseFun.storedData[0]['userId'],
-            CartDataBaseFun.database,
-          );
-          emit(DataGetSuccess());
-          print(EndPoints.allCategoriesMap);
-        },
-      ).catchError(
-        (error) {
-          emit(DataGetError());
-          print(error);
-          //     print(EndPoints.token);
-        },
-      );
-    });
+  bool result = true;
+  getdata(BuildContext context) async {
+    result == await InternetConnectionChecker().hasConnection;
+    if (result == true) {
+      print('YAY! Free cute dog pics!');
+      DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
+        EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
+        print(EndPoints.allRecipiesMap);
+        DioFunc.getdate(url: EndPoints.categories).then(
+          (value) {
+            EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
+            getbyuserid(
+              DataBaseFun.storedData[0]['userId'],
+              CartDataBaseFun.database,
+            );
+            emit(DataGetSuccess());
+            print(EndPoints.allCategoriesMap);
+          },
+        ).catchError(
+          (error) {
+            emit(DataGetError());
+            print(error);
+            //     print(EndPoints.token);
+          },
+        );
+      });
+    } else {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return Text('NoConnecthion');
+          });
+      print('No internet :( Reason:');
+    }
   }
 
   Map<String, dynamic> OrdersMap;
