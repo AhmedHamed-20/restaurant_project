@@ -77,8 +77,7 @@ class HomeScreen extends StatelessWidget {
                                   imageurl: EndPoints.allRecipiesMap['data']
                                       ['data'][index]['imageCover'],
                                   price: EndPoints.allRecipiesMap['data']
-                                          ['data'][index]['price']
-                                      .toString(),
+                                      ['data'][index]['price'],
                                   descripthion: EndPoints.allRecipiesMap['data']
                                       ['data'][index]['category'],
                                   Ingridients: EndPoints.allRecipiesMap['data']

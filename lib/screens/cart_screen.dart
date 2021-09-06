@@ -20,6 +20,8 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
+    var cubit = Appcubit.get(context);
+    cubit.ispressed = false;
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {
         print(state);
@@ -29,7 +31,9 @@ class _CartScreenState extends State<CartScreen> {
 
         TextEditingController addressController = TextEditingController();
         TextEditingController PhoneNumberController = TextEditingController();
-        var cubit = Appcubit.get(context);
+        TextEditingController RecipeName = TextEditingController();
+        TextEditingController amount = TextEditingController();
+
         return EndPoints.FilteredCartDataBase.isEmpty
             ? Center(
                 child: Text(
@@ -82,6 +86,14 @@ class _CartScreenState extends State<CartScreen> {
                           context: context,
                           builder: (_) {
                             return bottomSheetContent(
+                              isEnabled: true,
+                              isOrder: true,
+                              title: 'We need this data (:',
+                              buttonTitle: 'Order Now',
+                              textfield1Icon: Icons.add_location,
+                              textfield2Icon: Icons.phone,
+                              textfield1Title: 'Address',
+                              textfield2Title: 'Phone Number',
                               isAll: true,
                               addressController: addressController,
                               PhoneNumberController: PhoneNumberController,
@@ -121,89 +133,112 @@ class _CartScreenState extends State<CartScreen> {
                           width: MediaQuery.of(context).size.width,
                           color: Colors.orangeAccent,
                         ),
-                        child: allFoods(
-                          context: context,
-                          index: index,
-                          name: EndPoints.FilteredCartDataBase[index]
-                              ['recipeName'],
-                          price: EndPoints.FilteredCartDataBase[index]['price']
-                              .toString(),
-                          imageurl: EndPoints.FilteredCartDataBase[index]
-                              ['photourl'],
-                          description: EndPoints.FilteredCartDataBase[index]
-                              ['slug'],
-                          button: Row(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xff7b9c72),
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: MaterialButton(
-                                  elevation: 3,
-                                  onPressed: () {
-                                    showBottomSheet(
-                                        context: context,
-                                        builder: (_) {
-                                          return bottomSheetContent(
+                        child: InkWell(
+                          onTap: () {
+                            showBottomSheet(
+                                context: context,
+                                builder: (_) {
+                                  RecipeName.text =
+                                      EndPoints.FilteredCartDataBase[index]
+                                          ['recipeName'];
+                                  amount.text = EndPoints
+                                      .FilteredCartDataBase[index]['amount']
+                                      .toString();
+                                  return bottomSheetContent(
+                                      isEnabled: false,
+                                      isOrder: false,
+                                      title: 'Recipe information (:',
+                                      buttonTitle: 'Update',
+                                      textfield1Icon: Icons.text_fields,
+                                      textfield2Icon: Icons.add_road_outlined,
+                                      textfield1Title: 'Recipe Name',
+                                      isAll: false,
+                                      textfield2Title: 'Amount',
+                                      context: context,
+                                      addressController: RecipeName,
+                                      PhoneNumberController: amount,
+                                      onpress: () {
+                                        cubit.updateCardDataBase(
                                             recipeName: EndPoints
                                                     .FilteredCartDataBase[index]
                                                 ['recipeName'],
-                                            isAll: false,
-                                            context: context,
-                                            userId: DataBaseFun.storedData[0]
+                                            amount: int.parse(amount.text),
+                                            id: DataBaseFun.storedData[0]
                                                 ['userId'],
-                                            token: token,
-                                            addressController:
-                                                addressController,
-                                            PhoneNumberController:
-                                                PhoneNumberController,
-                                            orders: [
-                                              {
-                                                'recipeId':
-                                                    '${EndPoints.FilteredCartDataBase[index]['recipeId']}',
-                                                'amount': EndPoints
-                                                        .FilteredCartDataBase[
-                                                    index]['amount'],
-                                              },
-                                            ],
-                                          );
-                                        });
-                                  },
-                                  child: Text(
-                                    'Order Now',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                                            context: context);
+                                      });
+                                });
+                            print(RecipeName.text);
+                            print(amount.text);
+                          },
+                          child: allFoods(
+                            context: context,
+                            index: index,
+                            name: EndPoints.FilteredCartDataBase[index]
+                                ['recipeName'],
+                            price:
+                                '${EndPoints.FilteredCartDataBase[index]['price'] * EndPoints.FilteredCartDataBase[index]['amount']}',
+                            imageurl: EndPoints.FilteredCartDataBase[index]
+                                ['photourl'],
+                            description: EndPoints.FilteredCartDataBase[index]
+                                ['slug'],
+                            button: Row(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff7b9c72),
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: MaterialButton(
+                                    elevation: 3,
+                                    onPressed: () {
+                                      showBottomSheet(
+                                          context: context,
+                                          builder: (_) {
+                                            return bottomSheetContent(
+                                              isEnabled: true,
+                                              isOrder: true,
+                                              title: 'We need this data (:',
+                                              buttonTitle: 'Order Now',
+                                              textfield1Icon:
+                                                  Icons.add_location,
+                                              textfield2Icon: Icons.phone,
+                                              textfield1Title: 'Address',
+                                              textfield2Title: 'Phone Number',
+                                              recipeName: EndPoints
+                                                      .FilteredCartDataBase[
+                                                  index]['recipeName'],
+                                              isAll: false,
+                                              context: context,
+                                              userId: DataBaseFun.storedData[0]
+                                                  ['userId'],
+                                              token: token,
+                                              addressController:
+                                                  addressController,
+                                              PhoneNumberController:
+                                                  PhoneNumberController,
+                                              orders: [
+                                                {
+                                                  'recipeId':
+                                                      '${EndPoints.FilteredCartDataBase[index]['recipeId']}',
+                                                  'amount': EndPoints
+                                                          .FilteredCartDataBase[
+                                                      index]['amount'],
+                                                },
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    child: Text(
+                                      'Order Now',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Card(
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconButton(
-                                        icon: Icon(Icons.remove),
-                                        onPressed: () {
-                                          cubit.decrementNum();
-                                        }),
-                                    Text(
-                                      EndPoints.FilteredCartDataBase[index]
-                                              ['amount']
-                                          .toString(),
-                                      style: TextStyle(fontFamily: 'Batka'),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(Icons.add),
-                                      onPressed: () {
-                                        cubit.incrementNum();
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       );

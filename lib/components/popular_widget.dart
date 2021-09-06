@@ -21,8 +21,7 @@ Widget popularWidget(BuildContext context) {
               name: EndPoints.allRecipiesMap['data']['data'][index]['name'],
               imageurl: EndPoints.allRecipiesMap['data']['data'][index]
                   ['imageCover'],
-              price: EndPoints.allRecipiesMap['data']['data'][index]['price']
-                  .toString(),
+              price: EndPoints.allRecipiesMap['data']['data'][index]['price'],
               descripthion: EndPoints.allRecipiesMap['data']['data'][index]
                   ['category'],
               Ingridients: EndPoints.allRecipiesMap['data']['data'][index]

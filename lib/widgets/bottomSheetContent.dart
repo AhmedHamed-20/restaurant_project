@@ -10,6 +10,15 @@ Widget bottomSheetContent({
   String userId,
   bool isAll,
   String recipeName,
+  String title,
+  String textfield1Title,
+  String textfield2Title,
+  String buttonTitle,
+  IconData textfield1Icon,
+  IconData textfield2Icon,
+  bool isOrder,
+  Function onpress,
+  bool isEnabled,
 }) {
   var cubit = Appcubit.get(context);
   return SingleChildScrollView(
@@ -26,7 +35,7 @@ Widget bottomSheetContent({
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'We need this data (:',
+            title,
             style: TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -37,6 +46,7 @@ Widget bottomSheetContent({
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextField(
+              enabled: isEnabled,
               style: TextStyle(
                 color: Colors.black,
               ),
@@ -56,10 +66,10 @@ Widget bottomSheetContent({
                     color: Colors.black,
                   ),
                 ),
-                labelText: 'Address',
+                labelText: textfield1Title,
                 labelStyle: TextStyle(color: Colors.black),
                 prefixIcon: Icon(
-                  Icons.place,
+                  textfield1Icon,
                   color: Colors.black,
                 ),
                 border: OutlineInputBorder(
@@ -96,10 +106,10 @@ Widget bottomSheetContent({
                     color: Colors.black,
                   ),
                 ),
-                labelText: 'Phone Number',
+                labelText: textfield2Title,
                 labelStyle: TextStyle(color: Colors.black),
                 prefixIcon: Icon(
-                  Icons.phone,
+                  textfield2Icon,
                   color: Colors.black,
                 ),
                 border: OutlineInputBorder(
@@ -118,20 +128,22 @@ Widget bottomSheetContent({
             width: 250,
             height: 50,
             child: MaterialButton(
-              onPressed: () {
-                cubit.createOrder(
-                  orderContent: orders,
-                  address: addressController.text,
-                  phoneNum: PhoneNumberController.text,
-                  token: token,
-                  context: context,
-                  isAll: isAll,
-                  userId: userId,
-                  recipeName: recipeName,
-                );
-              },
+              onPressed: isOrder
+                  ? () {
+                      cubit.createOrder(
+                        orderContent: orders,
+                        address: addressController.text,
+                        phoneNum: PhoneNumberController.text,
+                        token: token,
+                        context: context,
+                        isAll: isAll,
+                        userId: userId,
+                        recipeName: recipeName,
+                      );
+                    }
+                  : onpress,
               child: Text(
-                'Order Now',
+                buttonTitle,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,

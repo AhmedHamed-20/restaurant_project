@@ -14,7 +14,7 @@ class CartDataBaseFun {
       onCreate: (createdDataBase, ver) async {
         await createdDataBase
             .execute(
-                'CREATE TABLE cart (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price TEXT,slug TEXT,isFavorite INTEGER,recipeId TEXT,amount INTEGER)')
+                'CREATE TABLE cart (id INTEGER PRIMARY KEY,userId TEXT ,recipeName TEXT, photourl TEXT,email TEXT,price INTEGER,slug TEXT,isFavorite INTEGER,recipeId TEXT,amount INTEGER)')
             .then(
               (value) => {
                 print('cart database created'),
@@ -85,11 +85,15 @@ class CartDataBaseFun {
     });
   }
 
-  static updateDataBase(int isFavorite, String id, String recipeName) async {
-    await database.rawUpdate(
-        'UPDATE cart SET isFavorite = ? WHERE userId = ? AND recipeName= ?',
-        [isFavorite, '${id}', '${recipeName}']).then((value) {
+  static Future updateDataBase(int amount, String id, String recipeName) async {
+    return await database.rawUpdate(
+        'UPDATE cart SET amount = ? WHERE userId = ? AND recipeName= ?',
+        [amount, '${id}', '${recipeName}']).then((value) async {
       print(value);
+      await getdataFromDataBaseByID(database, id).then((value) {
+        EndPoints.FilteredCartDataBase = value;
+        print(value);
+      });
     }).catchError((error) {
       print(error);
     });
@@ -100,7 +104,7 @@ class CartDataBaseFun {
     String recipeName,
     String photourl,
     String email,
-    String price,
+    int price,
     String slug,
     int IsFavorite,
     String recipeId,
@@ -114,7 +118,7 @@ class CartDataBaseFun {
           '$recipeName',
           '$photourl',
           '${email}',
-          '$price',
+          price,
           '$slug',
           IsFavorite,
           '$recipeId',

@@ -39,7 +39,7 @@ class CategoriesDetailes extends StatelessWidget {
                       Screen: DetailesScreen(
                         name: Data['data']['data'][index]['name'],
                         imageurl: Data['data']['data'][index]['imageCover'],
-                        price: Data['data']['data'][index]['price'].toString(),
+                        price: Data['data']['data'][index]['price'],
                         descripthion: Data['data']['data'][index]['category'],
                         Ingridients: Data['data']['data'][index]['ingredients'],
                         recipeId: Data['data']['data'][index]['_id'],

@@ -71,8 +71,7 @@ class SearchScrean extends StatelessWidget {
                                     imageurl: cubit.searchMap['data']['data']
                                         [index]['imageCover'],
                                     price: cubit.searchMap['data']['data']
-                                            [index]['price']
-                                        .toString(),
+                                        [index]['price'],
                                     index: index,
                                     Ingridients: cubit.searchMap['data']['data']
                                         [index]['ingredients'],

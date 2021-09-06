@@ -22,7 +22,7 @@ class Appcubit extends Cubit<AppState> {
   static Appcubit get(context) => BlocProvider.of(context);
 
   int currentindex = 0;
-
+  bool ispressed = false;
   getbyuserid(String id, database) async {
     await CartDataBaseFun.getdataFromDataBaseByID(database, id).then((value) {
       EndPoints.FilteredCartDataBase = value;
@@ -111,8 +111,32 @@ class Appcubit extends Cubit<AppState> {
     );
   }
 
+  updateCardDataBase(
+      {int amount, String id, String recipeName, BuildContext context}) {
+    CartDataBaseFun.updateDataBase(amount, id, recipeName).then((value) {
+      print(value);
+      Fluttertoast.showToast(
+          msg: 'Updated',
+          backgroundColor: Colors.green,
+          textColor: Colors.white);
+      emit(updatedSucess());
+      Navigator.of(context).pop();
+    }).catchError((onError) {
+      print(onError);
+      emit(updatederror());
+    });
+  }
+
   chagestate() {
     emit(orderallerror());
+  }
+
+  chagestateIncrement() {
+    emit(incrementstae());
+  }
+
+  chagestatedecrement() {
+    emit(decrementstate());
   }
 
   getdata() {
@@ -259,13 +283,33 @@ class Appcubit extends Cubit<AppState> {
   int numberOFricipes = 1;
   incrementNum() {
     numberOFricipes++;
+
     emit(NumState());
   }
 
   decrementNum() {
     if (numberOFricipes > 1) {
       numberOFricipes--;
+
       emit(NumState());
+    }
+  }
+
+  Future<int> incrementNumincart() async {
+    await numberOFricipes++;
+    ispressed = true;
+
+    emit(NumState());
+    return numberOFricipes;
+  }
+
+  Future<int> decrementNumincart() async {
+    if (numberOFricipes > 1) {
+      await numberOFricipes--;
+      ispressed = true;
+
+      emit(NumState());
+      return numberOFricipes;
     }
   }
 

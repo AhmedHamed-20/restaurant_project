@@ -13,7 +13,7 @@ class DetailesScreen extends StatelessWidget {
   final String name;
   final String descripthion;
   final String imageurl;
-  final String price;
+  final int price;
   final int index;
   final List Ingridients;
   final String email;
@@ -231,7 +231,7 @@ class DetailesScreen extends StatelessWidget {
                                       cubit.insertIntoFavorite(
                                         imageurl,
                                         name,
-                                        price,
+                                        price.toString(),
                                         email,
                                         descripthion,
                                         userId,

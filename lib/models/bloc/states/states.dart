@@ -51,3 +51,11 @@ class orderallSucces extends AppState {}
 class orderallerror extends AppState {}
 
 class updatedSucess extends AppState {}
+
+class incrementstae extends AppState {}
+
+class decrementstate extends AppState {}
+
+class updatedSucces extends AppState {}
+
+class updatederror extends AppState {}
