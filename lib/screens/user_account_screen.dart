@@ -32,6 +32,12 @@ class UserAccount extends StatelessWidget {
         return Scaffold(
           key: scaffoldState,
           appBar: AppBar(
+            leading: MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Icon(Icons.arrow_back_ios),
+            ),
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(
@@ -241,7 +247,7 @@ class UserAccount extends StatelessWidget {
                                       ),
                                       cursorColor: Colors.black,
                                       controller: emailBottomSheet,
-                                      keyboardType: TextInputType.number,
+                                      keyboardType: TextInputType.emailAddress,
                                       onChanged: (value) {},
                                       onSubmitted: (val) {},
                                       decoration: InputDecoration(

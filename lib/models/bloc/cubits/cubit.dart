@@ -230,8 +230,8 @@ class Appcubit extends Cubit<AppState> {
         backgroundColor: Colors.green,
         textColor: Colors.white,
       );
-      emit(DataDealetedSuccess());
       changeLoveIconState = false;
+      emit(DataDealetedSuccess());
     }).catchError((onError) {
       emit(DataDealetedError());
       print(onError);

@@ -237,7 +237,6 @@ class DetailesScreen extends StatelessWidget {
                                         recipeId,
                                       );
                                     }
-                                    cubit.changeLoveIcon();
                                   },
                                   icon: cubit.SearchIntoFavorite(name)
                                       ? Icon(
