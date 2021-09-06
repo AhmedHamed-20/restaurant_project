@@ -281,19 +281,23 @@ class Appcubit extends Cubit<AppState> {
     });
   }
 
-  updateUser({String name, String email, @required String token}) {
+  updateUser({String name, String email, @required String token, context}) {
     DioFunc.patchdata(
       url: EndPoints.updateMe,
       name: name,
       email: email,
       token: token,
     ).then((value) {
-      DataBaseFun.updateDataBase(email, name);
-      Fluttertoast.showToast(
-        msg: 'Updated successfully',
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-      );
+      DataBaseFun.updateDataBase(email, name).then((value) {
+        Fluttertoast.showToast(
+          msg: 'Updated successfully',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        emit(updatedSucess());
+        Navigator.of(context).pop();
+      });
+
       print(name + email);
       //  print(value);
     }).catchError(

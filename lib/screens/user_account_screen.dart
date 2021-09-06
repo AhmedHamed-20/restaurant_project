@@ -12,17 +12,21 @@ class UserAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController emailcontroller = TextEditingController();
     TextEditingController userName = TextEditingController();
+    TextEditingController emailBottomSheet = TextEditingController();
+
+    TextEditingController usernameBottomSheet = TextEditingController();
     TextEditingController password = TextEditingController();
 
-    emailcontroller.text = DataBaseFun.storedData[0]['email'];
-    userName.text = DataBaseFun.storedData[0]['name'];
-
+    final scaffoldState = GlobalKey<ScaffoldState>();
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
+        emailcontroller.text = DataBaseFun.storedData[0]['email'];
+        userName.text = DataBaseFun.storedData[0]['name'];
         var cubit = Appcubit.get(context);
         String token = CachFunc.getData('token');
         return Scaffold(
+          key: scaffoldState,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -61,6 +65,7 @@ class UserAccount extends StatelessWidget {
                     ),
                     cursorColor: Colors.black,
                     controller: userName,
+                    enabled: false,
                     keyboardType: TextInputType.text,
                     onChanged: (value) {},
                     onSubmitted: (val) {},
@@ -104,6 +109,7 @@ class UserAccount extends StatelessWidget {
                     ),
                     cursorColor: Colors.black,
                     controller: emailcontroller,
+                    enabled: false,
                     keyboardType: TextInputType.text,
                     onChanged: (value) {},
                     onSubmitted: (val) {},
@@ -153,11 +159,163 @@ class UserAccount extends StatelessWidget {
                     child: MaterialButton(
                       padding: EdgeInsets.all(12),
                       onPressed: () {
-                        cubit.updateUser(
-                          name: userName.text,
-                          email: emailcontroller.text,
-                          token: token,
+                        scaffoldState.currentState.showBottomSheet(
+                          (context) => SingleChildScrollView(
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    MediaQuery.of(context).viewInsets.bottom),
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.7,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  topRight: Radius.circular(25),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Update your profile data (:',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontFamily: 'Bakta',
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: TextField(
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      cursorColor: Colors.black,
+                                      controller: usernameBottomSheet,
+                                      keyboardType: TextInputType.text,
+                                      onChanged: (value) {},
+                                      onSubmitted: (val) {},
+                                      decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.orangeAccent),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        labelText: 'UserName',
+                                        labelStyle:
+                                            TextStyle(color: Colors.black),
+                                        prefixIcon: Icon(
+                                          IconlyBroken.profile,
+                                          color: Colors.black,
+                                        ),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                          color: Colors.black,
+                                        )),
+                                        disabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(15),
+                                    child: TextField(
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      cursorColor: Colors.black,
+                                      controller: emailBottomSheet,
+                                      keyboardType: TextInputType.number,
+                                      onChanged: (value) {},
+                                      onSubmitted: (val) {},
+                                      decoration: InputDecoration(
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.orangeAccent),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        labelText: 'Email',
+                                        labelStyle:
+                                            TextStyle(color: Colors.black),
+                                        prefixIcon: Icon(
+                                          Icons.email,
+                                          color: Colors.black,
+                                        ),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                          color: Colors.black,
+                                        )),
+                                        disabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 250,
+                                    height: 50,
+                                    child: MaterialButton(
+                                      onPressed: () {
+                                        cubit.updateUser(
+                                          name: usernameBottomSheet.text
+                                                  .trim()
+                                                  .isEmpty
+                                              ? DataBaseFun.storedData[0]
+                                                  ['name']
+                                              : usernameBottomSheet.text,
+                                          email: emailBottomSheet.text
+                                                  .trim()
+                                                  .isEmpty
+                                              ? DataBaseFun.storedData[0]
+                                                  ['email']
+                                              : emailBottomSheet.text,
+                                          token: token,
+                                          context: context,
+                                        );
+                                      },
+                                      child: Text(
+                                        'Update',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                          fontFamily: 'Bakta',
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                      ),
+                                      color: Colors.orangeAccent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
                         );
+
                         print(userName.text);
                         print(emailcontroller.text);
                         print(token);

@@ -45,8 +45,8 @@ class DataBaseFun {
     });
   }
 
-  static updateDataBase(String email, String name) async {
-    await database.rawUpdate('UPDATE user SET name = ? , email= ?',
+  static Future updateDataBase(String email, String name) async {
+    return await database.rawUpdate('UPDATE user SET name = ? , email= ?',
         ['$name', '$email']).then((value) {
       print(value);
       getdataFromDataBase(database).then((value) {

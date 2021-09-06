@@ -132,48 +132,78 @@ class _CartScreenState extends State<CartScreen> {
                               ['photourl'],
                           description: EndPoints.FilteredCartDataBase[index]
                               ['slug'],
-                          button: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xff7b9c72),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: MaterialButton(
-                              elevation: 3,
-                              onPressed: () {
-                                showBottomSheet(
-                                    context: context,
-                                    builder: (_) {
-                                      return bottomSheetContent(
-                                        recipeName: EndPoints
-                                                .FilteredCartDataBase[index]
-                                            ['recipeName'],
-                                        isAll: false,
+                          button: Row(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xff7b9c72),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: MaterialButton(
+                                  elevation: 3,
+                                  onPressed: () {
+                                    showBottomSheet(
                                         context: context,
-                                        userId: DataBaseFun.storedData[0]
-                                            ['userId'],
-                                        token: token,
-                                        addressController: addressController,
-                                        PhoneNumberController:
-                                            PhoneNumberController,
-                                        orders: [
-                                          {
-                                            'recipeId':
-                                                '${EndPoints.FilteredCartDataBase[index]['recipeId']}',
-                                            'amount': EndPoints
+                                        builder: (_) {
+                                          return bottomSheetContent(
+                                            recipeName: EndPoints
                                                     .FilteredCartDataBase[index]
-                                                ['amount'],
-                                          },
-                                        ],
-                                      );
-                                    });
-                              },
-                              child: Text(
-                                'Order Now',
-                                style: TextStyle(
-                                  color: Colors.white,
+                                                ['recipeName'],
+                                            isAll: false,
+                                            context: context,
+                                            userId: DataBaseFun.storedData[0]
+                                                ['userId'],
+                                            token: token,
+                                            addressController:
+                                                addressController,
+                                            PhoneNumberController:
+                                                PhoneNumberController,
+                                            orders: [
+                                              {
+                                                'recipeId':
+                                                    '${EndPoints.FilteredCartDataBase[index]['recipeId']}',
+                                                'amount': EndPoints
+                                                        .FilteredCartDataBase[
+                                                    index]['amount'],
+                                              },
+                                            ],
+                                          );
+                                        });
+                                  },
+                                  child: Text(
+                                    'Order Now',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              Card(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconButton(
+                                        icon: Icon(Icons.remove),
+                                        onPressed: () {
+                                          cubit.decrementNum();
+                                        }),
+                                    Text(
+                                      EndPoints.FilteredCartDataBase[index]
+                                              ['amount']
+                                          .toString(),
+                                      style: TextStyle(fontFamily: 'Batka'),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(Icons.add),
+                                      onPressed: () {
+                                        cubit.incrementNum();
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );

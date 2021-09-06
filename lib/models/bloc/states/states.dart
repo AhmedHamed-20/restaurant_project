@@ -49,3 +49,5 @@ class ordererror extends AppState {}
 class orderallSucces extends AppState {}
 
 class orderallerror extends AppState {}
+
+class updatedSucess extends AppState {}
