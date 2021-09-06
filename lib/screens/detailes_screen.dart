@@ -223,7 +223,6 @@ class DetailesScreen extends StatelessWidget {
                               ),
                               IconButton(
                                   onPressed: () {
-                                    cubit.changeLoveIcon();
                                     if (cubit.SearchIntoFavorite(name)) {
                                       cubit.deleteFromFavoriteByName(
                                           name, context);
@@ -238,6 +237,7 @@ class DetailesScreen extends StatelessWidget {
                                         recipeId,
                                       );
                                     }
+                                    cubit.changeLoveIcon();
                                   },
                                   icon: cubit.SearchIntoFavorite(name)
                                       ? Icon(

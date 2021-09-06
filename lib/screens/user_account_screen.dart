@@ -21,8 +21,12 @@ class UserAccount extends StatelessWidget {
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
-        emailcontroller.text = DataBaseFun.storedData[0]['email'];
-        userName.text = DataBaseFun.storedData[0]['name'];
+        emailcontroller.text = DataBaseFun.storedData.isEmpty
+            ? ''
+            : DataBaseFun.storedData[0]['email'];
+        userName.text = DataBaseFun.storedData.isEmpty
+            ? ''
+            : DataBaseFun.storedData[0]['name'];
         var cubit = Appcubit.get(context);
         String token = CachFunc.getData('token');
         return Scaffold(
