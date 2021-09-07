@@ -141,39 +141,35 @@ class Appcubit extends Cubit<AppState> {
   }
 
   bool result = true;
+  Future<bool> checkConnecthion() async {
+    result = await InternetConnectionChecker().hasConnection;
+    emit(HasConnecthion());
+    return result;
+  }
+
   getdata(BuildContext context) async {
-    result == await InternetConnectionChecker().hasConnection;
-    if (result == true) {
-      print('YAY! Free cute dog pics!');
-      DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
-        EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
-        print(EndPoints.allRecipiesMap);
-        DioFunc.getdate(url: EndPoints.categories).then(
-          (value) {
-            EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
-            getbyuserid(
-              DataBaseFun.storedData[0]['userId'],
-              CartDataBaseFun.database,
-            );
-            emit(DataGetSuccess());
-            print(EndPoints.allCategoriesMap);
-          },
-        ).catchError(
-          (error) {
-            emit(DataGetError());
-            print(error);
-            //     print(EndPoints.token);
-          },
-        );
-      });
-    } else {
-      showDialog(
-          context: context,
-          builder: (_) {
-            return Text('NoConnecthion');
-          });
-      print('No internet :( Reason:');
-    }
+    print('YAY! Free cute dog pics!');
+    DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
+      EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
+      print(EndPoints.allRecipiesMap);
+      DioFunc.getdate(url: EndPoints.categories).then(
+        (value) {
+          EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
+          getbyuserid(
+            DataBaseFun.storedData[0]['userId'],
+            CartDataBaseFun.database,
+          );
+          emit(DataGetSuccess());
+          print(EndPoints.allCategoriesMap);
+        },
+      ).catchError(
+        (error) {
+          emit(DataGetError());
+          print(error);
+          //     print(EndPoints.token);
+        },
+      );
+    });
   }
 
   Map<String, dynamic> OrdersMap;

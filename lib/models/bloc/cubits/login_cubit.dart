@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:resturant/models/bloc/states/login_states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/class_models/login_model.dart';
@@ -26,6 +27,12 @@ class LoginCubit extends Cubit<LoginState> {
       emit(DataGeterror());
       print(onError);
     });
+  }
+
+  bool result = true;
+  Future<bool> checkConnecthion() async {
+    result = await InternetConnectionChecker().hasConnection;
+    return result;
   }
 
   CachFunc cach;

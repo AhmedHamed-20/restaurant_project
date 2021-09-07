@@ -17,6 +17,7 @@ class LayoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cubit = Appcubit.get(context);
+    cubit.checkConnecthion();
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -88,28 +89,36 @@ class LayoutScreen extends StatelessWidget {
                     color: Colors.grey[800],
                   ),
                   onPressed: () {
-                    Navigate(
-                      context: context,
-                      Screen: SearchScrean(),
-                    );
+                    cubit.result
+                        ? Navigate(
+                            context: context,
+                            Screen: SearchScrean(),
+                          )
+                        : SizedBox();
                   },
                 ),
                 Padding(
                   padding: EdgeInsets.only(right: 7),
                   child: InkWell(
                     onTap: () {
-                      Navigate(Screen: UserAccount(), context: context);
+                      cubit.result
+                          ? Navigate(Screen: UserAccount(), context: context)
+                          : SizedBox();
                     },
-                    child: DataBaseFun.storedData == null
-                        ? CircularProgressIndicator(
-                            strokeWidth: 1,
-                          )
+                    child: cubit.result
+                        ? DataBaseFun.storedData == null
+                            ? CircularProgressIndicator(
+                                strokeWidth: 1,
+                              )
+                            : CircleAvatar(
+                                radius: 20,
+                                backgroundImage: NetworkImage(
+                                  DataBaseFun.storedData[0]['photourl'],
+                                ),
+                                //   backgroundImage: ,
+                              )
                         : CircleAvatar(
                             radius: 20,
-                            backgroundImage: NetworkImage(
-                              DataBaseFun.storedData[0]['photourl'],
-                            ),
-                            //   backgroundImage: ,
                           ),
                   ),
                 ),
@@ -119,7 +128,48 @@ class LayoutScreen extends StatelessWidget {
                 statusBarIconBrightness: Brightness.light,
               ),
             ),
-            body: cubit.screen[cubit.currentindex],
+            body: cubit.result
+                ? cubit.screen[cubit.currentindex]
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'No internet',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Batka',
+                            fontSize: 18,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.orangeAccent,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: MaterialButton(
+                            onPressed: () {
+                              cubit.checkConnecthion();
+                              cubit.result
+                                  ? cubit.getdata(context)
+                                  : SizedBox();
+                            },
+                            child: Text(
+                              'Retry',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Batka',
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
           ),
         );
       },

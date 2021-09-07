@@ -29,7 +29,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => Appcubit()
             ..dataBase()
-            ..getdata(context),
+            ..getdata(context)
+            ..checkConnecthion(),
         ),
       ],
       child: BlocConsumer<Appcubit, AppState>(
@@ -44,13 +45,11 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             home: SplashScreenView(
-              navigateRoute: cubit.result
-                  ? token == null
-                      ? LoginScreen()
-                      : LayoutScreen(
-                          token: token,
-                        )
-                  : SizedBox(),
+              navigateRoute: token == null
+                  ? LoginScreen()
+                  : LayoutScreen(
+                      token: token,
+                    ),
               backgroundColor: Colors.orange,
               imageSrc: 'assets/images/restaurant.png',
               imageSize: 130,

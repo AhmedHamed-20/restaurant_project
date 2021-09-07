@@ -20,6 +20,7 @@ class SignUpScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var signUpcubit = SignUpCubit.get(context);
+          signUpcubit.checkConnecthion();
           return Scaffold(
             backgroundColor: Colors.grey[200],
             body: SafeArea(
@@ -267,14 +268,46 @@ class SignUpScreen extends StatelessWidget {
                             child: MaterialButton(
                               padding: EdgeInsets.all(12),
                               onPressed: () {
-                                signUpcubit.SignUp(
-                                  UserName.text,
-                                  emailController.text,
-                                  passwordController.text,
-                                  passwordConfirmController.text,
-                                  context: context,
-                                  screen: LayoutScreen(),
-                                );
+                                signUpcubit.result
+                                    ? signUpcubit.SignUp(
+                                        UserName.text,
+                                        emailController.text,
+                                        passwordController.text,
+                                        passwordConfirmController.text,
+                                        context: context,
+                                        screen: LayoutScreen(),
+                                      )
+                                    : showDialog(
+                                        context: context,
+                                        builder: (_) {
+                                          return AlertDialog(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            title: Text('No internet'),
+                                            content: Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                color: Colors.orangeAccent,
+                                              ),
+                                              child: MaterialButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text(
+                                                  'OK',
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16,
+                                                    fontFamily: 'Batka',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        });
                               },
                               child: state is SignUpLoadingState
                                   ? Center(

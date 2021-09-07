@@ -59,3 +59,7 @@ class decrementstate extends AppState {}
 class updatedSucces extends AppState {}
 
 class updatederror extends AppState {}
+
+class HasConnecthion extends AppState {}
+
+class NotHaveConnecthion extends AppState {}

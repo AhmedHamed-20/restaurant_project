@@ -7,7 +7,7 @@ import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
 import 'package:resturant/models/dio/end_points.dart';
-import 'package:resturant/widgets/custome_dialog.dart';
+import 'package:resturant/widgets/bottomSheetContent.dart';
 
 class DetailesScreen extends StatelessWidget {
   final String name;
@@ -38,10 +38,12 @@ class DetailesScreen extends StatelessWidget {
     String token = CachFunc.getData('token');
     TextEditingController addressController = TextEditingController();
     TextEditingController PhoneNumberController = TextEditingController();
+    final scaffoldState = GlobalKey<ScaffoldState>();
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          key: scaffoldState,
           backgroundColor: Color(0xffFBE7C6),
           appBar: AppBar(
             leading: MaterialButton(
@@ -336,17 +338,29 @@ class DetailesScreen extends StatelessWidget {
                             ),
                             color: Color(0xff7b9c72),
                             onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (_) => customeDialog(
-                                  addressController,
-                                  PhoneNumberController,
-                                  context,
-                                  recipeId,
-                                  token,
-                                  cubit.numberOFricipes,
-                                  name,
-                                  userId,
+                              scaffoldState.currentState.showBottomSheet(
+                                (context) => bottomSheetContent(
+                                  context: context,
+                                  isAll: false,
+                                  recipeName: name,
+                                  isEnabled: true,
+                                  addressController: addressController,
+                                  PhoneNumberController: PhoneNumberController,
+                                  userId: userId,
+                                  token: token,
+                                  title: 'We need this data (:',
+                                  buttonTitle: 'Order Now',
+                                  textfield1Icon: Icons.add_location,
+                                  textfield2Icon: Icons.phone,
+                                  textfield1Title: 'Address',
+                                  textfield2Title: 'Phone Number',
+                                  isOrder: true,
+                                  orders: [
+                                    {
+                                      'recipeId': '${recipeId}',
+                                      'amount': cubit.numberOFricipes,
+                                    },
+                                  ],
                                 ),
                               );
                             },
