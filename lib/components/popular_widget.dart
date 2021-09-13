@@ -10,7 +10,7 @@ Widget popularWidget(BuildContext context) {
   var cubit = Appcubit.get(context);
   return ListView.builder(
     scrollDirection: Axis.horizontal,
-    itemCount: EndPoints.allRecipiesMap['results'],
+    itemCount: 7,
     itemBuilder: (context, index) {
       return InkWell(
         onTap: () {
@@ -18,26 +18,28 @@ Widget popularWidget(BuildContext context) {
             context: context,
             Screen: DetailesScreen(
               index: index,
-              name: EndPoints.allRecipiesMap['data']['data'][index]['name'],
-              imageurl: EndPoints.allRecipiesMap['data']['data'][index]
+              name: EndPoints.allRecipiesMap['data']['data'][index + 2]['name'],
+              imageurl: EndPoints.allRecipiesMap['data']['data'][index + 2]
                   ['imageCover'],
-              price: EndPoints.allRecipiesMap['data']['data'][index]['price'],
-              descripthion: EndPoints.allRecipiesMap['data']['data'][index]
+              price: EndPoints.allRecipiesMap['data']['data'][index + 2]
+                  ['price'],
+              descripthion: EndPoints.allRecipiesMap['data']['data'][index + 2]
                   ['category'],
-              Ingridients: EndPoints.allRecipiesMap['data']['data'][index]
+              Ingridients: EndPoints.allRecipiesMap['data']['data'][index + 2]
                   ['ingredients'],
               email: DataBaseFun.storedData[0]['email'],
               userId: DataBaseFun.storedData[0]['userId'],
-              recipeId: EndPoints.allRecipiesMap['data']['data'][index]['_id'],
+              recipeId: EndPoints.allRecipiesMap['data']['data'][index + 2]
+                  ['_id'],
             ),
           );
         },
         child: popularFoods(
-          name: EndPoints.allRecipiesMap['data']['data'][index]['name'],
+          name: EndPoints.allRecipiesMap['data']['data'][index + 2]['name'],
           context: context,
-          price: EndPoints.allRecipiesMap['data']['data'][index]['price']
+          price: EndPoints.allRecipiesMap['data']['data'][index + 2]['price']
               .toString(),
-          imageUrl: EndPoints.allRecipiesMap['data']['data'][index]
+          imageUrl: EndPoints.allRecipiesMap['data']['data'][index + 2]
               ['imageCover'],
         ),
       );

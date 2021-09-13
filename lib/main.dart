@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
               primaryColorDark: Colors.orangeAccent,
             ),
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
+            title: 'Panda Restaurant',
             home: SplashScreenView(
               navigateRoute: token == null
                   ? LoginScreen()

@@ -48,12 +48,16 @@ class CategoriesScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25),
                             ),
                             elevation: 3,
-                            child: Center(
-                              child: Text(
-                                '${EndPoints.allCategoriesMap['data']['data'][index]['name']}',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontFamily: 'Batka',
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Center(
+                                child: Text(
+                                  '${EndPoints.allCategoriesMap['data']['data'][index]['name']}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Batka',
+                                  ),
                                 ),
                               ),
                             ),

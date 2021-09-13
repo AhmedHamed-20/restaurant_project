@@ -2,7 +2,7 @@
     package="com.example.resturant">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="resturant"
+        android:label="Panda Restaurant"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
