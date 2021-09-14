@@ -71,3 +71,7 @@ class PageGetError extends AppState {}
 class PageLoading extends AppState {}
 
 class PageGetEnd extends AppState {}
+
+class CanceledSuccess extends AppState {}
+
+class CanceledError extends AppState {}

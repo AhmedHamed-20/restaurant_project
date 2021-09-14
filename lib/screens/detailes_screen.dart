@@ -337,7 +337,7 @@ class DetailesScreen extends StatelessWidget {
                               onPressed: () {
                                 scaffoldState.currentState.showBottomSheet(
                                   (context) => bottomSheetContent(
-                                    context: context,
+                                    context: scaffoldState.currentContext,
                                     isAll: false,
                                     recipeName: name,
                                     isEnabled: true,

@@ -90,8 +90,31 @@ class Appcubit extends Cubit<AppState> {
                   backgroundColor: Colors.green,
                   textColor: Colors.white,
                 );
+
                 emit(orderSucces());
                 Navigator.of(context).pop();
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      title: Text(
+                        'You can cancel your order within 5 minutes',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      content: MaterialButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Ok'),
+                      ),
+                      backgroundColor: Colors.white,
+                      elevation: 3,
+                    );
+                  },
+                );
               })
             : CartDataBaseFun.deleteFromDataBaseNameandId(
                     recipeName, context, userId)
@@ -103,6 +126,29 @@ class Appcubit extends Cubit<AppState> {
                 );
                 emit(orderallSucces());
                 Navigator.of(context).pop();
+              }).then((value) {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return AlertDialog(
+                      title: Text(
+                        'You can cancel your order within 5 minutes',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      content: MaterialButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Ok'),
+                      ),
+                      backgroundColor: Colors.white,
+                      elevation: 3,
+                    );
+                  },
+                );
               });
       },
     ).catchError(
@@ -210,8 +256,17 @@ class Appcubit extends Cubit<AppState> {
         'Content-Type': 'application/json'
       },
     ).then((value) {
+      emit(CanceledSuccess());
+      getmyOrders(token);
       print(value);
     }).catchError((onError) {
+      Fluttertoast.showToast(
+        msg:
+            'Oh man you can\'t cancel order after 5 minutes because we will not eat it ',
+        backgroundColor: Colors.orangeAccent,
+        textColor: Colors.white,
+      );
+      emit(CanceledError());
       print(onError);
     });
   }
