@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width,
                           child: ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: EndPoints.allRecipiesMap['results'],
+                            itemCount: EndPoints.recipes.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return InkWell(
@@ -74,44 +74,58 @@ class HomeScreen extends StatelessWidget {
                                     context: context,
                                     Screen: DetailesScreen(
                                       index: index,
-                                      name: EndPoints.allRecipiesMap['data']
-                                          ['data'][index]['name'],
-                                      imageurl: EndPoints.allRecipiesMap['data']
-                                          ['data'][index]['imageCover'],
-                                      price: EndPoints.allRecipiesMap['data']
-                                          ['data'][index]['price'],
-                                      descripthion:
-                                          EndPoints.allRecipiesMap['data']
-                                              ['data'][index]['category'],
-                                      Ingridients:
-                                          EndPoints.allRecipiesMap['data']
-                                              ['data'][index]['ingredients'],
+                                      name: EndPoints.recipes[index]['name'],
+                                      imageurl: EndPoints.recipes[index]
+                                          ['imageCover'],
+                                      price: EndPoints.recipes[index]['price'],
+                                      descripthion: EndPoints.recipes[index]
+                                          ['category'],
+                                      Ingridients: EndPoints.recipes[index]
+                                          ['ingredients'],
                                       email: DataBaseFun.storedData[0]['email'],
                                       userId: DataBaseFun.storedData[0]
                                           ['userId'],
-                                      recipeId: EndPoints.allRecipiesMap['data']
-                                          ['data'][index]['_id'],
+                                      recipeId: EndPoints.recipes[index]['_id'],
                                     ),
                                   );
                                 },
                                 child: allFoods(
-                                  name: EndPoints.allRecipiesMap['data']['data']
-                                      [index]['name'],
+                                  name: EndPoints.recipes[index]['name'],
                                   context: context,
                                   state: state,
                                   index: index,
-                                  imageurl: EndPoints.allRecipiesMap['data']
-                                      ['data'][index]['imageCover'],
-                                  price: EndPoints.allRecipiesMap['data']
-                                          ['data'][index]['price']
+                                  imageurl: EndPoints.recipes[index]
+                                      ['imageCover'],
+                                  price: EndPoints.recipes[index]['price']
                                       .toString(),
-                                  description: EndPoints.allRecipiesMap['data']
-                                      ['data'][index]['category'],
+                                  description: EndPoints.recipes[index]
+                                      ['category'],
                                 ),
                               );
                             },
                           ),
                         ),
+                        Center(
+                          child: state is PageLoading
+                              ? CircularProgressIndicator()
+                              : cubit.noData
+                                  ? SizedBox()
+                                  : MaterialButton(
+                                      color: Colors.orangeAccent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      onPressed: () {
+                                        cubit.pageinathion();
+                                      },
+                                      child: Text(
+                                        'Load more',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                        )
                       ],
                     ),
                   )

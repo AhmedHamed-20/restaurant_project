@@ -50,6 +50,7 @@ class SignUpCubit extends Cubit<SignUpState> {
         );
         DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
           EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
+          EndPoints.recipes = EndPoints.allRecipiesMap['data']['data'];
           print(EndPoints.allRecipiesMap);
           DioFunc.getdate(url: EndPoints.categories).then((value) {
             EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);

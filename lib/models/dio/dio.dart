@@ -15,6 +15,17 @@ class DioFunc {
     );
   }
 
+  static Future<dynamic> deleteData(
+      {String url,
+      Map<String, dynamic> query,
+      Map<String, dynamic> token}) async {
+    return response = await dio.delete(
+      url,
+      queryParameters: query,
+      options: Options(headers: token),
+    );
+  }
+
   static Future<dynamic> postData(String url, Map<String, dynamic> data,
       {Map<String, dynamic> token}) async {
     return response =

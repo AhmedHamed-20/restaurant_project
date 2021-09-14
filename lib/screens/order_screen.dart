@@ -62,13 +62,61 @@ class OrderScreen extends StatelessWidget {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  '${cubit.OrdersMap['data'][index1]['orderContent'][index]['recipeName']}',
-                                                  style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontFamily: 'Batka',
-                                                    color: Colors.grey[800],
-                                                  ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.5,
+                                                      child: Text(
+                                                        '${cubit.OrdersMap['data'][index1]['orderContent'][index]['recipeName']}',
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontFamily: 'Batka',
+                                                          color:
+                                                              Colors.grey[800],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    MaterialButton(
+                                                      onPressed: () {
+                                                        print(cubit.OrdersMap[
+                                                                        'data']
+                                                                    [index1]
+                                                                ['orderContent']
+                                                            [
+                                                            index]['recipeId']);
+                                                        print(token);
+                                                        cubit.cancelOrder(
+                                                          cubit.OrdersMap['data']
+                                                                      [index1][
+                                                                  'orderContent']
+                                                              [
+                                                              index]['recipeId'],
+                                                          token,
+                                                        );
+                                                      },
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25),
+                                                      ),
+                                                      color:
+                                                          Colors.orangeAccent,
+                                                      child: Text(
+                                                        'Cancel',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
                                                 ),
                                                 Text(
                                                   'amount: ${cubit.OrdersMap['data'][index1]['orderContent'][index]['recipeAmount'].toString()}',

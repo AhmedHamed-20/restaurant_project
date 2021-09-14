@@ -63,3 +63,11 @@ class updatederror extends AppState {}
 class HasConnecthion extends AppState {}
 
 class NotHaveConnecthion extends AppState {}
+
+class PageGetSuccess extends AppState {}
+
+class PageGetError extends AppState {}
+
+class PageLoading extends AppState {}
+
+class PageGetEnd extends AppState {}

@@ -18,29 +18,22 @@ Widget popularWidget(BuildContext context) {
             context: context,
             Screen: DetailesScreen(
               index: index,
-              name: EndPoints.allRecipiesMap['data']['data'][index + 2]['name'],
-              imageurl: EndPoints.allRecipiesMap['data']['data'][index + 2]
-                  ['imageCover'],
-              price: EndPoints.allRecipiesMap['data']['data'][index + 2]
-                  ['price'],
-              descripthion: EndPoints.allRecipiesMap['data']['data'][index + 2]
-                  ['category'],
-              Ingridients: EndPoints.allRecipiesMap['data']['data'][index + 2]
-                  ['ingredients'],
+              name: EndPoints.recipes[index]['name'],
+              imageurl: EndPoints.recipes[index]['imageCover'],
+              price: EndPoints.recipes[index]['price'],
+              descripthion: EndPoints.recipes[index]['category'],
+              Ingridients: EndPoints.recipes[index]['ingredients'],
               email: DataBaseFun.storedData[0]['email'],
               userId: DataBaseFun.storedData[0]['userId'],
-              recipeId: EndPoints.allRecipiesMap['data']['data'][index + 2]
-                  ['_id'],
+              recipeId: EndPoints.recipes[index]['_id'],
             ),
           );
         },
         child: popularFoods(
-          name: EndPoints.allRecipiesMap['data']['data'][index + 2]['name'],
+          name: EndPoints.recipes[index]['name'],
           context: context,
-          price: EndPoints.allRecipiesMap['data']['data'][index + 2]['price']
-              .toString(),
-          imageUrl: EndPoints.allRecipiesMap['data']['data'][index + 2]
-              ['imageCover'],
+          price: EndPoints.recipes[index]['price'].toString(),
+          imageUrl: EndPoints.recipes[index]['imageCover'],
         ),
       );
     },

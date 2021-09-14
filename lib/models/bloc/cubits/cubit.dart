@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -151,7 +152,8 @@ class Appcubit extends Cubit<AppState> {
     print('YAY! Free cute dog pics!');
     DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
       EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
-      print(EndPoints.allRecipiesMap);
+      EndPoints.recipes = EndPoints.allRecipiesMap['data']['data'];
+      print(EndPoints.recipes);
       DioFunc.getdate(url: EndPoints.categories).then(
         (value) {
           EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
@@ -169,6 +171,48 @@ class Appcubit extends Cubit<AppState> {
           //     print(EndPoints.token);
         },
       );
+    });
+  }
+
+  int page = 2;
+  bool noData = false;
+  pageinathion() {
+    emit(PageLoading());
+    DioFunc.getdate(url: '${EndPoints.allRecipiesPage + page.toString()}')
+        .then((value) {
+      // print(value.data['results']);
+      if (value.data['results'] == 0) {
+        page = page;
+        noData = true;
+        Fluttertoast.showToast(
+          msg: 'End of data ):',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        emit(PageGetEnd());
+      } else {
+        page++;
+        EndPoints.recipes.addAll(value.data['data']['data']);
+        print(EndPoints.recipes);
+        emit(PageGetSuccess());
+      }
+    }).onError((error, stackTrace) {
+      print(error);
+      emit(PageGetError());
+    });
+  }
+
+  cancelOrder(String recipeId, String token) {
+    DioFunc.deleteData(
+      url: '${EndPoints.order + recipeId}',
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((value) {
+      print(value);
+    }).catchError((onError) {
+      print(onError);
     });
   }
 
