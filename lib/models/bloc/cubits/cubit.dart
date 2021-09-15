@@ -140,7 +140,7 @@ class Appcubit extends Cubit<AppState> {
                       ),
                       content: MaterialButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.of(_).pop();
                         },
                         child: Text('Ok'),
                       ),

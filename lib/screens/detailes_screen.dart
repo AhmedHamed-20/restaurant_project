@@ -34,8 +34,8 @@ class DetailesScreen extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    var cubit = Appcubit.get(context);
+  Widget build(BuildContext context1) {
+    var cubit = Appcubit.get(context1);
     String token = CachFunc.getData('token');
     TextEditingController addressController = TextEditingController();
     TextEditingController PhoneNumberController = TextEditingController();
@@ -336,8 +336,8 @@ class DetailesScreen extends StatelessWidget {
                               color: Color(0xff7b9c72),
                               onPressed: () {
                                 scaffoldState.currentState.showBottomSheet(
-                                  (context) => bottomSheetContent(
-                                    context: scaffoldState.currentContext,
+                                  (context1) => bottomSheetContent(
+                                    context: context1,
                                     isAll: false,
                                     recipeName: name,
                                     isEnabled: true,
