@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:resturant/layouts/admin_layout/admin_layout_screen.dart';
+import 'package:resturant/layouts/user_layout/user_layout_screen.dart';
 import 'package:resturant/models/bloc/states/login_states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/class_models/login_model.dart';
@@ -54,57 +56,74 @@ class LoginCubit extends Cubit<LoginState> {
         //  print(loginData);
 
         CachFunc.putStringDate(key: 'token', data: EndPoints.loginModel.token)
-            .then((value) {
-          DataBaseFun.insertIntoDataBase(
+            .then((value) async {
+          await DataBaseFun.insertIntoDataBase(
             name: EndPoints.loginModel.data.user.name,
             email: EndPoints.loginModel.data.user.email,
             photourl: EndPoints.loginModel.data.user.photo,
             userId: EndPoints.loginModel.data.user.id,
           );
-          DioFunc.getdate(url: EndPoints.allRecipies).then(
-            (value) {
-              EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
-              EndPoints.recipes = EndPoints.allRecipiesMap['data']['data'];
-              print(EndPoints.allRecipiesMap);
-              DioFunc.getdate(url: EndPoints.categories).then(
-                (value) {
-                  EndPoints.allCategoriesMap =
-                      Map<String, dynamic>.from(value.data);
-                  getbyuserid(
-                    DataBaseFun.storedData[0]['userId'],
-                    CartDataBaseFun.database,
-                  );
-                  emit(HomeScreenGetSucces());
-                  print(EndPoints.allCategoriesMap);
-                  Fluttertoast.showToast(
-                    msg: 'Welcome ${loginData['data']['user']['name']}',
-                    toastLength: Toast.LENGTH_LONG,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 5,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    fontSize: 16.0,
-                  );
-                  Navigate(context: context, Screen: screen);
-                  //  print(EndPoints.token);
-                },
-              ).catchError(
-                (error) {
-                  emit(HomeScreenGetError());
-                  print(error);
-                  //     print(EndPoints.token);
-                },
+          if (EndPoints.loginModel.data.user.role == 'admin') {
+            CachFunc.putStringDate(key: 'isAdmin', data: 'admin').then((value) {
+              print(value);
+              Fluttertoast.showToast(
+                msg: 'Welcome ${loginData['data']['user']['name']}',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 5,
+                backgroundColor: Colors.green,
+                textColor: Colors.white,
+                fontSize: 16.0,
               );
+              Navigate(context: context, Screen: AdminLayout());
+            });
+          } else {
+            DioFunc.getdate(url: EndPoints.allRecipies).then(
+              (value) {
+                EndPoints.allRecipiesMap =
+                    Map<String, dynamic>.from(value.data);
+                EndPoints.recipes = EndPoints.allRecipiesMap['data']['data'];
+                print(EndPoints.allRecipiesMap);
+                DioFunc.getdate(url: EndPoints.categories).then(
+                  (value) {
+                    EndPoints.allCategoriesMap =
+                        Map<String, dynamic>.from(value.data);
+                    getbyuserid(
+                      DataBaseFun.storedData[0]['userId'],
+                      CartDataBaseFun.database,
+                    );
+                    emit(HomeScreenGetSucces());
+                    print(EndPoints.allCategoriesMap);
+                    Fluttertoast.showToast(
+                      msg: 'Welcome ${loginData['data']['user']['name']}',
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 5,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                    Navigate(context: context, Screen: LayoutScreen());
+                    //  print(EndPoints.token);
+                  },
+                ).catchError(
+                  (error) {
+                    emit(HomeScreenGetError());
+                    print(error);
+                    //     print(EndPoints.token);
+                  },
+                );
 
-              //  print(EndPoints.token);
-            },
-          ).catchError(
-            (error) {
-              print(error);
-              emit(HomeScreenGetError());
-              //     print(EndPoints.token);
-            },
-          );
+                //  print(EndPoints.token);
+              },
+            ).catchError(
+              (error) {
+                print(error);
+                emit(HomeScreenGetError());
+                //     print(EndPoints.token);
+              },
+            );
+          }
         }).catchError((onError) {
           print(onError);
         });

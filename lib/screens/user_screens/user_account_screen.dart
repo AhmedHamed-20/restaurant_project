@@ -361,14 +361,29 @@ class UserAccount extends StatelessWidget {
                           width: double.infinity,
                           child: MaterialButton(
                             padding: EdgeInsets.all(12),
-                            onPressed: () {
-                              cubit.logout('token', context).then((value) {
-                                if (cubit.IslogedOut) {
-                                  cubit.deleteFromDataBase(0, context);
-                                  EndPoints.FilteredCartDataBase = [];
-                                  cubit.OrdersMap = {};
-                                }
-                              });
+                            onPressed: () async {
+                              CachFunc.getData('isAdmin') == ''
+                                  ? cubit
+                                      .logout('token', context)
+                                      .then((value) {
+                                      if (cubit.IslogedOut) {
+                                        cubit.deleteFromDataBase(0, context);
+                                        EndPoints.FilteredCartDataBase = [];
+                                        cubit.OrdersMap = {};
+                                      }
+                                    })
+                                  : await CachFunc.deleteData('isAdmin')
+                                      .then((value) {
+                                      cubit
+                                          .logout('token', context)
+                                          .then((value) {
+                                        if (cubit.IslogedOut) {
+                                          cubit.deleteFromDataBase(0, context);
+                                          EndPoints.FilteredCartDataBase = [];
+                                          cubit.OrdersMap = {};
+                                        }
+                                      });
+                                    });
                             },
                             child: Text(
                               'LogOut',

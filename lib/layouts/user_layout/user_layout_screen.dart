@@ -5,8 +5,8 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/databasae/database.dart';
-import 'package:resturant/screens/search_screen.dart';
-import 'package:resturant/screens/user_account_screen.dart';
+import 'package:resturant/screens/user_screens/search_screen.dart';
+import 'package:resturant/screens/user_screens/user_account_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
 class LayoutScreen extends StatelessWidget {

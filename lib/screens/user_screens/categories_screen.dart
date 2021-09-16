@@ -5,7 +5,7 @@ import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
-import 'package:resturant/screens/categorie_detailes.dart';
+import 'package:resturant/screens/user_screens/categorie_detailes.dart';
 import 'package:resturant/widgets/navigate.dart';
 
 class CategoriesScreen extends StatelessWidget {

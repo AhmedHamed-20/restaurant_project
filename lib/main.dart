@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resturant/layouts/layout_screen.dart';
+import 'package:resturant/layouts/admin_layout/admin_layout_screen.dart';
+import 'package:resturant/layouts/user_layout/user_layout_screen.dart';
+import 'package:resturant/models/bloc/cubits/admin_cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
-import 'package:resturant/screens/login_screen.dart';
+import 'package:resturant/screens/user_screens/login_screen.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
 import 'models/bloc/cubits/cubit.dart';
@@ -12,15 +14,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CachFunc.init();
   String token = CachFunc.getData('token');
+  String isAdmin = CachFunc.getData('isAdmin');
   print(token);
 
-  runApp(MyApp(token));
+  runApp(MyApp(token, isAdmin));
 }
 
 class MyApp extends StatelessWidget {
   String token;
-
-  MyApp(this.token);
+  String isAdmin;
+  MyApp(this.token, this.isAdmin);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,7 @@ class MyApp extends StatelessWidget {
             ..getdata(context)
             ..checkConnecthion(),
         ),
+        BlocProvider(create: (BuildContext context) => AdminCubit()),
       ],
       child: BlocConsumer<Appcubit, AppState>(
         listener: (context, state) {},
@@ -47,9 +51,11 @@ class MyApp extends StatelessWidget {
             home: SplashScreenView(
               navigateRoute: token == null
                   ? LoginScreen()
-                  : LayoutScreen(
-                      token: token,
-                    ),
+                  : isAdmin == ''
+                      ? LayoutScreen(
+                          token: token,
+                        )
+                      : AdminLayout(),
               backgroundColor: Colors.orange,
               imageSrc: 'assets/images/restaurant.png',
               imageSize: 130,

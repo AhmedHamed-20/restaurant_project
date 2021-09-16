@@ -11,12 +11,12 @@ import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/databasae/favorite_database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
-import 'package:resturant/screens/cart_screen.dart';
-import 'package:resturant/screens/categories_screen.dart';
-import 'package:resturant/screens/favorite_screen.dart';
-import 'package:resturant/screens/home_screen.dart';
-import 'package:resturant/screens/login_screen.dart';
-import 'package:resturant/screens/order_screen.dart';
+import 'package:resturant/screens/user_screens/cart_screen.dart';
+import 'package:resturant/screens/user_screens/categories_screen.dart';
+import 'package:resturant/screens/user_screens/favorite_screen.dart';
+import 'package:resturant/screens/user_screens/home_screen.dart';
+import 'package:resturant/screens/user_screens/login_screen.dart';
+import 'package:resturant/screens/user_screens/order_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
 class Appcubit extends Cubit<AppState> {

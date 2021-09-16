@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/databasae/database.dart';
-import 'package:resturant/screens/detailes_screen.dart';
+import 'package:resturant/screens/user_screens/detailes_screen.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 import 'package:resturant/widgets/navigate.dart';
 

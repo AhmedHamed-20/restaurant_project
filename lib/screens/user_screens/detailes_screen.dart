@@ -277,9 +277,6 @@ class DetailesScreen extends StatelessWidget {
                                 for (int i = 0;
                                     i < EndPoints.FilteredCartDataBase.length;
                                     i++) {
-                                  print(name + '   hi');
-                                  print(EndPoints.FilteredCartDataBase[i]
-                                      ['recipeName']);
                                   if (name ==
                                       EndPoints.FilteredCartDataBase[i]
                                           ['recipeName']) {

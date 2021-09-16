@@ -1,31 +1,30 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:resturant/layouts/layout_screen.dart';
-import 'package:resturant/models/bloc/cubits/sign_up_cubit.dart';
-import 'package:resturant/models/bloc/states/sign_up_states.dart';
-import 'package:resturant/screens/login_screen.dart';
+import 'package:resturant/models/bloc/cubits/login_cubit.dart';
+import 'package:resturant/models/bloc/states/login_states.dart';
+import 'package:resturant/screens/user_screens/sign_up_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
-class SignUpScreen extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    TextEditingController UserName = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-    TextEditingController passwordConfirmController = TextEditingController();
     return BlocProvider(
-      create: (context) => SignUpCubit(),
-      child: BlocConsumer<SignUpCubit, SignUpState>(
+      create: (context) => LoginCubit(),
+      child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var signUpcubit = SignUpCubit.get(context);
-          signUpcubit.checkConnecthion();
+          var loginCubit = LoginCubit.get(context);
+          loginCubit.checkConnecthion();
           return Scaffold(
             backgroundColor: Colors.grey[200],
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
@@ -38,7 +37,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.7,
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -47,15 +46,16 @@ class SignUpScreen extends StatelessWidget {
                         ),
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(
-                              bottom: 20,
+                              bottom: 60,
+                              top: 10,
                             ),
                             child: Text(
-                              'Sign Up',
+                              'Login',
                               style: TextStyle(
                                 fontSize: 34,
                                 fontFamily: 'Batka',
@@ -68,57 +68,11 @@ class SignUpScreen extends StatelessWidget {
                               color: Colors.black,
                             ),
                             cursorColor: Colors.black,
-                            controller: UserName,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {},
-                            onSubmitted: (val) {},
-                            decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: Colors.orangeAccent,
-                                  )),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              labelText: 'User Name',
-                              labelStyle: TextStyle(color: Colors.black),
-                              prefixIcon: Icon(
-                                IconlyBroken.profile,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                color: Colors.black,
-                              )),
-                              disabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextField(
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                            cursorColor: Colors.black,
                             controller: emailController,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
                             onSubmitted: (val) {},
                             decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: Colors.orangeAccent,
-                                  )),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
@@ -131,10 +85,16 @@ class SignUpScreen extends StatelessWidget {
                                 Icons.email_outlined,
                                 color: Colors.black,
                               ),
-                              border: OutlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
-                                color: Colors.black,
-                              )),
+                                    color: Colors.orangeAccent,
+                                  )),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                  )),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Colors.black,
@@ -143,7 +103,7 @@ class SignUpScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
                           TextField(
                             style: TextStyle(
@@ -154,27 +114,8 @@ class SignUpScreen extends StatelessWidget {
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
                             onSubmitted: (val) {},
-                            obscureText: signUpcubit.hidePassword1,
+                            obscureText: loginCubit.hidePassword,
                             decoration: InputDecoration(
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: Colors.orangeAccent,
-                                  )),
-                              suffixIcon: MaterialButton(
-                                child: signUpcubit.hidePassword1
-                                    ? Icon(
-                                        Icons.visibility,
-                                        color: Colors.orangeAccent,
-                                      )
-                                    : Icon(
-                                        Icons.visibility_off,
-                                        color: Colors.orangeAccent,
-                                      ),
-                                onPressed: () {
-                                  signUpcubit.changehidepasswordState();
-                                },
-                              ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
@@ -182,45 +123,13 @@ class SignUpScreen extends StatelessWidget {
                                 ),
                               ),
                               labelText: 'Password',
-                              labelStyle: TextStyle(color: Colors.black),
-                              prefixIcon: Icon(
-                                IconlyBroken.lock,
-                                color: Colors.black,
-                              ),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide: BorderSide(
-                                    color: Colors.black,
-                                  )),
-                              disabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          TextField(
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),
-                            cursorColor: Colors.black,
-                            controller: passwordConfirmController,
-                            keyboardType: TextInputType.text,
-                            onChanged: (value) {},
-                            onSubmitted: (val) {},
-                            obscureText: signUpcubit.hidePassword2,
-                            decoration: InputDecoration(
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
                                     color: Colors.orangeAccent,
                                   )),
                               suffixIcon: MaterialButton(
-                                child: signUpcubit.hidePassword2
+                                child: loginCubit.hidePassword
                                     ? Icon(
                                         Icons.visibility,
                                         color: Colors.orangeAccent,
@@ -230,52 +139,43 @@ class SignUpScreen extends StatelessWidget {
                                         color: Colors.orangeAccent,
                                       ),
                                 onPressed: () {
-                                  signUpcubit.changehidepasswordState2();
+                                  loginCubit.changehidepasswordState();
                                 },
                               ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
-                              ),
-                              labelText: 'Confirm Password',
                               labelStyle: TextStyle(color: Colors.black),
                               prefixIcon: Icon(
                                 IconlyBroken.lock,
                                 color: Colors.black,
                               ),
                               border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
-                                color: Colors.black,
-                              )),
+                                    color: Colors.orangeAccent,
+                                  )),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: Colors.orangeAccent,
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
                               color: Colors.orangeAccent,
+                              borderRadius: BorderRadius.circular(25),
                             ),
                             width: double.infinity,
                             child: MaterialButton(
                               padding: EdgeInsets.all(12),
                               onPressed: () {
-                                signUpcubit.result
-                                    ? signUpcubit.SignUp(
-                                        UserName.text,
+                                loginCubit.result
+                                    ? loginCubit.login(
                                         emailController.text,
                                         passwordController.text,
-                                        passwordConfirmController.text,
                                         context: context,
-                                        screen: LayoutScreen(),
                                       )
                                     : showDialog(
                                         context: context,
@@ -309,19 +209,19 @@ class SignUpScreen extends StatelessWidget {
                                           );
                                         });
                               },
-                              child: state is SignUpLoadingState
+                              child: state is LoginLoadingState
                                   ? Center(
                                       child: Theme(
                                         data: ThemeData(
                                           accentColor: Colors.green,
                                         ),
                                         child: CircularProgressIndicator(
-                                          backgroundColor: Colors.orangeAccent,
+                                          backgroundColor: Color(0xfff8d0a1),
                                         ),
                                       ),
                                     )
                                   : Text(
-                                      'Sign Up',
+                                      'Login',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -330,6 +230,7 @@ class SignUpScreen extends StatelessWidget {
                                       ),
                                     ),
                             ),
+                            //
                           ),
                           SizedBox(
                             height: 10,
@@ -338,7 +239,7 @@ class SignUpScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'have account?',
+                                'don\'t have account?',
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.grey[800],
@@ -348,11 +249,11 @@ class SignUpScreen extends StatelessWidget {
                                 onPressed: () {
                                   Navigate(
                                     context: context,
-                                    Screen: LoginScreen(),
+                                    Screen: SignUpScreen(),
                                   );
                                 },
                                 child: Text(
-                                  'LogIn',
+                                  'SignUp',
                                   style: TextStyle(
                                     color: Colors.orangeAccent,
                                     fontSize: 16,
