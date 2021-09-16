@@ -73,4 +73,20 @@ class AdminCubit extends Cubit<AdminState> {
       print(onError);
     });
   }
+
+  updateuser(String token, String userId, String name, String email,
+      BuildContext context) {
+    DioFunc.patchdata(
+      url: '${EndPoints.users + userId}',
+      token: token,
+      name: name,
+      email: email,
+    ).then((value) {
+      print(value);
+      getAllusers(token);
+      Navigator.of(context).pop();
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
 }

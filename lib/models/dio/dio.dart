@@ -42,6 +42,7 @@ class DioFunc {
             },
             options: Options(headers: {
               'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json'
             }))
         .then((value) {
       print(value);
