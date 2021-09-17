@@ -89,4 +89,20 @@ class AdminCubit extends Cubit<AdminState> {
       print(onError);
     });
   }
+
+  List allorders;
+  getAllOrders(String token) {
+    DioFunc.getdate(
+      url: '${EndPoints.allOrders}',
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((value) {
+      allorders = value.data['data']['data'];
+      print(allorders);
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
 }

@@ -14,7 +14,7 @@ class UsersAdmin extends StatelessWidget {
     TextEditingController emailBottomSheet = TextEditingController();
     var cubit = AdminCubit.get(context);
     String token = CachFunc.getData('token');
-    // cubit.getAllusers(token);
+    cubit.getAllusers(token);
     return BlocConsumer<AdminCubit, AdminState>(
         builder: (context, state) {
           return Column(
