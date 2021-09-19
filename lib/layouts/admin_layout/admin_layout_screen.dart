@@ -47,8 +47,8 @@ class AdminLayout extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: cubit.currentindex == 1
-                      ? Icon(IconlyBold.category)
-                      : Icon(IconlyBroken.category),
+                      ? Icon(Icons.restaurant_menu)
+                      : Icon(Icons.restaurant_menu),
                   label: 'Recipes',
                 ),
                 BottomNavigationBarItem(
