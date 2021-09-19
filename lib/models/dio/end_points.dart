@@ -22,4 +22,7 @@ class EndPoints {
   static List recipes;
   static List FilteredCartDataBase;
   static List FavoriteDataBase;
+  static List allUser;
+  static List allorders;
+  static List allCategories;
 }

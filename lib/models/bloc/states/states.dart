@@ -75,3 +75,11 @@ class PageGetEnd extends AppState {}
 class CanceledSuccess extends AppState {}
 
 class CanceledError extends AppState {}
+
+class UsersGetSuccess extends AppState {}
+
+class UsersGetError extends AppState {}
+
+class CategorieCreatedSuccess extends AppState {}
+
+class CategorieCreatedError extends AppState {}

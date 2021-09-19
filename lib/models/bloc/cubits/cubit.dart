@@ -194,30 +194,70 @@ class Appcubit extends Cubit<AppState> {
     return result;
   }
 
-  getdata(BuildContext context) async {
+  getdata(BuildContext context, {token}) async {
     print('YAY! Free cute dog pics!');
-    DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
-      EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
-      EndPoints.recipes = EndPoints.allRecipiesMap['data']['data'];
-      print(EndPoints.recipes);
-      DioFunc.getdate(url: EndPoints.categories).then(
-        (value) {
-          EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
-          getbyuserid(
-            DataBaseFun.storedData[0]['userId'],
-            CartDataBaseFun.database,
-          );
-          emit(DataGetSuccess());
-          print(EndPoints.allCategoriesMap);
+    if (CachFunc.getData('isAdmin') == '') {
+      DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
+        EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
+        EndPoints.recipes = EndPoints.allRecipiesMap['data']['data'];
+        print(EndPoints.recipes);
+        DioFunc.getdate(url: EndPoints.categories).then(
+          (value) {
+            EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
+            getbyuserid(
+              DataBaseFun.storedData[0]['userId'],
+              CartDataBaseFun.database,
+            );
+            emit(DataGetSuccess());
+            print(EndPoints.allCategoriesMap);
+          },
+        ).catchError(
+          (error) {
+            emit(DataGetError());
+            print(error);
+            //     print(EndPoints.token);
+          },
+        );
+      });
+    } else {
+      print('its admin');
+      await DioFunc.getdate(
+        url: EndPoints.users,
+        token: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json'
         },
-      ).catchError(
-        (error) {
-          emit(DataGetError());
-          print(error);
-          //     print(EndPoints.token);
-        },
-      );
-    });
+      ).then((value) {
+        EndPoints.allUser = value.data['data']['data'];
+        print(EndPoints.allUser);
+        DioFunc.getdate(
+          url: '${EndPoints.allOrders}',
+          token: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json'
+          },
+        ).then((value) {
+          EndPoints.allorders = value.data['data']['data'];
+          print(EndPoints.allorders);
+          DioFunc.getdate(
+            url: EndPoints.categories,
+          ).then((value) {
+            EndPoints.allCategories = value.data['data']['data'];
+            emit(CategorieCreatedSuccess());
+            print(EndPoints.allCategories);
+          }).catchError((onError) {
+            emit(CategorieCreatedError());
+            print(onError);
+          });
+        }).catchError((onError) {
+          print(onError);
+        });
+        emit(UsersGetSuccess());
+      }).catchError((onError) {
+        print(onError);
+        emit(UsersGetError());
+      });
+    }
   }
 
   int page = 2;

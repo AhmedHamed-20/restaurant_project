@@ -51,4 +51,23 @@ class DioFunc {
       print(stackTrace);
     });
   }
+
+  static Future<dynamic> patchCategoriedata(
+      {String url, String name, String email, String token}) async {
+    return response = await dio
+        .patch(url,
+            data: {
+              'name': '${name}',
+            },
+            options: Options(headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json'
+            }))
+        .then((value) {
+      print(value);
+    }).onError((error, stackTrace) {
+      print(error);
+      print(stackTrace);
+    });
+  }
 }

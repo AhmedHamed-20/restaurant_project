@@ -41,7 +41,6 @@ class AdminCubit extends Cubit<AdminState> {
     return result;
   }
 
-  List allUser;
   getAllusers(String token) {
     DioFunc.getdate(
       url: EndPoints.users,
@@ -50,8 +49,8 @@ class AdminCubit extends Cubit<AdminState> {
         'Content-Type': 'application/json'
       },
     ).then((value) {
-      allUser = value.data['data']['data'];
-      print(allUser);
+      EndPoints.allUser = value.data['data']['data'];
+      print(EndPoints.allUser);
       emit(UsersGetSuccess());
     }).catchError((onError) {
       print(onError);
@@ -90,7 +89,6 @@ class AdminCubit extends Cubit<AdminState> {
     });
   }
 
-  List allorders;
   getAllOrders(String token) {
     DioFunc.getdate(
       url: '${EndPoints.allOrders}',
@@ -99,8 +97,71 @@ class AdminCubit extends Cubit<AdminState> {
         'Content-Type': 'application/json'
       },
     ).then((value) {
-      allorders = value.data['data']['data'];
-      print(allorders);
+      EndPoints.allorders = value.data['data']['data'];
+      print(EndPoints.allorders);
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+
+  getAllCategories() {
+    DioFunc.getdate(
+      url: EndPoints.categories,
+    ).then((value) {
+      EndPoints.allCategories = value.data['data']['data'];
+      emit(CategorieCreatedSuccess());
+      print(EndPoints.allCategories);
+    }).catchError((onError) {
+      emit(CategorieCreatedError());
+      print(onError);
+    });
+  }
+
+  createNewRecipe(String token, String categorieName, BuildContext context) {
+    DioFunc.postData(
+      EndPoints.categories,
+      {'name': categorieName},
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((value) async {
+      print(value);
+
+      Navigator.of(context).pop();
+      await getAllCategories();
+      emit(CategorieCreatedSuccess());
+    }).catchError((onError) {
+      emit(CategorieCreatedError());
+      print(onError);
+    });
+  }
+
+  deleteCategorie(String token, String CategorieId) {
+    DioFunc.deleteData(
+      url: '${EndPoints.categories + CategorieId}',
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((value) {
+      print(value);
+      getAllCategories();
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+
+  editCategorieName(
+      String name, String token, String CategorieID, BuildContext context) {
+    DioFunc.patchCategoriedata(
+      url: '${EndPoints.categories + CategorieID}',
+      token: token,
+      name: name,
+    ).then((value) {
+      print(value);
+      Navigator.of(context).pop();
+      getAllCategories();
     }).catchError((onError) {
       print(onError);
     });

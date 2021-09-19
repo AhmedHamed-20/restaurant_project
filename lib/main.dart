@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (BuildContext context) => Appcubit()
             ..dataBase()
-            ..getdata(context)
+            ..getdata(context, token: token)
             ..checkConnecthion(),
         ),
         BlocProvider(create: (BuildContext context) => AdminCubit()),
