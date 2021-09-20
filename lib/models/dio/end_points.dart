@@ -12,9 +12,11 @@ class EndPoints {
   static String updateMe = url + '/users/updateMe';
   static String order = url + '/orders/';
   static String users = url + '/users/';
+  static String allusersPage = url + '/users/?page=';
   static String allOrders = url + '/orders/all';
   static String allOrdersPage = url + '/orders/all?page=';
   static String getCategoryRecipe = url + '/recipes/?category=';
+
   static LoginModel loginModel;
   static SignUpModel signUpModel;
   static Map<String, dynamic> allRecipiesMap;

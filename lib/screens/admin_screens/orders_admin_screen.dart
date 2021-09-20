@@ -156,7 +156,7 @@ class OrdersAdmin extends StatelessWidget {
                               );
                             }),
                       ),
-                      cubit.noData
+                      (cubit.noData || EndPoints.allorders.length < 10)
                           ? SizedBox()
                           : state is PageLoading
                               ? Center(

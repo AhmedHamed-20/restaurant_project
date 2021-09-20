@@ -169,7 +169,11 @@ class AdminCubit extends Cubit<AdminState> {
   }
 
   int page = 2;
+  int pageUsrs = 2;
+
   bool noData = false;
+  bool noDataUsers = false;
+
   pageinathionOrders(String token) {
     emit(PageLoading());
     DioFunc.getdate(
@@ -196,6 +200,40 @@ class AdminCubit extends Cubit<AdminState> {
         print(EndPoints.allorders.length);
         EndPoints.allorders.addAll(value.data['data']['data']);
         print(EndPoints.allorders);
+        emit(PageGetSuccess());
+      }
+    }).onError((error, stackTrace) {
+      print(error);
+      emit(PageGetError());
+    });
+  }
+
+  pageinathionCategorie(String token) {
+    emit(PageLoading());
+    DioFunc.getdate(
+      url: '${EndPoints.allusersPage + pageUsrs.toString()}',
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((
+      value,
+    ) {
+      // print(value.data['results']);
+      if (value.data['results'] == 0) {
+        pageUsrs = pageUsrs;
+        noDataUsers = true;
+        Fluttertoast.showToast(
+          msg: 'End of data ):',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        emit(PageGetEnd());
+      } else {
+        pageUsrs++;
+        print(EndPoints.allUser.length);
+        EndPoints.allUser.addAll(value.data['data']['data']);
+        print(EndPoints.allUser);
         emit(PageGetSuccess());
       }
     }).onError((error, stackTrace) {
