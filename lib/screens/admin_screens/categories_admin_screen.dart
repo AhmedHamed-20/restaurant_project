@@ -116,7 +116,7 @@ class CategoriesAdmin extends StatelessWidget {
             ),
             backgroundColor: Colors.transparent,
             body: Column(children: [
-              EndPoints.allCategories.isEmpty
+              EndPoints.allCategories == []
                   ? Center(
                       child: CircularProgressIndicator(),
                     )

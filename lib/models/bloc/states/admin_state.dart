@@ -17,3 +17,11 @@ class CategoriesGetError extends AdminState {}
 class CategorieCreatedSuccess extends AdminState {}
 
 class CategorieCreatedError extends AdminState {}
+
+class PageLoading extends AdminState {}
+
+class PageGetEnd extends AdminState {}
+
+class PageGetSuccess extends AdminState {}
+
+class PageGetError extends AdminState {}

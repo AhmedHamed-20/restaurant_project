@@ -13,7 +13,7 @@ class EndPoints {
   static String order = url + '/orders/';
   static String users = url + '/users/';
   static String allOrders = url + '/orders/all';
-
+  static String allOrdersPage = url + '/orders/all?page=';
   static String getCategoryRecipe = url + '/recipes/?category=';
   static LoginModel loginModel;
   static SignUpModel signUpModel;

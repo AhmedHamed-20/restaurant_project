@@ -5,7 +5,6 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/admin_cubit.dart';
 import 'package:resturant/models/bloc/states/admin_state.dart';
 import 'package:resturant/models/databasae/database.dart';
-import 'package:resturant/screens/user_screens/search_screen.dart';
 import 'package:resturant/screens/user_screens/user_account_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
@@ -77,20 +76,6 @@ class AdminLayout extends StatelessWidget {
                 ),
               ),
               actions: [
-                IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.grey[800],
-                  ),
-                  onPressed: () {
-                    cubit.result
-                        ? Navigate(
-                            context: context,
-                            Screen: SearchScrean(),
-                          )
-                        : SizedBox();
-                  },
-                ),
                 Padding(
                   padding: EdgeInsets.only(right: 7),
                   child: InkWell(

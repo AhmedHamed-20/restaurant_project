@@ -20,7 +20,7 @@ class UsersAdmin extends StatelessWidget {
         builder: (context, state) {
           return Column(
             children: [
-              EndPoints.allUser.isEmpty
+              EndPoints.allUser == []
                   ? Center(child: CircularProgressIndicator())
                   : Expanded(
                       child: ListView.builder(

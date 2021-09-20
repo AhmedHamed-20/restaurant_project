@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:resturant/models/bloc/states/admin_state.dart';
 import 'package:resturant/models/dio/dio.dart';
@@ -164,6 +165,42 @@ class AdminCubit extends Cubit<AdminState> {
       getAllCategories();
     }).catchError((onError) {
       print(onError);
+    });
+  }
+
+  int page = 2;
+  bool noData = false;
+  pageinathionOrders(String token) {
+    emit(PageLoading());
+    DioFunc.getdate(
+      url: '${EndPoints.allOrdersPage + page.toString()}',
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((
+      value,
+    ) {
+      // print(value.data['results']);
+      if (value.data['results'] == 0) {
+        page = page;
+        noData = true;
+        Fluttertoast.showToast(
+          msg: 'End of data ):',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        emit(PageGetEnd());
+      } else {
+        page++;
+        print(EndPoints.allorders.length);
+        EndPoints.allorders.addAll(value.data['data']['data']);
+        print(EndPoints.allorders);
+        emit(PageGetSuccess());
+      }
+    }).onError((error, stackTrace) {
+      print(error);
+      emit(PageGetError());
     });
   }
 }
