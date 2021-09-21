@@ -198,6 +198,27 @@ class UsersAdmin extends StatelessWidget {
                                                               .trim(),
                                                       context,
                                                     );
+                                                    cubit.updateUserDataBase(
+                                                        token: token,
+                                                        name: usernameBottomSheet
+                                                                .text
+                                                                .trim()
+                                                                .isEmpty
+                                                            ? EndPoints.allUser[
+                                                                index]['name']
+                                                            : usernameBottomSheet
+                                                                .text
+                                                                .trim(),
+                                                        email: emailBottomSheet
+                                                                .text
+                                                                .trim()
+                                                                .isEmpty
+                                                            ? EndPoints.allUser[
+                                                                index]['email']
+                                                            : emailBottomSheet
+                                                                .text
+                                                                .trim(),
+                                                        context: context);
                                                   },
                                                   child: Text(
                                                     'Update',

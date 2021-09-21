@@ -196,7 +196,7 @@ class Appcubit extends Cubit<AppState> {
 
   getdata(BuildContext context, {token}) async {
     print('YAY! Free cute dog pics!');
-    if (CachFunc.getData('isAdmin') == '') {
+    if (CachFunc.getData('isAdmin') == null) {
       DioFunc.getdate(url: EndPoints.allRecipies).then((value) {
         EndPoints.allRecipiesMap = Map<String, dynamic>.from(value.data);
         EndPoints.recipes = EndPoints.allRecipiesMap['data']['data'];
@@ -229,6 +229,7 @@ class Appcubit extends Cubit<AppState> {
         },
       ).then((value) {
         EndPoints.allUser = value.data['data']['data'];
+        emit(DataGetSuccess());
         print(EndPoints.allUser);
         DioFunc.getdate(
           url: '${EndPoints.allOrders}',
@@ -503,5 +504,62 @@ class Appcubit extends Cubit<AppState> {
     DataBaseFun.deleteFromDataBase(id, context).then((value) {
       emit(DeleteDataBase());
     });
+  }
+
+  updatePassword(
+    String currentPassword,
+    String newPassword,
+    String confirmPassword,
+    String token,
+    context,
+  ) {
+    DioFunc.patchPassword(
+      url: EndPoints.updatePassword,
+      token: token,
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      confirmPassword: confirmPassword,
+    ).then((value) {
+      String newToken = value.data['token'];
+      print(newToken);
+      Fluttertoast.showToast(
+        msg: value.data['status'],
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
+
+      CachFunc.putStringDate(key: 'token', data: newToken).then((value2) {
+        print(value2);
+        Navigator.of(context).pop;
+      });
+    }).catchError((onError) {
+      print(onError);
+      Fluttertoast.showToast(
+        msg: 'error(:,make sure that all data is correct',
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+    });
+  }
+
+  bool hidepass1 = true;
+  bool hidepass2 = true;
+  bool hidepass3 = true;
+  changepasswordvisabilty() {
+    hidepass1 = !hidepass1;
+    print(hidepass1);
+    emit(HidePassword());
+  }
+
+  changepasswordvisabilty2() {
+    hidepass2 = !hidepass2;
+    print(hidepass2);
+    emit(HidePassword());
+  }
+
+  changepasswordvisabilty3() {
+    hidepass3 = !hidepass3;
+    print(hidepass3);
+    emit(HidePassword());
   }
 }

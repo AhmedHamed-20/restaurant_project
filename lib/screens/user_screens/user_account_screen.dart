@@ -7,7 +7,12 @@ import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 
-class UserAccount extends StatelessWidget {
+class UserAccount extends StatefulWidget {
+  @override
+  State<UserAccount> createState() => _UserAccountState();
+}
+
+class _UserAccountState extends State<UserAccount> {
   @override
   Widget build(BuildContext context) {
     TextEditingController emailcontroller = TextEditingController();
@@ -15,12 +20,14 @@ class UserAccount extends StatelessWidget {
     TextEditingController emailBottomSheet = TextEditingController();
 
     TextEditingController usernameBottomSheet = TextEditingController();
-    TextEditingController password = TextEditingController();
-
+    TextEditingController currentpassword = TextEditingController();
+    TextEditingController newPassword = TextEditingController();
+    TextEditingController confirmpassword = TextEditingController();
     final scaffoldState = GlobalKey<ScaffoldState>();
     return BlocConsumer<Appcubit, AppState>(
       listener: (context, state) {},
       builder: (context, state) {
+        String isAdmin = CachFunc.getData('isAdmin');
         emailcontroller.text = DataBaseFun.storedData.isEmpty
             ? ''
             : DataBaseFun.storedData[0]['email'];
@@ -162,194 +169,220 @@ class UserAccount extends StatelessWidget {
                         SizedBox(
                           height: 15,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(25),
-                            color: Colors.orangeAccent,
-                          ),
-                          width: double.infinity,
-                          child: MaterialButton(
-                            padding: EdgeInsets.all(12),
-                            onPressed: () {
-                              scaffoldState.currentState.showBottomSheet(
-                                (context) => SingleChildScrollView(
-                                  padding: EdgeInsets.only(
-                                      bottom: MediaQuery.of(context)
-                                          .viewInsets
-                                          .bottom),
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.7,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[100],
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(25),
-                                        topRight: Radius.circular(25),
+                        isAdmin == null
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(25),
+                                  color: Colors.orangeAccent,
+                                ),
+                                width: double.infinity,
+                                child: MaterialButton(
+                                  padding: EdgeInsets.all(12),
+                                  onPressed: () {
+                                    scaffoldState.currentState.showBottomSheet(
+                                      (context) => SingleChildScrollView(
+                                        padding: EdgeInsets.only(
+                                            bottom: MediaQuery.of(context)
+                                                .viewInsets
+                                                .bottom),
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.7,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[100],
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(25),
+                                              topRight: Radius.circular(25),
+                                            ),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Update your profile data (:',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                  fontFamily: 'Bakta',
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(15),
+                                                child: TextField(
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  cursorColor: Colors.black,
+                                                  controller:
+                                                      usernameBottomSheet,
+                                                  keyboardType:
+                                                      TextInputType.text,
+                                                  onChanged: (value) {},
+                                                  onSubmitted: (val) {},
+                                                  decoration: InputDecoration(
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors
+                                                              .orangeAccent),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                    ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                      borderSide: BorderSide(
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    labelText: 'UserName',
+                                                    labelStyle: TextStyle(
+                                                        color: Colors.black),
+                                                    prefixIcon: Icon(
+                                                      IconlyBroken.profile,
+                                                      color: Colors.black,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                    )),
+                                                    disabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(15),
+                                                child: TextField(
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                  ),
+                                                  cursorColor: Colors.black,
+                                                  controller: emailBottomSheet,
+                                                  keyboardType: TextInputType
+                                                      .emailAddress,
+                                                  onChanged: (value) {},
+                                                  onSubmitted: (val) {},
+                                                  decoration: InputDecoration(
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors
+                                                              .orangeAccent),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                    ),
+                                                    enabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                      borderSide: BorderSide(
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    labelText: 'Email',
+                                                    labelStyle: TextStyle(
+                                                        color: Colors.black),
+                                                    prefixIcon: Icon(
+                                                      Icons.email,
+                                                      color: Colors.black,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                      color: Colors.black,
+                                                    )),
+                                                    disabledBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 250,
+                                                height: 50,
+                                                child: MaterialButton(
+                                                  onPressed: () {
+                                                    cubit.updateUser(
+                                                      name: usernameBottomSheet
+                                                              .text
+                                                              .trim()
+                                                              .isEmpty
+                                                          ? DataBaseFun
+                                                                  .storedData[0]
+                                                              ['name']
+                                                          : usernameBottomSheet
+                                                              .text,
+                                                      email: emailBottomSheet
+                                                              .text
+                                                              .trim()
+                                                              .isEmpty
+                                                          ? DataBaseFun
+                                                                  .storedData[0]
+                                                              ['email']
+                                                          : emailBottomSheet
+                                                              .text,
+                                                      token: token,
+                                                      context: context,
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    'Update',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18,
+                                                      fontFamily: 'Bakta',
+                                                      fontWeight:
+                                                          FontWeight.w900,
+                                                    ),
+                                                  ),
+                                                  color: Colors.orangeAccent,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25),
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Update your profile data (:',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 18,
-                                            fontFamily: 'Bakta',
-                                            fontWeight: FontWeight.w900,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(15),
-                                          child: TextField(
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            cursorColor: Colors.black,
-                                            controller: usernameBottomSheet,
-                                            keyboardType: TextInputType.text,
-                                            onChanged: (value) {},
-                                            onSubmitted: (val) {},
-                                            decoration: InputDecoration(
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.orangeAccent),
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                              labelText: 'UserName',
-                                              labelStyle: TextStyle(
-                                                  color: Colors.black),
-                                              prefixIcon: Icon(
-                                                IconlyBroken.profile,
-                                                color: Colors.black,
-                                              ),
-                                              border: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                color: Colors.black,
-                                              )),
-                                              disabledBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(15),
-                                          child: TextField(
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                            cursorColor: Colors.black,
-                                            controller: emailBottomSheet,
-                                            keyboardType:
-                                                TextInputType.emailAddress,
-                                            onChanged: (value) {},
-                                            onSubmitted: (val) {},
-                                            decoration: InputDecoration(
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.orangeAccent),
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                              labelText: 'Email',
-                                              labelStyle: TextStyle(
-                                                  color: Colors.black),
-                                              prefixIcon: Icon(
-                                                Icons.email,
-                                                color: Colors.black,
-                                              ),
-                                              border: OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                color: Colors.black,
-                                              )),
-                                              disabledBorder:
-                                                  OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 250,
-                                          height: 50,
-                                          child: MaterialButton(
-                                            onPressed: () {
-                                              cubit.updateUser(
-                                                name: usernameBottomSheet.text
-                                                        .trim()
-                                                        .isEmpty
-                                                    ? DataBaseFun.storedData[0]
-                                                        ['name']
-                                                    : usernameBottomSheet.text,
-                                                email: emailBottomSheet.text
-                                                        .trim()
-                                                        .isEmpty
-                                                    ? DataBaseFun.storedData[0]
-                                                        ['email']
-                                                    : emailBottomSheet.text,
-                                                token: token,
-                                                context: context,
-                                              );
-                                            },
-                                            child: Text(
-                                              'Update',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18,
-                                                fontFamily: 'Bakta',
-                                                fontWeight: FontWeight.w900,
-                                              ),
-                                            ),
-                                            color: Colors.orangeAccent,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                                    );
+
+                                    print(userName.text);
+                                    print(emailcontroller.text);
+                                    print(token);
+                                  },
+                                  child: Text(
+                                    'Update',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'Batka',
+                                      fontWeight: FontWeight.w900,
                                     ),
                                   ),
                                 ),
-                              );
-
-                              print(userName.text);
-                              print(emailcontroller.text);
-                              print(token);
-                            },
-                            child: Text(
-                              'Update',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Batka',
-                                fontWeight: FontWeight.w900,
-                              ),
-                            ),
-                          ),
-                        ),
+                              )
+                            : SizedBox(),
                         SizedBox(
                           height: 15,
                         ),
@@ -387,6 +420,284 @@ class UserAccount extends StatelessWidget {
                             },
                             child: Text(
                               'LogOut',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Batka',
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            color: Colors.orangeAccent,
+                          ),
+                          width: double.infinity,
+                          child: MaterialButton(
+                            padding: EdgeInsets.all(12),
+                            onPressed: () {
+                              currentpassword.clear();
+                              confirmpassword.clear();
+                              cubit.hidepass1 = true;
+                              cubit.hidepass2 = true;
+
+                              cubit.hidepass3 = true;
+
+                              newPassword.clear();
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                builder: (context) => StatefulBuilder(
+                                  builder: (context, StateSetter setStat) =>
+                                      SingleChildScrollView(
+                                    padding: EdgeInsets.only(
+                                        bottom: MediaQuery.of(context)
+                                            .viewInsets
+                                            .bottom),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.7,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(25),
+                                          topRight: Radius.circular(25),
+                                        ),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Update your Password (:',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 18,
+                                              fontFamily: 'Bakta',
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(15),
+                                            child: TextField(
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                              obscureText: cubit.hidepass1,
+                                              cursorColor: Colors.black,
+                                              controller: currentpassword,
+                                              keyboardType: TextInputType.text,
+                                              onChanged: (value) {},
+                                              onSubmitted: (val) {},
+                                              decoration: InputDecoration(
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color:
+                                                          Colors.orangeAccent),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                labelText: 'Current Password',
+                                                labelStyle: TextStyle(
+                                                    color: Colors.black),
+                                                prefixIcon: Icon(
+                                                  IconlyBroken.password,
+                                                  color: Colors.black,
+                                                ),
+                                                suffixIcon: MaterialButton(
+                                                  onPressed: () {
+                                                    cubit
+                                                        .changepasswordvisabilty();
+                                                  },
+                                                  child: Icon(cubit.hidepass1
+                                                      ? Icons.remove_red_eye
+                                                      : Icons.visibility_off),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                )),
+                                                disabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(15),
+                                            child: TextField(
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                              cursorColor: Colors.black,
+                                              controller: newPassword,
+                                              obscureText: cubit.hidepass2,
+                                              keyboardType:
+                                                  TextInputType.emailAddress,
+                                              onChanged: (value) {},
+                                              onSubmitted: (val) {},
+                                              decoration: InputDecoration(
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color:
+                                                          Colors.orangeAccent),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                labelText: 'New Password',
+                                                labelStyle: TextStyle(
+                                                    color: Colors.black),
+                                                prefixIcon: Icon(
+                                                  Icons.password,
+                                                  color: Colors.black,
+                                                ),
+                                                suffixIcon: MaterialButton(
+                                                  onPressed: () {
+                                                    cubit
+                                                        .changepasswordvisabilty2();
+                                                  },
+                                                  child: Icon(cubit.hidepass2
+                                                      ? Icons.remove_red_eye
+                                                      : Icons.visibility_off),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                )),
+                                                disabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(15),
+                                            child: TextField(
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                              cursorColor: Colors.black,
+                                              controller: confirmpassword,
+                                              keyboardType: TextInputType.text,
+                                              onChanged: (value) {},
+                                              onSubmitted: (val) {},
+                                              obscureText: cubit.hidepass3,
+                                              decoration: InputDecoration(
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color:
+                                                          Colors.orangeAccent),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                labelText: 'Confirm Password',
+                                                labelStyle: TextStyle(
+                                                    color: Colors.black),
+                                                prefixIcon: Icon(
+                                                  Icons.password,
+                                                  color: Colors.black,
+                                                ),
+                                                suffixIcon: MaterialButton(
+                                                  onPressed: () {
+                                                    cubit
+                                                        .changepasswordvisabilty3();
+                                                  },
+                                                  child: Icon(cubit.hidepass3
+                                                      ? Icons.remove_red_eye
+                                                      : Icons.visibility_off),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                )),
+                                                disabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 250,
+                                            height: 50,
+                                            child: MaterialButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  cubit.updatePassword(
+                                                    currentpassword.text,
+                                                    newPassword.text,
+                                                    confirmpassword.text,
+                                                    token,
+                                                    context,
+                                                  );
+                                                });
+                                              },
+                                              child: Text(
+                                                'Update',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontFamily: 'Bakta',
+                                                  fontWeight: FontWeight.w900,
+                                                ),
+                                              ),
+                                              color: Colors.orangeAccent,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                context: context,
+                              );
+                            },
+                            child: Text(
+                              'Update Your Password',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,

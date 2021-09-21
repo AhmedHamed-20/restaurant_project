@@ -83,3 +83,5 @@ class UsersGetError extends AppState {}
 class CategorieCreatedSuccess extends AppState {}
 
 class CategorieCreatedError extends AppState {}
+
+class HidePassword extends AppState {}

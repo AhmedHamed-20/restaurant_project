@@ -70,4 +70,22 @@ class DioFunc {
       print(stackTrace);
     });
   }
+
+  static Future<dynamic> patchPassword(
+      {String url,
+      String currentPassword,
+      String newPassword,
+      String confirmPassword,
+      String token}) async {
+    return response = await dio.patch(url,
+        data: {
+          "passwordCurrent": "${currentPassword}",
+          "password": "${newPassword}",
+          "passwordConfirm": "${confirmPassword}"
+        },
+        options: Options(headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json'
+        }));
+  }
 }

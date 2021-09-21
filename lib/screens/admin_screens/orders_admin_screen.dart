@@ -63,12 +63,27 @@ class OrdersAdmin extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      'Address',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontFamily: 'Batka',
-                                                      ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          'Address',
+                                                          style: TextStyle(
+                                                            fontSize: 18,
+                                                            fontFamily: 'Batka',
+                                                          ),
+                                                        ),
+                                                        MaterialButton(
+                                                          onPressed: () {},
+                                                          child: Icon(
+                                                            Icons.delete,
+                                                            color: Colors
+                                                                .orangeAccent,
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
                                                     Text(
                                                       EndPoints.allorders[index]

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:resturant/models/bloc/states/admin_state.dart';
+import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/admin_screens/categories_admin_screen.dart';
@@ -240,5 +241,31 @@ class AdminCubit extends Cubit<AdminState> {
       print(error);
       emit(PageGetError());
     });
+  }
+
+  updateUserDataBase(
+      {String name, String email, @required String token, context}) {
+    DioFunc.patchdata(
+      url: EndPoints.updateMe,
+      name: name,
+      email: email,
+      token: token,
+    ).then((value) {
+      DataBaseFun.updateDataBase(email, name).then((value) {
+        Fluttertoast.showToast(
+          msg: 'Updated successfully',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        emit(updatedSucess());
+      });
+
+      print(name + email);
+      //  print(value);
+    }).catchError(
+      (onError) {
+        print(onError);
+      },
+    );
   }
 }

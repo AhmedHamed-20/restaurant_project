@@ -25,3 +25,5 @@ class PageGetEnd extends AdminState {}
 class PageGetSuccess extends AdminState {}
 
 class PageGetError extends AdminState {}
+
+class updatedSucess extends AdminState {}

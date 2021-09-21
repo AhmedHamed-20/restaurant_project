@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             home: SplashScreenView(
               navigateRoute: token == null
                   ? LoginScreen()
-                  : isAdmin == ''
+                  : isAdmin == null
                       ? LayoutScreen(
                           token: token,
                         )
