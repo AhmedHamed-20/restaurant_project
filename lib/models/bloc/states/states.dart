@@ -85,3 +85,7 @@ class CategorieCreatedSuccess extends AppState {}
 class CategorieCreatedError extends AppState {}
 
 class HidePassword extends AppState {}
+
+class RecipesGetSuccess extends AppState {}
+
+class RecipesGetError extends AppState {}

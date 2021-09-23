@@ -21,11 +21,16 @@ class UsersAdmin extends StatelessWidget {
           return EndPoints.allUser == []
               ? Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
+                  child: Card(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.separated(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: EndPoints.allUser.length,
@@ -244,6 +249,7 @@ class UsersAdmin extends StatelessWidget {
                                       });
                                 },
                                 child: ListTile(
+                                  horizontalTitleGap: 15,
                                   leading: CircleAvatar(
                                     radius: 20,
                                     backgroundImage: NetworkImage(
@@ -265,30 +271,39 @@ class UsersAdmin extends StatelessWidget {
                                   ),
                                 ),
                               );
-                            }),
-                      ),
-                      (cubit.noDataUsers || EndPoints.allUser.length < 10)
-                          ? SizedBox()
-                          : state is PageLoading
-                              ? Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  color: Colors.orangeAccent,
-                                  onPressed: () {
-                                    cubit.pageinathionOrders(token);
-                                  },
-                                  child: Text(
-                                    'load more',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return Divider(
+                                color: Colors.grey[300],
+                                thickness: 1.5,
+                              );
+                            },
+                          ),
+                        ),
+                        (cubit.noDataUsers || EndPoints.allUser.length < 10)
+                            ? SizedBox()
+                            : state is PageLoading
+                                ? Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : MaterialButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
                                     ),
-                                  ),
-                                )
-                    ],
+                                    color: Colors.orangeAccent,
+                                    onPressed: () {
+                                      cubit.pageinathionusers(token);
+                                    },
+                                    child: Text(
+                                      'load more',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )
+                      ],
+                    ),
                   ),
                 );
         },

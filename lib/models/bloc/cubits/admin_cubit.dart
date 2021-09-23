@@ -171,9 +171,10 @@ class AdminCubit extends Cubit<AdminState> {
 
   int page = 2;
   int pageUsrs = 2;
-
+  int pageRecipe = 2;
   bool noData = false;
   bool noDataUsers = false;
+  bool noDataRecipe = false;
 
   pageinathionOrders(String token) {
     emit(PageLoading());
@@ -209,7 +210,7 @@ class AdminCubit extends Cubit<AdminState> {
     });
   }
 
-  pageinathionCategorie(String token) {
+  pageinathionusers(String token) {
     emit(PageLoading());
     DioFunc.getdate(
       url: '${EndPoints.allusersPage + pageUsrs.toString()}',
@@ -243,6 +244,36 @@ class AdminCubit extends Cubit<AdminState> {
     });
   }
 
+  pageinathionRecipes() {
+    emit(PageLoading());
+    DioFunc.getdate(
+      url: '${EndPoints.allRecipiesPage + pageRecipe.toString()}',
+    ).then((
+      value,
+    ) {
+      // print(value.data['results']);
+      if (value.data['results'] == 0) {
+        pageRecipe = pageRecipe;
+        noDataRecipe = true;
+        Fluttertoast.showToast(
+          msg: 'End of data ):',
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+        );
+        emit(PageGetEnd());
+      } else {
+        pageRecipe++;
+
+        EndPoints.allrecipesAdmin.addAll(value.data['data']['data']);
+        print(EndPoints.allrecipesAdmin);
+        emit(PageGetSuccess());
+      }
+    }).onError((error, stackTrace) {
+      print(error);
+      emit(PageGetError());
+    });
+  }
+
   updateUserDataBase(
       {String name, String email, @required String token, context}) {
     DioFunc.patchdata(
@@ -267,5 +298,35 @@ class AdminCubit extends Cubit<AdminState> {
         print(onError);
       },
     );
+  }
+
+  getallRecipes() {
+    DioFunc.getdate(
+      url: EndPoints.allRecipies,
+    ).then((value) {
+      EndPoints.allrecipesAdmin = value.data['data']['data'];
+      print(EndPoints.allrecipesAdmin);
+      emit(RecipesGetSuccess());
+    }).catchError((onError) {
+      print(onError);
+      emit(RecipesGetError());
+    });
+  }
+
+  deleteRecipe(String token, String recipeId) {
+    DioFunc.deleteData(
+      url: '${EndPoints.allRecipies + recipeId}',
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((value) {
+      print(value);
+      getallRecipes();
+      emit(RecipesDeleteSuccess());
+    }).catchError((onError) {
+      print(onError);
+      emit(RecipesDeleteError());
+    });
   }
 }

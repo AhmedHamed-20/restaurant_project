@@ -27,3 +27,11 @@ class PageGetSuccess extends AdminState {}
 class PageGetError extends AdminState {}
 
 class updatedSucess extends AdminState {}
+
+class RecipesGetSuccess extends AdminState {}
+
+class RecipesGetError extends AdminState {}
+
+class RecipesDeleteSuccess extends AdminState {}
+
+class RecipesDeleteError extends AdminState {}

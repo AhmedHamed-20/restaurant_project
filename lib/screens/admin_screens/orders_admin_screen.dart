@@ -20,11 +20,16 @@ class OrdersAdmin extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 )
               : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.builder(
+                  child: Card(
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.separated(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: EndPoints.allorders.length,
@@ -169,30 +174,39 @@ class OrdersAdmin extends StatelessWidget {
                                   ),
                                 ),
                               );
-                            }),
-                      ),
-                      (cubit.noData || EndPoints.allorders.length < 10)
-                          ? SizedBox()
-                          : state is PageLoading
-                              ? Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  color: Colors.orangeAccent,
-                                  onPressed: () {
-                                    cubit.pageinathionOrders(token);
-                                  },
-                                  child: Text(
-                                    'load more',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return Divider(
+                                color: Colors.grey[300],
+                                thickness: 1.5,
+                              );
+                            },
+                          ),
+                        ),
+                        (cubit.noData || EndPoints.allorders.length < 10)
+                            ? SizedBox()
+                            : state is PageLoading
+                                ? Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : MaterialButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
                                     ),
-                                  ),
-                                )
-                    ],
+                                    color: Colors.orangeAccent,
+                                    onPressed: () {
+                                      cubit.pageinathionOrders(token);
+                                    },
+                                    child: Text(
+                                      'load more',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )
+                      ],
+                    ),
                   ),
                 );
         },

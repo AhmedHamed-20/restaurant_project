@@ -28,4 +28,5 @@ class EndPoints {
   static List allUser;
   static List allorders;
   static List allCategories;
+  static List allrecipesAdmin;
 }

@@ -17,3 +17,15 @@ class HomeScreenGetError extends LoginState {}
 class DataGetSucces extends LoginState {}
 
 class DataGeterror extends LoginState {}
+
+class CategorieCreatedSuccess extends LoginState {}
+
+class CategorieCreatedError extends LoginState {}
+
+class UsersGetSuccess extends LoginState {}
+
+class UsersGetError extends LoginState {}
+
+class RecipesGetSuccess extends LoginState {}
+
+class RecipesGetError extends LoginState {}

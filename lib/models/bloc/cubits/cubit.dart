@@ -246,6 +246,16 @@ class Appcubit extends Cubit<AppState> {
             EndPoints.allCategories = value.data['data']['data'];
             emit(CategorieCreatedSuccess());
             print(EndPoints.allCategories);
+            DioFunc.getdate(
+              url: EndPoints.allRecipies,
+            ).then((value) {
+              EndPoints.allrecipesAdmin = value.data['data']['data'];
+              print(EndPoints.allrecipesAdmin);
+              emit(RecipesGetSuccess());
+            }).catchError((onError) {
+              print(onError);
+              emit(RecipesGetError());
+            });
           }).catchError((onError) {
             emit(CategorieCreatedError());
             print(onError);
