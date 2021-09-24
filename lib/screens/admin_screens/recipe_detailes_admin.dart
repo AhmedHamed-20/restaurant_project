@@ -4,7 +4,17 @@ import 'package:resturant/models/bloc/cubits/admin_cubit.dart';
 import 'package:resturant/models/bloc/states/admin_state.dart';
 import 'package:resturant/models/cach/chach.dart';
 
-class RecipeDetailesAdmin extends StatelessWidget {
+List<TextEditingController> controller = [];
+TextEditingController recipeNameController = TextEditingController();
+TextEditingController recipePriceController = TextEditingController();
+
+TextEditingController recipeCockingController = TextEditingController();
+TextEditingController recipeCategoryController = TextEditingController();
+TextEditingController recipeSlugController = TextEditingController();
+
+List editIngredients = [];
+
+class RecipeDetailesAdmin extends StatefulWidget {
   String RecipeName;
   String Recipeid;
   String imageurl;
@@ -24,14 +34,37 @@ class RecipeDetailesAdmin extends StatelessWidget {
       this.Recipeid});
 
   @override
+  State<RecipeDetailesAdmin> createState() => _RecipeDetailesAdminState();
+}
+
+class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<TextEditingController> controller = [];
-    for (int i = 0; i < ingredients.length; i++) {
-      controller.add(TextEditingController());
-    }
     var cubit = AdminCubit.get(context);
     String token = CachFunc.getData('token');
+    List<TextEditingController> controller = [];
+    TextEditingController recipeNameController = TextEditingController();
+    TextEditingController recipePriceController = TextEditingController();
 
+    TextEditingController recipeCockingController = TextEditingController();
+    TextEditingController recipeCategoryController = TextEditingController();
+    TextEditingController recipeSlugController = TextEditingController();
+    for (int i = 0; i < widget.ingredients.length; i++) {
+      controller.add(TextEditingController());
+      controller[i].text = widget.ingredients[i];
+    }
+    recipeNameController.text = widget.RecipeName;
+    recipePriceController.text = widget.price.toString();
+    recipeCockingController.text = widget.cookingTime.toString();
+    recipeCategoryController.text = widget.RecipeCategory;
+    recipeSlugController.text = widget.slug;
     return BlocConsumer<AdminCubit, AdminState>(
       builder: (context, state) {
         return Scaffold(
@@ -46,7 +79,20 @@ class RecipeDetailesAdmin extends StatelessWidget {
                   right: 10,
                 ),
                 child: MaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    for (int i = 0; i < widget.ingredients.length; i++) {
+                      editIngredients.add(controller[i].text);
+                    }
+                    cubit.editRecipeData(
+                        token,
+                        recipeNameController.text,
+                        recipeSlugController.text,
+                        int.parse(recipePriceController.text),
+                        int.parse(recipeCockingController.text),
+                        editIngredients,
+                        widget.Recipeid,
+                        cubit.imagepicked);
+                  },
                   color: Colors.orangeAccent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
@@ -89,26 +135,53 @@ class RecipeDetailesAdmin extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child: CircleAvatar(
-                        radius: 60,
-                        backgroundImage: NetworkImage(imageurl),
+                      child: InkWell(
+                        onTap: () {
+                          cubit.pickimage();
+                        },
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundImage: NetworkImage(widget.imageurl),
+                        ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          RecipeName,
-                          style: TextStyle(
-                            fontFamily: 'Batka',
-                            fontSize: 18,
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextField(
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      cursorColor: Colors.black,
+                      controller: recipeNameController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                      onSubmitted: (val) {},
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.black,
                           ),
                         ),
-                        MaterialButton(
-                          onPressed: () {},
-                          child: Icon(Icons.edit),
-                        )
-                      ],
+                        labelText: 'Name',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        labelStyle: TextStyle(color: Colors.black),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.orangeAccent,
+                          ),
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 10,
@@ -141,7 +214,6 @@ class RecipeDetailesAdmin extends StatelessWidget {
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-                                controller[index].text = ingredients[index];
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextField(
@@ -184,7 +256,7 @@ class RecipeDetailesAdmin extends StatelessWidget {
                                   ),
                                 );
                               },
-                              itemCount: ingredients.length,
+                              itemCount: widget.ingredients.length,
                             )),
                       ),
                     ),
@@ -206,24 +278,40 @@ class RecipeDetailesAdmin extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          price.toString(),
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 18,
-                            fontFamily: 'Batka',
+                    TextField(
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      cursorColor: Colors.black,
+                      controller: recipePriceController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                      onSubmitted: (val) {},
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.black,
                           ),
                         ),
-                        MaterialButton(
-                          onPressed: () {},
-                          child: Icon(
-                            Icons.edit,
+                        labelText: 'Price',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        labelStyle: TextStyle(color: Colors.black),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.orangeAccent,
                           ),
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                     Divider(
                       color: Colors.grey[300],
@@ -240,24 +328,40 @@ class RecipeDetailesAdmin extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          cookingTime.toString(),
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 18,
-                            fontFamily: 'Batka',
+                    TextField(
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      cursorColor: Colors.black,
+                      controller: recipeCockingController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                      onSubmitted: (val) {},
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.black,
                           ),
                         ),
-                        MaterialButton(
-                          onPressed: () {},
-                          child: Icon(
-                            Icons.edit,
+                        labelText: 'Cooking Time',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        labelStyle: TextStyle(color: Colors.black),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.orangeAccent,
                           ),
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                     Divider(
                       color: Colors.grey[300],
@@ -274,24 +378,40 @@ class RecipeDetailesAdmin extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          RecipeCategory,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 18,
-                            fontFamily: 'Batka',
+                    TextField(
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      cursorColor: Colors.black,
+                      controller: recipeCategoryController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                      onSubmitted: (val) {},
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.black,
                           ),
                         ),
-                        MaterialButton(
-                          onPressed: () {},
-                          child: Icon(
-                            Icons.edit,
+                        labelText: 'Category',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        labelStyle: TextStyle(color: Colors.black),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.orangeAccent,
                           ),
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                     Divider(
                       color: Colors.grey[300],
@@ -308,24 +428,40 @@ class RecipeDetailesAdmin extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          slug,
-                          style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 18,
-                            fontFamily: 'Batka',
+                    TextField(
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                      cursorColor: Colors.black,
+                      controller: recipeSlugController,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value) {},
+                      onSubmitted: (val) {},
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            color: Colors.black,
                           ),
                         ),
-                        MaterialButton(
-                          onPressed: () {},
-                          child: Icon(
-                            Icons.edit,
+                        labelText: 'Slug',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        labelStyle: TextStyle(color: Colors.black),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.orangeAccent,
+                            )),
+                        disabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.orangeAccent,
                           ),
-                        )
-                      ],
+                        ),
+                      ),
                     ),
                     Divider(
                       color: Colors.grey[300],

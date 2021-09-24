@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 class DioFunc {
@@ -82,6 +84,30 @@ class DioFunc {
           "passwordCurrent": "${currentPassword}",
           "password": "${newPassword}",
           "passwordConfirm": "${confirmPassword}"
+        },
+        options: Options(headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json'
+        }));
+  }
+
+  static Future<dynamic> patchRecipe(
+      {String url,
+      String name,
+      int price,
+      int cookingTime,
+      String slug,
+      List ingredients,
+      File image,
+      String token}) async {
+    return response = await dio.patch(url,
+        data: {
+          "name": "${name}",
+          "price": price,
+          "cookingTime": cookingTime,
+          "slug": slug,
+          "ingredients": ingredients,
+          "imageCover": image
         },
         options: Options(headers: {
           'Authorization': 'Bearer ${token}',

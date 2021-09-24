@@ -20,7 +20,7 @@ class RecipesAdmin extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
+                FloatingActionButtonLocation.endDocked,
             floatingActionButton: Padding(
               padding: const EdgeInsets.only(top: 30),
               child: FloatingActionButton(
@@ -49,7 +49,12 @@ class RecipesAdmin extends StatelessWidget {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.only(
+                    left: 8.0,
+                    right: 8,
+                    bottom: 25,
+                    top: 10,
+                  ),
                   child: Column(
                     children: [
                       Container(

@@ -337,12 +337,33 @@ class AdminCubit extends Cubit<AdminState> {
   File imagepicked;
   pickimage() async {
     // Pick an image
-    File imagepicked =
+    File image =
         await picker.pickImage(source: ImageSource.gallery).then((value) {
       emit(ImagePicked());
+      imagepicked = File(value.path);
     }).catchError((onError) {
       print(onError);
     });
-    print(imagepicked.path);
+    print(imagepicked.uri);
+  }
+
+  editRecipeData(String token, String name, String slug, int price,
+      int cookingtime, List ingredients, String recipeId, File image) {
+    DioFunc.patchRecipe(
+      url: '${EndPoints.allRecipies + recipeId}',
+      token: token,
+      name: name,
+      price: price,
+      slug: slug,
+      cookingTime: cookingtime,
+      ingredients: ingredients,
+      image: image,
+    ).then((value) {
+      print(value);
+      getallRecipes();
+      emit(RecipesGetSuccess());
+    }).catchError((onError) {
+      print(onError);
+    });
   }
 }
