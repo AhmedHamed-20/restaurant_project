@@ -35,3 +35,5 @@ class RecipesGetError extends AdminState {}
 class RecipesDeleteSuccess extends AdminState {}
 
 class RecipesDeleteError extends AdminState {}
+
+class ImagePicked extends AdminState {}

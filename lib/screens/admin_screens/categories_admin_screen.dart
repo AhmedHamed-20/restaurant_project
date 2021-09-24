@@ -22,15 +22,19 @@ class CategoriesAdmin extends StatelessWidget {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: MaterialButton(
+              padding: const EdgeInsets.only(top: 30),
+              child: FloatingActionButton(
+                elevation: 3,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(25),
+                    topRight: Radius.circular(25),
+                  ),
                 ),
-                color: Colors.orangeAccent,
+                backgroundColor: Colors.grey[100],
                 child: Icon(
                   Icons.add,
-                  color: Colors.white,
+                  color: Colors.orangeAccent,
                 ),
                 onPressed: () {
                   showBottomSheet(
@@ -142,12 +146,16 @@ class CategoriesAdmin extends StatelessWidget {
                                     context: context,
                                     builder: (context) {
                                       return Container(
-                                        padding: EdgeInsets.all(12),
+                                        padding: EdgeInsets.only(
+                                          top: 12,
+                                          right: 12,
+                                          left: 12,
+                                        ),
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.5,
+                                                0.7,
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(25),
@@ -155,6 +163,8 @@ class CategoriesAdmin extends StatelessWidget {
                                             ),
                                             color: Colors.white),
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Update Categorie Name',
@@ -166,7 +176,7 @@ class CategoriesAdmin extends StatelessWidget {
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.12,
+                                                  0.08,
                                             ),
                                             TextField(
                                               style: TextStyle(

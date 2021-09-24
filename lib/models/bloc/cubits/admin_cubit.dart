@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:resturant/models/bloc/states/admin_state.dart';
 import 'package:resturant/models/databasae/database.dart';
@@ -328,5 +331,18 @@ class AdminCubit extends Cubit<AdminState> {
       print(onError);
       emit(RecipesDeleteError());
     });
+  }
+
+  final ImagePicker picker = ImagePicker();
+  File imagepicked;
+  pickimage() async {
+    // Pick an image
+    File imagepicked =
+        await picker.pickImage(source: ImageSource.gallery).then((value) {
+      emit(ImagePicked());
+    }).catchError((onError) {
+      print(onError);
+    });
+    print(imagepicked.path);
   }
 }
