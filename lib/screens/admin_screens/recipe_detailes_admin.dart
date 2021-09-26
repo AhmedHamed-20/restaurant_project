@@ -80,9 +80,14 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                 ),
                 child: MaterialButton(
                   onPressed: () {
+                    editIngredients.clear();
                     for (int i = 0; i < widget.ingredients.length; i++) {
-                      editIngredients.add(controller[i].text);
+                      print(controller[i].text);
+                      if (controller[i].text != '') {
+                        editIngredients.add(controller[i].text.trim());
+                      }
                     }
+
                     cubit.editRecipeData(
                         token,
                         recipeNameController.text,

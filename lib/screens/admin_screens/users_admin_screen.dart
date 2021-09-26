@@ -18,7 +18,7 @@ class UsersAdmin extends StatelessWidget {
 
     return BlocConsumer<AdminCubit, AdminState>(
         builder: (context, state) {
-          return EndPoints.allUser == []
+          return EndPoints.allUser == null
               ? Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
                   child: Card(

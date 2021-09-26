@@ -37,3 +37,11 @@ class RecipesDeleteSuccess extends AdminState {}
 class RecipesDeleteError extends AdminState {}
 
 class ImagePicked extends AdminState {}
+
+class OrderDeleteSuccess extends AdminState {}
+
+class OrderDeleteError extends AdminState {}
+
+class OrderGetSuccess extends AdminState {}
+
+class OrderGetError extends AdminState {}

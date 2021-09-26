@@ -103,8 +103,10 @@ class AdminCubit extends Cubit<AdminState> {
       },
     ).then((value) {
       EndPoints.allorders = value.data['data']['data'];
+      emit(OrderGetSuccess());
       print(EndPoints.allorders);
     }).catchError((onError) {
+      emit(OrderGetError());
       print(onError);
     });
   }
@@ -350,19 +352,43 @@ class AdminCubit extends Cubit<AdminState> {
   editRecipeData(String token, String name, String slug, int price,
       int cookingtime, List ingredients, String recipeId, File image) {
     DioFunc.patchRecipe(
-      url: '${EndPoints.allRecipies + recipeId}',
-      token: token,
-      name: name,
-      price: price,
-      slug: slug,
-      cookingTime: cookingtime,
-      ingredients: ingredients,
-      image: image,
-    ).then((value) {
+            token: token,
+            image: image,
+            ingredients: ingredients,
+            slug: slug,
+            price: price,
+            cookingTime: cookingtime,
+            name: name,
+            url: '${EndPoints.allRecipies + recipeId}')
+        .then((value) {
       print(value);
+
       getallRecipes();
       emit(RecipesGetSuccess());
     }).catchError((onError) {
+      print(onError);
+    });
+  }
+
+  // CreateRecipeData(String token, String name, String slug, int price,
+  //     int cookingtime, List ingredients, String recipeId, File image) {
+  //  DioFunc.postData(url, {})
+  // }
+
+  cancelOrder(String recipeId, String token, BuildContext context) {
+    DioFunc.deleteData(
+      url: '${EndPoints.order + recipeId}',
+      token: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    ).then((value) {
+      getAllOrders(token);
+      Navigator.of(context).pop();
+      emit(OrderDeleteSuccess());
+      print(value);
+    }).catchError((onError) {
+      emit(OrderDeleteError());
       print(onError);
     });
   }

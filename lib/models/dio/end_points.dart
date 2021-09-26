@@ -17,6 +17,7 @@ class EndPoints {
   static String allOrdersPage = url + '/orders/all?page=';
   static String getCategoryRecipe = url + '/recipes/?category=';
   static String updatePassword = url + '/users/updateMyPassword';
+  static String cancelOrder = url + '/orders/cancelOrder/';
 
   static LoginModel loginModel;
   static SignUpModel signUpModel;

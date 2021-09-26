@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:resturant/models/dio/end_points.dart';
 
 class DioFunc {
   static Response response;
@@ -91,27 +93,49 @@ class DioFunc {
         }));
   }
 
-  static Future<dynamic> patchRecipe(
-      {String url,
-      String name,
-      int price,
-      int cookingTime,
-      String slug,
-      List ingredients,
-      File image,
-      String token}) async {
-    return response = await dio.patch(url,
-        data: {
-          "name": "${name}",
-          "price": price,
-          "cookingTime": cookingTime,
-          "slug": slug,
-          "ingredients": ingredients,
-          "imageCover": image
-        },
-        options: Options(headers: {
-          'Authorization': 'Bearer ${token}',
-          'Content-Type': 'application/json'
-        }));
+  static Future<dynamic> patchRecipe({
+    String url,
+    String name,
+    int price,
+    int cookingTime,
+    String slug,
+    List ingredients,
+    File image,
+    String token,
+  }) async {
+    String fileName = image.path.split('/').last;
+    print(image.path);
+    return response = await dio
+        .patch(url,
+            data: FormData.fromMap(
+              {
+                "name": "${name}",
+                "price": price,
+                "cookingTime": cookingTime,
+                "slug": slug,
+                "ingredients": ingredients,
+                "imageCover": await MultipartFile.fromFile(image.path,
+                    filename: fileName, contentType: MediaType('image', 'png')),
+              },
+            ),
+            options: Options(headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json'
+            }))
+        .catchError((onError) {
+      print(onError);
+    });
+  }
+
+  static Future<String> uploadImage(
+      File file, Map<String, dynamic> token, String id) async {
+    String fileName = file.path.split('/').last;
+    FormData formData = FormData.fromMap({
+      "imageCover": await MultipartFile.fromFile(file.path,
+          filename: fileName, contentType: MediaType('image', 'png')),
+    });
+    response = await dio.patch('${EndPoints.allRecipies + id}',
+        data: formData, options: Options(headers: token));
+    return response.data['id'];
   }
 }

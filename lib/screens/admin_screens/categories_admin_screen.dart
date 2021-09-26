@@ -20,7 +20,7 @@ class CategoriesAdmin extends StatelessWidget {
         builder: (context, state) {
           return Scaffold(
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
+                FloatingActionButtonLocation.endDocked,
             floatingActionButton: Padding(
               padding: const EdgeInsets.only(top: 30),
               child: FloatingActionButton(
@@ -131,7 +131,7 @@ class CategoriesAdmin extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(children: [
-                EndPoints.allCategories == []
+                EndPoints.allCategories == null
                     ? Center(
                         child: CircularProgressIndicator(),
                       )

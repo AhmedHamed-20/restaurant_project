@@ -301,7 +301,7 @@ class Appcubit extends Cubit<AppState> {
 
   cancelOrder(String recipeId, String token) {
     DioFunc.deleteData(
-      url: '${EndPoints.order + recipeId}',
+      url: '${EndPoints.cancelOrder + recipeId}',
       token: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json'

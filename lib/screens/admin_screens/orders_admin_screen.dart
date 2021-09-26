@@ -81,7 +81,14 @@ class OrdersAdmin extends StatelessWidget {
                                                           ),
                                                         ),
                                                         MaterialButton(
-                                                          onPressed: () {},
+                                                          onPressed: () {
+                                                            cubit.cancelOrder(
+                                                                EndPoints.allorders[
+                                                                        index]
+                                                                    ['_id'],
+                                                                token,
+                                                                context);
+                                                          },
                                                           child: Icon(
                                                             Icons.delete,
                                                             color: Colors
