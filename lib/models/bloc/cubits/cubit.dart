@@ -221,6 +221,7 @@ class Appcubit extends Cubit<AppState> {
       });
     } else {
       print('its admin');
+
       await DioFunc.getdate(
         url: EndPoints.users,
         token: {
@@ -240,6 +241,8 @@ class Appcubit extends Cubit<AppState> {
         ).then((value) {
           EndPoints.allorders = value.data['data']['data'];
           print(EndPoints.allorders);
+          emit(DataGetSuccess());
+
           DioFunc.getdate(
             url: EndPoints.categories,
           ).then((value) {

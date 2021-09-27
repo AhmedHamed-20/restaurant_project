@@ -109,7 +109,7 @@ class CategoriesAdmin extends StatelessWidget {
                                 ),
                                 color: Colors.orangeAccent,
                                 onPressed: () {
-                                  cubit.createNewRecipe(
+                                  cubit.createNewCategory(
                                       token, categorieName.text, context);
                                 },
                                 child: Text(

@@ -33,6 +33,7 @@ class AdminCubit extends Cubit<AdminState> {
     'Categories',
     'Orders',
   ];
+
   changBottomnav(int index) {
     currentindex = index;
 
@@ -40,6 +41,7 @@ class AdminCubit extends Cubit<AdminState> {
   }
 
   bool result = true;
+
   Future<bool> checkConnecthion() async {
     result = await InternetConnectionChecker().hasConnection;
     emit(HasConnecthion());
@@ -124,7 +126,7 @@ class AdminCubit extends Cubit<AdminState> {
     });
   }
 
-  createNewRecipe(String token, String categorieName, BuildContext context) {
+  createNewCategory(String token, String categorieName, BuildContext context) {
     DioFunc.postData(
       EndPoints.categories,
       {'name': categorieName},
@@ -252,7 +254,7 @@ class AdminCubit extends Cubit<AdminState> {
   pageinathionRecipes() {
     emit(PageLoading());
     DioFunc.getdate(
-      url: '${EndPoints.allRecipiesPage + pageRecipe.toString()}',
+      url: '${EndPoints.allRecipiesPage + pageRecipe.toString()}&sort=category',
     ).then((
       value,
     ) {
@@ -337,6 +339,7 @@ class AdminCubit extends Cubit<AdminState> {
 
   final ImagePicker picker = ImagePicker();
   File imagepicked;
+
   pickimage() async {
     // Pick an image
     File image =
@@ -349,8 +352,22 @@ class AdminCubit extends Cubit<AdminState> {
     print(imagepicked.uri);
   }
 
+  File AddImagePicked;
+
+  Addimagepick() async {
+    // Pick an image
+    File image =
+        await picker.pickImage(source: ImageSource.gallery).then((value) {
+      emit(ImagePicked());
+      AddImagePicked = File(value.path);
+    }).catchError((onError) {
+      print(onError);
+    });
+    print(AddImagePicked.uri);
+  }
+
   editRecipeData(String token, String name, String slug, int price,
-      int cookingtime, List ingredients, String recipeId, File image) {
+      int cookingtime, List ingredients, String recipeId, File image, context) {
     DioFunc.patchRecipe(
             token: token,
             image: image,
@@ -365,7 +382,15 @@ class AdminCubit extends Cubit<AdminState> {
 
       getallRecipes();
       emit(RecipesGetSuccess());
+      Fluttertoast.showToast(
+          msg: 'Changes Saved Sucess',
+          textColor: Colors.white,
+          backgroundColor: Colors.green);
+      Navigator.of(context).pop();
+      imagepicked = null;
     }).catchError((onError) {
+      Fluttertoast.showToast(
+          msg: 'error', textColor: Colors.white, backgroundColor: Colors.red);
       print(onError);
     });
   }
@@ -374,6 +399,7 @@ class AdminCubit extends Cubit<AdminState> {
   //     int cookingtime, List ingredients, String recipeId, File image) {
   //  DioFunc.postData(url, {})
   // }
+  List<TextEditingController> controller = [];
 
   cancelOrder(String recipeId, String token, BuildContext context) {
     DioFunc.deleteData(
@@ -389,6 +415,100 @@ class AdminCubit extends Cubit<AdminState> {
       print(value);
     }).catchError((onError) {
       emit(OrderDeleteError());
+      print(onError);
+    });
+  }
+
+  int lengthOFtextfield = 5;
+
+  incrementTextfieldNumber(List<TextEditingController> savedcontroller) {
+    controller = savedcontroller;
+    lengthOFtextfield++;
+    print(lengthOFtextfield);
+    emit(IncrementTExtFieldNumer());
+  }
+
+  decrementTextfieldNumber(
+      List<TextEditingController> savedcontroller, int index) {
+    controller = savedcontroller;
+    controller[index].clear();
+    lengthOFtextfield--;
+    print(lengthOFtextfield);
+    emit(DecremntTExtFieldNumer());
+  }
+
+  addRecipe({
+    String name,
+    List ingredient,
+    int price,
+    int cockingtime,
+    String slug,
+    String category,
+    String token,
+    File image,
+    context,
+  }) {
+    DioFunc.postRecipe(
+            url: EndPoints.allRecipies,
+            name: name,
+            cookingTime: cockingtime,
+            price: price,
+            slug: slug,
+            ingredients: ingredient,
+            token: token,
+            category: category,
+            image: image)
+        .then((value) {
+      print(value);
+      getallRecipes();
+
+      emit(RecipeCreatedSucces());
+      Navigator.of(context).pop();
+      Fluttertoast.showToast(
+          msg: 'Created Success',
+          textColor: Colors.white,
+          backgroundColor: Colors.green);
+      for (int i = 0; i < controller.length; i++) {
+        controller[i].clear();
+      }
+      lengthOFtextfield = 5;
+    }).catchError((onError) {
+      print(onError);
+      emit(RecipeCreatedError());
+    });
+  }
+
+  editRecipeWithoutPhoto(
+      String recipeId,
+      String token,
+      String name,
+      String slug,
+      List ingredients,
+      String category,
+      int cockingtime,
+      int price,
+      context) {
+    DioFunc.patchRecipeWithoutPhoto(
+            token: token,
+            category: category,
+            slug: slug,
+            price: price,
+            name: name,
+            ingredients: ingredients,
+            url: '${EndPoints.allRecipies + recipeId}',
+            cookingTime: cockingtime)
+        .then((value) {
+      print(value);
+      Fluttertoast.showToast(
+          msg: 'changes saved success',
+          textColor: Colors.white,
+          backgroundColor: Colors.green);
+      Navigator.of(context).pop();
+      getallRecipes();
+      emit(RecipesGetSuccess());
+    }).catchError((onError) {
+      Fluttertoast.showToast(
+          msg: 'error', textColor: Colors.white, backgroundColor: Colors.red);
       print(onError);
     });
   }

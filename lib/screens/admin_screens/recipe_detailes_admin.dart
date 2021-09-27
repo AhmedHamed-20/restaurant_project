@@ -87,16 +87,29 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                         editIngredients.add(controller[i].text.trim());
                       }
                     }
-
-                    cubit.editRecipeData(
-                        token,
-                        recipeNameController.text,
-                        recipeSlugController.text,
-                        int.parse(recipePriceController.text),
-                        int.parse(recipeCockingController.text),
-                        editIngredients,
-                        widget.Recipeid,
-                        cubit.imagepicked);
+                    if (cubit.imagepicked == null) {
+                      cubit.editRecipeWithoutPhoto(
+                          widget.Recipeid,
+                          token,
+                          recipeNameController.text,
+                          recipeSlugController.text,
+                          editIngredients,
+                          recipeCategoryController.text,
+                          int.parse(recipeCockingController.text),
+                          int.parse(recipePriceController.text),
+                          context);
+                    } else {
+                      cubit.editRecipeData(
+                          token,
+                          recipeNameController.text,
+                          recipeSlugController.text,
+                          int.parse(recipePriceController.text),
+                          int.parse(recipeCockingController.text),
+                          editIngredients,
+                          widget.Recipeid,
+                          cubit.imagepicked,
+                          context);
+                    }
                   },
                   color: Colors.orangeAccent,
                   shape: RoundedRectangleBorder(
@@ -114,6 +127,7 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
             leading: MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop();
+                cubit.imagepicked = null;
               },
               child: Icon(Icons.arrow_back_ios),
             ),
@@ -146,7 +160,9 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                         },
                         child: CircleAvatar(
                           radius: 60,
-                          backgroundImage: NetworkImage(widget.imageurl),
+                          backgroundImage: cubit.imagepicked == null
+                              ? NetworkImage(widget.imageurl)
+                              : FileImage(cubit.imagepicked),
                         ),
                       ),
                     ),

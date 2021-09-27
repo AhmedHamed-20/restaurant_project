@@ -100,6 +100,7 @@ class DioFunc {
     int cookingTime,
     String slug,
     List ingredients,
+    String category,
     File image,
     String token,
   }) async {
@@ -113,6 +114,7 @@ class DioFunc {
                 "price": price,
                 "cookingTime": cookingTime,
                 "slug": slug,
+                "category": category,
                 "ingredients": ingredients,
                 "imageCover": await MultipartFile.fromFile(image.path,
                     filename: fileName, contentType: MediaType('image', 'png')),
@@ -125,6 +127,74 @@ class DioFunc {
         .catchError((onError) {
       print(onError);
     });
+  }
+
+  static Future<dynamic> patchRecipeWithoutPhoto({
+    String url,
+    String name,
+    int price,
+    int cookingTime,
+    String slug,
+    String category,
+    List ingredients,
+    String token,
+  }) async {
+    return response = await dio
+        .patch(url,
+            data: FormData.fromMap({
+              "name": "${name}",
+              "price": price,
+              "cookingTime": cookingTime,
+              "category": category,
+              "slug": slug,
+              "ingredients": ingredients,
+            }),
+            options: Options(headers: {
+              'Authorization': 'Bearer ${token}',
+              'Content-Type': 'application/json'
+            }))
+        .catchError((onError) {
+      print(onError);
+    });
+  }
+
+  static Future<dynamic> postRecipe({
+    String url,
+    String name,
+    int price,
+    int cookingTime,
+    String category,
+    String slug,
+    List ingredients,
+    File image,
+    String token,
+  }) async {
+    String fileName = image.path.split('/').last;
+    print(image.path);
+
+    return response = await dio.post(url,
+        data: FormData.fromMap(
+          {
+            "name": name,
+            "price": price,
+            "cookingTime": cookingTime,
+            "category": category,
+            "slug": slug,
+            "ingredients": ingredients,
+            "imageCover": await MultipartFile.fromFile(image.path,
+                filename: fileName,
+                contentType: MediaType(
+                  'image',
+                  'png',
+                )),
+          },
+        ),
+        options: Options(headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json'
+        }));
+
+    //     print(e);
   }
 
   static Future<String> uploadImage(

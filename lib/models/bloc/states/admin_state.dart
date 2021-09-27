@@ -45,3 +45,11 @@ class OrderDeleteError extends AdminState {}
 class OrderGetSuccess extends AdminState {}
 
 class OrderGetError extends AdminState {}
+
+class DecremntTExtFieldNumer extends AdminState {}
+
+class IncrementTExtFieldNumer extends AdminState {}
+
+class RecipeCreatedSucces extends AdminState {}
+
+class RecipeCreatedError extends AdminState {}
