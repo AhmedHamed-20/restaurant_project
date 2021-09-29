@@ -47,7 +47,7 @@ class AddRecipeAdmin extends StatelessWidget {
                           ingredients.add(cubit.controller[i].text);
                         }
                       }
-                      if (cubit.imagepicked == null ||
+                      if (cubit.AddImagePicked == null ||
                           recipeNameController.text.trim() == null ||
                           ingredients == null ||
                           int.parse(recipePriceController.text) == null ||
@@ -127,9 +127,12 @@ class AddRecipeAdmin extends StatelessWidget {
                             cubit.Addimagepick();
                           },
                           child: CircleAvatar(
+                            backgroundColor: Colors.orange[200],
                             radius: 50,
                             backgroundImage: cubit.AddImagePicked == null
-                                ? AssetImage('assets/images/restaurant.png')
+                                ? AssetImage(
+                                    'assets/images/add.png',
+                                  )
                                 : FileImage(cubit.AddImagePicked),
                           ),
                         ),

@@ -48,8 +48,8 @@ class AdminCubit extends Cubit<AdminState> {
     return result;
   }
 
-  getAllusers(String token) {
-    DioFunc.getdate(
+  Future getAllusers(String token) {
+    return DioFunc.getdate(
       url: EndPoints.users,
       token: {
         'Authorization': 'Bearer $token',
@@ -58,6 +58,7 @@ class AdminCubit extends Cubit<AdminState> {
     ).then((value) {
       EndPoints.allUser = value.data['data']['data'];
       print(EndPoints.allUser);
+      noDataUsers = false;
       emit(UsersGetSuccess());
     }).catchError((onError) {
       print(onError);
@@ -74,7 +75,12 @@ class AdminCubit extends Cubit<AdminState> {
       },
     ).then((value) {
       print(value);
+      pageUsrs = 2;
       getAllusers(token);
+      Fluttertoast.showToast(
+          msg: 'Deleted success',
+          backgroundColor: Colors.green,
+          textColor: Colors.white);
     }).catchError((onError) {
       print(onError);
     });
@@ -96,8 +102,8 @@ class AdminCubit extends Cubit<AdminState> {
     });
   }
 
-  getAllOrders(String token) {
-    DioFunc.getdate(
+  Future getAllOrders(String token) {
+    return DioFunc.getdate(
       url: '${EndPoints.allOrders}',
       token: {
         'Authorization': 'Bearer $token',
@@ -105,6 +111,7 @@ class AdminCubit extends Cubit<AdminState> {
       },
     ).then((value) {
       EndPoints.allorders = value.data['data']['data'];
+
       emit(OrderGetSuccess());
       print(EndPoints.allorders);
     }).catchError((onError) {
@@ -113,8 +120,8 @@ class AdminCubit extends Cubit<AdminState> {
     });
   }
 
-  getAllCategories() {
-    DioFunc.getdate(
+  Future getAllCategories() {
+    return DioFunc.getdate(
       url: EndPoints.categories,
     ).then((value) {
       EndPoints.allCategories = value.data['data']['data'];
@@ -155,7 +162,12 @@ class AdminCubit extends Cubit<AdminState> {
       },
     ).then((value) {
       print(value);
+
       getAllCategories();
+      Fluttertoast.showToast(
+          msg: 'Deleted success',
+          backgroundColor: Colors.green,
+          textColor: Colors.white);
     }).catchError((onError) {
       print(onError);
     });
@@ -307,11 +319,12 @@ class AdminCubit extends Cubit<AdminState> {
     );
   }
 
-  getallRecipes() {
-    DioFunc.getdate(
+  Future getallRecipes() {
+    return DioFunc.getdate(
       url: EndPoints.allRecipies,
     ).then((value) {
       EndPoints.allrecipesAdmin = value.data['data']['data'];
+      noDataRecipe = false;
       print(EndPoints.allrecipesAdmin);
       emit(RecipesGetSuccess());
     }).catchError((onError) {
@@ -329,7 +342,13 @@ class AdminCubit extends Cubit<AdminState> {
       },
     ).then((value) {
       print(value);
+      pageRecipe = 2;
       getallRecipes();
+
+      Fluttertoast.showToast(
+          msg: 'Deleted Success',
+          backgroundColor: Colors.green,
+          textColor: Colors.white);
       emit(RecipesDeleteSuccess());
     }).catchError((onError) {
       print(onError);
@@ -409,9 +428,15 @@ class AdminCubit extends Cubit<AdminState> {
         'Content-Type': 'application/json'
       },
     ).then((value) {
+      page = 2;
       getAllOrders(token);
+      Fluttertoast.showToast(
+          msg: 'Deleted Success',
+          backgroundColor: Colors.green,
+          textColor: Colors.white);
       Navigator.of(context).pop();
       emit(OrderDeleteSuccess());
+
       print(value);
     }).catchError((onError) {
       emit(OrderDeleteError());
@@ -460,6 +485,7 @@ class AdminCubit extends Cubit<AdminState> {
             image: image)
         .then((value) {
       print(value);
+      pageRecipe = 2;
       getallRecipes();
 
       emit(RecipeCreatedSucces());

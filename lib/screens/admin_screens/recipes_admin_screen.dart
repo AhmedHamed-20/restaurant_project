@@ -16,6 +16,10 @@ class RecipesAdmin extends StatelessWidget {
     var cubit = AdminCubit.get(context);
     String token = CachFunc.getData('token');
     //cubit.getallRecipes();
+    refresh() {
+      return cubit.getallRecipes();
+    }
+
     return BlocConsumer<AdminCubit, AdminState>(
         builder: (context, state) {
           return Scaffold(
@@ -42,109 +46,155 @@ class RecipesAdmin extends StatelessWidget {
               ),
             ),
             backgroundColor: Colors.transparent,
-            body: SingleChildScrollView(
-              child: Card(
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 8.0,
-                    right: 8,
-                    bottom: 25,
-                    top: 10,
+            body: RefreshIndicator(
+              onRefresh: refresh,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                child: Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: ListView.separated(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigate(
-                                    context: context,
-                                    Screen: RecipeDetailesAdmin(
-                                      imageurl: EndPoints.allrecipesAdmin[index]
-                                          ['imageCover'],
-                                      cookingTime:
-                                          EndPoints.allrecipesAdmin[index]
-                                              ['cookingTime'],
-                                      price: EndPoints.allrecipesAdmin[index]
-                                          ['price'],
-                                      ingredients:
-                                          EndPoints.allrecipesAdmin[index]
-                                              ['ingredients'],
-                                      RecipeCategory: EndPoints
-                                          .allrecipesAdmin[index]['category'],
-                                      Recipeid: EndPoints.allrecipesAdmin[index]
-                                          ['_id'],
-                                      RecipeName: EndPoints
-                                          .allrecipesAdmin[index]['name'],
-                                      slug: EndPoints.allrecipesAdmin[index]
-                                          ['slug'],
-                                    ),
-                                  );
-                                },
-                                child: ListTile(
-                                  title: Text(
-                                      EndPoints.allrecipesAdmin[index]['name']),
-                                  subtitle: Text(EndPoints
-                                      .allrecipesAdmin[index]['category']),
-                                  leading: CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: NetworkImage(EndPoints
-                                        .allrecipesAdmin[index]['imageCover']),
-                                  ),
-                                  trailing: MaterialButton(
-                                    onPressed: () {
-                                      cubit.deleteRecipe(
-                                          token,
-                                          EndPoints.allrecipesAdmin[index]
-                                              ['_id']);
-                                    },
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.orangeAccent,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return Divider(
-                                color: Colors.grey[300],
-                                thickness: 1.5,
-                              );
-                            },
-                            itemCount: EndPoints.allrecipesAdmin.length),
-                      ),
-                      (cubit.noDataRecipe ||
-                              EndPoints.allrecipesAdmin.length < 10)
-                          ? SizedBox()
-                          : state is PageLoading
-                              ? Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25),
-                                  ),
-                                  onPressed: () {
-                                    cubit.pageinathionRecipes();
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 8.0,
+                      right: 8,
+                      bottom: 25,
+                      top: 10,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: ListView.separated(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigate(
+                                      context: context,
+                                      Screen: RecipeDetailesAdmin(
+                                        imageurl:
+                                            EndPoints.allrecipesAdmin[index]
+                                                ['imageCover'],
+                                        cookingTime:
+                                            EndPoints.allrecipesAdmin[index]
+                                                ['cookingTime'],
+                                        price: EndPoints.allrecipesAdmin[index]
+                                            ['price'],
+                                        ingredients:
+                                            EndPoints.allrecipesAdmin[index]
+                                                ['ingredients'],
+                                        RecipeCategory: EndPoints
+                                            .allrecipesAdmin[index]['category'],
+                                        Recipeid: EndPoints
+                                            .allrecipesAdmin[index]['_id'],
+                                        RecipeName: EndPoints
+                                            .allrecipesAdmin[index]['name'],
+                                        slug: EndPoints.allrecipesAdmin[index]
+                                            ['slug'],
+                                      ),
+                                    );
                                   },
-                                  color: Colors.orangeAccent,
-                                  child: Text(
-                                    'load more',
-                                    style: TextStyle(
-                                      color: Colors.white,
+                                  child: ListTile(
+                                    title: Text(EndPoints.allrecipesAdmin[index]
+                                        ['name']),
+                                    subtitle: Text(EndPoints
+                                        .allrecipesAdmin[index]['category']),
+                                    leading: CircleAvatar(
+                                      radius: 30,
+                                      backgroundImage: NetworkImage(
+                                          EndPoints.allrecipesAdmin[index]
+                                              ['imageCover']),
+                                    ),
+                                    trailing: MaterialButton(
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                title: Text(
+                                                  'You sure to delete this recipe',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontFamily: 'Bakta',
+                                                  ),
+                                                ),
+                                                content: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      MaterialButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text('Cancel'),
+                                                      ),
+                                                      MaterialButton(
+                                                        onPressed: () {
+                                                          cubit.deleteRecipe(
+                                                              token,
+                                                              EndPoints.allrecipesAdmin[
+                                                                      index]
+                                                                  ['_id']);
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text('Confirm'),
+                                                      ),
+                                                    ]),
+                                              );
+                                            });
+                                      },
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.orangeAccent,
+                                      ),
                                     ),
                                   ),
-                                )
-                    ],
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return Divider(
+                                  color: Colors.grey[300],
+                                  thickness: 1.5,
+                                );
+                              },
+                              itemCount: EndPoints.allrecipesAdmin.length),
+                        ),
+                        (cubit.noDataRecipe ||
+                                EndPoints.allrecipesAdmin.length < 10)
+                            ? SizedBox()
+                            : state is PageLoading
+                                ? Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : MaterialButton(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    onPressed: () {
+                                      cubit.pageinathionRecipes();
+                                    },
+                                    color: Colors.orangeAccent,
+                                    child: Text(
+                                      'load more',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  )
+                      ],
+                    ),
                   ),
                 ),
               ),
