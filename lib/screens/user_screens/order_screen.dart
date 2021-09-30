@@ -20,7 +20,7 @@ class OrderScreen extends StatelessWidget {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : cubit.OrdersMap['data'].isEmpty
+            : (cubit.OrdersMap.isEmpty || cubit.OrdersMap['data'].isEmpty)
                 ? Center(
                     child: Text(
                       'order your recipes now',

@@ -22,8 +22,9 @@ Widget bottomSheetContent({
 }) {
   var cubit = Appcubit.get(context);
   return SingleChildScrollView(
+    padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
     child: Container(
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         color: Colors.grey[100],
         borderRadius: BorderRadius.only(

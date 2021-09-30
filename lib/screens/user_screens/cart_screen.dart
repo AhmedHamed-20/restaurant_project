@@ -76,7 +76,8 @@ class _CartScreenState extends State<CartScreen> {
                           });
                       }
                       print(orders);
-                      showBottomSheet(
+                      showModalBottomSheet(
+                          isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(25),
@@ -85,22 +86,27 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           context: context,
                           builder: (_) {
-                            return bottomSheetContent(
-                              isEnabled: true,
-                              isOrder: true,
-                              title: 'We need this data (:',
-                              buttonTitle: 'Order Now',
-                              textfield1Icon: Icons.add_location,
-                              textfield2Icon: Icons.phone,
-                              textfield1Title: 'Address',
-                              textfield2Title: 'Phone Number',
-                              isAll: true,
-                              addressController: addressController,
-                              PhoneNumberController: PhoneNumberController,
-                              token: token,
-                              context: context,
-                              orders: orders,
-                              userId: DataBaseFun.storedData[0]['userId'],
+                            return SingleChildScrollView(
+                              padding: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom),
+                              child: bottomSheetContent(
+                                isEnabled: true,
+                                isOrder: true,
+                                title: 'We need this data (:',
+                                buttonTitle: 'Order Now',
+                                textfield1Icon: Icons.add_location,
+                                textfield2Icon: Icons.phone,
+                                textfield1Title: 'Address',
+                                textfield2Title: 'Phone Number',
+                                isAll: true,
+                                addressController: addressController,
+                                PhoneNumberController: PhoneNumberController,
+                                token: token,
+                                context: context,
+                                orders: orders,
+                                userId: DataBaseFun.storedData[0]['userId'],
+                              ),
                             );
                           });
                     },
@@ -135,7 +141,8 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            showBottomSheet(
+                            showModalBottomSheet(
+                                isScrollControlled: true,
                                 context: context,
                                 builder: (_) {
                                   RecipeName.text =
@@ -193,7 +200,8 @@ class _CartScreenState extends State<CartScreen> {
                                   child: MaterialButton(
                                     elevation: 3,
                                     onPressed: () {
-                                      showBottomSheet(
+                                      showModalBottomSheet(
+                                          isScrollControlled: true,
                                           context: context,
                                           builder: (_) {
                                             return bottomSheetContent(

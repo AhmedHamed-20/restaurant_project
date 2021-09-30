@@ -53,7 +53,7 @@ class SignUpCubit extends Cubit<SignUpState> {
           EndPoints.recipes = EndPoints.allRecipiesMap['data']['data'];
           print(EndPoints.allRecipiesMap);
           DioFunc.getdate(url: EndPoints.categories).then((value) {
-            EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
+            EndPoints.allCategoriesMap = value.data['data']['data'];
             Fluttertoast.showToast(
               msg: DataBaseFun.storedData == null
                   ? 'error'

@@ -179,8 +179,13 @@ class _UserAccountState extends State<UserAccount> {
                                 child: MaterialButton(
                                   padding: EdgeInsets.all(12),
                                   onPressed: () {
-                                    scaffoldState.currentState.showBottomSheet(
-                                      (context) => SingleChildScrollView(
+                                    showModalBottomSheet(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(25),
+                                      ),
+                                      isScrollControlled: true,
+                                      builder: (context) =>
+                                          SingleChildScrollView(
                                         padding: EdgeInsets.only(
                                             bottom: MediaQuery.of(context)
                                                 .viewInsets
@@ -365,6 +370,7 @@ class _UserAccountState extends State<UserAccount> {
                                           ),
                                         ),
                                       ),
+                                      context: context,
                                     );
 
                                     print(userName.text);
@@ -450,6 +456,9 @@ class _UserAccountState extends State<UserAccount> {
 
                               newPassword.clear();
                               showModalBottomSheet(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
                                 isScrollControlled: true,
                                 builder: (context) => StatefulBuilder(
                                   builder: (context, StateSetter setStat) =>

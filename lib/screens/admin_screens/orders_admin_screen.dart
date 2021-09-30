@@ -19,14 +19,26 @@ class OrdersAdmin extends StatelessWidget {
 
     return BlocConsumer<AdminCubit, AdminState>(
         builder: (context, state) {
-          return EndPoints.allorders == null
-              ? Center(
-                  child: Text(
-                    'NO orders to show',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontFamily: 'Batka',
+          return EndPoints.allorders.isEmpty
+              ? RefreshIndicator(
+                  onRefresh: refresh,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'NO orders to show',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Batka',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )
@@ -53,7 +65,8 @@ class OrdersAdmin extends StatelessWidget {
                                   padding: const EdgeInsets.all(8.0),
                                   child: InkWell(
                                     onTap: () {
-                                      showBottomSheet(
+                                      showModalBottomSheet(
+                                          isScrollControlled: true,
                                           elevation: 3,
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.only(
@@ -65,9 +78,6 @@ class OrdersAdmin extends StatelessWidget {
                                           builder: (context) {
                                             return Container(
                                               padding: EdgeInsets.all(20),
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *

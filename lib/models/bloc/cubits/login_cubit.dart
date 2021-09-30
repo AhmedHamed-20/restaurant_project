@@ -46,7 +46,7 @@ class LoginCubit extends Cubit<LoginState> {
         print(EndPoints.recipes);
         DioFunc.getdate(url: EndPoints.categories).then(
           (value) {
-            EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
+            EndPoints.allCategoriesMap = value.data['data']['data'];
             getbyuserid(
               DataBaseFun.storedData[0]['userId'],
               CartDataBaseFun.database,
@@ -164,8 +164,7 @@ class LoginCubit extends Cubit<LoginState> {
                 print(EndPoints.allRecipiesMap);
                 DioFunc.getdate(url: EndPoints.categories).then(
                   (value) {
-                    EndPoints.allCategoriesMap =
-                        Map<String, dynamic>.from(value.data);
+                    EndPoints.allCategoriesMap = value.data['data']['data'];
                     getbyuserid(
                       DataBaseFun.storedData[0]['userId'],
                       CartDataBaseFun.database,

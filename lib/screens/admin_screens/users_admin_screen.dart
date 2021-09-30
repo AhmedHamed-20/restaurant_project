@@ -13,6 +13,7 @@ class UsersAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController usernameBottomSheet = TextEditingController();
     TextEditingController emailBottomSheet = TextEditingController();
+    TextEditingController roleBottomSheet = TextEditingController();
     var cubit = AdminCubit.get(context);
     String token = CachFunc.getData('token');
     refresh() {
@@ -21,8 +22,29 @@ class UsersAdmin extends StatelessWidget {
 
     return BlocConsumer<AdminCubit, AdminState>(
         builder: (context, state) {
-          return EndPoints.allUser == null
-              ? Center(child: CircularProgressIndicator())
+          return EndPoints.allUser.isEmpty
+              ? RefreshIndicator(
+                  onRefresh: refresh,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height,
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'NO Users to show',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Batka',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
               : RefreshIndicator(
                   onRefresh: refresh,
                   child: SingleChildScrollView(
@@ -44,181 +66,241 @@ class UsersAdmin extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
-                                    showBottomSheet(
+                                    showModalBottomSheet(
+                                        isScrollControlled: true,
                                         elevation: 3,
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(25)),
                                         context: context,
                                         builder: (context) {
-                                          return Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.7,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(25),
-                                                topRight: Radius.circular(25),
+                                          return SingleChildScrollView(
+                                            padding: EdgeInsets.only(
+                                                bottom: MediaQuery.of(context)
+                                                    .viewInsets
+                                                    .bottom),
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.7,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(25),
+                                                  topRight: Radius.circular(25),
+                                                ),
                                               ),
-                                            ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'Update ${EndPoints.allUser[index]['name']} profile data (:',
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18,
-                                                    fontFamily: 'Bakta',
-                                                    fontWeight: FontWeight.w900,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  child: TextField(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Update ${EndPoints.allUser[index]['name']} profile data (:',
                                                     style: TextStyle(
                                                       color: Colors.black,
+                                                      fontSize: 18,
+                                                      fontFamily: 'Bakta',
+                                                      fontWeight:
+                                                          FontWeight.w900,
                                                     ),
-                                                    cursorColor: Colors.black,
-                                                    controller:
-                                                        usernameBottomSheet,
-                                                    keyboardType:
-                                                        TextInputType.text,
-                                                    onChanged: (value) {},
-                                                    onSubmitted: (val) {},
-                                                    decoration: InputDecoration(
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color: Colors
-                                                                .orangeAccent),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            15),
+                                                    child: TextField(
+                                                      style: TextStyle(
+                                                        color: Colors.black,
                                                       ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                        borderSide: BorderSide(
+                                                      cursorColor: Colors.black,
+                                                      controller:
+                                                          usernameBottomSheet,
+                                                      keyboardType:
+                                                          TextInputType.text,
+                                                      onChanged: (value) {},
+                                                      onSubmitted: (val) {},
+                                                      decoration:
+                                                          InputDecoration(
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .orangeAccent),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        labelText: 'UserName',
+                                                        labelStyle: TextStyle(
+                                                            color:
+                                                                Colors.black),
+                                                        prefixIcon: Icon(
+                                                          IconlyBroken.profile,
                                                           color: Colors.black,
                                                         ),
-                                                      ),
-                                                      labelText: 'UserName',
-                                                      labelStyle: TextStyle(
-                                                          color: Colors.black),
-                                                      prefixIcon: Icon(
-                                                        IconlyBroken.profile,
-                                                        color: Colors.black,
-                                                      ),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                        color: Colors.black,
-                                                      )),
-                                                      disabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
+                                                        border:
+                                                            OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
                                                           color: Colors.black,
+                                                        )),
+                                                        disabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors.black,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  child: TextField(
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                    ),
-                                                    cursorColor: Colors.black,
-                                                    controller:
-                                                        emailBottomSheet,
-                                                    keyboardType: TextInputType
-                                                        .emailAddress,
-                                                    onChanged: (value) {},
-                                                    onSubmitted: (val) {},
-                                                    decoration: InputDecoration(
-                                                      focusedBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            color: Colors
-                                                                .orangeAccent),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            15),
+                                                    child: TextField(
+                                                      style: TextStyle(
+                                                        color: Colors.black,
                                                       ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(15),
-                                                        borderSide: BorderSide(
+                                                      cursorColor: Colors.black,
+                                                      controller:
+                                                          emailBottomSheet,
+                                                      keyboardType:
+                                                          TextInputType
+                                                              .emailAddress,
+                                                      onChanged: (value) {},
+                                                      onSubmitted: (val) {},
+                                                      decoration:
+                                                          InputDecoration(
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .orangeAccent),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        labelText: 'Email',
+                                                        labelStyle: TextStyle(
+                                                            color:
+                                                                Colors.black),
+                                                        prefixIcon: Icon(
+                                                          Icons.email,
                                                           color: Colors.black,
                                                         ),
-                                                      ),
-                                                      labelText: 'Email',
-                                                      labelStyle: TextStyle(
-                                                          color: Colors.black),
-                                                      prefixIcon: Icon(
-                                                        Icons.email,
-                                                        color: Colors.black,
-                                                      ),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                        color: Colors.black,
-                                                      )),
-                                                      disabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
+                                                        border:
+                                                            OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
                                                           color: Colors.black,
+                                                        )),
+                                                        disabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors.black,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                                Container(
-                                                  width: 250,
-                                                  height: 50,
-                                                  child: MaterialButton(
-                                                    onPressed: () {
-                                                      print(EndPoints
-                                                              .allUser[index]
-                                                          ['_id']);
-                                                      cubit.updateuser(
-                                                        token,
-                                                        EndPoints.allUser[index]
-                                                            ['_id'],
-                                                        usernameBottomSheet.text
-                                                                .trim()
-                                                                .isEmpty
-                                                            ? EndPoints.allUser[
-                                                                index]['name']
-                                                            : usernameBottomSheet
-                                                                .text
-                                                                .trim(),
-                                                        emailBottomSheet.text
-                                                                .trim()
-                                                                .isEmpty
-                                                            ? EndPoints.allUser[
-                                                                index]['email']
-                                                            : emailBottomSheet
-                                                                .text
-                                                                .trim(),
-                                                        context,
-                                                      );
-                                                      cubit.updateUserDataBase(
-                                                          token: token,
-                                                          name: usernameBottomSheet
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            15),
+                                                    child: TextField(
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                      cursorColor: Colors.black,
+                                                      controller:
+                                                          roleBottomSheet,
+                                                      keyboardType:
+                                                          TextInputType.text,
+                                                      onChanged: (value) {},
+                                                      onSubmitted: (val) {},
+                                                      decoration:
+                                                          InputDecoration(
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide: BorderSide(
+                                                              color: Colors
+                                                                  .orangeAccent),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        labelText: 'role',
+                                                        labelStyle: TextStyle(
+                                                            color:
+                                                                Colors.black),
+                                                        prefixIcon: Icon(
+                                                          Icons.person,
+                                                          color: Colors.black,
+                                                        ),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                          color: Colors.black,
+                                                        )),
+                                                        disabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 250,
+                                                    height: 50,
+                                                    child: MaterialButton(
+                                                      onPressed: () {
+                                                        print(EndPoints
+                                                                .allUser[index]
+                                                            ['_id']);
+                                                        cubit.updateuser(
+                                                          token,
+                                                          EndPoints.allUser[
+                                                              index]['_id'],
+                                                          usernameBottomSheet
                                                                   .text
                                                                   .trim()
                                                                   .isEmpty
@@ -228,39 +310,72 @@ class UsersAdmin extends StatelessWidget {
                                                               : usernameBottomSheet
                                                                   .text
                                                                   .trim(),
-                                                          email: emailBottomSheet
-                                                                  .text
+                                                          emailBottomSheet.text
                                                                   .trim()
                                                                   .isEmpty
-                                                              ? EndPoints
-                                                                          .allUser[
+                                                              ? EndPoints.allUser[
                                                                       index]
                                                                   ['email']
                                                               : emailBottomSheet
                                                                   .text
                                                                   .trim(),
-                                                          context: context);
-                                                    },
-                                                    child: Text(
-                                                      'Update',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 18,
-                                                        fontFamily: 'Bakta',
-                                                        fontWeight:
-                                                            FontWeight.w900,
+                                                          context,
+                                                          roleBottomSheet.text
+                                                                  .trim()
+                                                                  .isEmpty
+                                                              ? 'user'
+                                                              : roleBottomSheet
+                                                                  .text
+                                                                  .trim(),
+                                                        );
+                                                        // cubit
+                                                        //     .updateUserDataBase(
+                                                        //   token: token,
+                                                        //   name: usernameBottomSheet
+                                                        //           .text
+                                                        //           .trim()
+                                                        //           .isEmpty
+                                                        //       ? EndPoints
+                                                        //               .allUser[
+                                                        //           index]['name']
+                                                        //       : usernameBottomSheet
+                                                        //           .text
+                                                        //           .trim(),
+                                                        //   email: emailBottomSheet
+                                                        //           .text
+                                                        //           .trim()
+                                                        //           .isEmpty
+                                                        //       ? EndPoints.allUser[
+                                                        //               index]
+                                                        //           ['email']
+                                                        //       : emailBottomSheet
+                                                        //           .text
+                                                        //           .trim(),
+                                                        //   context: context,
+                                                        // );
+                                                      },
+                                                      child: Text(
+                                                        'Update',
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 18,
+                                                          fontFamily: 'Bakta',
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                        ),
+                                                      ),
+                                                      color:
+                                                          Colors.orangeAccent,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(25),
                                                       ),
                                                     ),
-                                                    color: Colors.orangeAccent,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              25),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           );
                                         });

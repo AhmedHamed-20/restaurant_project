@@ -194,6 +194,35 @@ class Appcubit extends Cubit<AppState> {
     return result;
   }
 
+  Future getallRecipes() {
+    return DioFunc.getdate(
+      url: EndPoints.allRecipies,
+    ).then((value) {
+      noData = false;
+      page = 2;
+      EndPoints.recipes = value.data['data']['data'];
+
+      print(EndPoints.allRecipiesMap);
+      emit(RecipesGetSuccess());
+    }).catchError((onError) {
+      print(onError);
+      emit(RecipesGetError());
+    });
+  }
+
+  Future getAllCategories() {
+    return DioFunc.getdate(
+      url: EndPoints.categories,
+    ).then((value) {
+      EndPoints.allCategoriesMap = value.data['data']['data'];
+      emit(CategorieCreatedSuccess());
+      print(EndPoints.allCategoriesMap);
+    }).catchError((onError) {
+      emit(CategorieCreatedError());
+      print(onError);
+    });
+  }
+
   getdata(BuildContext context, {token}) async {
     print('YAY! Free cute dog pics!');
     if (CachFunc.getData('isAdmin') == null) {
@@ -203,7 +232,7 @@ class Appcubit extends Cubit<AppState> {
         print(EndPoints.recipes);
         DioFunc.getdate(url: EndPoints.categories).then(
           (value) {
-            EndPoints.allCategoriesMap = Map<String, dynamic>.from(value.data);
+            EndPoints.allCategoriesMap = value.data['data']['data'];
             getbyuserid(
               DataBaseFun.storedData[0]['userId'],
               CartDataBaseFun.database,

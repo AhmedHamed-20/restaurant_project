@@ -22,12 +22,12 @@ class EndPoints {
   static LoginModel loginModel;
   static SignUpModel signUpModel;
   static Map<String, dynamic> allRecipiesMap;
-  static Map<String, dynamic> allCategoriesMap;
-  static List recipes;
-  static List FilteredCartDataBase;
-  static List FavoriteDataBase;
-  static List allUser;
-  static List allorders;
-  static List allCategories;
-  static List allrecipesAdmin;
+  static List allCategoriesMap;
+  static List recipes = [];
+  static List FilteredCartDataBase = [];
+  static List FavoriteDataBase = [];
+  static List allUser = [];
+  static List allorders = [];
+  static List allCategories = [];
+  static List allrecipesAdmin = [];
 }

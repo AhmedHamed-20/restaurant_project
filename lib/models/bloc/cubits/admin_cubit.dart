@@ -87,12 +87,13 @@ class AdminCubit extends Cubit<AdminState> {
   }
 
   updateuser(String token, String userId, String name, String email,
-      BuildContext context) {
+      BuildContext context, String role) {
     DioFunc.patchdata(
       url: '${EndPoints.users + userId}',
       token: token,
       name: name,
       email: email,
+      role: role,
     ).then((value) {
       print(value);
       getAllusers(token);

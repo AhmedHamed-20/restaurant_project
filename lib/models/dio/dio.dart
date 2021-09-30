@@ -37,12 +37,18 @@ class DioFunc {
   }
 
   static Future<dynamic> patchdata(
-      {String url, String name, String email, String token}) async {
+      {String url,
+      String name,
+      String email,
+      String token,
+      String role}) async {
+    print(role);
     return response = await dio
         .patch(url,
             data: {
               'name': '${name}',
               'email': '${email}',
+              'role': '${role}',
             },
             options: Options(headers: {
               'Authorization': 'Bearer ${token}',
