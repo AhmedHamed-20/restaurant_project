@@ -53,3 +53,5 @@ class IncrementTExtFieldNumer extends AdminState {}
 class RecipeCreatedSucces extends AdminState {}
 
 class RecipeCreatedError extends AdminState {}
+
+class UploadState extends AdminState {}

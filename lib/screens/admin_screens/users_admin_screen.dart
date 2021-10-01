@@ -17,6 +17,7 @@ class UsersAdmin extends StatelessWidget {
     var cubit = AdminCubit.get(context);
     String token = CachFunc.getData('token');
     refresh() {
+      cubit.pageUsrs = 2;
       return cubit.getAllusers(token);
     }
 

@@ -115,12 +115,16 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                  child: Text(
-                    'Save Changes',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: state is UploadState
+                      ? CircularProgressIndicator(
+                          strokeWidth: 1.6,
+                        )
+                      : Text(
+                          'Save Changes',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               )
             ],

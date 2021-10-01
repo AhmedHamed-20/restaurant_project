@@ -14,6 +14,7 @@ class OrdersAdmin extends StatelessWidget {
     String token = CachFunc.getData('token');
     //cubit.getAllOrders(token);
     refresh() {
+      cubit.page = 2;
       return cubit.getAllOrders(token);
     }
 

@@ -17,6 +17,7 @@ class RecipesAdmin extends StatelessWidget {
     String token = CachFunc.getData('token');
     //cubit.getallRecipes();
     refresh() {
+      cubit.pageRecipe = 2;
       return cubit.getallRecipes();
     }
 

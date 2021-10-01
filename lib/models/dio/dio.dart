@@ -112,27 +112,23 @@ class DioFunc {
   }) async {
     String fileName = image.path.split('/').last;
     print(image.path);
-    return response = await dio
-        .patch(url,
-            data: FormData.fromMap(
-              {
-                "name": "${name}",
-                "price": price,
-                "cookingTime": cookingTime,
-                "slug": slug,
-                "category": category,
-                "ingredients": ingredients,
-                "imageCover": await MultipartFile.fromFile(image.path,
-                    filename: fileName, contentType: MediaType('image', 'png')),
-              },
-            ),
-            options: Options(headers: {
-              'Authorization': 'Bearer ${token}',
-              'Content-Type': 'application/json'
-            }))
-        .catchError((onError) {
-      print(onError);
-    });
+    return response = await dio.patch(url,
+        data: FormData.fromMap(
+          {
+            "name": "${name}",
+            "price": price,
+            "cookingTime": cookingTime,
+            "slug": slug,
+            "category": category,
+            "ingredients": ingredients,
+            "imageCover": await MultipartFile.fromFile(image.path,
+                filename: fileName, contentType: MediaType('image', 'png')),
+          },
+        ),
+        options: Options(headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json'
+        }));
   }
 
   static Future<dynamic> patchRecipeWithoutPhoto({
@@ -145,23 +141,19 @@ class DioFunc {
     List ingredients,
     String token,
   }) async {
-    return response = await dio
-        .patch(url,
-            data: FormData.fromMap({
-              "name": "${name}",
-              "price": price,
-              "cookingTime": cookingTime,
-              "category": category,
-              "slug": slug,
-              "ingredients": ingredients,
-            }),
-            options: Options(headers: {
-              'Authorization': 'Bearer ${token}',
-              'Content-Type': 'application/json'
-            }))
-        .catchError((onError) {
-      print(onError);
-    });
+    return response = await dio.patch(url,
+        data: FormData.fromMap({
+          "name": "${name}",
+          "price": price,
+          "cookingTime": cookingTime,
+          "category": category,
+          "slug": slug,
+          "ingredients": ingredients,
+        }),
+        options: Options(headers: {
+          'Authorization': 'Bearer ${token}',
+          'Content-Type': 'application/json'
+        }));
   }
 
   static Future<dynamic> postRecipe({

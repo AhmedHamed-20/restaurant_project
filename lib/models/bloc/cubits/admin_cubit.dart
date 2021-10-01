@@ -474,6 +474,7 @@ class AdminCubit extends Cubit<AdminState> {
     File image,
     context,
   }) {
+    emit(UploadState());
     DioFunc.postRecipe(
             url: EndPoints.allRecipies,
             name: name,
@@ -500,6 +501,12 @@ class AdminCubit extends Cubit<AdminState> {
       }
       lengthOFtextfield = 5;
     }).catchError((onError) {
+      Fluttertoast.showToast(
+          msg:
+              'error,please make sure to fill all fields and size of image less than 2 mb',
+          backgroundColor: Colors.red,
+          toastLength: Toast.LENGTH_LONG,
+          textColor: Colors.white);
       print(onError);
       emit(RecipeCreatedError());
     });
@@ -515,6 +522,7 @@ class AdminCubit extends Cubit<AdminState> {
       int cockingtime,
       int price,
       context) {
+    emit(UploadState());
     DioFunc.patchRecipeWithoutPhoto(
             token: token,
             category: category,
