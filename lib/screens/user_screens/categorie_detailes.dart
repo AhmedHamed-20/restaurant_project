@@ -17,7 +17,13 @@ class CategoriesDetailes extends StatelessWidget {
           },
           child: Icon(Icons.arrow_back_ios),
         ),
-        title: Text('Categories Detailes'),
+        title: Text(
+          Data['data']['data'][0]['category'],
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Batka',
+          ),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
