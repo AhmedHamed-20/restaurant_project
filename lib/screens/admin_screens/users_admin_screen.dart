@@ -390,8 +390,19 @@ class UsersAdmin extends StatelessWidget {
                                     ),
                                     title: Text(
                                         '${EndPoints.allUser[index]['name']}'),
-                                    subtitle: Text(
-                                        '${EndPoints.allUser[index]['email']}'),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            '${EndPoints.allUser[index]['email']}'),
+                                        SizedBox(
+                                          height: 3,
+                                        ),
+                                        Text(
+                                            '${EndPoints.allUser[index]['role']}'),
+                                      ],
+                                    ),
                                     trailing: MaterialButton(
                                       onPressed: () {
                                         showDialog(

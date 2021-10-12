@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/login_cubit.dart';
 import 'package:resturant/models/bloc/states/login_states.dart';
+import 'package:resturant/screens/user_screens/forget_password_screen.dart';
 import 'package:resturant/screens/user_screens/sign_up_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
@@ -160,7 +161,25 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                           SizedBox(
-                            height: 10,
+                            height: 5,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              MaterialButton(
+                                onPressed: () {
+                                  Navigate(
+                                      context: context,
+                                      Screen: ForgetPassword());
+                                },
+                                child: Text(
+                                  'Forget your password ?',
+                                  style: TextStyle(
+                                    color: Colors.orangeAccent,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           Container(
                             decoration: BoxDecoration(

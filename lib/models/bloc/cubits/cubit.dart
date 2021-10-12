@@ -604,4 +604,22 @@ class Appcubit extends Cubit<AppState> {
     print(hidepass3);
     emit(HidePassword());
   }
+
+  forgetPassword(String email) {
+    DioFunc.postData(EndPoints.forgetPassword, {
+      'email': email,
+    }).then((value) {
+      print(value);
+      Fluttertoast.showToast(
+          msg: 'Email sent success to your account ',
+          textColor: Colors.white,
+          backgroundColor: Colors.green);
+    }).catchError((onError) {
+      Fluttertoast.showToast(
+          msg: 'we not found your email',
+          textColor: Colors.white,
+          backgroundColor: Colors.red);
+      print(onError);
+    });
+  }
 }
