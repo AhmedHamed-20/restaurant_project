@@ -29,14 +29,15 @@ class RecipesAdmin extends StatelessWidget {
             floatingActionButton: Padding(
               padding: const EdgeInsets.only(top: 30),
               child: FloatingActionButton(
-                elevation: 3,
+                elevation: 6,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(15),
-                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(25),
+                    topLeft: Radius.circular(25),
                   ),
                 ),
-                backgroundColor: Colors.grey[100],
+                backgroundColor:
+                    cubit.isDark ? Color(0xff393E46) : Colors.grey[100],
                 child: Icon(
                   Icons.add,
                   color: Colors.orangeAccent,
@@ -60,7 +61,8 @@ class RecipesAdmin extends StatelessWidget {
                             Text(
                               'NO Recipes to show',
                               style: TextStyle(
-                                color: Colors.black,
+                                color:
+                                    cubit.isDark ? Colors.white : Colors.black,
                                 fontSize: 18,
                                 fontFamily: 'Batka',
                               ),
@@ -76,6 +78,7 @@ class RecipesAdmin extends StatelessWidget {
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       child: Card(
+                        color: cubit.isDark ? Color(0xff393E46) : Colors.white,
                         elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -128,11 +131,24 @@ class RecipesAdmin extends StatelessWidget {
                                           );
                                         },
                                         child: ListTile(
-                                          title: Text(EndPoints
-                                              .allrecipesAdmin[index]['name']),
+                                          title: Text(
+                                            EndPoints.allrecipesAdmin[index]
+                                                ['name'],
+                                            style: TextStyle(
+                                              color: cubit.isDark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
                                           subtitle: Text(
-                                              EndPoints.allrecipesAdmin[index]
-                                                  ['category']),
+                                            EndPoints.allrecipesAdmin[index]
+                                                ['category'],
+                                            style: TextStyle(
+                                              color: cubit.isDark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
                                           leading: CircleAvatar(
                                             radius: 30,
                                             backgroundImage: NetworkImage(
@@ -145,6 +161,10 @@ class RecipesAdmin extends StatelessWidget {
                                                   context: context,
                                                   builder: (context) {
                                                     return AlertDialog(
+                                                      backgroundColor: cubit
+                                                              .isDark
+                                                          ? Color(0xff393E46)
+                                                          : Colors.white,
                                                       shape:
                                                           RoundedRectangleBorder(
                                                         borderRadius:
@@ -156,7 +176,9 @@ class RecipesAdmin extends StatelessWidget {
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
-                                                          color: Colors.black,
+                                                          color: cubit.isDark
+                                                              ? Colors.white
+                                                              : Colors.black,
                                                           fontFamily: 'Bakta',
                                                         ),
                                                       ),
@@ -172,7 +194,16 @@ class RecipesAdmin extends StatelessWidget {
                                                                     .pop();
                                                               },
                                                               child: Text(
-                                                                  'Cancel'),
+                                                                'Cancel',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: cubit.isDark
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                              ),
                                                             ),
                                                             MaterialButton(
                                                               onPressed: () {
@@ -187,7 +218,16 @@ class RecipesAdmin extends StatelessWidget {
                                                                     .pop();
                                                               },
                                                               child: Text(
-                                                                  'Confirm'),
+                                                                'Confirm',
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: cubit.isDark
+                                                                      ? Colors
+                                                                          .white
+                                                                      : Colors
+                                                                          .black,
+                                                                ),
+                                                              ),
                                                             ),
                                                           ]),
                                                     );
@@ -203,7 +243,9 @@ class RecipesAdmin extends StatelessWidget {
                                     },
                                     separatorBuilder: (context, index) {
                                       return Divider(
-                                        color: Colors.grey[300],
+                                        color: cubit.isDark
+                                            ? Color(0xff222831)
+                                            : Colors.grey[200],
                                         thickness: 1.5,
                                       );
                                     },

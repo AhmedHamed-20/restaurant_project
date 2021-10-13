@@ -55,3 +55,5 @@ class RecipeCreatedSucces extends AdminState {}
 class RecipeCreatedError extends AdminState {}
 
 class UploadState extends AdminState {}
+
+class ChangeTheme extends AdminState {}

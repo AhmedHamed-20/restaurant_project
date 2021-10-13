@@ -29,34 +29,44 @@ class AdminLayout extends StatelessWidget {
             return false;
           },
           child: Scaffold(
-            backgroundColor: Colors.grey[100],
+            backgroundColor:
+                cubit.isDark ? Color(0xff222831) : Colors.grey[200],
             bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: Colors.orangeAccent,
               unselectedItemColor: Colors.grey,
+              backgroundColor: cubit.isDark ? Color(0xff222831) : Colors.white,
               onTap: (index) {
                 cubit.changBottomnav(index);
               },
               currentIndex: cubit.currentindex,
               items: [
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      cubit.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 0
                       ? Icon(IconlyBold.user3)
                       : Icon(IconlyBroken.user3),
                   label: 'Users',
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      cubit.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 1
                       ? Icon(Icons.restaurant_menu)
                       : Icon(Icons.restaurant_menu),
                   label: 'Recipes',
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      cubit.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 2
                       ? Icon(IconlyBold.category)
                       : Icon(IconlyBroken.category),
                   label: 'Categories',
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      cubit.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 3
                       ? Icon(IconlyBold.buy)
                       : Icon(IconlyBroken.buy),
@@ -65,13 +75,21 @@ class AdminLayout extends StatelessWidget {
               ],
             ),
             appBar: AppBar(
-              leading: Container(),
+              leading: MaterialButton(
+                onPressed: () {
+                  cubit.changeTheme();
+                },
+                child: Icon(
+                  cubit.isDark ? Icons.wb_sunny : Icons.dark_mode,
+                  color: cubit.isDark ? Colors.white : Colors.black,
+                ),
+              ),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               title: Text(
                 '${cubit.title[cubit.currentindex]}',
                 style: TextStyle(
-                  color: Colors.grey[800],
+                  color: cubit.isDark ? Colors.white : Colors.grey[800],
                   fontFamily: 'Batka',
                 ),
               ),

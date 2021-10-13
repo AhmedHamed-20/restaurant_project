@@ -547,4 +547,10 @@ class AdminCubit extends Cubit<AdminState> {
       print(onError);
     });
   }
+
+  bool isDark = true;
+  changeTheme() {
+    isDark = !isDark;
+    emit(ChangeTheme());
+  }
 }

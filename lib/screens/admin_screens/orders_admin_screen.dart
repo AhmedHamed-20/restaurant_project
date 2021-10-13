@@ -33,7 +33,7 @@ class OrdersAdmin extends StatelessWidget {
                           Text(
                             'NO orders to show',
                             style: TextStyle(
-                              color: Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                               fontSize: 18,
                               fontFamily: 'Batka',
                             ),
@@ -49,6 +49,7 @@ class OrdersAdmin extends StatelessWidget {
                     physics: const BouncingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics()),
                     child: Card(
+                      color: cubit.isDark ? Color(0xff393E46) : Colors.white,
                       elevation: 3,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -78,6 +79,9 @@ class OrdersAdmin extends StatelessWidget {
                                           context: context,
                                           builder: (context) {
                                             return Container(
+                                              color: cubit.isDark
+                                                  ? Color(0xff393E46)
+                                                  : Colors.white,
                                               padding: EdgeInsets.all(20),
                                               height: MediaQuery.of(context)
                                                       .size
@@ -106,6 +110,11 @@ class OrdersAdmin extends StatelessWidget {
                                                               fontSize: 18,
                                                               fontFamily:
                                                                   'Batka',
+                                                              color: cubit
+                                                                      .isDark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
                                                             ),
                                                           ),
                                                           MaterialButton(
@@ -116,6 +125,12 @@ class OrdersAdmin extends StatelessWidget {
                                                                   builder:
                                                                       (context) {
                                                                     return AlertDialog(
+                                                                      backgroundColor: cubit
+                                                                              .isDark
+                                                                          ? Color(
+                                                                              0xff393E46)
+                                                                          : Colors
+                                                                              .white,
                                                                       shape:
                                                                           RoundedRectangleBorder(
                                                                         borderRadius:
@@ -128,8 +143,9 @@ class OrdersAdmin extends StatelessWidget {
                                                                             TextAlign.center,
                                                                         style:
                                                                             TextStyle(
-                                                                          color:
-                                                                              Colors.black,
+                                                                          color: cubit.isDark
+                                                                              ? Colors.white
+                                                                              : Colors.black,
                                                                           fontFamily:
                                                                               'Bakta',
                                                                         ),
@@ -142,14 +158,24 @@ class OrdersAdmin extends StatelessWidget {
                                                                               onPressed: () {
                                                                                 Navigator.of(context).pop();
                                                                               },
-                                                                              child: Text('Cancel'),
+                                                                              child: Text(
+                                                                                'Cancel',
+                                                                                style: TextStyle(
+                                                                                  color: cubit.isDark ? Colors.white : Colors.black,
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                             MaterialButton(
                                                                               onPressed: () {
                                                                                 cubit.cancelOrder(EndPoints.allorders[index]['_id'], token, context);
                                                                                 Navigator.of(context).pop();
                                                                               },
-                                                                              child: Text('Confirm'),
+                                                                              child: Text(
+                                                                                'Confirm',
+                                                                                style: TextStyle(
+                                                                                  color: cubit.isDark ? Colors.white : Colors.black,
+                                                                                ),
+                                                                              ),
                                                                             ),
                                                                           ]),
                                                                     );
@@ -177,9 +203,11 @@ class OrdersAdmin extends StatelessWidget {
                                                       Text(
                                                         'Phone Number',
                                                         style: TextStyle(
-                                                          fontSize: 18,
-                                                          fontFamily: 'Batka',
-                                                        ),
+                                                            fontSize: 18,
+                                                            fontFamily: 'Batka',
+                                                            color: cubit.isDark
+                                                                ? Colors.white
+                                                                : Colors.grey),
                                                       ),
                                                       Text(
                                                         EndPoints.allorders[
@@ -196,7 +224,9 @@ class OrdersAdmin extends StatelessWidget {
                                                       '${EndPoints.allorders[index]['createdAt']}'
                                                           .substring(0, 10),
                                                       style: TextStyle(
-                                                        color: Colors.black,
+                                                        color: cubit.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                         fontSize: 18,
                                                       ),
                                                     ),
@@ -209,9 +239,16 @@ class OrdersAdmin extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         ListTile(
-                                          title: Text(EndPoints.allorders[index]
-                                                  ['orderContent'][0]
-                                              ['recipeName']),
+                                          title: Text(
+                                            EndPoints.allorders[index]
+                                                    ['orderContent'][0]
+                                                ['recipeName'],
+                                            style: TextStyle(
+                                              color: cubit.isDark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
                                           leading: CircleAvatar(
                                             backgroundColor: Colors.orange[200],
                                             radius: 25,
@@ -231,10 +268,24 @@ class OrdersAdmin extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(EndPoints.allorders[index]
-                                                  ['customerName']),
-                                              Text(EndPoints.allorders[index]
-                                                  ['customerEmail']),
+                                              Text(
+                                                EndPoints.allorders[index]
+                                                    ['customerName'],
+                                                style: TextStyle(
+                                                  color: cubit.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
+                                              ),
+                                              Text(
+                                                EndPoints.allorders[index]
+                                                    ['customerEmail'],
+                                                style: TextStyle(
+                                                  color: cubit.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                           trailing: Text(
@@ -243,6 +294,11 @@ class OrdersAdmin extends StatelessWidget {
                                                         ['recipeAmount']
                                                     .toString() +
                                                 'x ${EndPoints.allorders[index]['orderContent'][0]['recipePrice']}',
+                                            style: TextStyle(
+                                              color: cubit.isDark
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -253,7 +309,9 @@ class OrdersAdmin extends StatelessWidget {
                               separatorBuilder:
                                   (BuildContext context, int index) {
                                 return Divider(
-                                  color: Colors.grey[300],
+                                  color: cubit.isDark
+                                      ? Color(0xff222831)
+                                      : Colors.grey[300],
                                   thickness: 1.5,
                                 );
                               },

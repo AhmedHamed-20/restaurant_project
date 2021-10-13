@@ -29,7 +29,8 @@ class AddRecipeAdmin extends StatelessWidget {
           int value = 1;
           List ingredients = [];
           return Scaffold(
-            backgroundColor: Colors.grey[300],
+            backgroundColor:
+                cubit.isDark ? Color(0xff222831) : Colors.grey[300],
             appBar: AppBar(
               toolbarHeight: 80,
               actions: [
@@ -101,7 +102,10 @@ class AddRecipeAdmin extends StatelessWidget {
                     cubit.controller[i].clear();
                   }
                 },
-                child: Icon(Icons.arrow_back_ios),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: cubit.isDark ? Colors.white : Colors.black,
+                ),
               ),
               elevation: 0,
               backgroundColor: Colors.transparent,
@@ -109,12 +113,13 @@ class AddRecipeAdmin extends StatelessWidget {
               title: Text(
                 'Detailes',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: cubit.isDark ? Colors.white : Colors.black,
                   fontFamily: 'Batka',
                 ),
               ),
             ),
             body: Card(
+              color: cubit.isDark ? Color(0xff393E46) : Colors.white,
               elevation: 3,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -145,7 +150,8 @@ class AddRecipeAdmin extends StatelessWidget {
                         height: 10,
                       ),
                       Divider(
-                        color: Colors.grey[300],
+                        color:
+                            cubit.isDark ? Color(0xff222831) : Colors.grey[300],
                         thickness: 1.5,
                       ),
                       SizedBox(
@@ -156,6 +162,7 @@ class AddRecipeAdmin extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Batka',
                           fontSize: 24,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
                       ),
                       SizedBox(
@@ -163,9 +170,9 @@ class AddRecipeAdmin extends StatelessWidget {
                       ),
                       TextField(
                         style: TextStyle(
-                          color: Colors.black,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
-                        cursorColor: Colors.black,
+                        cursorColor: cubit.isDark ? Colors.white : Colors.black,
                         controller: recipeNameController,
                         keyboardType: TextInputType.text,
                         onChanged: (value) {},
@@ -174,7 +181,7 @@ class AddRecipeAdmin extends StatelessWidget {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
-                              color: Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                           ),
                           labelText: 'Name',
@@ -183,7 +190,9 @@ class AddRecipeAdmin extends StatelessWidget {
                               borderSide: BorderSide(
                                 color: Colors.orangeAccent,
                               )),
-                          labelStyle: TextStyle(color: Colors.black),
+                          labelStyle: TextStyle(
+                              color:
+                                  cubit.isDark ? Colors.white : Colors.black),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
@@ -197,7 +206,8 @@ class AddRecipeAdmin extends StatelessWidget {
                         ),
                       ),
                       Divider(
-                        color: Colors.grey[300],
+                        color:
+                            cubit.isDark ? Color(0xff222831) : Colors.grey[300],
                         thickness: 1.5,
                       ),
                       Text(
@@ -205,16 +215,18 @@ class AddRecipeAdmin extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Batka',
                           fontSize: 24,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Card(
+                        color: cubit.isDark ? Color(0xff393E46) : Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        elevation: 6,
+                        elevation: 12,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
@@ -230,7 +242,9 @@ class AddRecipeAdmin extends StatelessWidget {
                                       Expanded(
                                         child: TextField(
                                           style: TextStyle(
-                                            color: Colors.black,
+                                            color: cubit.isDark
+                                                ? Colors.white
+                                                : Colors.black,
                                           ),
                                           cursorColor: Colors.black,
                                           controller: cubit.controller[index],
@@ -242,7 +256,9 @@ class AddRecipeAdmin extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                               borderSide: BorderSide(
-                                                color: Colors.black,
+                                                color: cubit.isDark
+                                                    ? Colors.white
+                                                    : Colors.black,
                                               ),
                                             ),
                                             labelText: 'ingredients',
@@ -252,8 +268,10 @@ class AddRecipeAdmin extends StatelessWidget {
                                                 borderSide: BorderSide(
                                                   color: Colors.orangeAccent,
                                                 )),
-                                            labelStyle:
-                                                TextStyle(color: Colors.black),
+                                            labelStyle: TextStyle(
+                                                color: cubit.isDark
+                                                    ? Colors.white
+                                                    : Colors.black),
                                             border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(15),
@@ -312,6 +330,7 @@ class AddRecipeAdmin extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Batka',
                           fontSize: 24,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
                       ),
                       SizedBox(
@@ -319,9 +338,9 @@ class AddRecipeAdmin extends StatelessWidget {
                       ),
                       TextField(
                         style: TextStyle(
-                          color: Colors.black,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
-                        cursorColor: Colors.black,
+                        cursorColor: cubit.isDark ? Colors.white : Colors.black,
                         controller: recipePriceController,
                         keyboardType: TextInputType.number,
                         onChanged: (value) {},
@@ -330,7 +349,7 @@ class AddRecipeAdmin extends StatelessWidget {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
-                              color: Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                           ),
                           labelText: 'Price',
@@ -339,7 +358,9 @@ class AddRecipeAdmin extends StatelessWidget {
                               borderSide: BorderSide(
                                 color: Colors.orangeAccent,
                               )),
-                          labelStyle: TextStyle(color: Colors.black),
+                          labelStyle: TextStyle(
+                              color:
+                                  cubit.isDark ? Colors.white : Colors.black),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
@@ -353,7 +374,8 @@ class AddRecipeAdmin extends StatelessWidget {
                         ),
                       ),
                       Divider(
-                        color: Colors.grey[300],
+                        color:
+                            cubit.isDark ? Color(0xff222831) : Colors.grey[300],
                         thickness: 1.5,
                       ),
                       SizedBox(
@@ -362,18 +384,18 @@ class AddRecipeAdmin extends StatelessWidget {
                       Text(
                         'Category',
                         style: TextStyle(
-                          fontFamily: 'Batka',
-                          fontSize: 24,
-                        ),
+                            fontFamily: 'Batka',
+                            fontSize: 24,
+                            color: cubit.isDark ? Colors.white : Colors.black),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       TextField(
                         style: TextStyle(
-                          color: Colors.black,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
-                        cursorColor: Colors.black,
+                        cursorColor: cubit.isDark ? Colors.white : Colors.black,
                         controller: recipeCategoryController,
                         keyboardType: TextInputType.text,
                         onChanged: (value) {},
@@ -382,7 +404,7 @@ class AddRecipeAdmin extends StatelessWidget {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
-                              color: Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                           ),
                           labelText: 'Category',
@@ -391,7 +413,9 @@ class AddRecipeAdmin extends StatelessWidget {
                               borderSide: BorderSide(
                                 color: Colors.orangeAccent,
                               )),
-                          labelStyle: TextStyle(color: Colors.black),
+                          labelStyle: TextStyle(
+                              color:
+                                  cubit.isDark ? Colors.white : Colors.black),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
@@ -405,7 +429,8 @@ class AddRecipeAdmin extends StatelessWidget {
                         ),
                       ),
                       Divider(
-                        color: Colors.grey[300],
+                        color:
+                            cubit.isDark ? Color(0xff222831) : Colors.grey[300],
                         thickness: 1.5,
                       ),
                       SizedBox(
@@ -416,6 +441,7 @@ class AddRecipeAdmin extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Batka',
                           fontSize: 24,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
                       ),
                       SizedBox(
@@ -423,9 +449,9 @@ class AddRecipeAdmin extends StatelessWidget {
                       ),
                       TextField(
                         style: TextStyle(
-                          color: Colors.black,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
-                        cursorColor: Colors.black,
+                        cursorColor: cubit.isDark ? Colors.white : Colors.black,
                         controller: recipeCockingController,
                         keyboardType: TextInputType.number,
                         onChanged: (value) {},
@@ -434,7 +460,7 @@ class AddRecipeAdmin extends StatelessWidget {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
-                              color: Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                           ),
                           labelText: 'Cocking Time',
@@ -443,7 +469,9 @@ class AddRecipeAdmin extends StatelessWidget {
                               borderSide: BorderSide(
                                 color: Colors.orangeAccent,
                               )),
-                          labelStyle: TextStyle(color: Colors.black),
+                          labelStyle: TextStyle(
+                              color:
+                                  cubit.isDark ? Colors.white : Colors.black),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
@@ -460,7 +488,8 @@ class AddRecipeAdmin extends StatelessWidget {
                         height: 10,
                       ),
                       Divider(
-                        color: Colors.grey[300],
+                        color:
+                            cubit.isDark ? Color(0xff222831) : Colors.grey[300],
                         thickness: 1.5,
                       ),
                       Text(
@@ -468,6 +497,7 @@ class AddRecipeAdmin extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Batka',
                           fontSize: 24,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
                       ),
                       SizedBox(
@@ -475,9 +505,9 @@ class AddRecipeAdmin extends StatelessWidget {
                       ),
                       TextField(
                         style: TextStyle(
-                          color: Colors.black,
+                          color: cubit.isDark ? Colors.white : Colors.black,
                         ),
-                        cursorColor: Colors.black,
+                        cursorColor: cubit.isDark ? Colors.white : Colors.black,
                         controller: recipeSlugController,
                         keyboardType: TextInputType.text,
                         onChanged: (value) {},
@@ -486,7 +516,7 @@ class AddRecipeAdmin extends StatelessWidget {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
-                              color: Colors.black,
+                              color: cubit.isDark ? Colors.white : Colors.black,
                             ),
                           ),
                           labelText: 'Slug',
@@ -495,7 +525,9 @@ class AddRecipeAdmin extends StatelessWidget {
                               borderSide: BorderSide(
                                 color: Colors.orangeAccent,
                               )),
-                          labelStyle: TextStyle(color: Colors.black),
+                          labelStyle: TextStyle(
+                              color:
+                                  cubit.isDark ? Colors.white : Colors.black),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
