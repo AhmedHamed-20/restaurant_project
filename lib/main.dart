@@ -16,7 +16,12 @@ void main() async {
   await CachFunc.init();
   String token = CachFunc.getData('token');
   String isAdmin = CachFunc.getData('isAdmin');
-  EndPoints.isDark = await CachFunc.getBoolDate(key: 'isDark');
+  if (await CachFunc.getBoolDate(key: 'isDark') == null) {
+    EndPoints.isDark = false;
+  } else {
+    EndPoints.isDark = await CachFunc.getBoolDate(key: 'isDark');
+  }
+
   print(token);
 
   runApp(MyApp(token, isAdmin));
