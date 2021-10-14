@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
+import 'package:resturant/models/dio/end_points.dart';
 
 Widget customeDialog(
     TextEditingController addressController,
@@ -25,7 +26,7 @@ Widget customeDialog(
           Text(
             'We need this data (:',
             style: TextStyle(
-              color: Colors.black,
+              color: EndPoints.isDark ? Colors.white : Colors.black,
               fontSize: 18,
               fontFamily: 'Bakta',
               fontWeight: FontWeight.w900,
@@ -35,9 +36,9 @@ Widget customeDialog(
             padding: const EdgeInsets.all(15),
             child: TextField(
               style: TextStyle(
-                color: Colors.black,
+                color: EndPoints.isDark ? Colors.white : Colors.black,
               ),
-              cursorColor: Colors.black,
+              cursorColor: EndPoints.isDark ? Colors.white : Colors.black,
               controller: addressController,
               keyboardType: TextInputType.text,
               onChanged: (value) {},
@@ -45,22 +46,23 @@ Widget customeDialog(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: EndPoints.isDark ? Colors.white : Colors.black,
                   ),
                 ),
                 labelText: 'Address',
-                labelStyle: TextStyle(color: Colors.black),
+                labelStyle: TextStyle(
+                    color: EndPoints.isDark ? Colors.white : Colors.black),
                 prefixIcon: Icon(
                   Icons.place,
-                  color: Colors.black,
+                  color: EndPoints.isDark ? Colors.white : Colors.black,
                 ),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(
-                  color: Colors.black,
+                  color: EndPoints.isDark ? Colors.white : Colors.black,
                 )),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: EndPoints.isDark ? Colors.white : Colors.black,
                   ),
                 ),
               ),
@@ -70,9 +72,9 @@ Widget customeDialog(
             padding: const EdgeInsets.all(15),
             child: TextField(
               style: TextStyle(
-                color: Colors.black,
+                color: EndPoints.isDark ? Colors.white : Colors.black,
               ),
-              cursorColor: Colors.black,
+              cursorColor: EndPoints.isDark ? Colors.white : Colors.black,
               controller: PhoneNumberController,
               keyboardType: TextInputType.number,
               onChanged: (value) {},
@@ -80,22 +82,23 @@ Widget customeDialog(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: EndPoints.isDark ? Colors.white : Colors.black,
                   ),
                 ),
                 labelText: 'Phone Number',
-                labelStyle: TextStyle(color: Colors.black),
+                labelStyle: TextStyle(
+                    color: EndPoints.isDark ? Colors.white : Colors.black),
                 prefixIcon: Icon(
                   Icons.phone,
-                  color: Colors.black,
+                  color: EndPoints.isDark ? Colors.white : Colors.black,
                 ),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(
-                  color: Colors.black,
+                  color: EndPoints.isDark ? Colors.white : Colors.black,
                 )),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: EndPoints.isDark ? Colors.white : Colors.black,
                   ),
                 ),
               ),

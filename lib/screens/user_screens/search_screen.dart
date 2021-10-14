@@ -17,19 +17,27 @@ class SearchScrean extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: EndPoints.isDark ? Color(0xff222831) : Colors.white,
           appBar: AppBar(
             leading: MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(Icons.arrow_back_ios),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: EndPoints.isDark
+                    ? Colors.white
+                    : EndPoints.isDark
+                        ? Colors.white
+                        : Colors.black,
+              ),
             ),
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(
               'Search',
               style: TextStyle(
-                color: Colors.grey[800],
+                color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                 fontFamily: 'Batka',
               ),
             ),
@@ -49,7 +57,11 @@ class SearchScrean extends StatelessWidget {
                       child: Text(
                         'Search Now',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: EndPoints.isDark
+                              ? Colors.white
+                              : EndPoints.isDark
+                                  ? Colors.white
+                                  : Colors.black,
                           fontSize: 18,
                           fontFamily: 'Batka',
                         ),

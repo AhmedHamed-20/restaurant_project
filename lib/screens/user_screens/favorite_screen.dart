@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/databasae/favorite_database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 
 class FavoriteScreen extends StatelessWidget {
@@ -17,7 +18,11 @@ class FavoriteScreen extends StatelessWidget {
                 child: Text(
                   'Add your favorite recipes now',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: EndPoints.isDark
+                        ? Colors.white
+                        : EndPoints.isDark
+                            ? Colors.white
+                            : Colors.black,
                     fontSize: 18,
                   ),
                 ),

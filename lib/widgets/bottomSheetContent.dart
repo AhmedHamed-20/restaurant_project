@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
+import 'package:resturant/models/dio/end_points.dart';
 
 Widget bottomSheetContent({
   TextEditingController addressController,
@@ -26,7 +27,7 @@ Widget bottomSheetContent({
     child: Container(
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: EndPoints.isDark ? Color(0xff393E46) : Colors.grey[100],
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(25),
           topRight: Radius.circular(25),
@@ -38,7 +39,11 @@ Widget bottomSheetContent({
           Text(
             title,
             style: TextStyle(
-              color: Colors.black,
+              color: EndPoints.isDark
+                  ? Colors.white
+                  : EndPoints.isDark
+                      ? Colors.white
+                      : Colors.black,
               fontSize: 18,
               fontFamily: 'Bakta',
               fontWeight: FontWeight.w900,
@@ -49,9 +54,17 @@ Widget bottomSheetContent({
             child: TextField(
               enabled: isEnabled,
               style: TextStyle(
-                color: Colors.black,
+                color: EndPoints.isDark
+                    ? Colors.white
+                    : EndPoints.isDark
+                        ? Colors.white
+                        : Colors.black,
               ),
-              cursorColor: Colors.black,
+              cursorColor: EndPoints.isDark
+                  ? Colors.white
+                  : EndPoints.isDark
+                      ? Colors.white
+                      : Colors.black,
               controller: addressController,
               keyboardType: TextInputType.text,
               onChanged: (value) {},
@@ -64,22 +77,43 @@ Widget bottomSheetContent({
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: EndPoints.isDark
+                        ? Colors.white
+                        : EndPoints.isDark
+                            ? Colors.white
+                            : Colors.black,
                   ),
                 ),
                 labelText: textfield1Title,
-                labelStyle: TextStyle(color: Colors.black),
+                labelStyle: TextStyle(
+                    color: EndPoints.isDark
+                        ? Colors.white
+                        : EndPoints.isDark
+                            ? Colors.white
+                            : Colors.black),
                 prefixIcon: Icon(
                   textfield1Icon,
-                  color: Colors.black,
+                  color: EndPoints.isDark
+                      ? Colors.white
+                      : EndPoints.isDark
+                          ? Colors.white
+                          : Colors.black,
                 ),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(
-                  color: Colors.black,
+                  color: EndPoints.isDark
+                      ? Colors.white
+                      : EndPoints.isDark
+                          ? Colors.white
+                          : Colors.black,
                 )),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: EndPoints.isDark
+                        ? Colors.white
+                        : EndPoints.isDark
+                            ? Colors.white
+                            : Colors.black,
                   ),
                 ),
               ),
@@ -89,9 +123,17 @@ Widget bottomSheetContent({
             padding: const EdgeInsets.all(15),
             child: TextField(
               style: TextStyle(
-                color: Colors.black,
+                color: EndPoints.isDark
+                    ? Colors.white
+                    : EndPoints.isDark
+                        ? Colors.white
+                        : Colors.black,
               ),
-              cursorColor: Colors.black,
+              cursorColor: EndPoints.isDark
+                  ? Colors.white
+                  : EndPoints.isDark
+                      ? Colors.white
+                      : Colors.black,
               controller: PhoneNumberController,
               keyboardType: TextInputType.number,
               onChanged: (value) {},
@@ -104,22 +146,43 @@ Widget bottomSheetContent({
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: EndPoints.isDark
+                        ? Colors.white
+                        : EndPoints.isDark
+                            ? Colors.white
+                            : Colors.black,
                   ),
                 ),
                 labelText: textfield2Title,
-                labelStyle: TextStyle(color: Colors.black),
+                labelStyle: TextStyle(
+                    color: EndPoints.isDark
+                        ? Colors.white
+                        : EndPoints.isDark
+                            ? Colors.white
+                            : Colors.black),
                 prefixIcon: Icon(
                   textfield2Icon,
-                  color: Colors.black,
+                  color: EndPoints.isDark
+                      ? Colors.white
+                      : EndPoints.isDark
+                          ? Colors.white
+                          : Colors.black,
                 ),
                 border: OutlineInputBorder(
                     borderSide: BorderSide(
-                  color: Colors.black,
+                  color: EndPoints.isDark
+                      ? Colors.white
+                      : EndPoints.isDark
+                          ? Colors.white
+                          : Colors.black,
                 )),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
+                    color: EndPoints.isDark
+                        ? Colors.white
+                        : EndPoints.isDark
+                            ? Colors.white
+                            : Colors.black,
                   ),
                 ),
               ),

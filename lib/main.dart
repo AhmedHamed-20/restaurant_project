@@ -9,12 +9,14 @@ import 'package:resturant/screens/user_screens/login_screen.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
 import 'models/bloc/cubits/cubit.dart';
+import 'models/dio/end_points.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CachFunc.init();
   String token = CachFunc.getData('token');
   String isAdmin = CachFunc.getData('isAdmin');
+  EndPoints.isDark = await CachFunc.getBoolDate(key: 'isDark');
   print(token);
 
   runApp(MyApp(token, isAdmin));

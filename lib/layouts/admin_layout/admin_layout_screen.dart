@@ -5,6 +5,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/admin_cubit.dart';
 import 'package:resturant/models/bloc/states/admin_state.dart';
 import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/user_screens/user_account_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
@@ -30,11 +31,12 @@ class AdminLayout extends StatelessWidget {
           },
           child: Scaffold(
             backgroundColor:
-                cubit.isDark ? Color(0xff222831) : Colors.grey[200],
+                EndPoints.isDark ? Color(0xff222831) : Colors.grey[200],
             bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: Colors.orangeAccent,
               unselectedItemColor: Colors.grey,
-              backgroundColor: cubit.isDark ? Color(0xff222831) : Colors.white,
+              backgroundColor:
+                  EndPoints.isDark ? Color(0xff222831) : Colors.white,
               onTap: (index) {
                 cubit.changBottomnav(index);
               },
@@ -42,7 +44,7 @@ class AdminLayout extends StatelessWidget {
               items: [
                 BottomNavigationBarItem(
                   backgroundColor:
-                      cubit.isDark ? Color(0xff222831) : Colors.white,
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 0
                       ? Icon(IconlyBold.user3)
                       : Icon(IconlyBroken.user3),
@@ -50,7 +52,7 @@ class AdminLayout extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   backgroundColor:
-                      cubit.isDark ? Color(0xff222831) : Colors.white,
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 1
                       ? Icon(Icons.restaurant_menu)
                       : Icon(Icons.restaurant_menu),
@@ -58,7 +60,7 @@ class AdminLayout extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   backgroundColor:
-                      cubit.isDark ? Color(0xff222831) : Colors.white,
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 2
                       ? Icon(IconlyBold.category)
                       : Icon(IconlyBroken.category),
@@ -66,7 +68,7 @@ class AdminLayout extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   backgroundColor:
-                      cubit.isDark ? Color(0xff222831) : Colors.white,
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 3
                       ? Icon(IconlyBold.buy)
                       : Icon(IconlyBroken.buy),
@@ -80,8 +82,12 @@ class AdminLayout extends StatelessWidget {
                   cubit.changeTheme();
                 },
                 child: Icon(
-                  cubit.isDark ? Icons.wb_sunny : Icons.dark_mode,
-                  color: cubit.isDark ? Colors.white : Colors.black,
+                  EndPoints.isDark ? Icons.wb_sunny : Icons.dark_mode,
+                  color: EndPoints.isDark
+                      ? Colors.white
+                      : EndPoints.isDark
+                          ? Colors.white
+                          : Colors.black,
                 ),
               ),
               centerTitle: true,
@@ -89,7 +95,7 @@ class AdminLayout extends StatelessWidget {
               title: Text(
                 '${cubit.title[cubit.currentindex]}',
                 style: TextStyle(
-                  color: cubit.isDark ? Colors.white : Colors.grey[800],
+                  color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                   fontFamily: 'Batka',
                 ),
               ),
@@ -134,7 +140,8 @@ class AdminLayout extends StatelessWidget {
                         Text(
                           'No internet',
                           style: TextStyle(
-                            color: Colors.black,
+                            color:
+                                EndPoints.isDark ? Colors.white : Colors.black,
                             fontFamily: 'Batka',
                             fontSize: 18,
                           ),

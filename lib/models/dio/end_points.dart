@@ -31,4 +31,6 @@ class EndPoints {
   static List allorders = [];
   static List allCategories = [];
   static List allrecipesAdmin = [];
+
+  static bool isDark = false;
 }

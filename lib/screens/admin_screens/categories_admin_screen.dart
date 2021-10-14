@@ -36,7 +36,7 @@ class CategoriesAdmin extends StatelessWidget {
                   ),
                 ),
                 backgroundColor:
-                    cubit.isDark ? Color(0xff393E46) : Colors.grey[100],
+                    EndPoints.isDark ? Color(0xff393E46) : Colors.grey[100],
                 child: Icon(
                   Icons.add,
                   color: Colors.orangeAccent,
@@ -59,7 +59,7 @@ class CategoriesAdmin extends StatelessWidget {
                                   topLeft: Radius.circular(25),
                                   topRight: Radius.circular(25),
                                 ),
-                                color: cubit.isDark
+                                color: EndPoints.isDark
                                     ? Color(0xff393E46)
                                     : Colors.white),
                             child: Padding(
@@ -75,11 +75,13 @@ class CategoriesAdmin extends StatelessWidget {
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontFamily: 'Batka',
-                                        color: cubit.isDark
+                                        color: EndPoints.isDark
                                             ? Colors.white
-                                            : cubit.isDark
+                                            : EndPoints.isDark
                                                 ? Colors.white
-                                                : Colors.black),
+                                                : EndPoints.isDark
+                                                    ? Colors.white
+                                                    : Colors.black),
                                   ),
                                   SizedBox(
                                     height: MediaQuery.of(context).size.height *
@@ -87,13 +89,17 @@ class CategoriesAdmin extends StatelessWidget {
                                   ),
                                   TextField(
                                     style: TextStyle(
-                                      color: cubit.isDark
+                                      color: EndPoints.isDark
                                           ? Colors.white
-                                          : Colors.black,
+                                          : EndPoints.isDark
+                                              ? Colors.white
+                                              : Colors.black,
                                     ),
-                                    cursorColor: cubit.isDark
+                                    cursorColor: EndPoints.isDark
                                         ? Colors.white
-                                        : Colors.black,
+                                        : EndPoints.isDark
+                                            ? Colors.white
+                                            : Colors.black,
                                     controller: categorieName,
                                     keyboardType: TextInputType.text,
                                     onChanged: (value) {},
@@ -102,9 +108,11 @@ class CategoriesAdmin extends StatelessWidget {
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(15),
                                         borderSide: BorderSide(
-                                          color: cubit.isDark
+                                          color: EndPoints.isDark
                                               ? Colors.white
-                                              : Colors.black,
+                                              : EndPoints.isDark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                         ),
                                       ),
                                       labelText: 'Categorie Name',
@@ -115,14 +123,18 @@ class CategoriesAdmin extends StatelessWidget {
                                             color: Colors.orangeAccent,
                                           )),
                                       labelStyle: TextStyle(
-                                          color: cubit.isDark
+                                          color: EndPoints.isDark
                                               ? Colors.white
-                                              : Colors.black),
+                                              : EndPoints.isDark
+                                                  ? Colors.white
+                                                  : Colors.black),
                                       prefixIcon: Icon(
                                         IconlyBroken.paper,
-                                        color: cubit.isDark
+                                        color: EndPoints.isDark
                                             ? Colors.white
-                                            : Colors.black,
+                                            : EndPoints.isDark
+                                                ? Colors.white
+                                                : Colors.black,
                                       ),
                                       border: OutlineInputBorder(
                                           borderRadius:
@@ -177,7 +189,9 @@ class CategoriesAdmin extends StatelessWidget {
                             Text(
                               'NO Categories to show',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                                 fontSize: 18,
                                 fontFamily: 'Batka',
                               ),
@@ -193,7 +207,8 @@ class CategoriesAdmin extends StatelessWidget {
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       child: Card(
-                        color: cubit.isDark ? Color(0xff393E46) : Colors.white,
+                        color:
+                            EndPoints.isDark ? Color(0xff393E46) : Colors.white,
                         elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -242,7 +257,7 @@ class CategoriesAdmin extends StatelessWidget {
                                                         topRight:
                                                             Radius.circular(25),
                                                       ),
-                                                      color: cubit.isDark
+                                                      color: EndPoints.isDark
                                                           ? Color(0xff393E46)
                                                           : Colors.white,
                                                     ),
@@ -257,7 +272,7 @@ class CategoriesAdmin extends StatelessWidget {
                                                               fontSize: 18,
                                                               fontFamily:
                                                                   'Bakta',
-                                                              color: cubit
+                                                              color: EndPoints
                                                                       .isDark
                                                                   ? Colors.white
                                                                   : Colors
@@ -272,14 +287,23 @@ class CategoriesAdmin extends StatelessWidget {
                                                         ),
                                                         TextField(
                                                           style: TextStyle(
-                                                            color: cubit.isDark
+                                                            color: EndPoints
+                                                                    .isDark
                                                                 ? Colors.white
-                                                                : Colors.black,
+                                                                : EndPoints
+                                                                        .isDark
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
                                                           ),
-                                                          cursorColor: cubit
+                                                          cursorColor: EndPoints
                                                                   .isDark
                                                               ? Colors.white
-                                                              : Colors.black,
+                                                              : EndPoints.isDark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
                                                           controller:
                                                               categorieNewName,
                                                           keyboardType:
@@ -297,7 +321,7 @@ class CategoriesAdmin extends StatelessWidget {
                                                                           15),
                                                               borderSide:
                                                                   BorderSide(
-                                                                color: cubit
+                                                                color: EndPoints
                                                                         .isDark
                                                                     ? Colors
                                                                         .white
@@ -318,7 +342,7 @@ class CategoriesAdmin extends StatelessWidget {
                                                                           .orangeAccent,
                                                                     )),
                                                             labelStyle: TextStyle(
-                                                                color: cubit
+                                                                color: EndPoints
                                                                         .isDark
                                                                     ? Colors
                                                                         .white
@@ -327,7 +351,7 @@ class CategoriesAdmin extends StatelessWidget {
                                                             prefixIcon: Icon(
                                                               IconlyBroken
                                                                   .paper,
-                                                              color: cubit
+                                                              color: EndPoints
                                                                       .isDark
                                                                   ? Colors.white
                                                                   : Colors
@@ -398,9 +422,11 @@ class CategoriesAdmin extends StatelessWidget {
                                             style: TextStyle(
                                               fontFamily: 'Bakta',
                                               fontSize: 18,
-                                              color: cubit.isDark
+                                              color: EndPoints.isDark
                                                   ? Colors.white
-                                                  : Colors.black,
+                                                  : EndPoints.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                             ),
                                           ),
                                           trailing: MaterialButton(
@@ -413,7 +439,7 @@ class CategoriesAdmin extends StatelessWidget {
                                                   context: context,
                                                   builder: (context) {
                                                     return AlertDialog(
-                                                      backgroundColor: cubit
+                                                      backgroundColor: EndPoints
                                                               .isDark
                                                           ? Color(0xff393E46)
                                                           : Colors.white,
@@ -428,9 +454,13 @@ class CategoriesAdmin extends StatelessWidget {
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
-                                                          color: cubit.isDark
+                                                          color: EndPoints
+                                                                  .isDark
                                                               ? Colors.white
-                                                              : Colors.black,
+                                                              : EndPoints.isDark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
                                                           fontFamily: 'Bakta',
                                                         ),
                                                       ),
@@ -448,7 +478,7 @@ class CategoriesAdmin extends StatelessWidget {
                                                               child: Text(
                                                                 'Cancel',
                                                                 style: TextStyle(
-                                                                    color: cubit.isDark
+                                                                    color: EndPoints.isDark
                                                                         ? Colors
                                                                             .white
                                                                         : Colors
@@ -470,7 +500,7 @@ class CategoriesAdmin extends StatelessWidget {
                                                               child: Text(
                                                                 'Confirm',
                                                                 style: TextStyle(
-                                                                    color: cubit.isDark
+                                                                    color: EndPoints.isDark
                                                                         ? Colors
                                                                             .white
                                                                         : Colors
@@ -488,7 +518,7 @@ class CategoriesAdmin extends StatelessWidget {
                                     separatorBuilder:
                                         (BuildContext context, int index) {
                                       return Divider(
-                                        color: cubit.isDark
+                                        color: EndPoints.isDark
                                             ? Color(0xff222831)
                                             : Colors.grey[300],
                                         thickness: 1.5,

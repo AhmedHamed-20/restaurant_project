@@ -37,7 +37,7 @@ class RecipesAdmin extends StatelessWidget {
                   ),
                 ),
                 backgroundColor:
-                    cubit.isDark ? Color(0xff393E46) : Colors.grey[100],
+                    EndPoints.isDark ? Color(0xff393E46) : Colors.grey[100],
                 child: Icon(
                   Icons.add,
                   color: Colors.orangeAccent,
@@ -61,8 +61,11 @@ class RecipesAdmin extends StatelessWidget {
                             Text(
                               'NO Recipes to show',
                               style: TextStyle(
-                                color:
-                                    cubit.isDark ? Colors.white : Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                                 fontSize: 18,
                                 fontFamily: 'Batka',
                               ),
@@ -78,7 +81,8 @@ class RecipesAdmin extends StatelessWidget {
                       physics: const BouncingScrollPhysics(
                           parent: AlwaysScrollableScrollPhysics()),
                       child: Card(
-                        color: cubit.isDark ? Color(0xff393E46) : Colors.white,
+                        color:
+                            EndPoints.isDark ? Color(0xff393E46) : Colors.white,
                         elevation: 3,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
@@ -135,18 +139,22 @@ class RecipesAdmin extends StatelessWidget {
                                             EndPoints.allrecipesAdmin[index]
                                                 ['name'],
                                             style: TextStyle(
-                                              color: cubit.isDark
+                                              color: EndPoints.isDark
                                                   ? Colors.white
-                                                  : Colors.black,
+                                                  : EndPoints.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                             ),
                                           ),
                                           subtitle: Text(
                                             EndPoints.allrecipesAdmin[index]
                                                 ['category'],
                                             style: TextStyle(
-                                              color: cubit.isDark
+                                              color: EndPoints.isDark
                                                   ? Colors.white
-                                                  : Colors.black,
+                                                  : EndPoints.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                             ),
                                           ),
                                           leading: CircleAvatar(
@@ -161,7 +169,7 @@ class RecipesAdmin extends StatelessWidget {
                                                   context: context,
                                                   builder: (context) {
                                                     return AlertDialog(
-                                                      backgroundColor: cubit
+                                                      backgroundColor: EndPoints
                                                               .isDark
                                                           ? Color(0xff393E46)
                                                           : Colors.white,
@@ -176,9 +184,13 @@ class RecipesAdmin extends StatelessWidget {
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
-                                                          color: cubit.isDark
+                                                          color: EndPoints
+                                                                  .isDark
                                                               ? Colors.white
-                                                              : Colors.black,
+                                                              : EndPoints.isDark
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
                                                           fontFamily: 'Bakta',
                                                         ),
                                                       ),
@@ -197,7 +209,8 @@ class RecipesAdmin extends StatelessWidget {
                                                                 'Cancel',
                                                                 style:
                                                                     TextStyle(
-                                                                  color: cubit.isDark
+                                                                  color: EndPoints
+                                                                          .isDark
                                                                       ? Colors
                                                                           .white
                                                                       : Colors
@@ -221,7 +234,8 @@ class RecipesAdmin extends StatelessWidget {
                                                                 'Confirm',
                                                                 style:
                                                                     TextStyle(
-                                                                  color: cubit.isDark
+                                                                  color: EndPoints
+                                                                          .isDark
                                                                       ? Colors
                                                                           .white
                                                                       : Colors
@@ -243,7 +257,7 @@ class RecipesAdmin extends StatelessWidget {
                                     },
                                     separatorBuilder: (context, index) {
                                       return Divider(
-                                        color: cubit.isDark
+                                        color: EndPoints.isDark
                                             ? Color(0xff222831)
                                             : Colors.grey[200],
                                         thickness: 1.5,

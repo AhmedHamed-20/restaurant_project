@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/user_screens/detailes_screen.dart';
 import 'package:resturant/widgets/all_fodods.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -10,17 +11,29 @@ class CategoriesDetailes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: EndPoints.isDark ? Color(0xff222831) : Colors.white,
       appBar: AppBar(
         leading: MaterialButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Icon(Icons.arrow_back_ios),
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: EndPoints.isDark
+                ? Colors.white
+                : EndPoints.isDark
+                    ? Colors.white
+                    : Colors.black,
+          ),
         ),
         title: Text(
           Data['data']['data'][0]['category'],
           style: TextStyle(
-            color: Colors.black,
+            color: EndPoints.isDark
+                ? Colors.white
+                : EndPoints.isDark
+                    ? Colors.white
+                    : Colors.black,
             fontFamily: 'Batka',
           ),
         ),

@@ -39,7 +39,11 @@ class _CartScreenState extends State<CartScreen> {
                 child: Text(
                   'Shop and add your best foods to cart now',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: EndPoints.isDark
+                        ? Colors.white
+                        : EndPoints.isDark
+                            ? Colors.white
+                            : Colors.black,
                     fontSize: 18,
                   ),
                 ),
@@ -112,7 +116,8 @@ class _CartScreenState extends State<CartScreen> {
                     },
                   ),
                 ),
-                backgroundColor: Colors.white,
+                backgroundColor:
+                    EndPoints.isDark ? Color(0xff222831) : Colors.white,
                 body: ListView.builder(
                     reverse: true,
                     shrinkWrap: true,
@@ -142,6 +147,9 @@ class _CartScreenState extends State<CartScreen> {
                         child: InkWell(
                           onTap: () {
                             showModalBottomSheet(
+                                backgroundColor: EndPoints.isDark
+                                    ? Color(0xff393E46)
+                                    : Colors.grey[100],
                                 isScrollControlled: true,
                                 context: context,
                                 builder: (_) {
@@ -201,6 +209,9 @@ class _CartScreenState extends State<CartScreen> {
                                     elevation: 3,
                                     onPressed: () {
                                       showModalBottomSheet(
+                                          backgroundColor: EndPoints.isDark
+                                              ? Color(0xff393E46)
+                                              : Colors.grey[100],
                                           isScrollControlled: true,
                                           context: context,
                                           builder: (_) {

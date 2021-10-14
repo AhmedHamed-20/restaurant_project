@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/layouts/user_layout/user_layout_screen.dart';
 import 'package:resturant/models/bloc/cubits/sign_up_cubit.dart';
 import 'package:resturant/models/bloc/states/sign_up_states.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/user_screens/login_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
@@ -22,7 +23,8 @@ class SignUpScreen extends StatelessWidget {
           var signUpcubit = SignUpCubit.get(context);
           signUpcubit.checkConnecthion();
           return Scaffold(
-            backgroundColor: Colors.grey[200],
+            backgroundColor:
+                EndPoints.isDark ? Color(0xff222831) : Colors.grey[200],
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -40,7 +42,8 @@ class SignUpScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.7,
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:
+                            EndPoints.isDark ? Color(0xff393E46) : Colors.white,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25),
@@ -60,14 +63,25 @@ class SignUpScreen extends StatelessWidget {
                                 fontSize: 34,
                                 fontFamily: 'Batka',
                                 fontWeight: FontWeight.w900,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                             ),
                           ),
                           TextField(
                             style: TextStyle(
-                              color: Colors.black,
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
-                            cursorColor: Colors.black,
+                            cursorColor: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                             controller: UserName,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
@@ -81,22 +95,33 @@ class SignUpScreen extends StatelessWidget {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                               labelText: 'User Name',
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: TextStyle(
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black),
                               prefixIcon: Icon(
                                 IconlyBroken.profile,
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                               )),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                             ),
@@ -106,9 +131,12 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           TextField(
                             style: TextStyle(
-                              color: Colors.black,
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
-                            cursorColor: Colors.black,
+                            cursorColor:
+                                EndPoints.isDark ? Colors.white : Colors.black,
                             controller: emailController,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
@@ -122,22 +150,33 @@ class SignUpScreen extends StatelessWidget {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                               labelText: 'Email',
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: TextStyle(
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black),
                               prefixIcon: Icon(
                                 Icons.email_outlined,
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                               )),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                             ),
@@ -147,9 +186,12 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           TextField(
                             style: TextStyle(
-                              color: Colors.black,
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
-                            cursorColor: Colors.black,
+                            cursorColor:
+                                EndPoints.isDark ? Colors.white : Colors.black,
                             controller: passwordController,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
@@ -178,24 +220,35 @@ class SignUpScreen extends StatelessWidget {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                               labelText: 'Password',
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: TextStyle(
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black),
                               prefixIcon: Icon(
                                 IconlyBroken.lock,
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
-                                    color: Colors.black,
+                                    color: EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                                   )),
                               disabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                             ),
@@ -205,9 +258,12 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           TextField(
                             style: TextStyle(
-                              color: Colors.black,
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : Colors.black,
                             ),
-                            cursorColor: Colors.black,
+                            cursorColor:
+                                EndPoints.isDark ? Colors.white : Colors.black,
                             controller: passwordConfirmController,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
@@ -236,22 +292,33 @@ class SignUpScreen extends StatelessWidget {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                               labelText: 'Confirm Password',
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: TextStyle(
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black),
                               prefixIcon: Icon(
                                 IconlyBroken.lock,
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                               ),
                               border: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                               )),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                 ),
                               ),
                             ),
@@ -341,7 +408,9 @@ class SignUpScreen extends StatelessWidget {
                                 'have account?',
                                 style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.grey[800],
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.grey[800],
                                 ),
                               ),
                               MaterialButton(

@@ -5,6 +5,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/user_screens/search_screen.dart';
 import 'package:resturant/screens/user_screens/user_account_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -30,40 +31,53 @@ class LayoutScreen extends StatelessWidget {
             return false;
           },
           child: Scaffold(
-            backgroundColor: Colors.grey[100],
+            backgroundColor:
+                EndPoints.isDark ? Color(0xff222831) : Colors.grey[100],
             bottomNavigationBar: BottomNavigationBar(
               selectedItemColor: Colors.orangeAccent,
               unselectedItemColor: Colors.grey,
+              backgroundColor:
+                  EndPoints.isDark ? Color(0xff222831) : Colors.white,
               onTap: (index) {
                 cubit.changBottomnav(index);
               },
               currentIndex: cubit.currentindex,
               items: [
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 0
                       ? Icon(IconlyBold.home)
                       : Icon(IconlyBroken.home),
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 1
                       ? Icon(IconlyBold.category)
                       : Icon(IconlyBroken.category),
                   label: 'Categories',
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 2
                       ? Icon(IconlyBold.buy)
                       : Icon(IconlyBroken.buy),
                   label: 'Cart',
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 3
                       ? Icon(IconlyBold.bag)
                       : Icon(IconlyBroken.bag),
                   label: 'Orders',
                 ),
                 BottomNavigationBarItem(
+                  backgroundColor:
+                      EndPoints.isDark ? Color(0xff222831) : Colors.white,
                   icon: cubit.currentindex == 4
                       ? Icon(IconlyBold.heart)
                       : Icon(IconlyBroken.heart),
@@ -72,13 +86,25 @@ class LayoutScreen extends StatelessWidget {
               ],
             ),
             appBar: AppBar(
-              leading: Container(),
+              leading: MaterialButton(
+                onPressed: () {
+                  cubit.changeTheme();
+                },
+                child: Icon(
+                  EndPoints.isDark ? Icons.wb_sunny : Icons.dark_mode,
+                  color: EndPoints.isDark
+                      ? Colors.white
+                      : EndPoints.isDark
+                          ? Colors.white
+                          : Colors.black,
+                ),
+              ),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               title: Text(
                 '${cubit.title[cubit.currentindex]}',
                 style: TextStyle(
-                  color: Colors.grey[800],
+                  color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                   fontFamily: 'Batka',
                 ),
               ),
@@ -86,7 +112,7 @@ class LayoutScreen extends StatelessWidget {
                 IconButton(
                   icon: Icon(
                     Icons.search,
-                    color: Colors.grey[800],
+                    color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                   ),
                   onPressed: () {
                     cubit.result
@@ -137,7 +163,8 @@ class LayoutScreen extends StatelessWidget {
                         Text(
                           'No internet',
                           style: TextStyle(
-                            color: Colors.black,
+                            color:
+                                EndPoints.isDark ? Colors.white : Colors.black,
                             fontFamily: 'Batka',
                             fontSize: 18,
                           ),

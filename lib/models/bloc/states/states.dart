@@ -89,3 +89,5 @@ class HidePassword extends AppState {}
 class RecipesGetSuccess extends AppState {}
 
 class RecipesGetError extends AppState {}
+
+class ChangeTheme extends AppState {}

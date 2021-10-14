@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/admin_cubit.dart';
 import 'package:resturant/models/bloc/states/admin_state.dart';
 import 'package:resturant/models/cach/chach.dart';
+import 'package:resturant/models/dio/end_points.dart';
 
 List<TextEditingController> controller = [];
 TextEditingController recipeNameController = TextEditingController();
@@ -68,7 +69,8 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
     return BlocConsumer<AdminCubit, AdminState>(
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: cubit.isDark ? Color(0xff222831) : Colors.grey[300],
+          backgroundColor:
+              EndPoints.isDark ? Color(0xff222831) : Colors.grey[300],
           appBar: AppBar(
             toolbarHeight: 80,
             actions: [
@@ -135,7 +137,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
               },
               child: Icon(
                 Icons.arrow_back_ios,
-                color: cubit.isDark ? Colors.white : Colors.black,
+                color: EndPoints.isDark
+                    ? Colors.white
+                    : EndPoints.isDark
+                        ? Colors.white
+                        : Colors.black,
               ),
             ),
             elevation: 0,
@@ -144,14 +150,18 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
             title: Text(
               'Detailes',
               style: TextStyle(
-                color: cubit.isDark ? Colors.white : Colors.black,
+                color: EndPoints.isDark
+                    ? Colors.white
+                    : EndPoints.isDark
+                        ? Colors.white
+                        : Colors.black,
                 fontFamily: 'Batka',
               ),
             ),
           ),
           body: SingleChildScrollView(
             child: Card(
-              color: cubit.isDark ? Color(0xff393E46) : Colors.white,
+              color: EndPoints.isDark ? Color(0xff393E46) : Colors.white,
               elevation: 3,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
@@ -179,9 +189,17 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                     ),
                     TextField(
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                       ),
-                      cursorColor: cubit.isDark ? Colors.white : Colors.black,
+                      cursorColor: EndPoints.isDark
+                          ? Colors.white
+                          : EndPoints.isDark
+                              ? Colors.white
+                              : Colors.black,
                       controller: recipeNameController,
                       keyboardType: TextInputType.text,
                       onChanged: (value) {},
@@ -190,7 +208,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(
-                            color: cubit.isDark ? Colors.white : Colors.black,
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
                         ),
                         labelText: 'Name',
@@ -200,7 +222,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                               color: Colors.orangeAccent,
                             )),
                         labelStyle: TextStyle(
-                            color: cubit.isDark ? Colors.white : Colors.black),
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
@@ -217,14 +243,19 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                       height: 10,
                     ),
                     Divider(
-                      color:
-                          cubit.isDark ? Color(0xff222831) : Colors.grey[300],
+                      color: EndPoints.isDark
+                          ? Color(0xff222831)
+                          : Colors.grey[300],
                       thickness: 1.5,
                     ),
                     Text(
                       'Ingredients',
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                         fontSize: 24,
                         fontFamily: 'Batka',
                       ),
@@ -233,7 +264,8 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                       height: 10,
                     ),
                     Card(
-                      color: cubit.isDark ? Color(0xff393E46) : Colors.white,
+                      color:
+                          EndPoints.isDark ? Color(0xff393E46) : Colors.white,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -250,13 +282,17 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: TextField(
                                     style: TextStyle(
-                                      color: cubit.isDark
+                                      color: EndPoints.isDark
                                           ? Colors.white
-                                          : Colors.black,
+                                          : EndPoints.isDark
+                                              ? Colors.white
+                                              : Colors.black,
                                     ),
-                                    cursorColor: cubit.isDark
+                                    cursorColor: EndPoints.isDark
                                         ? Colors.white
-                                        : Colors.black,
+                                        : EndPoints.isDark
+                                            ? Colors.white
+                                            : Colors.black,
                                     controller: controller[index],
                                     keyboardType: TextInputType.text,
                                     onChanged: (value) {},
@@ -265,9 +301,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(15),
                                         borderSide: BorderSide(
-                                          color: cubit.isDark
+                                          color: EndPoints.isDark
                                               ? Colors.white
-                                              : Colors.black,
+                                              : EndPoints.isDark
+                                                  ? Colors.white
+                                                  : Colors.black,
                                         ),
                                       ),
                                       labelText: 'ingredients',
@@ -278,9 +316,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                                             color: Colors.orangeAccent,
                                           )),
                                       labelStyle: TextStyle(
-                                          color: cubit.isDark
+                                          color: EndPoints.isDark
                                               ? Colors.white
-                                              : Colors.black),
+                                              : EndPoints.isDark
+                                                  ? Colors.white
+                                                  : Colors.black),
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(15),
@@ -304,14 +344,19 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                       height: 20,
                     ),
                     Divider(
-                      color:
-                          cubit.isDark ? Color(0xff222831) : Colors.grey[300],
+                      color: EndPoints.isDark
+                          ? Color(0xff222831)
+                          : Colors.grey[300],
                       thickness: 1.5,
                     ),
                     Text(
                       'Price',
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                         fontSize: 24,
                         fontFamily: 'Batka',
                       ),
@@ -321,9 +366,17 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                     ),
                     TextField(
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                       ),
-                      cursorColor: cubit.isDark ? Colors.white : Colors.black,
+                      cursorColor: EndPoints.isDark
+                          ? Colors.white
+                          : EndPoints.isDark
+                              ? Colors.white
+                              : Colors.black,
                       controller: recipePriceController,
                       keyboardType: TextInputType.text,
                       onChanged: (value) {},
@@ -332,7 +385,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(
-                            color: cubit.isDark ? Colors.white : Colors.black,
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
                         ),
                         labelText: 'Price',
@@ -342,7 +399,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                               color: Colors.orangeAccent,
                             )),
                         labelStyle: TextStyle(
-                            color: cubit.isDark ? Colors.white : Colors.black),
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
@@ -356,14 +417,19 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                       ),
                     ),
                     Divider(
-                      color:
-                          cubit.isDark ? Color(0xff222831) : Colors.grey[300],
+                      color: EndPoints.isDark
+                          ? Color(0xff222831)
+                          : Colors.grey[300],
                       thickness: 1.5,
                     ),
                     Text(
                       'Cooking Time',
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                         fontSize: 24,
                         fontFamily: 'Batka',
                       ),
@@ -373,9 +439,14 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                     ),
                     TextField(
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                       ),
-                      cursorColor: Colors.black,
+                      cursorColor:
+                          EndPoints.isDark ? Colors.white : Colors.black,
                       controller: recipeCockingController,
                       keyboardType: TextInputType.text,
                       onChanged: (value) {},
@@ -384,7 +455,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(
-                            color: cubit.isDark ? Colors.white : Colors.black,
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
                         ),
                         labelText: 'Cooking Time',
@@ -394,7 +469,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                               color: Colors.orangeAccent,
                             )),
                         labelStyle: TextStyle(
-                            color: cubit.isDark ? Colors.white : Colors.black),
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
@@ -408,14 +487,19 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                       ),
                     ),
                     Divider(
-                      color:
-                          cubit.isDark ? Color(0xff222831) : Colors.grey[300],
+                      color: EndPoints.isDark
+                          ? Color(0xff222831)
+                          : Colors.grey[300],
                       thickness: 1.5,
                     ),
                     Text(
                       'Category',
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                         fontSize: 24,
                         fontFamily: 'Batka',
                       ),
@@ -425,9 +509,17 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                     ),
                     TextField(
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                       ),
-                      cursorColor: cubit.isDark ? Colors.white : Colors.black,
+                      cursorColor: EndPoints.isDark
+                          ? Colors.white
+                          : EndPoints.isDark
+                              ? Colors.white
+                              : Colors.black,
                       controller: recipeCategoryController,
                       keyboardType: TextInputType.text,
                       onChanged: (value) {},
@@ -436,7 +528,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(
-                            color: cubit.isDark ? Colors.white : Colors.black,
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
                         ),
                         labelText: 'Category',
@@ -446,7 +542,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                               color: Colors.orangeAccent,
                             )),
                         labelStyle: TextStyle(
-                            color: cubit.isDark ? Colors.white : Colors.black),
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
@@ -460,14 +560,19 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                       ),
                     ),
                     Divider(
-                      color:
-                          cubit.isDark ? Color(0xff222831) : Colors.grey[300],
+                      color: EndPoints.isDark
+                          ? Color(0xff222831)
+                          : Colors.grey[300],
                       thickness: 1.5,
                     ),
                     Text(
                       'Slug',
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                         fontSize: 24,
                         fontFamily: 'Batka',
                       ),
@@ -477,9 +582,17 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                     ),
                     TextField(
                       style: TextStyle(
-                        color: cubit.isDark ? Colors.white : Colors.black,
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black,
                       ),
-                      cursorColor: cubit.isDark ? Colors.white : Colors.black,
+                      cursorColor: EndPoints.isDark
+                          ? Colors.white
+                          : EndPoints.isDark
+                              ? Colors.white
+                              : Colors.black,
                       controller: recipeSlugController,
                       keyboardType: TextInputType.text,
                       onChanged: (value) {},
@@ -488,7 +601,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(
-                            color: cubit.isDark ? Colors.white : Colors.black,
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
                         ),
                         labelText: 'Slug',
@@ -498,7 +615,11 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                               color: Colors.orangeAccent,
                             )),
                         labelStyle: TextStyle(
-                            color: cubit.isDark ? Colors.white : Colors.black),
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(
@@ -512,8 +633,9 @@ class _RecipeDetailesAdminState extends State<RecipeDetailesAdmin> {
                       ),
                     ),
                     Divider(
-                      color:
-                          cubit.isDark ? Color(0xff222831) : Colors.grey[300],
+                      color: EndPoints.isDark
+                          ? Color(0xff222831)
+                          : Colors.grey[300],
                       thickness: 1.5,
                     ),
                   ],

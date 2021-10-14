@@ -35,7 +35,9 @@ class CategoriesScreen extends StatelessWidget {
                               Text(
                                 'NO Categories to show',
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                                   fontSize: 18,
                                   fontFamily: 'Batka',
                                 ),
@@ -69,6 +71,9 @@ class CategoriesScreen extends StatelessWidget {
                               );
                             },
                             child: Card(
+                              color: EndPoints.isDark
+                                  ? Color(0xff393E46)
+                                  : Colors.white,
                               margin: EdgeInsets.all(8),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25),
@@ -81,9 +86,13 @@ class CategoriesScreen extends StatelessWidget {
                                     '${EndPoints.allCategoriesMap[index]['name']}',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
-                                      fontSize: 18,
-                                      fontFamily: 'Batka',
-                                    ),
+                                        fontSize: 18,
+                                        fontFamily: 'Batka',
+                                        color: EndPoints.isDark
+                                            ? Colors.white
+                                            : EndPoints.isDark
+                                                ? Colors.white
+                                                : Colors.black),
                                   ),
                                 ),
                               ),
@@ -96,7 +105,15 @@ class CategoriesScreen extends StatelessWidget {
                       ),
                     )
               : Center(
-                  child: Text('No internet'),
+                  child: Text(
+                    'No internet',
+                    style: TextStyle(
+                        color: EndPoints.isDark
+                            ? Colors.white
+                            : EndPoints.isDark
+                                ? Colors.white
+                                : Colors.black),
+                  ),
                 );
         });
   }

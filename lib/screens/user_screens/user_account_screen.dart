@@ -38,20 +38,28 @@ class _UserAccountState extends State<UserAccount> {
         cubit.checkConnecthion();
         String token = CachFunc.getData('token');
         return Scaffold(
+          backgroundColor: EndPoints.isDark ? Color(0xff222831) : Colors.white,
           key: scaffoldState,
           appBar: AppBar(
             leading: MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Icon(Icons.arrow_back_ios),
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: EndPoints.isDark
+                    ? Colors.white
+                    : EndPoints.isDark
+                        ? Colors.white
+                        : Colors.black,
+              ),
             ),
             backgroundColor: Colors.transparent,
             elevation: 0,
             title: Text(
               'Account',
               style: TextStyle(
-                color: Colors.grey[800],
+                color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                 fontFamily: 'Batka',
               ),
             ),
@@ -80,9 +88,17 @@ class _UserAccountState extends State<UserAccount> {
                         ),
                         TextField(
                           style: TextStyle(
-                            color: Colors.black,
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
-                          cursorColor: Colors.black,
+                          cursorColor: EndPoints.isDark
+                              ? Colors.white
+                              : EndPoints.isDark
+                                  ? Colors.white
+                                  : Colors.black,
                           controller: userName,
                           enabled: false,
                           keyboardType: TextInputType.text,
@@ -97,24 +113,45 @@ class _UserAccountState extends State<UserAccount> {
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                             ),
                             labelText: 'User Name',
-                            labelStyle: TextStyle(color: Colors.black),
+                            labelStyle: TextStyle(
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black),
                             prefixIcon: Icon(
                               IconlyBroken.profile,
-                              color: Colors.black,
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                             ),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : EndPoints.isDark
+                                          ? Colors.white
+                                          : Colors.black,
                                 )),
                             disabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                             ),
                           ),
@@ -124,9 +161,17 @@ class _UserAccountState extends State<UserAccount> {
                         ),
                         TextField(
                           style: TextStyle(
-                            color: Colors.black,
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                           ),
-                          cursorColor: Colors.black,
+                          cursorColor: EndPoints.isDark
+                              ? Colors.white
+                              : EndPoints.isDark
+                                  ? Colors.white
+                                  : Colors.black,
                           controller: emailcontroller,
                           enabled: false,
                           keyboardType: TextInputType.text,
@@ -141,24 +186,45 @@ class _UserAccountState extends State<UserAccount> {
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                             ),
                             labelText: 'Email',
-                            labelStyle: TextStyle(color: Colors.black),
+                            labelStyle: TextStyle(
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black),
                             prefixIcon: Icon(
                               Icons.email_outlined,
-                              color: Colors.black,
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                             ),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : EndPoints.isDark
+                                          ? Colors.white
+                                          : Colors.black,
                                 )),
                             disabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(15),
                               borderSide: BorderSide(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                             ),
                           ),
@@ -180,6 +246,9 @@ class _UserAccountState extends State<UserAccount> {
                                   padding: EdgeInsets.all(12),
                                   onPressed: () {
                                     showModalBottomSheet(
+                                      backgroundColor: EndPoints.isDark
+                                          ? Color(0xff393E46)
+                                          : Colors.white,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(25),
                                       ),
@@ -196,7 +265,9 @@ class _UserAccountState extends State<UserAccount> {
                                                   .height *
                                               0.7,
                                           decoration: BoxDecoration(
-                                            color: Colors.grey[100],
+                                            color: EndPoints.isDark
+                                                ? Color(0xff393E46)
+                                                : Colors.grey[100],
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(25),
                                               topRight: Radius.circular(25),
@@ -209,7 +280,11 @@ class _UserAccountState extends State<UserAccount> {
                                               Text(
                                                 'Update your profile data (:',
                                                 style: TextStyle(
-                                                  color: Colors.black,
+                                                  color: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                   fontSize: 18,
                                                   fontFamily: 'Bakta',
                                                   fontWeight: FontWeight.w900,
@@ -220,9 +295,17 @@ class _UserAccountState extends State<UserAccount> {
                                                     const EdgeInsets.all(15),
                                                 child: TextField(
                                                   style: TextStyle(
-                                                    color: Colors.black,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                   ),
-                                                  cursorColor: Colors.black,
+                                                  cursorColor: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                   controller:
                                                       usernameBottomSheet,
                                                   keyboardType:
@@ -245,24 +328,44 @@ class _UserAccountState extends State<UserAccount> {
                                                           BorderRadius.circular(
                                                               15),
                                                       borderSide: BorderSide(
-                                                        color: Colors.black,
+                                                        color: EndPoints.isDark
+                                                            ? Colors.white
+                                                            : EndPoints.isDark
+                                                                ? Colors.white
+                                                                : Colors.black,
                                                       ),
                                                     ),
                                                     labelText: 'UserName',
                                                     labelStyle: TextStyle(
-                                                        color: Colors.black),
+                                                        color: EndPoints.isDark
+                                                            ? Colors.white
+                                                            : EndPoints.isDark
+                                                                ? Colors.white
+                                                                : Colors.black),
                                                     prefixIcon: Icon(
                                                       IconlyBroken.profile,
-                                                      color: Colors.black,
+                                                      color: EndPoints.isDark
+                                                          ? Colors.white
+                                                          : EndPoints.isDark
+                                                              ? Colors.white
+                                                              : Colors.black,
                                                     ),
                                                     border: OutlineInputBorder(
                                                         borderSide: BorderSide(
-                                                      color: Colors.black,
+                                                      color: EndPoints.isDark
+                                                          ? Colors.white
+                                                          : EndPoints.isDark
+                                                              ? Colors.white
+                                                              : Colors.black,
                                                     )),
                                                     disabledBorder:
                                                         OutlineInputBorder(
                                                       borderSide: BorderSide(
-                                                        color: Colors.black,
+                                                        color: EndPoints.isDark
+                                                            ? Colors.white
+                                                            : EndPoints.isDark
+                                                                ? Colors.white
+                                                                : Colors.black,
                                                       ),
                                                     ),
                                                   ),
@@ -273,9 +376,17 @@ class _UserAccountState extends State<UserAccount> {
                                                     const EdgeInsets.all(15),
                                                 child: TextField(
                                                   style: TextStyle(
-                                                    color: Colors.black,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                   ),
-                                                  cursorColor: Colors.black,
+                                                  cursorColor: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                   controller: emailBottomSheet,
                                                   keyboardType: TextInputType
                                                       .emailAddress,
@@ -297,24 +408,44 @@ class _UserAccountState extends State<UserAccount> {
                                                           BorderRadius.circular(
                                                               15),
                                                       borderSide: BorderSide(
-                                                        color: Colors.black,
+                                                        color: EndPoints.isDark
+                                                            ? Colors.white
+                                                            : EndPoints.isDark
+                                                                ? Colors.white
+                                                                : Colors.black,
                                                       ),
                                                     ),
                                                     labelText: 'Email',
                                                     labelStyle: TextStyle(
-                                                        color: Colors.black),
+                                                        color: EndPoints.isDark
+                                                            ? Colors.white
+                                                            : EndPoints.isDark
+                                                                ? Colors.white
+                                                                : Colors.black),
                                                     prefixIcon: Icon(
                                                       Icons.email,
-                                                      color: Colors.black,
+                                                      color: EndPoints.isDark
+                                                          ? Colors.white
+                                                          : EndPoints.isDark
+                                                              ? Colors.white
+                                                              : Colors.black,
                                                     ),
                                                     border: OutlineInputBorder(
                                                         borderSide: BorderSide(
-                                                      color: Colors.black,
+                                                      color: EndPoints.isDark
+                                                          ? Colors.white
+                                                          : EndPoints.isDark
+                                                              ? Colors.white
+                                                              : Colors.black,
                                                     )),
                                                     disabledBorder:
                                                         OutlineInputBorder(
                                                       borderSide: BorderSide(
-                                                        color: Colors.black,
+                                                        color: EndPoints.isDark
+                                                            ? Colors.white
+                                                            : EndPoints.isDark
+                                                                ? Colors.white
+                                                                : Colors.black,
                                                       ),
                                                     ),
                                                   ),
@@ -472,7 +603,9 @@ class _UserAccountState extends State<UserAccount> {
                                           MediaQuery.of(context).size.height *
                                               0.7,
                                       decoration: BoxDecoration(
-                                        color: Colors.white,
+                                        color: EndPoints.isDark
+                                            ? Color(0xff393E46)
+                                            : Colors.white,
                                         borderRadius: BorderRadius.only(
                                           topLeft: Radius.circular(25),
                                           topRight: Radius.circular(25),
@@ -485,7 +618,11 @@ class _UserAccountState extends State<UserAccount> {
                                           Text(
                                             'Update your Password (:',
                                             style: TextStyle(
-                                              color: Colors.black,
+                                              color: EndPoints.isDark
+                                                  ? Colors.white
+                                                  : EndPoints.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                               fontSize: 18,
                                               fontFamily: 'Bakta',
                                               fontWeight: FontWeight.w900,
@@ -495,10 +632,18 @@ class _UserAccountState extends State<UserAccount> {
                                             padding: const EdgeInsets.all(15),
                                             child: TextField(
                                               style: TextStyle(
-                                                color: Colors.black,
+                                                color: EndPoints.isDark
+                                                    ? Colors.white
+                                                    : EndPoints.isDark
+                                                        ? Colors.white
+                                                        : Colors.black,
                                               ),
                                               obscureText: cubit.hidepass1,
-                                              cursorColor: Colors.black,
+                                              cursorColor: EndPoints.isDark
+                                                  ? Colors.white
+                                                  : EndPoints.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                               controller: currentpassword,
                                               keyboardType: TextInputType.text,
                                               onChanged: (value) {},
@@ -517,33 +662,60 @@ class _UserAccountState extends State<UserAccount> {
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                   borderSide: BorderSide(
-                                                    color: Colors.black,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                   ),
                                                 ),
                                                 labelText: 'Current Password',
                                                 labelStyle: TextStyle(
-                                                    color: Colors.black),
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black),
                                                 prefixIcon: Icon(
                                                   IconlyBroken.password,
-                                                  color: Colors.black,
+                                                  color: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                 ),
                                                 suffixIcon: MaterialButton(
                                                   onPressed: () {
                                                     cubit
                                                         .changepasswordvisabilty();
                                                   },
-                                                  child: Icon(cubit.hidepass1
-                                                      ? Icons.remove_red_eye
-                                                      : Icons.visibility_off),
+                                                  child: Icon(
+                                                    cubit.hidepass1
+                                                        ? Icons.remove_red_eye
+                                                        : Icons.visibility_off,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                  ),
                                                 ),
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                  color: Colors.black,
+                                                  color: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                 )),
                                                 disabledBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: Colors.black,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                   ),
                                                 ),
                                               ),
@@ -553,9 +725,17 @@ class _UserAccountState extends State<UserAccount> {
                                             padding: const EdgeInsets.all(15),
                                             child: TextField(
                                               style: TextStyle(
-                                                color: Colors.black,
+                                                color: EndPoints.isDark
+                                                    ? Colors.white
+                                                    : EndPoints.isDark
+                                                        ? Colors.white
+                                                        : Colors.black,
                                               ),
-                                              cursorColor: Colors.black,
+                                              cursorColor: EndPoints.isDark
+                                                  ? Colors.white
+                                                  : EndPoints.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                               controller: newPassword,
                                               obscureText: cubit.hidepass2,
                                               keyboardType:
@@ -576,33 +756,60 @@ class _UserAccountState extends State<UserAccount> {
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                   borderSide: BorderSide(
-                                                    color: Colors.black,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                   ),
                                                 ),
                                                 labelText: 'New Password',
                                                 labelStyle: TextStyle(
-                                                    color: Colors.black),
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black),
                                                 prefixIcon: Icon(
                                                   Icons.password,
-                                                  color: Colors.black,
+                                                  color: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                 ),
                                                 suffixIcon: MaterialButton(
                                                   onPressed: () {
                                                     cubit
                                                         .changepasswordvisabilty2();
                                                   },
-                                                  child: Icon(cubit.hidepass2
-                                                      ? Icons.remove_red_eye
-                                                      : Icons.visibility_off),
+                                                  child: Icon(
+                                                    cubit.hidepass2
+                                                        ? Icons.remove_red_eye
+                                                        : Icons.visibility_off,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
+                                                  ),
                                                 ),
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                  color: Colors.black,
+                                                  color: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                 )),
                                                 disabledBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: Colors.black,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                   ),
                                                 ),
                                               ),
@@ -612,9 +819,17 @@ class _UserAccountState extends State<UserAccount> {
                                             padding: const EdgeInsets.all(15),
                                             child: TextField(
                                               style: TextStyle(
-                                                color: Colors.black,
+                                                color: EndPoints.isDark
+                                                    ? Colors.white
+                                                    : EndPoints.isDark
+                                                        ? Colors.white
+                                                        : Colors.black,
                                               ),
-                                              cursorColor: Colors.black,
+                                              cursorColor: EndPoints.isDark
+                                                  ? Colors.white
+                                                  : EndPoints.isDark
+                                                      ? Colors.white
+                                                      : Colors.black,
                                               controller: confirmpassword,
                                               keyboardType: TextInputType.text,
                                               onChanged: (value) {},
@@ -634,33 +849,58 @@ class _UserAccountState extends State<UserAccount> {
                                                   borderRadius:
                                                       BorderRadius.circular(15),
                                                   borderSide: BorderSide(
-                                                    color: Colors.black,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                   ),
                                                 ),
                                                 labelText: 'Confirm Password',
                                                 labelStyle: TextStyle(
-                                                    color: Colors.black),
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black),
                                                 prefixIcon: Icon(
                                                   Icons.password,
-                                                  color: Colors.black,
+                                                  color: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                 ),
                                                 suffixIcon: MaterialButton(
                                                   onPressed: () {
                                                     cubit
                                                         .changepasswordvisabilty3();
                                                   },
-                                                  child: Icon(cubit.hidepass3
-                                                      ? Icons.remove_red_eye
-                                                      : Icons.visibility_off),
+                                                  child: Icon(
+                                                    cubit.hidepass3
+                                                        ? Icons.remove_red_eye
+                                                        : Icons.visibility_off,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : Colors.white,
+                                                  ),
                                                 ),
                                                 border: OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                  color: Colors.black,
+                                                  color: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black,
                                                 )),
                                                 disabledBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
-                                                    color: Colors.black,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : EndPoints.isDark
+                                                            ? Colors.white
+                                                            : Colors.black,
                                                   ),
                                                 ),
                                               ),
@@ -727,7 +967,11 @@ class _UserAccountState extends State<UserAccount> {
                       Text(
                         'No internet',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: EndPoints.isDark
+                              ? Colors.white
+                              : EndPoints.isDark
+                                  ? Colors.white
+                                  : Colors.black,
                           fontFamily: 'Batka',
                           fontSize: 18,
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
+import 'package:resturant/models/dio/end_points.dart';
 
 Widget popularFoods(
     {BuildContext context, String name, String price, String imageUrl}) {
@@ -30,7 +31,7 @@ Widget popularFoods(
                 name,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.grey[800],
+                  color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                   fontSize: 18,
                   fontFamily: 'Batka',
                 ),
@@ -42,7 +43,7 @@ Widget popularFoods(
             Text(
               '\$ ${price}',
               style: TextStyle(
-                color: Colors.grey[800],
+                color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                 fontSize: 16,
                 fontFamily: 'Batka',
               ),

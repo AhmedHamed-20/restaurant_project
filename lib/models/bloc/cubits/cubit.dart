@@ -99,7 +99,12 @@ class Appcubit extends Cubit<AppState> {
                     return AlertDialog(
                       title: Text(
                         'You can cancel your order within 5 minutes',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -108,9 +113,18 @@ class Appcubit extends Cubit<AppState> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text('Ok'),
+                        child: Text(
+                          'Ok',
+                          style: TextStyle(
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black),
+                        ),
                       ),
-                      backgroundColor: Colors.white,
+                      backgroundColor:
+                          EndPoints.isDark ? Color(0xff393E46) : Colors.white,
                       elevation: 3,
                     );
                   },
@@ -133,7 +147,12 @@ class Appcubit extends Cubit<AppState> {
                     return AlertDialog(
                       title: Text(
                         'You can cancel your order within 5 minutes',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                            color: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -142,9 +161,18 @@ class Appcubit extends Cubit<AppState> {
                         onPressed: () {
                           Navigator.of(_).pop();
                         },
-                        child: Text('Ok'),
+                        child: Text(
+                          'Ok',
+                          style: TextStyle(
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black),
+                        ),
                       ),
-                      backgroundColor: Colors.white,
+                      backgroundColor:
+                          EndPoints.isDark ? Color(0xff393E46) : Colors.white,
                       elevation: 3,
                     );
                   },
@@ -621,5 +649,11 @@ class Appcubit extends Cubit<AppState> {
           backgroundColor: Colors.red);
       print(onError);
     });
+  }
+
+  changeTheme() async {
+    EndPoints.isDark = !EndPoints.isDark;
+    await CachFunc.putBoolDate(key: 'isDark', data: EndPoints.isDark);
+    emit(ChangeTheme());
   }
 }

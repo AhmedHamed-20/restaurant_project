@@ -35,7 +35,9 @@ class HomeScreen extends StatelessWidget {
                             Text(
                               'NO Recipes to show',
                               style: TextStyle(
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                                 fontSize: 18,
                                 fontFamily: 'Batka',
                               ),
@@ -59,7 +61,9 @@ class HomeScreen extends StatelessWidget {
                             child: Text(
                               'Popular Foods',
                               style: TextStyle(
-                                color: Colors.grey[800],
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.grey[800],
                                 fontSize: 24,
                                 fontWeight: FontWeight.w900,
                                 fontFamily: 'Batka',
@@ -75,7 +79,9 @@ class HomeScreen extends StatelessWidget {
                             child: Text(
                               'All Recipes',
                               style: TextStyle(
-                                color: Colors.grey[800],
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.grey[800],
                                 fontSize: 24,
                                 fontWeight: FontWeight.w900,
                                 fontFamily: 'Batka',

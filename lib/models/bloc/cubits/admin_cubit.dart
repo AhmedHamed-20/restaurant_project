@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:resturant/models/bloc/states/admin_state.dart';
+import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
@@ -548,9 +549,9 @@ class AdminCubit extends Cubit<AdminState> {
     });
   }
 
-  bool isDark = true;
-  changeTheme() {
-    isDark = !isDark;
+  changeTheme() async {
+    EndPoints.isDark = !EndPoints.isDark;
+    await CachFunc.putBoolDate(key: 'isDark', data: EndPoints.isDark);
     emit(ChangeTheme());
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/models/bloc/cubits/login_cubit.dart';
 import 'package:resturant/models/bloc/states/login_states.dart';
+import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/user_screens/forget_password_screen.dart';
 import 'package:resturant/screens/user_screens/sign_up_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -21,7 +22,8 @@ class LoginScreen extends StatelessWidget {
           var loginCubit = LoginCubit.get(context);
           loginCubit.checkConnecthion();
           return Scaffold(
-            backgroundColor: Colors.grey[200],
+            backgroundColor:
+                EndPoints.isDark ? Color(0xff222831) : Colors.grey[200],
             body: SafeArea(
               child: SingleChildScrollView(
                 child: Column(
@@ -40,7 +42,8 @@ class LoginScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.7,
                       padding: const EdgeInsets.all(20.0),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:
+                            EndPoints.isDark ? Color(0xff393E46) : Colors.white,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(25),
                           topRight: Radius.circular(25),
@@ -61,14 +64,27 @@ class LoginScreen extends StatelessWidget {
                                 fontSize: 34,
                                 fontFamily: 'Batka',
                                 fontWeight: FontWeight.w900,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                             ),
                           ),
                           TextField(
                             style: TextStyle(
-                              color: Colors.black,
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                             ),
-                            cursorColor: Colors.black,
+                            cursorColor: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                             controller: emailController,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
@@ -77,14 +93,27 @@ class LoginScreen extends StatelessWidget {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : EndPoints.isDark
+                                          ? Colors.white
+                                          : Colors.black,
                                 ),
                               ),
                               labelText: 'Email',
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: TextStyle(
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : EndPoints.isDark
+                                          ? Colors.white
+                                          : Colors.black),
                               prefixIcon: Icon(
                                 Icons.email_outlined,
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
@@ -94,11 +123,19 @@ class LoginScreen extends StatelessWidget {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: BorderSide(
-                                    color: Colors.black,
+                                    color: EndPoints.isDark
+                                        ? Colors.white
+                                        : EndPoints.isDark
+                                            ? Colors.white
+                                            : Colors.black,
                                   )),
                               disabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : EndPoints.isDark
+                                          ? Colors.white
+                                          : Colors.black,
                                 ),
                               ),
                             ),
@@ -108,9 +145,17 @@ class LoginScreen extends StatelessWidget {
                           ),
                           TextField(
                             style: TextStyle(
-                              color: Colors.black,
+                              color: EndPoints.isDark
+                                  ? Colors.white
+                                  : EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.black,
                             ),
-                            cursorColor: Colors.black,
+                            cursorColor: EndPoints.isDark
+                                ? Colors.white
+                                : EndPoints.isDark
+                                    ? Colors.white
+                                    : Colors.black,
                             controller: passwordController,
                             keyboardType: TextInputType.text,
                             onChanged: (value) {},
@@ -120,7 +165,11 @@ class LoginScreen extends StatelessWidget {
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.black,
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : EndPoints.isDark
+                                          ? Colors.white
+                                          : Colors.black,
                                 ),
                               ),
                               labelText: 'Password',
@@ -143,10 +192,19 @@ class LoginScreen extends StatelessWidget {
                                   loginCubit.changehidepasswordState();
                                 },
                               ),
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: TextStyle(
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : EndPoints.isDark
+                                          ? Colors.white
+                                          : Colors.black),
                               prefixIcon: Icon(
                                 IconlyBroken.lock,
-                                color: Colors.black,
+                                color: EndPoints.isDark
+                                    ? Colors.white
+                                    : EndPoints.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                               ),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
@@ -200,11 +258,22 @@ class LoginScreen extends StatelessWidget {
                                         context: context,
                                         builder: (_) {
                                           return AlertDialog(
+                                            backgroundColor: EndPoints.isDark
+                                                ? Color(0xff393E46)
+                                                : Colors.white,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
-                                            title: Text('No internet'),
+                                            title: Text(
+                                              'No internet',
+                                              style: TextStyle(
+                                                  color: EndPoints.isDark
+                                                      ? Colors.white
+                                                      : EndPoints.isDark
+                                                          ? Colors.white
+                                                          : Colors.black),
+                                            ),
                                             content: Container(
                                               decoration: BoxDecoration(
                                                 borderRadius:
@@ -218,7 +287,9 @@ class LoginScreen extends StatelessWidget {
                                                 child: Text(
                                                   'OK',
                                                   style: TextStyle(
-                                                    color: Colors.white,
+                                                    color: EndPoints.isDark
+                                                        ? Colors.white
+                                                        : Colors.white,
                                                     fontSize: 16,
                                                     fontFamily: 'Batka',
                                                   ),
@@ -261,7 +332,9 @@ class LoginScreen extends StatelessWidget {
                                 'don\'t have account?',
                                 style: TextStyle(
                                   fontSize: 18,
-                                  color: Colors.grey[800],
+                                  color: EndPoints.isDark
+                                      ? Colors.white
+                                      : Colors.grey[800],
                                 ),
                               ),
                               MaterialButton(

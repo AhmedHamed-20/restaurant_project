@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
+import 'package:resturant/models/dio/end_points.dart';
 
 class OrderScreen extends StatelessWidget {
   @override
@@ -25,7 +26,7 @@ class OrderScreen extends StatelessWidget {
                     child: Text(
                       'order your recipes now',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: EndPoints.isDark ? Colors.white : Colors.black,
                         fontSize: 18,
                       ),
                     ),
@@ -40,7 +41,9 @@ class OrderScreen extends StatelessWidget {
                                 margin: EdgeInsets.all(8),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
-                                color: Colors.grey[50],
+                                color: EndPoints.isDark
+                                    ? Color(0xff393E46)
+                                    : Colors.grey[50],
                                 elevation: 3,
                                 child: Container(
                                   padding: EdgeInsets.all(10),
@@ -78,8 +81,11 @@ class OrderScreen extends StatelessWidget {
                                                         style: TextStyle(
                                                           fontSize: 20,
                                                           fontFamily: 'Batka',
-                                                          color:
-                                                              Colors.grey[800],
+                                                          color: EndPoints
+                                                                  .isDark
+                                                              ? Colors.white
+                                                              : Colors
+                                                                  .grey[800],
                                                         ),
                                                       ),
                                                     ),
@@ -133,7 +139,9 @@ class OrderScreen extends StatelessWidget {
                                             style: TextStyle(
                                               fontSize: 20,
                                               fontFamily: 'Batka',
-                                              color: Colors.grey[800],
+                                              color: EndPoints.isDark
+                                                  ? Colors.white
+                                                  : Colors.grey[800],
                                             ),
                                           ),
                                           Text(

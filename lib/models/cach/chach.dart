@@ -11,6 +11,16 @@ class CachFunc {
     return await sharedPreferences.setString(key, data);
   }
 
+  static Future<bool> putBoolDate({String key, bool data}) async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    return await sharedPreferences.setBool(key, data);
+  }
+
+  static Future<bool> getBoolDate({String key}) async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    return await sharedPreferences.getBool(key);
+  }
+
   static String getData(String key) {
     return sharedPreferences.getString(key);
   }

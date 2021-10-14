@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/dio/end_points.dart';
 
 Widget allFoods(
     {BuildContext context,
@@ -17,7 +18,7 @@ Widget allFoods(
   return Card(
     margin: EdgeInsets.all(8),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-    color: Colors.grey[50],
+    color: EndPoints.isDark ? Color(0xff393E46) : Colors.grey[50],
     elevation: 3,
     child: Padding(
       padding: const EdgeInsets.all(15.0),
@@ -35,7 +36,7 @@ Widget allFoods(
                     style: TextStyle(
                       fontSize: 20,
                       fontFamily: 'Batka',
-                      color: Colors.grey[800],
+                      color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                     ),
                   ),
                   SizedBox(
@@ -45,7 +46,7 @@ Widget allFoods(
                     description,
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.grey,
+                      color: EndPoints.isDark ? Colors.white : Colors.grey,
                     ),
                   ),
                   SizedBox(
@@ -56,7 +57,7 @@ Widget allFoods(
                     style: TextStyle(
                       fontSize: 20,
                       fontFamily: 'Batka',
-                      color: Colors.grey[800],
+                      color: EndPoints.isDark ? Colors.white : Colors.grey[800],
                     ),
                   ),
                   button != null ? Center(child: button) : SizedBox(),
