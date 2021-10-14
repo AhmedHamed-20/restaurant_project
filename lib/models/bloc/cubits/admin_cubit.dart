@@ -268,7 +268,7 @@ class AdminCubit extends Cubit<AdminState> {
   pageinathionRecipes() {
     emit(PageLoading());
     DioFunc.getdate(
-      url: '${EndPoints.allRecipiesPage + pageRecipe.toString()}&sort=category',
+      url: '${EndPoints.allRecipiesPage + pageRecipe.toString()}',
     ).then((
       value,
     ) {
