@@ -11,6 +11,7 @@ import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/class_models/login_model.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
 import 'package:resturant/models/databasae/database.dart';
+import 'package:resturant/models/databasae/favorite_database.dart';
 import 'package:resturant/models/dio/dio.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -25,6 +26,18 @@ class LoginCubit extends Cubit<LoginState> {
       EndPoints.FilteredCartDataBase = value;
       emit(DataGetSucces());
       print(EndPoints.FilteredCartDataBase);
+    }).catchError((onError) {
+      emit(DataGeterror());
+      print(onError);
+    });
+  }
+
+   getbyfavoriteByuserid(String id, database) async {
+    await FavoriteDataBaseFun.getdataFromDataBaseByID(database, id).then((value) {
+      FavoriteDataBaseFun.FavoriteDataBase = value;
+      emit(DataGetSucces());
+      print('its favorite');
+      print(  FavoriteDataBaseFun.FavoriteDataBase);
     }).catchError((onError) {
       emit(DataGeterror());
       print(onError);
@@ -51,9 +64,11 @@ class LoginCubit extends Cubit<LoginState> {
               DataBaseFun.storedData[0]['userId'],
               CartDataBaseFun.database,
             );
+            getbyfavoriteByuserid(DataBaseFun.storedData[0]['userId'], FavoriteDataBaseFun.database);
             emit(DataGetSucces());
             print(EndPoints.allCategoriesMap);
           },
+          
         ).catchError(
           (error) {
             emit(DataGeterror());
@@ -169,6 +184,7 @@ class LoginCubit extends Cubit<LoginState> {
                       DataBaseFun.storedData[0]['userId'],
                       CartDataBaseFun.database,
                     );
+                    getbyfavoriteByuserid( DataBaseFun.storedData[0]['userId'], FavoriteDataBaseFun.database);
                     emit(HomeScreenGetSucces());
                     print(EndPoints.allCategoriesMap);
                     Fluttertoast.showToast(
