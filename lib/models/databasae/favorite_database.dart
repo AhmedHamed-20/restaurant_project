@@ -47,10 +47,10 @@ class FavoriteDataBaseFun {
         'SELECT * FROM favorite WHERE userId = "$id" AND isFavorite=$isFavorite');
   }
 
-  static Future deleteFromDataBase(int id, BuildContext context) async {
+  static Future deleteFromDataBase(int id, BuildContext context,String userId) async {
     return await database
         .rawDelete('DELETE FROM favorite WHERE id = ?', [id]).then((value) {
-      getdataFromDataBase(database).then((value) {
+      getdataFromDataBaseByID(database,userId).then((value) {
         FavoriteDataBase = value;
       });
     }).catchError((onError) {
@@ -58,10 +58,10 @@ class FavoriteDataBaseFun {
     });
   }
 
-  static deleteFromDataBaseName(String name, BuildContext context) async {
+  static deleteFromDataBaseName(String name, BuildContext context,String userId) async {
     return await database.rawDelete(
         'DELETE FROM favorite WHERE recipeName = ?', [name]).then((value) {
-      getdataFromDataBase(database).then((value) {
+      getdataFromDataBaseByID(database,userId).then((value) {
         FavoriteDataBase = value;
       });
     }).catchError((onError) {
@@ -100,7 +100,7 @@ class FavoriteDataBaseFun {
           '$recipeId',
         ],
       ).then((value) {
-        getdataFromDataBase(database).then((value) {
+        getdataFromDataBaseByID(database,userId).then((value) {
           FavoriteDataBase = value;
 
           print(FavoriteDataBase);

@@ -424,8 +424,8 @@ class Appcubit extends Cubit<AppState> {
     return false;
   }
 
-  deleteFromFavorite(int id, context) {
-    FavoriteDataBaseFun.deleteFromDataBase(id, context).then((value) {
+  deleteFromFavorite(int id, context,String userId) {
+    FavoriteDataBaseFun.deleteFromDataBase(id, context,userId).then((value) {
       print('success');
       changeLoveIconState = false;
       Fluttertoast.showToast(
@@ -440,8 +440,8 @@ class Appcubit extends Cubit<AppState> {
     });
   }
 
-  deleteFromFavoriteByName(String name, context) {
-    FavoriteDataBaseFun.deleteFromDataBaseName(name, context).then((value) {
+  deleteFromFavoriteByName(String name, context,String userId) {
+    FavoriteDataBaseFun.deleteFromDataBaseName(name, context,userId).then((value) {
       print('success');
       //    print(value);
       Fluttertoast.showToast(

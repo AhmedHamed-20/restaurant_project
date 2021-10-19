@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
+import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/databasae/favorite_database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/all_fodods.dart';
@@ -38,7 +39,8 @@ class FavoriteScreen extends StatelessWidget {
                     onDismissed: (directhion) {
                       cubit.deleteFromFavorite(
                           FavoriteDataBaseFun.FavoriteDataBase[index]['id'],
-                          context);
+                          context,DataBaseFun.storedData[0]
+                                            ['userId']);
                     },
                     child: allFoods(
                       price: FavoriteDataBaseFun.FavoriteDataBase[index]

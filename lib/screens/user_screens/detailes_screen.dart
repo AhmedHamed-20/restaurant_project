@@ -7,6 +7,7 @@ import 'package:resturant/models/bloc/cubits/cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
+import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/widgets/bottomSheetContent.dart';
 
@@ -286,7 +287,8 @@ class DetailesScreen extends StatelessWidget {
                                       onPressed: () {
                                         if (cubit.SearchIntoFavorite(name)) {
                                           cubit.deleteFromFavoriteByName(
-                                              name, context);
+                                              name, context,DataBaseFun.storedData[0]
+                                            ['userId']);
                                         } else {
                                           cubit.insertIntoFavorite(
                                             imageurl,
