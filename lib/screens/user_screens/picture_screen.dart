@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 class PictureScreen extends StatelessWidget {
   String imageUrl;
   String recipeName;
-  int index;
-  PictureScreen(
-      {@required this.imageUrl,
-      @required this.recipeName,
-      @required this.index});
+
+  PictureScreen({
+    @required this.imageUrl,
+    @required this.recipeName,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +46,7 @@ class PictureScreen extends StatelessWidget {
                   panEnabled: false,
                   clipBehavior: Clip.none,
                   child: Hero(
-                    tag: index.toString(),
+                    tag: 'tag',
                     child: Image.network(
                       imageUrl,
                     ),

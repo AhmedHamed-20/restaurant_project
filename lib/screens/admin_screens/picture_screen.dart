@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
-class PictureScreen extends StatelessWidget {
+class PictureScreenAdmin extends StatelessWidget {
   String imageUrl;
   String recipeName;
-  PictureScreen({@required this.imageUrl, @required this.recipeName});
+  int index;
+  PictureScreenAdmin(
+      {@required this.imageUrl,
+      @required this.recipeName,
+      @required this.index});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,19 +22,46 @@ class PictureScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
+          Flexible(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: double.infinity,
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          Flexible(
+            flex: 1,
             child: Center(
               child: InteractiveViewer(
                 clipBehavior: Clip.none,
                 child: Hero(
-                  tag: 'tagadmin2',
+                  tag: index.toString(),
                   child: Image.network(
                     imageUrl,
                   ),
                 ),
               ),
             ),
-          )
+          ),
+          Flexible(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: double.infinity,
+                color: Colors.transparent,
+              ),
+            ),
+          ),
         ],
       ),
     );

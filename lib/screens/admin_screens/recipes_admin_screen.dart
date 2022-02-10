@@ -5,6 +5,7 @@ import 'package:resturant/models/bloc/states/admin_state.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/admin_screens/add_recipe_admin.dart';
+import 'package:resturant/screens/admin_screens/picture_screen.dart';
 import 'package:resturant/screens/admin_screens/recipe_detailes_admin.dart';
 import 'package:resturant/screens/user_screens/picture_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
@@ -166,7 +167,7 @@ class RecipesAdmin extends StatelessWidget {
                                             ),
                                             onTap: () {
                                               Navigate(
-                                                  Screen: PictureScreen(
+                                                  Screen: PictureScreenAdmin(
                                                     imageUrl: EndPoints
                                                             .allrecipesAdmin[
                                                         index]['imageCover'],
