@@ -6,6 +6,7 @@ import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/dio/end_points.dart';
 import 'package:resturant/screens/admin_screens/add_recipe_admin.dart';
 import 'package:resturant/screens/admin_screens/recipe_detailes_admin.dart';
+import 'package:resturant/screens/user_screens/picture_screen.dart';
 import 'package:resturant/widgets/navigate.dart';
 
 class RecipesAdmin extends StatelessWidget {
@@ -157,11 +158,34 @@ class RecipesAdmin extends StatelessWidget {
                                                       : Colors.black,
                                             ),
                                           ),
-                                          leading: CircleAvatar(
-                                            radius: 30,
-                                            backgroundImage: NetworkImage(
-                                                EndPoints.allrecipesAdmin[index]
-                                                    ['imageCover']),
+                                          leading: InkWell(
+                                            customBorder:
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                            ),
+                                            onTap: () {
+                                              Navigate(
+                                                  Screen: PictureScreen(
+                                                    imageUrl: EndPoints
+                                                            .allrecipesAdmin[
+                                                        index]['imageCover'],
+                                                    recipeName: EndPoints
+                                                            .allrecipesAdmin[
+                                                        index]['name'],
+                                                    index: index,
+                                                  ),
+                                                  context: context);
+                                            },
+                                            child: Hero(
+                                              tag: index.toString(),
+                                              child: CircleAvatar(
+                                                radius: 30,
+                                                backgroundImage: NetworkImage(
+                                                    EndPoints.allrecipesAdmin[
+                                                        index]['imageCover']),
+                                              ),
+                                            ),
                                           ),
                                           trailing: MaterialButton(
                                             onPressed: () {
