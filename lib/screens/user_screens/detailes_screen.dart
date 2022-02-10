@@ -9,7 +9,9 @@ import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/databasae/cart_database.dart';
 import 'package:resturant/models/databasae/database.dart';
 import 'package:resturant/models/dio/end_points.dart';
+import 'package:resturant/screens/user_screens/picture_screen.dart';
 import 'package:resturant/widgets/bottomSheetContent.dart';
+import 'package:resturant/widgets/navigate.dart';
 
 class DetailesScreen extends StatelessWidget {
   final String name;
@@ -85,17 +87,30 @@ class DetailesScreen extends StatelessWidget {
               clipBehavior: Clip.antiAlias,
               child: Column(
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                      ),
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(imageurl),
+                  InkWell(
+                    onTap: () {
+                      Navigate(
+                          context: context,
+                          Screen: PictureScreen(
+                            imageUrl: imageurl,
+                            recipeName: name,
+                          ));
+                    },
+                    child: Hero(
+                      tag: 'tag',
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(imageurl),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -287,8 +302,10 @@ class DetailesScreen extends StatelessWidget {
                                       onPressed: () {
                                         if (cubit.SearchIntoFavorite(name)) {
                                           cubit.deleteFromFavoriteByName(
-                                              name, context,DataBaseFun.storedData[0]
-                                            ['userId']);
+                                              name,
+                                              context,
+                                              DataBaseFun.storedData[0]
+                                                  ['userId']);
                                         } else {
                                           cubit.insertIntoFavorite(
                                             imageurl,
