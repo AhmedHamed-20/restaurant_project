@@ -1,6 +1,6 @@
 # Panda Restaurant
 
-Resturant App.
+Restaurant App.
 
 
 Web Version 
