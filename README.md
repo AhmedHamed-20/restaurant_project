@@ -10,6 +10,9 @@ https://github.com/AhmedMaher015/foodOrderApp.git
 BackEnd 
 https://github.com/omarbadawy/Restaurant-API
 
+Admin-Panel
+https://github.com/AhmedHamed-20/restaurant_desktop
+
 
 
 ## Getting Started!
