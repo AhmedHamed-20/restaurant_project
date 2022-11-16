@@ -1,14 +1,3 @@
-class LoginModel {
-  String status;
-  String token;
-  Data data;
-  LoginModel.fromjson(Map<String, dynamic> json) {
-    status = json['status'];
-    token = json['token'];
-    data = json['data'] != null ? Data.fromjson(json['data']) : null;
-  }
-}
-
 class Data {
   UserData user;
   Data.fromjson(Map<String, dynamic> json) {

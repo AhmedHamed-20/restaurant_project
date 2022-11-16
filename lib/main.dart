@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resturant/layouts/admin_layout/admin_layout_screen.dart';
-import 'package:resturant/layouts/user_layout/user_layout_screen.dart';
+import 'package:resturant/oldlayouts/admin_layout/admin_layout_screen.dart';
+import 'package:resturant/oldlayouts/user_layout/user_layout_screen.dart';
 import 'package:resturant/models/bloc/cubits/admin_cubit.dart';
 import 'package:resturant/models/bloc/states/states.dart';
 import 'package:resturant/models/cach/chach.dart';
@@ -9,7 +9,6 @@ import 'package:resturant/screens/user_screens/login_screen.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
 import 'models/bloc/cubits/cubit.dart';
-import 'models/dio/end_points.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

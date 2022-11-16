@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:resturant/layouts/user_layout/user_layout_screen.dart';
+import 'package:resturant/oldlayouts/user_layout/user_layout_screen.dart';
 import 'package:resturant/models/bloc/cubits/sign_up_cubit.dart';
 import 'package:resturant/models/bloc/states/sign_up_states.dart';
 import 'package:resturant/models/dio/end_points.dart';

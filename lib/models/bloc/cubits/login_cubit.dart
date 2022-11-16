@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:resturant/layouts/admin_layout/admin_layout_screen.dart';
-import 'package:resturant/layouts/user_layout/user_layout_screen.dart';
+import 'package:resturant/oldlayouts/admin_layout/admin_layout_screen.dart';
+import 'package:resturant/oldlayouts/user_layout/user_layout_screen.dart';
 import 'package:resturant/models/bloc/states/login_states.dart';
 import 'package:resturant/models/cach/chach.dart';
 import 'package:resturant/models/class_models/login_model.dart';
@@ -32,12 +32,13 @@ class LoginCubit extends Cubit<LoginState> {
     });
   }
 
-   getbyfavoriteByuserid(String id, database) async {
-    await FavoriteDataBaseFun.getdataFromDataBaseByID(database, id).then((value) {
+  getbyfavoriteByuserid(String id, database) async {
+    await FavoriteDataBaseFun.getdataFromDataBaseByID(database, id)
+        .then((value) {
       FavoriteDataBaseFun.FavoriteDataBase = value;
       emit(DataGetSucces());
       print('its favorite');
-      print(  FavoriteDataBaseFun.FavoriteDataBase);
+      print(FavoriteDataBaseFun.FavoriteDataBase);
     }).catchError((onError) {
       emit(DataGeterror());
       print(onError);
@@ -64,11 +65,11 @@ class LoginCubit extends Cubit<LoginState> {
               DataBaseFun.storedData[0]['userId'],
               CartDataBaseFun.database,
             );
-            getbyfavoriteByuserid(DataBaseFun.storedData[0]['userId'], FavoriteDataBaseFun.database);
+            getbyfavoriteByuserid(DataBaseFun.storedData[0]['userId'],
+                FavoriteDataBaseFun.database);
             emit(DataGetSucces());
             print(EndPoints.allCategoriesMap);
           },
-          
         ).catchError(
           (error) {
             emit(DataGeterror());
@@ -184,7 +185,8 @@ class LoginCubit extends Cubit<LoginState> {
                       DataBaseFun.storedData[0]['userId'],
                       CartDataBaseFun.database,
                     );
-                    getbyfavoriteByuserid( DataBaseFun.storedData[0]['userId'], FavoriteDataBaseFun.database);
+                    getbyfavoriteByuserid(DataBaseFun.storedData[0]['userId'],
+                        FavoriteDataBaseFun.database);
                     emit(HomeScreenGetSucces());
                     print(EndPoints.allCategoriesMap);
                     Fluttertoast.showToast(
