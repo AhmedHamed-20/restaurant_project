@@ -9,7 +9,7 @@ class EndPoints {
   static const String search = '$baseUrl/recipes/search';
   static const String updateMe = '$baseUrl/users/updateMe';
   static const String myOrder = '$baseUrl/orders/';
-  static const String users = '$baseUrl/users/';
+  static const String allusers = '$baseUrl/users/';
   static const String allusersPage = '$baseUrl/users/?page=';
   static const String allOrders = '$baseUrl/orders/all';
   static const String allOrdersPage = '$baseUrl/orders/all?page=';

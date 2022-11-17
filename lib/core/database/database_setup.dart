@@ -19,14 +19,18 @@ class DatabaseProvider {
     });
   }
 
-  static Future<List<Map<String, Object?>>> getAllDataFromDatabase(
-      String tableName) async {
-    return await database.rawQuery('SELECT * FROM $tableName');
+  static Future<List<Map<String, Object?>>> getAllDataFromDatabaseByUserId(
+      String tableName, String userId) async {
+    return await database
+        .rawQuery('SELECT * FROM $tableName WHERE userId = $userId');
   }
 
-  static Future<int> deleteDataFromDatabaseById(
-      {required int id, required String tableName}) async {
-    return await database.rawDelete('DELETE FROM $tableName WHERE  id=$id');
+  static Future<int> deleteDataFromDatabaseByDataBaseIdAndUserId(
+      {required int dataBaseId,
+      required String tableName,
+      required String userId}) async {
+    return await database.rawDelete(
+        'DELETE FROM $tableName WHERE id = "$dataBaseId" AND userId= "$userId');
   }
 
   static Future<int> deleteAllDataCartsFromDatabase(
