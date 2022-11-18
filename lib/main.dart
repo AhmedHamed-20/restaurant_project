@@ -1,81 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resturant/oldlayouts/admin_layout/admin_layout_screen.dart';
-import 'package:resturant/oldlayouts/user_layout/user_layout_screen.dart';
-import 'package:resturant/models/bloc/cubits/admin_cubit.dart';
-import 'package:resturant/models/bloc/states/states.dart';
-import 'package:resturant/models/cach/chach.dart';
-import 'package:resturant/screens/user_screens/login_screen.dart';
+import 'package:resturant/core/const/app_routes_names.dart';
+import 'package:resturant/core/network/dio.dart';
+import 'package:resturant/core/routes/app_router.dart';
+import 'package:resturant/core/services/service_locator.dart';
+import 'package:resturant/core/theme/app_theme.dart';
+import 'package:resturant/features/user/Auth/view/screens/login_screen.dart';
+import 'package:resturant/features/user/Auth/view_model/bloc/auth_bloc.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
-
-import 'models/bloc/cubits/cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await CachFunc.init();
-  String token = CachFunc.getData('token');
-  String isAdmin = CachFunc.getData('isAdmin');
-  if (await CachFunc.getBoolDate(key: 'isDark') == null) {
-    EndPoints.isDark = false;
-  } else {
-    EndPoints.isDark = await CachFunc.getBoolDate(key: 'isDark');
-  }
+  await DioHelper.init();
+  ServiceLocator.init();
 
-  print(token);
-
-  runApp(MyApp(token, isAdmin));
+  runApp(MyApp(
+    appRouter: AppRouter(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  String token;
-  String isAdmin;
-  MyApp(this.token, this.isAdmin);
+  const MyApp({super.key, required this.appRouter});
+  final AppRouter appRouter;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (BuildContext context) => Appcubit()
-            ..dataBase()
-            ..getdata(context, token: token)
-            ..checkConnecthion(),
+          create: (context) => serviceLocator<AuthBloc>(),
         ),
-        BlocProvider(create: (BuildContext context) => AdminCubit()),
       ],
-      child: BlocConsumer<Appcubit, AppState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var cubit = Appcubit.get(context);
-          return MaterialApp(
-            theme: ThemeData(
-              primaryColor: Colors.orangeAccent,
-              primaryColorDark: Colors.orangeAccent,
-            ),
-            debugShowCheckedModeBanner: false,
-            title: 'Panda Restaurant',
-            home: SplashScreenView(
-              navigateRoute: token == null
-                  ? LoginScreen()
-                  : isAdmin == null
-                      ? LayoutScreen(
-                          token: token,
-                        )
-                      : AdminLayout(),
-              backgroundColor: Colors.orange,
-              imageSrc: 'assets/images/restaurant.png',
-              imageSize: 130,
-              duration: 4000,
-              text: 'Panda Restaurant',
-              textType: TextType.TyperAnimatedText,
-              textStyle: TextStyle(
-                fontSize: 30.0,
-                color: Colors.white,
-                fontFamily: 'Batka',
-              ),
-            ),
-          );
-        },
+      child: MaterialApp(
+        theme: AppTheme.lightMode,
+        darkTheme: AppTheme.darkMode,
+        themeMode: ThemeMode.light,
+        debugShowCheckedModeBanner: false,
+        title: 'Panda Restaurant',
+        onGenerateRoute: appRouter.generateRoutes,
+        initialRoute: AppRoutesNames.splashScreen,
       ),
     );
   }

@@ -118,7 +118,7 @@ class AppColors {
   static const Color toastError = Colors.red;
   static const Color navBarBackgroundColor = Colors.white;
   static Color scaffoldBackgroundColor = Colors.grey[100]!;
-  static Color primaryColor = Colors.teal[300]!;
+  static Color primaryColor = Colors.orangeAccent;
   static const Color transparentColor = Colors.transparent;
   static Color buttonColor = const Color(0xff1ABC00);
   static const Color textColorButton = Colors.white;

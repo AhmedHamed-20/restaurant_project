@@ -17,6 +17,12 @@ enum RecipeAdminRequestStatues {
   error,
 }
 
+enum OrdersAdminRequestStatues {
+  loading,
+  success,
+  error,
+}
+
 enum CategoryRequestStatues {
   loading,
   success,

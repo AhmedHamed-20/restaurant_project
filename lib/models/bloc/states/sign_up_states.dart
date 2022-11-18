@@ -1,13 +1,13 @@
-abstract class SignUpState {}
+// abstract class SignUpState {}
 
-class AppintiState extends SignUpState {}
+// class AppintiState extends SignUpState {}
 
-class SignUpSuccess extends SignUpState {}
+// class SignUpSuccess extends SignUpState {}
 
-class SignUpErrorState extends SignUpState {}
+// class SignUpErrorState extends SignUpState {}
 
-class SignUpLoadingState extends SignUpState {}
+// class SignUpLoadingState extends SignUpState {}
 
-class HidePasswordState extends SignUpState {}
+// class HidePasswordState extends SignUpState {}
 
-class GetdataError extends SignUpState {}
+// class GetdataError extends SignUpState {}
