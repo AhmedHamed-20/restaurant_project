@@ -15,6 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEvent>(_login);
     on<SignUpEvent>(_signUp);
     on<ForgetPasswordEvent>(_forgetPassword);
+    on<AccessTokenCacheEvent>(_cacheAccessToken);
   }
 
   final BaseAuthRepository baseAuthRepository;
@@ -30,7 +31,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
     }, (r) {
       emit(state.copyWith(
-        loginRequestStatues: AuthRequestStatues.success,
+        loginRequestStatues: AuthRequestStatues.authSuccess,
         errorMessage: '',
         loginModel: r,
       ));
@@ -53,7 +54,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
     }, (r) {
       emit(state.copyWith(
-        signUpRequestStatues: AuthRequestStatues.success,
+        signUpRequestStatues: AuthRequestStatues.authSuccess,
         errorMessage: '',
         signUpModel: r,
       ));
@@ -63,20 +64,45 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   FutureOr<void> _forgetPassword(
       ForgetPasswordEvent event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
-        forgetPasswordRequestStatues: AuthRequestStatues.loading));
+        forgetPasswordRequestStatues: ForgetPasswordRequestStatues.loading));
     final result = await baseAuthRepository
         .forgetPassword(ForgetPasswordParams(event.email));
 
     result.fold((l) {
       emit(state.copyWith(
-        forgetPasswordRequestStatues: AuthRequestStatues.error,
+        forgetPasswordRequestStatues: ForgetPasswordRequestStatues.error,
         errorMessage: l.message,
       ));
     }, (r) {
       emit(state.copyWith(
-        forgetPasswordRequestStatues: AuthRequestStatues.success,
+        forgetPasswordRequestStatues: ForgetPasswordRequestStatues.success,
         errorMessage: '',
       ));
     });
+  }
+
+  FutureOr<void> _cacheAccessToken(
+      AccessTokenCacheEvent event, Emitter<AuthState> emit) async {
+    final result = await baseAuthRepository
+        .cacheAccessToken(AccessTokenCacheParams(event.accessToken));
+    if (event.isLogin) {
+      result.fold(
+          (l) => emit(state.copyWith(
+              errorMessage: l.message,
+              loginRequestStatues: AuthRequestStatues.error)),
+          (r) => emit(state.copyWith(
+                loginRequestStatues: AuthRequestStatues.cachedSuccess,
+                errorMessage: '',
+              )));
+    } else {
+      result.fold(
+          (l) => emit(state.copyWith(
+              errorMessage: l.message,
+              signUpRequestStatues: AuthRequestStatues.error)),
+          (r) => emit(state.copyWith(
+                signUpRequestStatues: AuthRequestStatues.cachedSuccess,
+                errorMessage: '',
+              )));
+    }
   }
 }

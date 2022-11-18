@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class RecipeDataModel extends Equatable {
-  final List<String> ingredients;
+  final List<dynamic> ingredients;
   final String name;
   final String imageCover;
   final int price;
@@ -22,7 +22,7 @@ class RecipeDataModel extends Equatable {
 
   factory RecipeDataModel.fromJson(Map<String, dynamic> json) {
     return RecipeDataModel(
-      ingredients: json['ingredients'] as List<String>,
+      ingredients: json['ingredients'],
       name: json['name'] as String,
       imageCover: json['imageCover'] as String,
       price: json['price'] as int,

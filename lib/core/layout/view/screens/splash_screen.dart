@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 
-import '../../../features/user/Auth/view/screens/login_screen.dart';
+import '../../../../features/user/Auth/view/screens/login_screen.dart';
 
 class SplashScrenn extends StatelessWidget {
   const SplashScrenn({super.key});

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:resturant/core/const/const.dart';
 import 'package:resturant/core/widget/defaults.dart';
 
+import '../../../../../core/const/text_editing_controllers.dart';
+import '../widgets/forget_password_widgets/forget_password_button_widget.dart';
+
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
@@ -58,7 +61,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                   ),
                   Defaults.defaultTextField(
                     context: context,
-                    controller: TextEditingController(),
+                    controller:
+                        TextEditingControllers.forgetPasswordEmailController,
                     title: 'Email',
                     prefixIcon: Icon(
                       Icons.email_outlined,
@@ -68,22 +72,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                   const SizedBox(
                     height: AppHeight.h10,
                   ),
-                  Center(
-                    child: MaterialButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      color: Colors.orangeAccent,
-                      onPressed: () {},
-                      child: Text(
-                        'Forget',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(color: AppColors.white),
-                      ),
-                    ),
-                  )
+                  const ForgetPasswordButtonWidget()
                 ],
               ),
             ),

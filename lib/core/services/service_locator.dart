@@ -1,11 +1,14 @@
 import 'package:get_it/get_it.dart';
+import 'package:resturant/core/layout/repository/base/layout_base_repository.dart';
+import 'package:resturant/core/layout/repository/remote/layout_remote_repository_impl.dart';
+import 'package:resturant/core/layout/view_model/bloc/layout_bloc.dart';
 import 'package:resturant/features/admin/AllRecipes/repository/base/base_admin_recipes_repository.dart';
 import 'package:resturant/features/admin/AllRecipes/repository/remote/remote_admin_repository_impl.dart';
 import 'package:resturant/features/admin/AllRecipes/view_model/bloc/recipes_admin_bloc.dart';
 import 'package:resturant/features/admin/AllUsers/repositories/base/base_all_users_repository.dart';
 import 'package:resturant/features/admin/AllUsers/repositories/remote/remote_all_users_repository.dart';
 import 'package:resturant/features/admin/AllUsers/view_model/bloc/allusers_bloc.dart';
-import 'package:resturant/features/user/Auth/repositories/remote/remote_auth_repository_impl.dart';
+import 'package:resturant/features/user/Auth/repositories/remote/auth_repository_impl.dart';
 import 'package:resturant/features/user/Auth/view_model/bloc/auth_bloc.dart';
 import 'package:resturant/features/user/Categories/repositories/base/base_category_repository.dart';
 import 'package:resturant/features/user/Categories/repositories/remote/remote_category_repository_impl.dart';
@@ -35,9 +38,11 @@ class ServiceLocator {
         .registerFactory<AllusersBloc>(() => AllusersBloc(serviceLocator()));
     serviceLocator.registerFactory<RecipesAdminBloc>(
         () => RecipesAdminBloc(serviceLocator()));
+    serviceLocator
+        .registerFactory<LayoutBloc>(() => LayoutBloc(serviceLocator()));
     //repository
-    serviceLocator.registerLazySingleton<BaseAuthRepository>(
-        () => RemoteAuthRepositoryImpl());
+    serviceLocator
+        .registerLazySingleton<BaseAuthRepository>(() => AuthRepositoryImpl());
     serviceLocator.registerLazySingleton<BaseRecipeRepository>(
         () => RecipesRepositoryImpl());
     serviceLocator.registerLazySingleton<BaseCategoryRepository>(
@@ -48,5 +53,7 @@ class ServiceLocator {
         () => RemoteAllUserRepositoryImpl());
     serviceLocator.registerLazySingleton<BaseAdminRecipesRepository>(
         () => RemoteAdminRecipesRepository());
+    serviceLocator.registerLazySingleton<BaseLayoutRepository>(
+        () => LayoutRemoteRepositoryImpl());
   }
 }

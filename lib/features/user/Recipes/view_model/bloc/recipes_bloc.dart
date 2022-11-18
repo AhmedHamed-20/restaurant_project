@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:resturant/core/utls/utls.dart';
+import 'package:resturant/features/user/Recipes/models/recipe_data_model.dart';
 
 import '../../models/favourite_model.dart';
 import '../../models/recipes_model.dart';
@@ -13,15 +14,17 @@ part 'recipes_state.dart';
 
 class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
   RecipesBloc(this.baseRecipeRepository) : super(const RecipesState()) {
-    on<AllRecipesEvent>(_getAllRecipes);
+    on<AllRecipesGetEvent>(_getAllRecipes);
     on<RecipesSearchEvent>(_searchRecipes);
     on<FavouriteGetFromDataBaseEvent>(_getAllFavorites);
     on<FavouriteAddToDataBaseEvent>(_insertFavourite);
     on<FavouriteDeleteFromDataBaseEvent>(_deleteFavourite);
+    on<AmountRecipesGnerateEvent>(_generateAmountRecipes);
+    on<ChangeAmountRecipesEvent>(_changeAmountRecipes);
   }
   final BaseRecipeRepository baseRecipeRepository;
   FutureOr<void> _getAllRecipes(
-      AllRecipesEvent event, Emitter<RecipesState> emit) async {
+      AllRecipesGetEvent event, Emitter<RecipesState> emit) async {
     final result = await baseRecipeRepository.getAllRecipes();
 
     result.fold((l) {
@@ -35,6 +38,7 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
         errorMessage: '',
         recipeRequestStatues: RecipeRequestStatues.success,
       ));
+      add(AmountRecipesGnerateEvent(recipesModel: r.recipeDataModel));
     });
   }
 
@@ -113,5 +117,43 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
       add(FavouriteGetFromDataBaseEvent(
           tableName: event.tableName, userId: event.userId));
     });
+  }
+
+  FutureOr<void> _generateAmountRecipes(
+      AmountRecipesGnerateEvent event, Emitter<RecipesState> emit) {
+    final Map<String, int> amount = {};
+
+    for (var recipe in event.recipesModel) {
+      amount[recipe.id] = 1;
+    }
+    emit(state.copyWith(
+      amount: amount,
+    ));
+  }
+
+  FutureOr<void> _changeAmountRecipes(
+      ChangeAmountRecipesEvent event, Emitter<RecipesState> emit) {
+    Map<String, int> amountMap = Map.from(state.amount!);
+    if (event.isAdd) {
+      amountMap[event.recipeId] = amountMap[event.recipeId]! + 1;
+      emit(
+        state.copyWith(
+          amount: Map.from(amountMap),
+        ),
+      );
+    } else {
+      if (state.amount![event.recipeId]! > 1) {
+        amountMap[event.recipeId] = amountMap[event.recipeId]! - 1;
+        emit(
+          state.copyWith(
+            amount: amountMap,
+          ),
+        );
+      } else {
+        emit(state.copyWith(
+          amount: amountMap,
+        ));
+      }
+    }
   }
 }

@@ -4,8 +4,8 @@ abstract class RecipesEvent extends Equatable {
   const RecipesEvent();
 }
 
-class AllRecipesEvent extends RecipesEvent {
-  const AllRecipesEvent();
+class AllRecipesGetEvent extends RecipesEvent {
+  const AllRecipesGetEvent();
 
   @override
   List<Object?> get props => [];
@@ -57,4 +57,23 @@ class FavouriteDeleteFromDataBaseEvent extends RecipesEvent {
 
   @override
   List<Object?> get props => [tableName, userId, databaseId];
+}
+
+class AmountRecipesGnerateEvent extends RecipesEvent {
+  final List<RecipeDataModel> recipesModel;
+
+  const AmountRecipesGnerateEvent({required this.recipesModel});
+
+  @override
+  List<Object?> get props => [recipesModel];
+}
+
+class ChangeAmountRecipesEvent extends RecipesEvent {
+  final String recipeId;
+  final bool isAdd;
+
+  const ChangeAmountRecipesEvent({required this.recipeId, required this.isAdd});
+
+  @override
+  List<Object?> get props => [recipeId, isAdd];
 }

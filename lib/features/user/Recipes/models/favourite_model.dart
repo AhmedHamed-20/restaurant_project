@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 class FavouriteModel extends Equatable {
   final int databaseId;
-  final List<String> ingredients;
+  final List<dynamic> ingredients;
   final String name;
   final String imageCover;
   final int price;
@@ -27,12 +27,12 @@ class FavouriteModel extends Equatable {
   factory FavouriteModel.fromMap(Map<String, dynamic> map) {
     return FavouriteModel(
       databaseId: map['id'],
-      ingredients: json.decode(map['ingredients']) as List<String>,
+      ingredients: json.decode(map['ingredients']) as List<dynamic>,
       name: map['name'] as String,
       imageCover: map['imageCover'] as String,
       price: map['price'] as int,
       category: map['category'] as String,
-      recipeId: map['_id'] as String,
+      recipeId: map['recipeId'] as String,
       cookingTime: map['cookingTime'] as int,
       slug: map['slug'] as String,
     );
@@ -45,7 +45,7 @@ class FavouriteModel extends Equatable {
       'imageCover': imageCover,
       'price': price,
       'category': category,
-      'id': recipeId,
+      'recipeId': recipeId,
       'cookingTime': cookingTime,
       'slug': slug,
     };

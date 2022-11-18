@@ -1,34 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resturant/core/cache/chache_setup.dart';
 import 'package:resturant/core/const/app_routes_names.dart';
+import 'package:resturant/core/const/const.dart';
+import 'package:resturant/core/database/database_setup.dart';
 import 'package:resturant/core/network/dio.dart';
 import 'package:resturant/core/routes/app_router.dart';
 import 'package:resturant/core/services/service_locator.dart';
 import 'package:resturant/core/theme/app_theme.dart';
-import 'package:resturant/features/user/Auth/view/screens/login_screen.dart';
 import 'package:resturant/features/user/Auth/view_model/bloc/auth_bloc.dart';
-import 'package:splash_screen_view/SplashScreenView.dart';
+import 'package:resturant/features/user/Recipes/view_model/bloc/recipes_bloc.dart';
+
+import 'core/layout/view_model/bloc/layout_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DioHelper.init();
+  await CacheHelper.init();
   ServiceLocator.init();
-
+  await DatabaseProvider.init(
+      databasesName: 'favorite.db',
+      version: 1,
+      query:
+          'CREATE TABLE favorite (id INTEGER PRIMARY KEY, userId TEXT,name TEXT, imageCover TEXT, price INTEGER, slug TEXT,recipeId TEXT,category TEXT,cookingTime INTEGER,ingredients TEXT)');
+  final String accessToken =
+      await CacheHelper.getData(key: 'accessToken') ?? '';
   runApp(MyApp(
     appRouter: AppRouter(),
+    accessToken: accessToken,
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.appRouter});
+  const MyApp({super.key, required this.appRouter, required this.accessToken});
   final AppRouter appRouter;
+  final String accessToken;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    accessTokenVar = accessToken;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (context) => serviceLocator<RecipesBloc>()
+            ..add(
+              const AllRecipesGetEvent(),
+            ),
+        ),
+        BlocProvider(
           create: (context) => serviceLocator<AuthBloc>(),
+        ),
+        BlocProvider(
+          create: (context) =>
+              serviceLocator<LayoutBloc>()..add(ActiveUserDataGet(accessToken)),
         ),
       ],
       child: MaterialApp(
@@ -38,7 +63,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Panda Restaurant',
         onGenerateRoute: appRouter.generateRoutes,
-        initialRoute: AppRoutesNames.splashScreen,
+        initialRoute: accessToken == ''
+            ? AppRoutesNames.loginScreen
+            : AppRoutesNames.mainLayout,
       ),
     );
   }

@@ -22,7 +22,7 @@ class DatabaseProvider {
   static Future<List<Map<String, Object?>>> getAllDataFromDatabaseByUserId(
       String tableName, String userId) async {
     return await database
-        .rawQuery('SELECT * FROM $tableName WHERE userId = $userId');
+        .rawQuery('SELECT * FROM $tableName WHERE userId = ?', [userId]);
   }
 
   static Future<int> deleteDataFromDatabaseByDataBaseIdAndUserId(

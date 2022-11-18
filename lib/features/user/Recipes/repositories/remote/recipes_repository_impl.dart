@@ -72,7 +72,7 @@ class RecipesRepositoryImpl extends BaseRecipeRepository {
           favouriteMap['ingredients'],
         ],
         query:
-            'INSERT INTO ${params.tableName}(userId ,name, imageCover,price,slug,recipeId,category,cookingTime,ingredients) VALUES(?, ?, ?, ?, ?, ?, ?,?,?)',
+            'INSERT INTO ${params.tableName}(userId ,name, imageCover,price,slug,recipeId,category,cookingTime,ingredients) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)',
       );
       return Right(result);
     } on Exception catch (e) {

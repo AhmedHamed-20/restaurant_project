@@ -1,6 +1,14 @@
 enum AuthRequestStatues {
   idle,
   loading,
+  authSuccess,
+  cachedSuccess,
+  error,
+}
+
+enum ForgetPasswordRequestStatues {
+  idle,
+  loading,
   success,
   error,
 }
@@ -24,6 +32,12 @@ enum OrdersAdminRequestStatues {
 }
 
 enum CategoryRequestStatues {
+  loading,
+  success,
+  error,
+}
+
+enum LayoutRequestStatues {
   loading,
   success,
   error,

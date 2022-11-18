@@ -104,6 +104,7 @@ class AppWidth {
 
   static const double w100 = 100;
   static const double w130 = 130;
+  static const double w200 = 200;
 }
 
 class AppColors {
@@ -120,7 +121,7 @@ class AppColors {
   static Color scaffoldBackgroundColor = Colors.grey[100]!;
   static Color primaryColor = Colors.orangeAccent;
   static const Color transparentColor = Colors.transparent;
-  static Color buttonColor = const Color(0xff1ABC00);
+  static Color buttonColor = const Color(0xff7b9c72);
   static const Color textColorButton = Colors.white;
   static const Color titleTextColor = Colors.black;
   static const Color titleTextColorDark = Colors.white;
@@ -178,3 +179,4 @@ void flutterToast({
 
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
+String accessTokenVar = '';

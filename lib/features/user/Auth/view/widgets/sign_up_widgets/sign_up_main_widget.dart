@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:resturant/core/const/text_editing_controllers.dart';
 import 'package:resturant/core/widget/defaults.dart';
-import 'package:resturant/features/user/Auth/view/widgets/sign_up_widgets/sign_up_button_widget.dart';
+import 'package:resturant/features/user/Auth/view/widgets/sign_up_widgets/sign_up_buttons_widget.dart';
 
 import '../../../../../../core/const/const.dart';
 
@@ -38,7 +39,7 @@ class SignUpMainWidget extends StatelessWidget {
           ),
           Defaults.defaultTextField(
             context: context,
-            controller: TextEditingController(),
+            controller: TextEditingControllers.signUpNameController,
             title: 'Name',
             prefixIcon: Icon(
               Icons.text_fields_outlined,
@@ -50,7 +51,7 @@ class SignUpMainWidget extends StatelessWidget {
           ),
           Defaults.defaultTextField(
             context: context,
-            controller: TextEditingController(),
+            controller: TextEditingControllers.signUpEmailController,
             title: 'Email',
             prefixIcon: Icon(
               Icons.email_outlined,
@@ -62,7 +63,7 @@ class SignUpMainWidget extends StatelessWidget {
           ),
           Defaults.defaultTextField(
             context: context,
-            controller: TextEditingController(),
+            controller: TextEditingControllers.signUpPasswordController,
             title: 'Password',
             prefixIcon: Icon(IconlyLight.lock,
                 color: Theme.of(context).iconTheme.color),
@@ -72,7 +73,7 @@ class SignUpMainWidget extends StatelessWidget {
           ),
           Defaults.defaultTextField(
             context: context,
-            controller: TextEditingController(),
+            controller: TextEditingControllers.signUpPasswordConfirmController,
             title: 'Confirm Password',
             prefixIcon: Icon(IconlyLight.lock,
                 color: Theme.of(context).iconTheme.color),

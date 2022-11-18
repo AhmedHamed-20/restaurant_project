@@ -38,3 +38,14 @@ class ForgetPasswordEvent extends AuthEvent {
   @override
   List<Object?> get props => [email];
 }
+
+class AccessTokenCacheEvent extends AuthEvent {
+  final String accessToken;
+  final bool isLogin;
+
+  const AccessTokenCacheEvent(
+      {required this.accessToken, required this.isLogin});
+
+  @override
+  List<Object?> get props => [accessToken, isLogin];
+}

@@ -5,19 +5,19 @@ class AuthState extends Equatable {
   final AuthModel? loginModel;
   final AuthRequestStatues loginRequestStatues;
   final AuthRequestStatues signUpRequestStatues;
-  final AuthRequestStatues forgetPasswordRequestStatues;
+  final ForgetPasswordRequestStatues forgetPasswordRequestStatues;
   final String errorMessage;
 
   const AuthState(
       {this.signUpModel,
       this.loginModel,
-      this.forgetPasswordRequestStatues = AuthRequestStatues.idle,
+      this.forgetPasswordRequestStatues = ForgetPasswordRequestStatues.idle,
       this.loginRequestStatues = AuthRequestStatues.idle,
       this.signUpRequestStatues = AuthRequestStatues.idle,
       this.errorMessage = ''});
 
   AuthState copyWith({
-    AuthRequestStatues? forgetPasswordRequestStatues,
+    ForgetPasswordRequestStatues? forgetPasswordRequestStatues,
     AuthModel? signUpModel,
     AuthModel? loginModel,
     AuthRequestStatues? loginRequestStatues,

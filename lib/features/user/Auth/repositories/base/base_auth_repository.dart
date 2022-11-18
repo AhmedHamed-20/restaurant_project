@@ -8,6 +8,8 @@ abstract class BaseAuthRepository {
   Future<Either<Failure, AuthModel>> login(LoginParams params);
   Future<Either<Failure, AuthModel>> signUp(SignUpParams params);
   Future<Either<Failure, String>> forgetPassword(ForgetPasswordParams params);
+  Future<Either<Failure, String>> cacheAccessToken(
+      AccessTokenCacheParams params);
 }
 
 class LoginParams extends Equatable {
@@ -43,4 +45,13 @@ class ForgetPasswordParams extends Equatable {
 
   @override
   List<Object?> get props => [email];
+}
+
+class AccessTokenCacheParams extends Equatable {
+  final String accessToken;
+
+  const AccessTokenCacheParams(this.accessToken);
+
+  @override
+  List<Object?> get props => [accessToken];
 }

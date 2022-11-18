@@ -3,7 +3,8 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:resturant/core/widget/defaults.dart';
 
 import '../../../../../../core/const/const.dart';
-import 'login_button_widget.dart';
+import '../../../../../../core/const/text_editing_controllers.dart';
+import 'login_buttons_widget.dart';
 
 class LoginMainWidget extends StatelessWidget {
   const LoginMainWidget({
@@ -38,7 +39,7 @@ class LoginMainWidget extends StatelessWidget {
           ),
           Defaults.defaultTextField(
             context: context,
-            controller: TextEditingController(),
+            controller: TextEditingControllers.loginEmailController,
             title: 'Email',
             prefixIcon: Icon(
               Icons.email_outlined,
@@ -50,7 +51,7 @@ class LoginMainWidget extends StatelessWidget {
           ),
           Defaults.defaultTextField(
             context: context,
-            controller: TextEditingController(),
+            controller: TextEditingControllers.loginPasswordController,
             title: 'Password',
             prefixIcon: Icon(IconlyLight.lock,
                 color: Theme.of(context).iconTheme.color),
@@ -58,7 +59,7 @@ class LoginMainWidget extends StatelessWidget {
           const SizedBox(
             height: AppHeight.h10,
           ),
-          const LoginButtonWidget(),
+          const LoginButtonsWidget(),
         ],
       ),
     );

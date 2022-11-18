@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:resturant/core/cache/chache_setup.dart';
 import 'package:resturant/core/network/dio.dart';
 import 'package:resturant/core/network/endpoints.dart';
 import 'package:resturant/core/error/failure.dart';
@@ -7,7 +8,7 @@ import 'package:dartz/dartz.dart';
 import '../../models/auth_model.dart';
 import '../base/base_auth_repository.dart';
 
-class RemoteAuthRepositoryImpl extends BaseAuthRepository {
+class AuthRepositoryImpl extends BaseAuthRepository {
   @override
   Future<Either<Failure, AuthModel>> login(LoginParams params) async {
     try {
@@ -55,6 +56,17 @@ class RemoteAuthRepositoryImpl extends BaseAuthRepository {
       return const Right('Token sent to your email');
     } on DioError catch (e) {
       return Left(ServerFailure(message: e.response?.data['message']));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> cacheAccessToken(
+      AccessTokenCacheParams params) async {
+    try {
+      await CacheHelper.setData(key: 'accessToken', value: params.accessToken);
+      return const Right('cached');
+    } on Exception catch (e) {
+      return Left(CacheFailure(message: e.toString()));
     }
   }
 }
