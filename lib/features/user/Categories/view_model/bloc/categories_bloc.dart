@@ -15,6 +15,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   CategoriesBloc(this.baseCategoryRepository) : super(const CategoriesState()) {
     on<AllCategoriesEvent>(_getAllCategories);
     on<CategoryRecipesEvent>(_getCategoryRecipes);
+    on<ValuesCategoryRecipesResetEvent>(_valuesReset);
   }
   final BaseCategoryRepository baseCategoryRepository;
   FutureOr<void> _getAllCategories(
@@ -44,5 +45,12 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
           errorMessage: '',
           categoryRecipesRequestState: CategoryRequestStatues.success)),
     );
+  }
+
+  FutureOr<void> _valuesReset(ValuesCategoryRecipesResetEvent event,
+      Emitter<CategoriesState> emit) async {
+    emit(state.copyWith(
+      categoryRecipesRequestState: CategoryRequestStatues.loading,
+    ));
   }
 }

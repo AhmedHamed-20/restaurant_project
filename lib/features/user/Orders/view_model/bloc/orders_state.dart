@@ -1,17 +1,17 @@
 part of 'orders_bloc.dart';
 
 class OrdersState extends Equatable {
-  final OrdersModel? myOrders;
+  final List<OrdersModel> myOrders;
   final String errorMessage;
   final OrdersRequestStatues ordersRequestStatues;
 
   const OrdersState(
-      {this.myOrders,
+      {this.myOrders = const [],
       this.errorMessage = '',
       this.ordersRequestStatues = OrdersRequestStatues.loading});
 
   OrdersState copyWith({
-    OrdersModel? myOrders,
+    List<OrdersModel>? myOrders,
     String? errorMessage,
     OrdersRequestStatues? ordersRequestStatues,
   }) {

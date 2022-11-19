@@ -9,10 +9,12 @@ class RecipesState extends Equatable {
   final List<FavouriteModel> favouriteModel;
   final RecipeRequestStatues favouriteRequestStatues;
   final Map<String, int>? amount;
+  final bool inFavoritesDatabase;
   const RecipesState(
       {this.errorMessage = '',
       this.recipesModel,
       this.searchModel,
+      this.inFavoritesDatabase = false,
       this.amount,
       this.favouriteModel = const [],
       this.favouriteRequestStatues = RecipeRequestStatues.loading,
@@ -20,6 +22,7 @@ class RecipesState extends Equatable {
       this.searchRequestStatues = RecipeRequestStatues.loading});
 
   RecipesState copyWith({
+    bool? inFavoritesDatabase,
     List<FavouriteModel>? favouriteModel,
     RecipeRequestStatues? favouriteRequestStatues,
     String? errorMessage,
@@ -30,6 +33,7 @@ class RecipesState extends Equatable {
     RecipeRequestStatues? searchRequestStatues,
   }) {
     return RecipesState(
+      inFavoritesDatabase: inFavoritesDatabase ?? this.inFavoritesDatabase,
       amount: amount ?? this.amount,
       favouriteModel: favouriteModel ?? this.favouriteModel,
       favouriteRequestStatues:
@@ -50,6 +54,7 @@ class RecipesState extends Equatable {
         recipesModel,
         amount,
         searchModel,
+        inFavoritesDatabase,
         recipeRequestStatues,
         searchRequestStatues
       ];

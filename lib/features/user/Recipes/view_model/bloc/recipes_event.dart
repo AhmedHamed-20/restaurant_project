@@ -77,3 +77,18 @@ class ChangeAmountRecipesEvent extends RecipesEvent {
   @override
   List<Object?> get props => [recipeId, isAdd];
 }
+
+class FavouriteCheckIfInDatabaseThenAddEvent extends RecipesEvent {
+  final String tableName;
+  final String userId;
+  final String recipeId;
+  final FavouriteModel favouriteModel;
+  const FavouriteCheckIfInDatabaseThenAddEvent(
+      {required this.tableName,
+      required this.userId,
+      required this.recipeId,
+      required this.favouriteModel});
+
+  @override
+  List<Object?> get props => [tableName, userId, recipeId, favouriteModel];
+}

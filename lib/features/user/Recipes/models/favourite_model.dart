@@ -1,28 +1,21 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:resturant/core/const/base_recipes_data_model.dart';
 
-class FavouriteModel extends Equatable {
+class FavouriteModel extends BaseRecipesDataModel {
   final int databaseId;
-  final List<dynamic> ingredients;
-  final String name;
-  final String imageCover;
-  final int price;
-  final String category;
-  final String recipeId;
-  final int cookingTime;
-  final String slug;
 
   const FavouriteModel(
-      {required this.ingredients,
+      {required super.ingredients,
       required this.databaseId,
-      required this.name,
-      required this.imageCover,
-      required this.price,
-      required this.category,
-      required this.recipeId,
-      required this.cookingTime,
-      required this.slug});
+      required super.name,
+      required super.imageCover,
+      required super.price,
+      required super.category,
+      required super.recipeId,
+      required super.cookingTime,
+      required super.slug});
 
   factory FavouriteModel.fromMap(Map<String, dynamic> map) {
     return FavouriteModel(

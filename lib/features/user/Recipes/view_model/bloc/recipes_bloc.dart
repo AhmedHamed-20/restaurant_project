@@ -21,6 +21,8 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     on<FavouriteDeleteFromDataBaseEvent>(_deleteFavourite);
     on<AmountRecipesGnerateEvent>(_generateAmountRecipes);
     on<ChangeAmountRecipesEvent>(_changeAmountRecipes);
+    on<FavouriteCheckIfInDatabaseThenAddEvent>(
+        _checkIfRecipeInFavouriteThenAdd);
   }
   final BaseRecipeRepository baseRecipeRepository;
   FutureOr<void> _getAllRecipes(
@@ -124,7 +126,7 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     final Map<String, int> amount = {};
 
     for (var recipe in event.recipesModel) {
-      amount[recipe.id] = 1;
+      amount[recipe.recipeId] = 1;
     }
     emit(state.copyWith(
       amount: amount,
@@ -155,5 +157,38 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
         ));
       }
     }
+  }
+
+  FutureOr<void> _checkIfRecipeInFavouriteThenAdd(
+      FavouriteCheckIfInDatabaseThenAddEvent event,
+      Emitter<RecipesState> emit) async {
+    final result = await baseRecipeRepository.getAllFavoritesByRecipeId(
+      FavoriteGetByRecipeIdParams(
+        tableName: event.tableName,
+        userId: event.userId,
+        recipeId: event.recipeId,
+      ),
+    );
+    result.fold(
+        (l) => emit(state.copyWith(
+              errorMessage: l.message,
+            )), (r) {
+      if (r.isEmpty) {
+        emit(state.copyWith(
+          errorMessage: '',
+          inFavoritesDatabase: false,
+        ));
+        add(FavouriteAddToDataBaseEvent(
+          tableName: event.tableName,
+          userId: event.userId,
+          favouriteModel: event.favouriteModel,
+        ));
+      } else {
+        emit(state.copyWith(
+          errorMessage: '',
+          inFavoritesDatabase: true,
+        ));
+      }
+    });
   }
 }

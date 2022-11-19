@@ -10,4 +10,6 @@ class AppRoutesNames {
   static const String mainLayout = '/login_screen/main_layout';
   static const String detailsScreen =
       '/login_screen/main_layout/home_screen/details_screen';
+  static const String categoryRecipesScreen =
+      '/login_screen/main_layout/home_screen/category_recipes_screen';
 }

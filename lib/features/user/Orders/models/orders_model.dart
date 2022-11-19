@@ -22,14 +22,14 @@ class OrdersModel extends Equatable {
 
   factory OrdersModel.fromJson(Map<String, dynamic> json) {
     return OrdersModel(
-      ordersContent: (json['ordersContent'] as List)
+      ordersContent: (json['orderContent'] as List)
           .map((e) => OrderContentModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalPrice: json['totalPrice'] as int,
       customerName: json['customerName'] as String,
       customerPhoneNumber: json['customerPhoneNumber'] as String,
       customerAddress: json['customerAddress'] as String,
-      customeEmail: json['customeEmail'] as String,
+      customeEmail: json['customerEmail'] as String,
       id: json['_id'] as String,
     );
   }

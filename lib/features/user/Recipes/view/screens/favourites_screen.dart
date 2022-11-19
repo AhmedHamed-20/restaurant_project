@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resturant/core/const/app_routes_names.dart';
+import 'package:resturant/core/widget/recipes_card_design_widget.dart';
 import 'package:resturant/features/user/Recipes/view_model/bloc/recipes_bloc.dart';
 
 import '../../../../../core/utls/utls.dart';
@@ -36,20 +38,15 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             }
             return ListView.builder(
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(
-                    state.favouriteModel[index].name,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  leading: CircleAvatar(
-                    radius: 50,
-                    backgroundImage: NetworkImage(
-                      state.favouriteModel[index].imageCover,
-                    ),
-                  ),
-                  subtitle: Text(
-                    '${state.favouriteModel[index].price.toString()} EGP',
-                    style: Theme.of(context).textTheme.titleSmall,
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutesNames.detailsScreen,
+                        arguments: state.favouriteModel[index]);
+                  },
+                  child: RecipesCardWidget(
+                    imageCover: state.favouriteModel[index].imageCover,
+                    name: state.favouriteModel[index].name,
+                    price: state.favouriteModel[index].price,
                   ),
                 );
               },

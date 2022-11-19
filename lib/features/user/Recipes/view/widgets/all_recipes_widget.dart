@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/app_routes_names.dart';
+import 'package:resturant/core/const/params.dart';
 
 import '../../../../../core/const/const.dart';
 import '../../../../../core/utls/utls.dart';
+import '../../../../../core/widget/recipes_card_design_widget.dart';
 import '../../view_model/bloc/recipes_bloc.dart';
 
 class AllRecipesWidget extends StatelessWidget {
@@ -32,44 +34,12 @@ class AllRecipesWidget extends StatelessWidget {
                           arguments: state.recipesModel!.recipeDataModel[index],
                         );
                       },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(AppRadius.r10),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppPadding.p10),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                radius: AppRadius.r40,
-                                backgroundImage: NetworkImage(state
-                                    .recipesModel!
-                                    .recipeDataModel[index]
-                                    .imageCover),
-                              ),
-                              const SizedBox(
-                                width: AppWidth.w10,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    state.recipesModel!.recipeDataModel[index]
-                                        .name,
-                                    style:
-                                        Theme.of(context).textTheme.titleLarge,
-                                  ),
-                                  Text(
-                                    '${state.recipesModel!.recipeDataModel[index].price.toString()} EGP',
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      child: RecipesCardWidget(
+                          imageCover: state
+                              .recipesModel!.recipeDataModel[index].imageCover,
+                          name: state.recipesModel!.recipeDataModel[index].name,
+                          price:
+                              state.recipesModel!.recipeDataModel[index].price),
                     );
                   }),
             );

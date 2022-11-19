@@ -12,6 +12,8 @@ abstract class BaseRecipeRepository {
       AllFavouritesParams params);
   Future<Either<Failure, void>> insertFavourite(FavouriteInsertParams params);
   Future<Either<Failure, int>> deleteFavourite(FavouriteDeleteParams params);
+  Future<Either<Failure, List<FavouriteModel>>> getAllFavoritesByRecipeId(
+      FavoriteGetByRecipeIdParams params);
 }
 
 class SearchParams extends Equatable {
@@ -57,4 +59,16 @@ class FavouriteDeleteParams extends Equatable {
       required this.databaseId});
   @override
   List<Object?> get props => [tableName, userId, databaseId];
+}
+
+class FavoriteGetByRecipeIdParams extends Equatable {
+  final String tableName;
+  final String userId;
+  final String recipeId;
+
+  const FavoriteGetByRecipeIdParams(
+      {required this.tableName, required this.userId, required this.recipeId});
+
+  @override
+  List<Object?> get props => [tableName, userId, recipeId];
 }

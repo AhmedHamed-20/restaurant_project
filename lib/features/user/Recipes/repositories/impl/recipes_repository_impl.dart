@@ -94,4 +94,21 @@ class RecipesRepositoryImpl extends BaseRecipeRepository {
       return Left(DatabaseFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<FavouriteModel>>> getAllFavoritesByRecipeId(
+      FavoriteGetByRecipeIdParams params) async {
+    try {
+      final result =
+          await DatabaseProvider.getAllDataFromDatabaseByRecipeIdAndUserId(
+              tableName: params.tableName,
+              recipeId: params.recipeId,
+              userId: params.userId);
+
+      return Right(
+          List.from(result).map((e) => FavouriteModel.fromMap(e)).toList());
+    } on Exception catch (e) {
+      return Left(DatabaseFailure(message: e.toString()));
+    }
+  }
 }

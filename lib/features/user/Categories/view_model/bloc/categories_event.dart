@@ -19,3 +19,10 @@ class CategoryRecipesEvent extends CategoriesEvent {
   @override
   List<Object?> get props => [categoryName];
 }
+
+class ValuesCategoryRecipesResetEvent extends CategoriesEvent {
+  const ValuesCategoryRecipesResetEvent();
+
+  @override
+  List<Object?> get props => [];
+}

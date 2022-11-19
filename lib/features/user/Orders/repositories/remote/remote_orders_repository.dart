@@ -9,13 +9,16 @@ import '../base/base_orders_repository.dart';
 
 class RemoteOrdersRepository extends BaseOrderRepository {
   @override
-  Future<Either<Failure, OrdersModel>> getMyOrders(MyOrderParams params) async {
+  Future<Either<Failure, List<OrdersModel>>> getMyOrders(
+      MyOrderParams params) async {
     try {
       final respone = await DioHelper.getData(url: EndPoints.myOrder, headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${params.token}',
       });
-      return Right(OrdersModel.fromJson(respone?.data));
+      return Right(List.from(respone?.data['data'])
+          .map((e) => OrdersModel.fromJson(e))
+          .toList());
     } on DioError catch (e) {
       return Left(ServerFailure(message: e.message));
     }

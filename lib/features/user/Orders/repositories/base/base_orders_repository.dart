@@ -5,7 +5,7 @@ import 'package:resturant/core/error/failure.dart';
 import '../../models/orders_model.dart';
 
 abstract class BaseOrderRepository {
-  Future<Either<Failure, OrdersModel>> getMyOrders(MyOrderParams params);
+  Future<Either<Failure, List<OrdersModel>>> getMyOrders(MyOrderParams params);
   Future<Either<Failure, void>> orderRecipe(OrderRecipeParams params);
 }
 

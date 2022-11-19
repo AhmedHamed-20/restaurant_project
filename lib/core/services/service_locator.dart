@@ -17,7 +17,7 @@ import 'package:resturant/features/user/Orders/repositories/base/base_orders_rep
 import 'package:resturant/features/user/Orders/repositories/remote/remote_orders_repository.dart';
 import 'package:resturant/features/user/Orders/view_model/bloc/orders_bloc.dart';
 import 'package:resturant/features/user/Recipes/repositories/base/base_recipe_repository.dart';
-import 'package:resturant/features/user/Recipes/repositories/remote/recipes_repository_impl.dart';
+import 'package:resturant/features/user/Recipes/repositories/impl/recipes_repository_impl.dart';
 
 import '../../features/user/Auth/repositories/base/base_auth_repository.dart';
 import '../../features/user/Recipes/view_model/bloc/recipes_bloc.dart';
