@@ -14,6 +14,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   OrdersBloc(this.baseOrderRepository) : super(const OrdersState()) {
     on<MyOrdersEvent>(_getMyOrders);
     on<OrderRecipeEvent>(_orderRecipe);
+    on<OrderResetBoolEvent>(_resetOrderBool);
   }
   final BaseOrderRepository baseOrderRepository;
   FutureOr<void> _getMyOrders(
@@ -40,13 +41,23 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
         address: event.address,
         phoneNumber: event.phoneNumber));
     result.fold((l) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           errorMessage: l.message,
-          ordersRequestStatues: OrdersRequestStatues.error));
+          ordersRequestStatues: OrdersRequestStatues.error,
+          isOrderedSuccessfully: false,
+        ),
+      );
     }, (r) {
       emit(state.copyWith(
+          isOrderedSuccessfully: true,
           ordersRequestStatues: OrdersRequestStatues.success,
           errorMessage: ''));
     });
+  }
+
+  FutureOr<void> _resetOrderBool(
+      OrderResetBoolEvent event, Emitter<OrdersState> emit) async {
+    emit(state.copyWith(isOrderedSuccessfully: false));
   }
 }

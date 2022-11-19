@@ -92,3 +92,43 @@ class FavouriteCheckIfInDatabaseThenAddEvent extends RecipesEvent {
   @override
   List<Object?> get props => [tableName, userId, recipeId, favouriteModel];
 }
+
+class CartAddEvent extends RecipesEvent {
+  final CartModel cartModel;
+
+  const CartAddEvent({
+    required this.cartModel,
+  });
+
+  @override
+  List<Object?> get props => [
+        cartModel,
+      ];
+}
+
+class AddToCartResetBooleanEvent extends RecipesEvent {
+  const AddToCartResetBooleanEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class CartRemoveEvent extends RecipesEvent {
+  final String recipeId;
+
+  const CartRemoveEvent({
+    required this.recipeId,
+  });
+
+  @override
+  List<Object?> get props => [
+        recipeId,
+      ];
+}
+
+class CartRemoveAllEvent extends RecipesEvent {
+  const CartRemoveAllEvent();
+
+  @override
+  List<Object?> get props => [];
+}

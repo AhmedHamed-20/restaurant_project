@@ -12,4 +12,7 @@ class TextEditingControllers {
       TextEditingController();
   static TextEditingController forgetPasswordEmailController =
       TextEditingController();
+  static TextEditingController addressOrderController = TextEditingController();
+  static TextEditingController phoneNymberOrderController =
+      TextEditingController();
 }

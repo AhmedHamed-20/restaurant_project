@@ -7,7 +7,6 @@ import 'package:resturant/core/const/params.dart';
 
 import '../../../../../core/utls/utls.dart';
 import '../../../../../core/widget/recipes_card_design_widget.dart';
-import '../../../Recipes/models/recipe_data_model.dart';
 import '../../view_model/bloc/categories_bloc.dart';
 
 class CategoryRecipes extends StatefulWidget {

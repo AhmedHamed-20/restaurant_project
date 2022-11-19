@@ -28,3 +28,10 @@ class OrderRecipeEvent extends OrdersEvent {
   @override
   List<Object?> get props => [token, orderContent, address, phoneNumber];
 }
+
+class OrderResetBoolEvent extends OrdersEvent {
+  const OrderResetBoolEvent();
+
+  @override
+  List<Object?> get props => [];
+}

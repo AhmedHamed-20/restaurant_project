@@ -6,7 +6,7 @@ import '../../models/orders_model.dart';
 
 abstract class BaseOrderRepository {
   Future<Either<Failure, List<OrdersModel>>> getMyOrders(MyOrderParams params);
-  Future<Either<Failure, void>> orderRecipe(OrderRecipeParams params);
+  Future<Either<Failure, bool>> orderRecipe(OrderRecipeParams params);
 }
 
 class MyOrderParams extends Equatable {

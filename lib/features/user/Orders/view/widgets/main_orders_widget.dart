@@ -38,24 +38,23 @@ class MainOrdersWidget extends StatelessWidget {
                             'amount:${state.myOrders[index].ordersContent[orderContentIndex].recipeAmount.toString()}',
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
-                          Align(
-                            alignment: AlignmentDirectional.centerEnd,
-                            child: MaterialButton(
-                              color: Theme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(AppRadius.r25)),
-                              onPressed: () {},
-                              child: Text(
-                                'cancel',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleMedium
-                                    ?.copyWith(color: AppColors.white),
-                              ),
-                            ),
-                          )
                         ],
+                      ),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: MaterialButton(
+                        color: Theme.of(context).primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(AppRadius.r25)),
+                        onPressed: () {},
+                        child: Text(
+                          'cancel',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(color: AppColors.white),
+                        ),
                       ),
                     ),
                     const Divider(thickness: 2),

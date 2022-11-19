@@ -25,9 +25,9 @@ class RemoteOrdersRepository extends BaseOrderRepository {
   }
 
   @override
-  Future<Either<Failure, void>> orderRecipe(OrderRecipeParams params) async {
+  Future<Either<Failure, bool>> orderRecipe(OrderRecipeParams params) async {
     try {
-      final respone = await DioHelper.postData(url: EndPoints.myOrder, data: {
+      await DioHelper.postData(url: EndPoints.myOrder, data: {
         "orderContent": params.orderContent,
         "customerAddress": params.address,
         "customerPhoneNumber": params.phoneNumber,
@@ -35,7 +35,7 @@ class RemoteOrdersRepository extends BaseOrderRepository {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${params.token}',
       });
-      return Right(respone?.data);
+      return const Right(true);
     } on DioError catch (e) {
       return Left(ServerFailure(message: e.message));
     }

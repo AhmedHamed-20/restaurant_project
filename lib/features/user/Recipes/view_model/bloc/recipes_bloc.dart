@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:resturant/core/utls/utls.dart';
+import 'package:resturant/features/user/Recipes/models/cart_model.dart';
 import 'package:resturant/features/user/Recipes/models/recipe_data_model.dart';
 
 import '../../models/favourite_model.dart';
@@ -23,6 +24,10 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     on<ChangeAmountRecipesEvent>(_changeAmountRecipes);
     on<FavouriteCheckIfInDatabaseThenAddEvent>(
         _checkIfRecipeInFavouriteThenAdd);
+    on<CartAddEvent>(_addToCart);
+    on<AddToCartResetBooleanEvent>(_resetAddToCartBoolean);
+    on<CartRemoveEvent>(_removeFromCart);
+    on<CartRemoveAllEvent>(_removeAllFromCart);
   }
   final BaseRecipeRepository baseRecipeRepository;
   FutureOr<void> _getAllRecipes(
@@ -190,5 +195,68 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
         ));
       }
     });
+  }
+
+  FutureOr<void> _addToCart(CartAddEvent event, Emitter<RecipesState> emit) {
+    List<CartModel> mycartModel = [];
+    bool isExist = false;
+    if (state.cartModel.isEmpty) {
+      print('object');
+      mycartModel.add(event.cartModel);
+      emit(state.copyWith(
+        cartModel: List.from(mycartModel),
+        errorMessage: '',
+        addedToCart: true,
+      ));
+    } else {
+      for (var element in state.cartModel) {
+        if (element.recipeId == event.cartModel.recipeId) {
+          isExist = true;
+          break;
+        } else {
+          isExist = false;
+        }
+      }
+      if (isExist) {
+        emit(
+          state.copyWith(
+            errorMessage: 'Already in cart',
+            addedToCart: false,
+          ),
+        );
+      } else {
+        mycartModel = state.cartModel;
+        mycartModel.add(event.cartModel);
+
+        emit(state.copyWith(
+          cartModel: List.from(mycartModel),
+          errorMessage: '',
+          addedToCart: true,
+        ));
+      }
+    }
+  }
+
+  FutureOr<void> _resetAddToCartBoolean(
+      AddToCartResetBooleanEvent event, Emitter<RecipesState> emit) async {
+    emit(state.copyWith(addedToCart: false, errorMessage: ''));
+  }
+
+  FutureOr<void> _removeFromCart(
+      CartRemoveEvent event, Emitter<RecipesState> emit) async {
+    List<CartModel> mycartModel = List.from(state.cartModel);
+    mycartModel.removeWhere((element) => element.recipeId == event.recipeId);
+    emit(state.copyWith(
+      cartModel: mycartModel,
+      errorMessage: '',
+    ));
+  }
+
+  FutureOr<void> _removeAllFromCart(
+      CartRemoveAllEvent event, Emitter<RecipesState> emit) async {
+    emit(state.copyWith(
+      cartModel: const [],
+      errorMessage: '',
+    ));
   }
 }

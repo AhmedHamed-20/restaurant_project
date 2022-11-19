@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/base_recipes_data_model.dart';
+import 'package:resturant/core/services/service_locator.dart';
+import 'package:resturant/core/widget/orders_bottom_sheet_content.dart';
+import 'package:resturant/features/user/Orders/view_model/bloc/orders_bloc.dart';
+import 'package:resturant/features/user/Recipes/models/cart_model.dart';
+import 'package:resturant/features/user/Recipes/view/widgets/amount_details_widget.dart';
 
 import '../../../../../core/const/const.dart';
 import '../../models/favourite_model.dart';
@@ -19,6 +24,7 @@ class OrdersAndCartDetailsButtonsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var recipesBloc = BlocProvider.of<RecipesBloc>(context);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -30,7 +36,34 @@ class OrdersAndCartDetailsButtonsWidget extends StatelessWidget {
               AppRadius.r25,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                    AppRadius.r25,
+                  ),
+                  topRight: Radius.circular(
+                    AppRadius.r25,
+                  ),
+                ),
+              ),
+              backgroundColor: Theme.of(context).backgroundColor,
+              isDismissible: true,
+              isScrollControlled: true,
+              context: context,
+              builder: (context) {
+                return OrderBottomSheetContent(
+                  orderContent: [
+                    {
+                      'recipeId': recipeDataModel.recipeId,
+                      'amount': amount,
+                    }
+                  ],
+                );
+              },
+            );
+          },
           child: Text(
             'Order Now',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -38,20 +71,54 @@ class OrdersAndCartDetailsButtonsWidget extends StatelessWidget {
                 ),
           ),
         ),
-        MaterialButton(
-          height: AppHeight.h46,
-          color: Theme.of(context).primaryColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              AppRadius.r25,
+        BlocListener<RecipesBloc, RecipesState>(
+          listener: (context, state) {
+            if (state.addedToCart) {
+              flutterToast(
+                  msg: 'Added To Cart',
+                  backgroundColor: AppColors.toastSuccess,
+                  textColor: AppColors.white);
+              recipesBloc.add(const AddToCartResetBooleanEvent());
+            } else if (state.errorMessage == 'Already in cart' &&
+                state.addedToCart == false) {
+              flutterToast(
+                  msg: 'Already Added To Cart',
+                  backgroundColor: AppColors.toastWarning,
+                  textColor: AppColors.black);
+              recipesBloc.add(const AddToCartResetBooleanEvent());
+            }
+          },
+          child: MaterialButton(
+            height: AppHeight.h46,
+            color: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                AppRadius.r25,
+              ),
             ),
-          ),
-          onPressed: () {},
-          child: Text(
-            'Add to Cart',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: AppColors.white,
+            onPressed: () {
+              recipesBloc.add(
+                CartAddEvent(
+                  cartModel: CartModel(
+                    amount: amount,
+                    recipeId: recipeDataModel.recipeId,
+                    category: recipeDataModel.category,
+                    cookingTime: recipeDataModel.cookingTime,
+                    imageCover: recipeDataModel.imageCover,
+                    name: recipeDataModel.name,
+                    price: recipeDataModel.price,
+                    ingredients: recipeDataModel.ingredients,
+                    slug: recipeDataModel.slug,
+                  ),
                 ),
+              );
+            },
+            child: Text(
+              'Add to Cart',
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    color: AppColors.white,
+                  ),
+            ),
           ),
         ),
         BlocConsumer<RecipesBloc, RecipesState>(
