@@ -6,6 +6,9 @@ import 'package:resturant/features/admin/AllRecipes/view_model/bloc/recipes_admi
 import 'package:resturant/features/admin/AllUsers/repositories/base/base_all_users_repository.dart';
 import 'package:resturant/features/admin/AllUsers/repositories/remote/remote_all_users_repository.dart';
 import 'package:resturant/features/admin/AllUsers/view_model/bloc/allusers_bloc.dart';
+import 'package:resturant/features/admin/Auth/repository/base/base_admin_auth_repositroy.dart';
+import 'package:resturant/features/admin/Auth/repository/remote/remote_admin_repository_impl.dart';
+import 'package:resturant/features/admin/Auth/view_model/bloc/admin_auth_bloc.dart';
 import 'package:resturant/features/user/Auth/repositories/remote/auth_repository_impl.dart';
 import 'package:resturant/features/user/Auth/view_model/bloc/auth_bloc.dart';
 import 'package:resturant/features/user/Categories/repositories/base/base_category_repository.dart';
@@ -41,6 +44,8 @@ class ServiceLocator {
         () => RecipesAdminBloc(serviceLocator()));
     serviceLocator
         .registerFactory<LayoutBloc>(() => LayoutBloc(serviceLocator()));
+    serviceLocator
+        .registerFactory<AdminAuthBloc>(() => AdminAuthBloc(serviceLocator()));
     //repository
     serviceLocator
         .registerLazySingleton<BaseAuthRepository>(() => AuthRepositoryImpl());
@@ -56,5 +61,7 @@ class ServiceLocator {
         () => RemoteAdminRecipesRepository());
     serviceLocator.registerLazySingleton<BaseLayoutRepository>(
         () => LayoutRepositoryImpl());
+    serviceLocator.registerLazySingleton<BaseAdminAuthRepository>(
+        () => RemoteAutAdminRepositoryImpl());
   }
 }

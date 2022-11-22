@@ -84,3 +84,32 @@ class AccessTokenGetEvent extends LayoutEvent {
   @override
   List<Object?> get props => [key];
 }
+
+class PasswordVisibiltyChangeEvent extends LayoutEvent {
+  final bool passwordVisibilty;
+  const PasswordVisibiltyChangeEvent(this.passwordVisibilty);
+
+  @override
+  List<Object?> get props => [passwordVisibilty];
+}
+
+class CacheClearAndDatabseClearEvent extends LayoutEvent {
+  final String key;
+  final String userId;
+  final String tableName;
+  const CacheClearAndDatabseClearEvent(
+      {required this.key, required this.userId, required this.tableName});
+
+  @override
+  List<Object?> get props => [key, userId, tableName];
+}
+
+class DatabaseClearByUserIdEvent extends LayoutEvent {
+  final String userId;
+  final String tableName;
+  const DatabaseClearByUserIdEvent(
+      {required this.tableName, required this.userId});
+
+  @override
+  List<Object?> get props => [userId, tableName];
+}

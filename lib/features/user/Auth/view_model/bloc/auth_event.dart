@@ -49,3 +49,21 @@ class AccessTokenCacheEvent extends AuthEvent {
   @override
   List<Object?> get props => [accessToken, isLogin];
 }
+
+class LoginPasswordVisibilityEvent extends AuthEvent {
+  final bool loginPasswordVisibility;
+
+  const LoginPasswordVisibilityEvent({required this.loginPasswordVisibility});
+
+  @override
+  List<Object?> get props => [loginPasswordVisibility];
+}
+
+class SignUpPasswordVisibilityEvent extends AuthEvent {
+  final bool signUpPasswordVisibility;
+
+  const SignUpPasswordVisibilityEvent({required this.signUpPasswordVisibility});
+
+  @override
+  List<Object?> get props => [signUpPasswordVisibility];
+}

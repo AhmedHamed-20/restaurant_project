@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:resturant/core/cache/chache_setup.dart';
+import 'package:resturant/core/database/database_setup.dart';
 import 'package:resturant/core/layout/user/models/user_model.dart';
 import 'package:resturant/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -86,6 +87,28 @@ class LayoutRepositoryImpl extends BaseLayoutRepository {
       return Right(result);
     } on Exception catch (e) {
       return Left(CacheFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> clearCache(CacheClearParams params) async {
+    try {
+      final result = await CacheHelper.removeData(params.key);
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(CacheFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> deleteFavoriteDataBase(
+      FavoriteDatabaseDeleteParams params) async {
+    try {
+      final result = await DatabaseProvider.deleteAllDataFromDatabaseByUserId(
+          tableName: params.tableName, userId: params.userId);
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(DatabaseFailure(message: e.toString()));
     }
   }
 }

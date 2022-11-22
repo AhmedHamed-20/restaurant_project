@@ -33,41 +33,101 @@ class ChangePasswordBottomSheetWidget extends StatelessWidget {
             const SizedBox(
               height: AppHeight.h10,
             ),
-            Defaults.defaultTextField(
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              context: context,
-              controller:
-                  TextEditingControllers.activeUserDataOldPasswordController,
-              title: 'Old Password',
+            BlocBuilder<LayoutBloc, LayoutState>(
+              builder: (context, state) {
+                return Defaults.defaultTextField(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      layoutBloc.add(
+                        PasswordVisibiltyChangeEvent(
+                          !state.passwordVisibilty,
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      state.passwordVisibilty
+                          ? Icons.remove_red_eye_outlined
+                          : Icons.remove_red_eye,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  obscureText: state.passwordVisibilty,
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  context: context,
+                  controller: TextEditingControllers
+                      .activeUserDataOldPasswordController,
+                  title: 'Old Password',
+                );
+              },
             ),
             const SizedBox(
               height: AppHeight.h10,
             ),
-            Defaults.defaultTextField(
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              context: context,
-              controller:
-                  TextEditingControllers.activeUserDataPasswordController,
-              title: 'New Password',
+            BlocBuilder<LayoutBloc, LayoutState>(
+              builder: (context, state) {
+                return Defaults.defaultTextField(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      layoutBloc.add(
+                        PasswordVisibiltyChangeEvent(
+                          !state.passwordVisibilty,
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      state.passwordVisibilty
+                          ? Icons.remove_red_eye_outlined
+                          : Icons.remove_red_eye,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  obscureText: state.passwordVisibilty,
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  context: context,
+                  controller:
+                      TextEditingControllers.activeUserDataPasswordController,
+                  title: 'New Password',
+                );
+              },
             ),
             const SizedBox(
               height: AppHeight.h10,
             ),
-            Defaults.defaultTextField(
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Theme.of(context).iconTheme.color,
-              ),
-              context: context,
-              controller: TextEditingControllers
-                  .activeUserDataPasswordConfirmController,
-              title: 'Confirm Password',
+            BlocBuilder<LayoutBloc, LayoutState>(
+              builder: (context, state) {
+                return Defaults.defaultTextField(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      layoutBloc.add(
+                        PasswordVisibiltyChangeEvent(
+                          !state.passwordVisibilty,
+                        ),
+                      );
+                    },
+                    icon: Icon(
+                      state.passwordVisibilty
+                          ? Icons.remove_red_eye_outlined
+                          : Icons.remove_red_eye,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  obscureText: state.passwordVisibilty,
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  context: context,
+                  controller: TextEditingControllers
+                      .activeUserDataPasswordConfirmController,
+                  title: 'Confirm Password',
+                );
+              },
             ),
             const SizedBox(
               height: AppHeight.h20,

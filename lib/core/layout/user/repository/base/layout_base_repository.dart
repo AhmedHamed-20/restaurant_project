@@ -10,6 +10,9 @@ abstract class BaseLayoutRepository {
   Future<Either<Failure, String>> udpagetPassword(UpdatePasswordParams params);
   Future<Either<Failure, bool>> updateToken(UpdateTokenParams params);
   Future<Either<Failure, String>> getAccessToken(GetAccessTokenParams params);
+  Future<Either<Failure, void>> clearCache(CacheClearParams params);
+  Future<Either<Failure, int>> deleteFavoriteDataBase(
+      FavoriteDatabaseDeleteParams params);
 }
 
 class ActiveUserParams extends Equatable {
@@ -70,4 +73,23 @@ class GetAccessTokenParams extends Equatable {
 
   @override
   List<Object?> get props => [key];
+}
+
+class CacheClearParams extends Equatable {
+  final String key;
+  const CacheClearParams(this.key);
+
+  @override
+  List<Object?> get props => [key];
+}
+
+class FavoriteDatabaseDeleteParams extends Equatable {
+  final String tableName;
+  final String userId;
+
+  const FavoriteDatabaseDeleteParams(
+      {required this.tableName, required this.userId});
+
+  @override
+  List<Object?> get props => [tableName, userId];
 }

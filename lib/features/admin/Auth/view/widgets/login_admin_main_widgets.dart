@@ -5,18 +5,17 @@ import 'package:resturant/core/widget/defaults.dart';
 
 import '../../../../../../core/const/const.dart';
 import '../../../../../../core/const/text_editing_controllers.dart';
-import '../../../view_model/bloc/auth_bloc.dart';
-import 'login_as_admin_widget.dart';
-import 'login_buttons_widget.dart';
+import '../../view_model/bloc/admin_auth_bloc.dart';
+import 'login_admin_buttons_widget.dart';
 
-class LoginMainWidget extends StatelessWidget {
-  const LoginMainWidget({
+class LoginAdminMainWidget extends StatelessWidget {
+  const LoginAdminMainWidget({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var authBloc = BlocProvider.of<AuthBloc>(context);
+    var adminAuthBloc = BlocProvider.of<AdminAuthBloc>(context);
     return Container(
       height: screenHeight(context) * 0.7,
       padding: const EdgeInsets.all(AppPadding.p20),
@@ -37,13 +36,13 @@ class LoginMainWidget extends StatelessWidget {
               top: 10,
             ),
             child: Text(
-              'Login',
+              'Login As Admin',
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           Defaults.defaultTextField(
             context: context,
-            controller: TextEditingControllers.loginEmailController,
+            controller: TextEditingControllers.loginEmailAdminController,
             title: 'Email',
             prefixIcon: Icon(
               Icons.email_outlined,
@@ -53,25 +52,25 @@ class LoginMainWidget extends StatelessWidget {
           const SizedBox(
             height: AppHeight.h10,
           ),
-          BlocBuilder<AuthBloc, AuthState>(
+          BlocBuilder<AdminAuthBloc, AdminAuthState>(
             builder: (context, state) {
               return Defaults.defaultTextField(
-                obscureText: state.loginPasswordVisibility,
+                obscureText: state.loginAdminPasswordVisibility,
                 suffixIcon: IconButton(
                   onPressed: () {
-                    authBloc.add(LoginPasswordVisibilityEvent(
-                        loginPasswordVisibility:
-                            !state.loginPasswordVisibility));
+                    adminAuthBloc.add(LoginAdminPasswordVisibiltyEvent(
+                        loginAdminPasswordVisibility:
+                            !state.loginAdminPasswordVisibility));
                   },
                   icon: Icon(
-                    state.loginPasswordVisibility
+                    state.loginAdminPasswordVisibility
                         ? Icons.remove_red_eye
                         : Icons.remove_red_eye_outlined,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
                 context: context,
-                controller: TextEditingControllers.loginPasswordController,
+                controller: TextEditingControllers.loginPasswordAdminController,
                 title: 'Password',
                 prefixIcon: Icon(IconlyLight.lock,
                     color: Theme.of(context).iconTheme.color),
@@ -81,11 +80,7 @@ class LoginMainWidget extends StatelessWidget {
           const SizedBox(
             height: AppHeight.h10,
           ),
-          const LoginButtonsWidget(),
-          const SizedBox(
-            height: AppHeight.h10,
-          ),
-          const LoginAsAdminWidget(),
+          const LoginAdminButtonsWidget(),
         ],
       ),
     );

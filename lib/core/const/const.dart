@@ -180,3 +180,4 @@ void flutterToast({
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 String accessTokenVar = '';
+String accessTokenAdminVar = '';

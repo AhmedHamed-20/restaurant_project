@@ -6,6 +6,13 @@ enum AuthRequestStatues {
   error,
 }
 
+enum AdminAuthRequestStatues {
+  idle,
+  loading,
+  success,
+  error,
+}
+
 enum ForgetPasswordRequestStatues {
   idle,
   loading,
@@ -47,6 +54,14 @@ enum ActiveUserUpdateDataRequestStatues {
   idle,
   loading,
   success,
+  error,
+}
+
+enum LogoutRequestState {
+  idle,
+  loading,
+  cacheCleared,
+  databaseCleared,
   error,
 }
 

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/base_recipes_data_model.dart';
 import 'package:resturant/core/layout/user/view/screens/user/main_layout_screen.dart';
+import 'package:resturant/features/admin/AllUsers/view/screens/all_users_admin_screen.dart';
 import 'package:resturant/features/user/Auth/view/screens/forget_password.dart';
 import 'package:resturant/features/user/Auth/view/screens/login_screen.dart';
 import 'package:resturant/features/user/Auth/view/screens/sign_up_screen.dart';
 
+import '../../features/admin/Auth/view/screens/login_admin_screen.dart';
 import '../../features/user/Categories/view/screens/category_recipes.dart';
 import '../../features/user/Recipes/view/screens/home_screen.dart';
 import '../../features/user/Recipes/view/screens/recipe_details_screen.dart';
@@ -21,6 +23,9 @@ class AppRouter {
     switch (routeSettings.name) {
       case AppRoutesNames.splashScreen:
         return MaterialPageRoute(builder: (_) => const SplashScrenn());
+
+      case AppRoutesNames.loginAdminScreen:
+        return MaterialPageRoute(builder: (_) => const LoginAdminScreen());
       case AppRoutesNames.loginScreen:
         return MaterialPageRoute(
           builder: (_) => const LoginScreen(),
@@ -66,6 +71,11 @@ class AppRouter {
       case AppRoutesNames.activeUserDataInfoScreen:
         return MaterialPageRoute(
           builder: (_) => const ActiveUserDataInfoScreen(),
+        );
+
+      case AppRoutesNames.allUsers:
+        return MaterialPageRoute(
+          builder: (_) => const AllUsersAdminScrenn(),
         );
       default:
         return MaterialPageRoute(

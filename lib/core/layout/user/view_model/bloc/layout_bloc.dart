@@ -29,6 +29,9 @@ class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
     on<PasswordActiveUserUpdateEvent>(_changeActiveUserPasswordAndAccessToken);
     on<AccessTokenUpdateEvent>(_updateAccessTokenAndGetAcessToken);
     on<AccessTokenGetEvent>(_getAcessToken);
+    on<PasswordVisibiltyChangeEvent>(_changePasswordVisibilty);
+    on<CacheClearAndDatabseClearEvent>(_clearCache);
+    on<DatabaseClearByUserIdEvent>(_clearDatabaseByUserId);
   }
   final BaseLayoutRepository baseLayoutRepository;
 
@@ -186,5 +189,52 @@ class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
         ),
       );
     });
+  }
+
+  FutureOr<void> _changePasswordVisibilty(
+      PasswordVisibiltyChangeEvent event, Emitter<LayoutState> emit) async {
+    emit(state.copyWith(passwordVisibilty: event.passwordVisibilty));
+  }
+
+  FutureOr<void> _clearCache(
+      CacheClearAndDatabseClearEvent event, Emitter<LayoutState> emit) async {
+    emit(state.copyWith(logoutRequestState: LogoutRequestState.loading));
+    final result =
+        await baseLayoutRepository.clearCache(CacheClearParams(event.key));
+    result.fold((l) {
+      emit(state.copyWith(
+        errorMessage: l.message,
+        logoutRequestState: LogoutRequestState.error,
+      ));
+    }, (r) {
+      emit(
+        state.copyWith(
+          logoutRequestState: LogoutRequestState.cacheCleared,
+          errorMessage: '',
+        ),
+      );
+
+      add(DatabaseClearByUserIdEvent(
+          tableName: event.tableName, userId: event.userId));
+    });
+  }
+
+  FutureOr<void> _clearDatabaseByUserId(
+      DatabaseClearByUserIdEvent event, Emitter<LayoutState> emit) async {
+    final result = await baseLayoutRepository.deleteFavoriteDataBase(
+        FavoriteDatabaseDeleteParams(
+            tableName: event.tableName, userId: event.userId));
+
+    result.fold(
+      (l) => emit(state.copyWith(
+          errorMessage: l.message,
+          logoutRequestState: LogoutRequestState.error)),
+      (r) => emit(
+        state.copyWith(
+          errorMessage: '',
+          logoutRequestState: LogoutRequestState.databaseCleared,
+        ),
+      ),
+    );
   }
 }

@@ -5,6 +5,7 @@ import 'package:resturant/core/widget/defaults.dart';
 
 import '../../../../../const/text_editing_controllers.dart';
 import '../../../view_model/bloc/layout_bloc.dart';
+import '../../widgets/logout_alert_dialog_widget.dart';
 import '../../widgets/udate_button_widget.dart';
 import '../../widgets/update_password_button_widget.dart';
 
@@ -22,6 +23,19 @@ class ActiveUserDataInfoScreen extends StatelessWidget {
           'Active User Data',
           style: Theme.of(context).textTheme.titleLarge,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (context) => const LogoutAlertDialogWidget());
+            },
+            icon: Icon(
+              Icons.logout,
+              color: Theme.of(context).iconTheme.color,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

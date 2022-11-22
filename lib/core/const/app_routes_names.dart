@@ -3,6 +3,8 @@ class AppRoutesNames {
       '/noInternetConnectionScreen';
   static const String splashScreen = 'splash_screen';
   static const String loginScreen = '/';
+  static const String loginAdminScreen = '/login_admin_screen';
+
   static const String signUpScreen = '/sign_up_screen';
   static const String forgetPasswordScreen =
       '/login_screen/forget_password_screen';
@@ -15,4 +17,7 @@ class AppRoutesNames {
   static const String adminLayout = '/login_screen/admin_layout';
   static const String activeUserDataInfoScreen =
       ' /login_screen/main_layout/active_user_data_info_screen';
+
+  static const String allUsers =
+      '/login_admin_screen/main_admin_layout/all_users';
 }

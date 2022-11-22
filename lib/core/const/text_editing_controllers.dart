@@ -4,6 +4,10 @@ class TextEditingControllers {
   static TextEditingController loginEmailController = TextEditingController();
   static TextEditingController loginPasswordController =
       TextEditingController();
+  static TextEditingController loginEmailAdminController =
+      TextEditingController();
+  static TextEditingController loginPasswordAdminController =
+      TextEditingController();
   static TextEditingController signUpEmailController = TextEditingController();
   static TextEditingController signUpNameController = TextEditingController();
   static TextEditingController signUpPasswordController =

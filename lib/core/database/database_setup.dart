@@ -43,6 +43,12 @@ class DatabaseProvider {
         'DELETE FROM $tableName WHERE id = "$dataBaseId" AND userId= "$userId');
   }
 
+  static Future<int> deleteAllDataFromDatabaseByUserId(
+      {required String tableName, required String userId}) async {
+    return await database
+        .rawDelete('DELETE FROM $tableName WHERE userId= ?', [userId]);
+  }
+
   static Future<int> deleteAllDataCartsFromDatabase(
       {required String tableName}) async {
     return await database.rawDelete('DELETE FROM $tableName');

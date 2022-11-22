@@ -12,6 +12,7 @@ import 'package:resturant/features/user/Auth/view_model/bloc/auth_bloc.dart';
 import 'package:resturant/features/user/Recipes/view_model/bloc/recipes_bloc.dart';
 
 import 'core/layout/user/view_model/bloc/layout_bloc.dart';
+import 'features/admin/Auth/view_model/bloc/admin_auth_bloc.dart';
 import 'features/user/Orders/view_model/bloc/orders_bloc.dart';
 
 void main() async {
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => serviceLocator<AdminAuthBloc>(),
+        ),
         BlocProvider(
           create: (context) => serviceLocator<RecipesBloc>()
             ..add(

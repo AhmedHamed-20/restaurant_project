@@ -6,11 +6,15 @@ class LayoutState extends Equatable {
   final UserModel? activeUser;
   final LayoutRequestStatues layoutRequestStatues;
   final String errorMessage;
+  final bool passwordVisibilty;
+  final LogoutRequestState logoutRequestState;
   final ActiveUserUpdateDataRequestStatues activeUserUpdateDataRequestStatues;
   final ActiveUserUpdatePasswordRequestStatues changePasswordRequestStatues;
   const LayoutState(
       {this.currentIndex = 0,
       this.activeUser,
+      this.passwordVisibilty = true,
+      this.logoutRequestState = LogoutRequestState.idle,
       this.activeUserUpdateDataRequestStatues =
           ActiveUserUpdateDataRequestStatues.idle,
       this.currentIndexAdminPanel = 0,
@@ -20,8 +24,10 @@ class LayoutState extends Equatable {
       this.layoutRequestStatues = LayoutRequestStatues.loading});
 
   LayoutState copyWith({
+    LogoutRequestState? logoutRequestState,
     ActiveUserUpdatePasswordRequestStatues? changePasswordRequestStatues,
     int? currentIndex,
+    bool? passwordVisibilty,
     ActiveUserUpdateDataRequestStatues? activeUserUpdateDataRequestStatues,
     UserModel? activeUser,
     String? errorMessage,
@@ -29,6 +35,8 @@ class LayoutState extends Equatable {
     LayoutRequestStatues? layoutRequestStatues,
   }) {
     return LayoutState(
+      logoutRequestState: logoutRequestState ?? this.logoutRequestState,
+      passwordVisibilty: passwordVisibilty ?? this.passwordVisibilty,
       changePasswordRequestStatues:
           changePasswordRequestStatues ?? this.changePasswordRequestStatues,
       activeUserUpdateDataRequestStatues: activeUserUpdateDataRequestStatues ??
@@ -45,8 +53,10 @@ class LayoutState extends Equatable {
   @override
   List<Object?> get props => [
         currentIndex,
+        logoutRequestState,
         errorMessage,
         activeUser,
+        passwordVisibilty,
         changePasswordRequestStatues,
         layoutRequestStatues,
         currentIndexAdminPanel,

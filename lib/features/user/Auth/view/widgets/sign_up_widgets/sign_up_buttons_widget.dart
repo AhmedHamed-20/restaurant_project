@@ -25,6 +25,7 @@ class SignUpButtonWidget extends StatelessWidget {
                 AuthRequestStatues.cachedSuccess) {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   AppRoutesNames.mainLayout, (route) => false);
+              accessTokenVar = state.signUpModel!.token;
             }
             if (state.signUpRequestStatues == AuthRequestStatues.error) {
               flutterToast(

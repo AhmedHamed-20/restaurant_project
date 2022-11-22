@@ -16,6 +16,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpEvent>(_signUp);
     on<ForgetPasswordEvent>(_forgetPassword);
     on<AccessTokenCacheEvent>(_cacheAccessToken);
+    on<LoginPasswordVisibilityEvent>(_loginPasswordVisibility);
+    on<SignUpPasswordVisibilityEvent>(_signUpPasswordVisibility);
   }
 
   final BaseAuthRepository baseAuthRepository;
@@ -104,5 +106,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                 errorMessage: '',
               )));
     }
+  }
+
+  FutureOr<void> _loginPasswordVisibility(
+      LoginPasswordVisibilityEvent event, Emitter<AuthState> emit) {
+    emit(
+        state.copyWith(loginPasswordVisibility: event.loginPasswordVisibility));
+  }
+
+  FutureOr<void> _signUpPasswordVisibility(
+      SignUpPasswordVisibilityEvent event, Emitter<AuthState> emit) {
+    emit(state.copyWith(
+        signUpPasswordVisibility: event.signUpPasswordVisibility));
   }
 }
