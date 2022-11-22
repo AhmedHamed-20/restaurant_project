@@ -15,4 +15,15 @@ class TextEditingControllers {
   static TextEditingController addressOrderController = TextEditingController();
   static TextEditingController phoneNymberOrderController =
       TextEditingController();
+
+  static TextEditingController activeUserDataNameController =
+      TextEditingController();
+  static TextEditingController activeUserDataEmailController =
+      TextEditingController();
+  static TextEditingController activeUserDataOldPasswordController =
+      TextEditingController();
+  static TextEditingController activeUserDataPasswordController =
+      TextEditingController();
+  static TextEditingController activeUserDataPasswordConfirmController =
+      TextEditingController();
 }

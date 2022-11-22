@@ -43,6 +43,13 @@ enum LayoutRequestStatues {
   error,
 }
 
+enum ActiveUserUpdateDataRequestStatues {
+  idle,
+  loading,
+  success,
+  error,
+}
+
 enum OrdersRequestStatues {
   loading,
   success,

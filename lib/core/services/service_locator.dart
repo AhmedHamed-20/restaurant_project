@@ -1,7 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:resturant/core/layout/repository/base/layout_base_repository.dart';
-import 'package:resturant/core/layout/repository/remote/layout_remote_repository_impl.dart';
-import 'package:resturant/core/layout/view_model/bloc/layout_bloc.dart';
+
 import 'package:resturant/features/admin/AllRecipes/repository/base/base_admin_recipes_repository.dart';
 import 'package:resturant/features/admin/AllRecipes/repository/remote/remote_admin_repository_impl.dart';
 import 'package:resturant/features/admin/AllRecipes/view_model/bloc/recipes_admin_bloc.dart';
@@ -21,6 +19,9 @@ import 'package:resturant/features/user/Recipes/repositories/impl/recipes_reposi
 
 import '../../features/user/Auth/repositories/base/base_auth_repository.dart';
 import '../../features/user/Recipes/view_model/bloc/recipes_bloc.dart';
+import '../layout/user/repository/base/layout_base_repository.dart';
+import '../layout/user/repository/remote/layout_remote_repository_impl.dart';
+import '../layout/user/view_model/bloc/layout_bloc.dart';
 
 var serviceLocator = GetIt.instance;
 

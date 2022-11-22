@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/app_routes_names.dart';
-import 'package:resturant/core/const/params.dart';
 
-import '../../../../../core/const/const.dart';
 import '../../../../../core/utls/utls.dart';
 import '../../../../../core/widget/recipes_card_design_widget.dart';
 import '../../view_model/bloc/recipes_bloc.dart';

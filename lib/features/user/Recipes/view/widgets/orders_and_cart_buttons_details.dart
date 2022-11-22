@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/base_recipes_data_model.dart';
-import 'package:resturant/core/services/service_locator.dart';
 import 'package:resturant/core/widget/orders_bottom_sheet_content.dart';
-import 'package:resturant/features/user/Orders/view_model/bloc/orders_bloc.dart';
 import 'package:resturant/features/user/Recipes/models/cart_model.dart';
 import 'package:resturant/features/user/Recipes/view/widgets/amount_details_widget.dart';
 

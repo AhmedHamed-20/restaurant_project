@@ -51,4 +51,28 @@ class Defaults {
       ),
     );
   }
+
+  static Widget defaultButton({
+    required BuildContext context,
+    required String title,
+    required VoidCallback onPressed,
+    double width = double.infinity,
+    double height = AppHeight.h46,
+  }) {
+    return MaterialButton(
+      minWidth: width,
+      height: height,
+      color: Theme.of(context).primaryColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppRadius.r25),
+      ),
+      onPressed: onPressed,
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              color: Colors.white,
+            ),
+      ),
+    );
+  }
 }

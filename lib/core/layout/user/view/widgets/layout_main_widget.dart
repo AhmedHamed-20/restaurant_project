@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:resturant/core/const/app_routes_names.dart';
+import 'package:resturant/core/layout/user/view_model/bloc/layout_bloc.dart';
 
-import '../../../const/const.dart';
-import '../../../const/params.dart';
-import '../../view_model/bloc/layout_bloc.dart';
+import '../../../../const/const.dart';
+import '../../../../const/params.dart';
 
 class LayoutMainWidget extends StatelessWidget {
   const LayoutMainWidget({super.key});
@@ -25,6 +26,21 @@ class LayoutMainWidget extends StatelessWidget {
             );
           },
         ),
+        actions: [
+          BlocBuilder<LayoutBloc, LayoutState>(
+            builder: (context, state) => GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(AppRoutesNames.activeUserDataInfoScreen);
+              },
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                  state.activeUser!.photo,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       bottomNavigationBar: BlocBuilder<LayoutBloc, LayoutState>(
         builder: (context, state) {

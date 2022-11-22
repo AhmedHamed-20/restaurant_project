@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/base_recipes_data_model.dart';
-import 'package:resturant/core/layout/view/screens/main_layout_screen.dart';
+import 'package:resturant/core/layout/user/view/screens/user/main_layout_screen.dart';
 import 'package:resturant/features/user/Auth/view/screens/forget_password.dart';
 import 'package:resturant/features/user/Auth/view/screens/login_screen.dart';
 import 'package:resturant/features/user/Auth/view/screens/sign_up_screen.dart';
 
-import '../../features/user/Categories/repositories/base/base_category_repository.dart';
 import '../../features/user/Categories/view/screens/category_recipes.dart';
-import '../../features/user/Recipes/models/recipe_data_model.dart';
 import '../../features/user/Recipes/view/screens/home_screen.dart';
 import '../../features/user/Recipes/view/screens/recipe_details_screen.dart';
 import '../const/app_routes_names.dart';
 import '../const/params.dart';
-import '../layout/view/screens/splash_screen.dart';
+import '../layout/user/view/screens/admin/main_layout_admin.dart';
+import '../layout/user/view/screens/user/active_user_data_info_screen.dart';
+import '../layout/user/view/screens/user/splash_screen.dart';
 
 class AppRouter {
   Route? generateRoutes(RouteSettings routeSettings) {
@@ -57,6 +57,15 @@ class AppRouter {
                 categoryName: argumnet.categoryName,
                 categoriesBloc: argumnet.categoriesBloc,
               )),
+        );
+
+      case AppRoutesNames.adminLayout:
+        return MaterialPageRoute(
+          builder: (_) => const MainLayoutAdmin(),
+        );
+      case AppRoutesNames.activeUserDataInfoScreen:
+        return MaterialPageRoute(
+          builder: (_) => const ActiveUserDataInfoScreen(),
         );
       default:
         return MaterialPageRoute(

@@ -12,4 +12,7 @@ class AppRoutesNames {
       '/login_screen/main_layout/home_screen/details_screen';
   static const String categoryRecipesScreen =
       '/login_screen/main_layout/home_screen/category_recipes_screen';
+  static const String adminLayout = '/login_screen/admin_layout';
+  static const String activeUserDataInfoScreen =
+      ' /login_screen/main_layout/active_user_data_info_screen';
 }

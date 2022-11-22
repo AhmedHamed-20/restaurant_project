@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/const.dart';
 
 import '../../../../../core/const/base_recipes_data_model.dart';
-import '../../../../../core/layout/view_model/bloc/layout_bloc.dart';
+import '../../../../../core/layout/user/view_model/bloc/layout_bloc.dart';
 import '../widgets/amount_details_widget.dart';
 import '../widgets/ingredient_details_widget.dart';
 import '../widgets/orders_and_cart_buttons_details.dart';

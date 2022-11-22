@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
 import 'package:resturant/core/const/base_recipes_data_model.dart';
 
 class FavouriteModel extends BaseRecipesDataModel {

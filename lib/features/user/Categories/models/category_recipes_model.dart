@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/const/base_recipes_data_model.dart';
 import 'category_recipes_data_model.dart';
 
 class CategoryRecipesModel extends Equatable {

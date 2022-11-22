@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/services/service_locator.dart';
 
 import '../../../../../core/const/app_routes_names.dart';
-import '../../../../../core/const/params.dart';
 import '../../../../../core/utls/utls.dart';
 import '../../view_model/bloc/categories_bloc.dart';
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resturant/core/layout/view_model/bloc/layout_bloc.dart';
+import 'package:resturant/core/layout/user/view_model/bloc/layout_bloc.dart';
 
-import '../../../utls/utls.dart';
-import '../widgets/layout_main_widget.dart';
+import '../../../../../utls/utls.dart';
+import '../../widgets/layout_main_widget.dart';
 
 class MainLayout extends StatelessWidget {
   const MainLayout({super.key});
