@@ -53,8 +53,7 @@ class MyApp extends StatelessWidget {
           create: (context) => serviceLocator<AuthBloc>(),
         ),
         BlocProvider(
-          create: (context) =>
-              serviceLocator<LayoutBloc>()..add(ActiveUserDataGet(accessToken)),
+          create: (context) => serviceLocator<LayoutBloc>(),
         ),
         BlocProvider(
           create: (context) => serviceLocator<OrdersBloc>(),

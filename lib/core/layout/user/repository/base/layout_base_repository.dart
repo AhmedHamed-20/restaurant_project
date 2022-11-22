@@ -7,6 +7,9 @@ abstract class BaseLayoutRepository {
   Future<Either<Failure, UserModel>> getActiveUserData(ActiveUserParams params);
   Future<Either<Failure, UserModel>> updateUserData(
       UserDataUpdateParams params);
+  Future<Either<Failure, String>> udpagetPassword(UpdatePasswordParams params);
+  Future<Either<Failure, bool>> updateToken(UpdateTokenParams params);
+  Future<Either<Failure, String>> getAccessToken(GetAccessTokenParams params);
 }
 
 class ActiveUserParams extends Equatable {
@@ -31,4 +34,40 @@ class UserDataUpdateParams extends Equatable {
 
   @override
   List<Object?> get props => [token, name, email];
+}
+
+class UpdatePasswordParams extends Equatable {
+  final String token;
+  final String oldPassword;
+  final String newPassword;
+  final String confirmPassword;
+
+  const UpdatePasswordParams({
+    required this.token,
+    required this.oldPassword,
+    required this.newPassword,
+    required this.confirmPassword,
+  });
+
+  @override
+  List<Object?> get props => [token, oldPassword, newPassword, confirmPassword];
+}
+
+class UpdateTokenParams extends Equatable {
+  final String token;
+  final String key;
+
+  const UpdateTokenParams({required this.token, required this.key});
+
+  @override
+  List<Object?> get props => [token, key];
+}
+
+class GetAccessTokenParams extends Equatable {
+  final String key;
+
+  const GetAccessTokenParams({required this.key});
+
+  @override
+  List<Object?> get props => [key];
 }

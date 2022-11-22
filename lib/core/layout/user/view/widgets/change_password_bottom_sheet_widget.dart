@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../const/const.dart';
 import '../../../../const/text_editing_controllers.dart';
 import '../../../../widget/defaults.dart';
+import '../../view_model/bloc/layout_bloc.dart';
+import 'change_password_button.dart';
 
 class ChangePasswordBottomSheetWidget extends StatelessWidget {
   const ChangePasswordBottomSheetWidget({
@@ -11,6 +14,7 @@ class ChangePasswordBottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var layoutBloc = BlocProvider.of<LayoutBloc>(context);
     return Padding(
       padding: EdgeInsets.only(
         left: AppPadding.p20,
@@ -61,18 +65,14 @@ class ChangePasswordBottomSheetWidget extends StatelessWidget {
                 color: Theme.of(context).iconTheme.color,
               ),
               context: context,
-              controller:
-                  TextEditingControllers.activeUserDataPasswordController,
+              controller: TextEditingControllers
+                  .activeUserDataPasswordConfirmController,
               title: 'Confirm Password',
             ),
             const SizedBox(
               height: AppHeight.h20,
             ),
-            Defaults.defaultButton(
-              context: context,
-              title: 'Change Password',
-              onPressed: () {},
-            ),
+            const ChangePasswordButtonWidget(),
           ],
         ),
       ),

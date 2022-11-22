@@ -20,7 +20,7 @@ import 'package:resturant/features/user/Recipes/repositories/impl/recipes_reposi
 import '../../features/user/Auth/repositories/base/base_auth_repository.dart';
 import '../../features/user/Recipes/view_model/bloc/recipes_bloc.dart';
 import '../layout/user/repository/base/layout_base_repository.dart';
-import '../layout/user/repository/remote/layout_remote_repository_impl.dart';
+import '../layout/user/repository/remote/layout_repository_impl.dart';
 import '../layout/user/view_model/bloc/layout_bloc.dart';
 
 var serviceLocator = GetIt.instance;
@@ -55,6 +55,6 @@ class ServiceLocator {
     serviceLocator.registerLazySingleton<BaseAdminRecipesRepository>(
         () => RemoteAdminRecipesRepository());
     serviceLocator.registerLazySingleton<BaseLayoutRepository>(
-        () => LayoutRemoteRepositoryImpl());
+        () => LayoutRepositoryImpl());
   }
 }

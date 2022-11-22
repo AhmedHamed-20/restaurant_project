@@ -50,6 +50,15 @@ enum ActiveUserUpdateDataRequestStatues {
   error,
 }
 
+enum ActiveUserUpdatePasswordRequestStatues {
+  idle,
+  loading,
+  passwordUpdatedSuccess,
+  accessTokenCachedSuccess,
+  accessTokenGetSuccess,
+  error,
+}
+
 enum OrdersRequestStatues {
   loading,
   success,

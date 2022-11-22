@@ -16,7 +16,7 @@ import '../../user/view_model/bloc/layout_bloc.dart';
 class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
   LayoutBloc(this.baseLayoutRepository) : super(const LayoutState()) {
     on<ChangeCurrentActiveBottomNavIndexEvent>(_changeCurrentAcutiveIndex);
-    on<ActiveUserDataGet>(_getActiveUserData);
+    on<ActiveUserDataGetEvent>(_getActiveUserData);
   }
   final BaseLayoutRepository baseLayoutRepository;
 
@@ -49,7 +49,7 @@ class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
   }
 
   FutureOr<void> _getActiveUserData(
-      ActiveUserDataGet event, Emitter<LayoutState> emit) async {
+      ActiveUserDataGetEvent event, Emitter<LayoutState> emit) async {
     final result = await baseLayoutRepository
         .getActiveUserData(ActiveUserParams(event.accessToken));
     result.fold((l) {

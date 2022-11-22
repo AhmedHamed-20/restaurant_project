@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:resturant/core/cache/chache_setup.dart';
 import 'package:resturant/core/layout/user/models/user_model.dart';
 import 'package:resturant/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -6,7 +7,7 @@ import 'package:resturant/core/layout/user/repository/base/layout_base_repositor
 import 'package:resturant/core/network/dio.dart';
 import 'package:resturant/core/network/endpoints.dart';
 
-class LayoutRemoteRepositoryImpl extends BaseLayoutRepository {
+class LayoutRepositoryImpl extends BaseLayoutRepository {
   @override
   Future<Either<Failure, UserModel>> getActiveUserData(
       ActiveUserParams params) async {
@@ -43,6 +44,48 @@ class LayoutRemoteRepositoryImpl extends BaseLayoutRepository {
       return Right(UserModel.fromJson(resposne?.data['user']));
     } on DioError catch (e) {
       return Left(ServerFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> udpagetPassword(
+      UpdatePasswordParams params) async {
+    try {
+      final response =
+          await DioHelper.patchData(url: EndPoints.updatePassword, data: {
+        'passwordCurrent': params.oldPassword,
+        'password': params.newPassword,
+        'passwordConfirm': params.confirmPassword
+      }, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${params.token}',
+      });
+
+      return Right(response?.data['token']);
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateToken(UpdateTokenParams params) async {
+    try {
+      final result =
+          await CacheHelper.setData(key: params.key, value: params.token);
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(CacheFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> getAccessToken(
+      GetAccessTokenParams params) async {
+    try {
+      final result = await CacheHelper.getData(key: params.key);
+      return Right(result);
+    } on Exception catch (e) {
+      return Left(CacheFailure(message: e.toString()));
     }
   }
 }

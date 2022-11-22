@@ -13,9 +13,9 @@ class ChangeCurrentActiveBottomNavIndexEvent extends LayoutEvent {
   List<Object> get props => [index];
 }
 
-class ActiveUserDataGet extends LayoutEvent {
+class ActiveUserDataGetEvent extends LayoutEvent {
   final String accessToken;
-  const ActiveUserDataGet(this.accessToken);
+  const ActiveUserDataGetEvent(this.accessToken);
 
   @override
   List<Object?> get props => [accessToken];
@@ -41,4 +41,46 @@ class ActiveUserDataUpdateEvent extends LayoutEvent {
 
   @override
   List<Object?> get props => [accessToken, name, email];
+}
+
+class PasswordActiveUserUpdateEvent extends LayoutEvent {
+  final String accessToken;
+  final String oldPassword;
+  final String newPassword;
+  final String confirmPassword;
+  const PasswordActiveUserUpdateEvent({
+    required this.accessToken,
+    required this.oldPassword,
+    required this.newPassword,
+    required this.confirmPassword,
+  });
+
+  @override
+  List<Object?> get props => [
+        accessToken,
+        oldPassword,
+        newPassword,
+        confirmPassword,
+      ];
+}
+
+class AccessTokenUpdateEvent extends LayoutEvent {
+  final String accessToken;
+  final String key;
+  const AccessTokenUpdateEvent({
+    required this.accessToken,
+    required this.key,
+  });
+
+  @override
+  List<Object?> get props => [accessToken, key];
+}
+
+class AccessTokenGetEvent extends LayoutEvent {
+  final String key;
+
+  const AccessTokenGetEvent(this.key);
+
+  @override
+  List<Object?> get props => [key];
 }

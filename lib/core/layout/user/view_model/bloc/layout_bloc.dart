@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:resturant/core/const/const.dart';
 import 'package:resturant/core/layout/user/repository/base/layout_base_repository.dart';
 import 'package:resturant/features/admin/AllUsers/view/screens/all_users_admin_screen.dart';
 import 'package:resturant/features/admin/Orders/view/screens/all_orders_admin_screen.dart';
@@ -22,9 +23,12 @@ part 'layout_state.dart';
 class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
   LayoutBloc(this.baseLayoutRepository) : super(const LayoutState()) {
     on<ChangeCurrentActiveBottomNavIndexEvent>(_changeCurrentAcutiveIndex);
-    on<ActiveUserDataGet>(_getActiveUserData);
+    on<ActiveUserDataGetEvent>(_getActiveUserData);
     on<CurrentIndexAdminPanelChangeEvent>(_changeCurrentAcutiveIndexAdmin);
     on<ActiveUserDataUpdateEvent>(_changeActiveUserData);
+    on<PasswordActiveUserUpdateEvent>(_changeActiveUserPasswordAndAccessToken);
+    on<AccessTokenUpdateEvent>(_updateAccessTokenAndGetAcessToken);
+    on<AccessTokenGetEvent>(_getAcessToken);
   }
   final BaseLayoutRepository baseLayoutRepository;
 
@@ -63,7 +67,7 @@ class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
   }
 
   FutureOr<void> _getActiveUserData(
-      ActiveUserDataGet event, Emitter<LayoutState> emit) async {
+      ActiveUserDataGetEvent event, Emitter<LayoutState> emit) async {
     final result = await baseLayoutRepository
         .getActiveUserData(ActiveUserParams(event.accessToken));
     result.fold((l) {
@@ -107,6 +111,80 @@ class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
           activeUserUpdateDataRequestStatues:
               ActiveUserUpdateDataRequestStatues.success,
           errorMessage: ''));
+    });
+  }
+
+  FutureOr<void> _changeActiveUserPasswordAndAccessToken(
+      PasswordActiveUserUpdateEvent event, Emitter<LayoutState> emit) async {
+    emit(state.copyWith(
+        changePasswordRequestStatues:
+            ActiveUserUpdatePasswordRequestStatues.loading));
+    final result = await baseLayoutRepository.udpagetPassword(
+      UpdatePasswordParams(
+        token: event.accessToken,
+        newPassword: event.newPassword,
+        oldPassword: event.oldPassword,
+        confirmPassword: event.confirmPassword,
+      ),
+    );
+    result.fold(
+        (l) => emit(state.copyWith(
+              errorMessage: l.message,
+              changePasswordRequestStatues:
+                  ActiveUserUpdatePasswordRequestStatues.error,
+            )), (r) {
+      emit(
+        state.copyWith(
+            errorMessage: '',
+            changePasswordRequestStatues:
+                ActiveUserUpdatePasswordRequestStatues.passwordUpdatedSuccess),
+      );
+      add(AccessTokenUpdateEvent(accessToken: r, key: 'accessToken'));
+    });
+  }
+
+  FutureOr<void> _updateAccessTokenAndGetAcessToken(
+      AccessTokenUpdateEvent event, Emitter<LayoutState> emit) async {
+    final result = await baseLayoutRepository.updateToken(UpdateTokenParams(
+      token: event.accessToken,
+      key: event.key,
+    ));
+
+    result.fold(
+        (l) => emit(state.copyWith(
+              errorMessage: l.message,
+              changePasswordRequestStatues:
+                  ActiveUserUpdatePasswordRequestStatues.error,
+            )), (r) {
+      emit(
+        state.copyWith(
+            errorMessage: '',
+            changePasswordRequestStatues: ActiveUserUpdatePasswordRequestStatues
+                .accessTokenCachedSuccess),
+      );
+      add(AccessTokenGetEvent(event.key));
+    });
+  }
+
+  FutureOr<void> _getAcessToken(
+      AccessTokenGetEvent event, Emitter<LayoutState> emit) async {
+    final result = await baseLayoutRepository
+        .getAccessToken(GetAccessTokenParams(key: event.key));
+
+    result.fold(
+        (l) => emit(state.copyWith(
+              errorMessage: l.message,
+              changePasswordRequestStatues:
+                  ActiveUserUpdatePasswordRequestStatues.error,
+            )), (r) {
+      accessTokenVar = r;
+      emit(
+        state.copyWith(
+          errorMessage: '',
+          changePasswordRequestStatues:
+              ActiveUserUpdatePasswordRequestStatues.accessTokenGetSuccess,
+        ),
+      );
     });
   }
 }
