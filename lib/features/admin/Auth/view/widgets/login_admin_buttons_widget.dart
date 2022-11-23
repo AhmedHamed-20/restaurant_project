@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/app_routes_names.dart';
 import 'package:resturant/core/const/const.dart';
+import 'package:resturant/core/const/text_editing_controllers.dart';
 
 import '../../../../../../core/utls/utls.dart';
 import '../../view_model/bloc/admin_auth_bloc.dart';
@@ -20,7 +21,9 @@ class LoginAdminButtonsWidget extends StatelessWidget {
                 AdminAuthRequestStatues.success) {
               accessTokenAdminVar = state.adminModel!.token;
               Navigator.of(context).pushNamedAndRemoveUntil(
-                  AppRoutesNames.allUsers, (route) => false);
+                  AppRoutesNames.adminLayout, (route) => false);
+              TextEditingControllers.loginEmailAdminController.clear();
+              TextEditingControllers.loginPasswordAdminController.clear();
             }
             if (state.adminAuthRequestStatues ==
                 AdminAuthRequestStatues.error) {

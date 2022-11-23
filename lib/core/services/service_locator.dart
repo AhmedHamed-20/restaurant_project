@@ -9,6 +9,9 @@ import 'package:resturant/features/admin/AllUsers/view_model/bloc/allusers_bloc.
 import 'package:resturant/features/admin/Auth/repository/base/base_admin_auth_repositroy.dart';
 import 'package:resturant/features/admin/Auth/repository/remote/remote_admin_repository_impl.dart';
 import 'package:resturant/features/admin/Auth/view_model/bloc/admin_auth_bloc.dart';
+import 'package:resturant/features/admin/Orders/repository/base/base_admin_orders_repository.dart';
+import 'package:resturant/features/admin/Orders/repository/remote/remote_admin_orders_repository.dart';
+import 'package:resturant/features/admin/Orders/view_model/bloc/orders_admin_bloc.dart';
 import 'package:resturant/features/user/Auth/repositories/remote/auth_repository_impl.dart';
 import 'package:resturant/features/user/Auth/view_model/bloc/auth_bloc.dart';
 import 'package:resturant/features/user/Categories/repositories/base/base_category_repository.dart';
@@ -39,13 +42,15 @@ class ServiceLocator {
     serviceLocator
         .registerFactory<OrdersBloc>(() => OrdersBloc(serviceLocator()));
     serviceLocator
-        .registerFactory<AllusersBloc>(() => AllusersBloc(serviceLocator()));
+        .registerFactory<AllUsersBloc>(() => AllUsersBloc(serviceLocator()));
     serviceLocator.registerFactory<RecipesAdminBloc>(
         () => RecipesAdminBloc(serviceLocator()));
     serviceLocator
         .registerFactory<LayoutBloc>(() => LayoutBloc(serviceLocator()));
     serviceLocator
         .registerFactory<AdminAuthBloc>(() => AdminAuthBloc(serviceLocator()));
+    serviceLocator.registerFactory<OrdersAdminBloc>(
+        () => OrdersAdminBloc(serviceLocator()));
     //repository
     serviceLocator
         .registerLazySingleton<BaseAuthRepository>(() => AuthRepositoryImpl());
@@ -63,5 +68,7 @@ class ServiceLocator {
         () => LayoutRepositoryImpl());
     serviceLocator.registerLazySingleton<BaseAdminAuthRepository>(
         () => RemoteAutAdminRepositoryImpl());
+    serviceLocator.registerLazySingleton<BaseAdminOrdersRepository>(
+        () => RemoteAdminOrdersRepositoryImpl());
   }
 }

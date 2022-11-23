@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:resturant/core/const/const.dart';
 import 'package:resturant/core/layout/user/repository/base/layout_base_repository.dart';
+import 'package:resturant/features/admin/AllRecipes/view/screens/all_recipes_admin_screen.dart';
 import 'package:resturant/features/admin/AllUsers/view/screens/all_users_admin_screen.dart';
 import 'package:resturant/features/admin/Orders/view/screens/all_orders_admin_screen.dart';
 import 'package:resturant/features/user/Recipes/view/screens/favourites_screen.dart';
@@ -52,10 +53,14 @@ class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
 
   final List<Widget> adminScreens = [
     const AllUsersAdminScrenn(),
-    const AllUsersAdminScrenn(),
+    const AllRecipesAdminScreen(),
     const AllOrdersAdminScreen(),
   ];
-
+  final List<String> titlesAdminLayout = [
+    'Users',
+    'All Recipes',
+    'All Orders',
+  ];
   final List<String> titles = [
     'Home',
     'Categories',

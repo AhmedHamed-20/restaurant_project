@@ -10,13 +10,13 @@ import '../../models/all_users_model.dart';
 part 'allusers_event.dart';
 part 'allusers_state.dart';
 
-class AllusersBloc extends Bloc<AllusersEvent, AllusersState> {
-  AllusersBloc(this.baseAllUsersRepository) : super(const AllusersState()) {
+class AllUsersBloc extends Bloc<AllusersEvent, AllUsersState> {
+  AllUsersBloc(this.baseAllUsersRepository) : super(const AllUsersState()) {
     on<AllUsersGetEvent>(_getAllUsers);
   }
   final BaseAllUsersRepository baseAllUsersRepository;
   FutureOr<void> _getAllUsers(
-      AllUsersGetEvent event, Emitter<AllusersState> emit) async {
+      AllUsersGetEvent event, Emitter<AllUsersState> emit) async {
     final result = await baseAllUsersRepository
         .getAllUsers(AllUsersGetParams(adminToken: event.adminToken));
     result.fold((l) {

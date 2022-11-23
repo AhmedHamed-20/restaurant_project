@@ -1,21 +1,21 @@
 part of 'allusers_bloc.dart';
 
-class AllusersState extends Equatable {
+class AllUsersState extends Equatable {
   final AllUsersModel? allUsersModel;
   final AllUsersRequestStatues allUsersRequestStatues;
   final String errorMessage;
 
-  const AllusersState(
+  const AllUsersState(
       {this.allUsersModel,
       this.allUsersRequestStatues = AllUsersRequestStatues.loading,
       this.errorMessage = ''});
 
-  AllusersState copyWith({
+  AllUsersState copyWith({
     AllUsersModel? allUsersModel,
     AllUsersRequestStatues? allUsersRequestStatues,
     String? errorMessage,
   }) {
-    return AllusersState(
+    return AllUsersState(
       allUsersModel: allUsersModel ?? this.allUsersModel,
       allUsersRequestStatues:
           allUsersRequestStatues ?? this.allUsersRequestStatues,

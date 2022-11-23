@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:resturant/core/const/const.dart';
 import 'package:resturant/core/layout/user/view_model/bloc/layout_bloc.dart';
 
 class MainLayoutAdmin extends StatelessWidget {
@@ -9,31 +10,48 @@ class MainLayoutAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
     var layoutBloc = BlocProvider.of<LayoutBloc>(context);
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.grey,
-        backgroundColor: Theme.of(context).backgroundColor,
-        onTap: (index) {
-          layoutBloc.add(CurrentIndexAdminPanelChangeEvent(index));
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: AppColors.transparentColor,
+        title: BlocBuilder<LayoutBloc, LayoutState>(
+          builder: (context, state) {
+            return Text(
+              layoutBloc.titlesAdminLayout[state.currentIndexAdminPanel],
+              style: Theme.of(context).textTheme.titleLarge,
+            );
+          },
+        ),
+      ),
+      bottomNavigationBar: BlocBuilder<LayoutBloc, LayoutState>(
+        builder: (context, state) {
+          return BottomNavigationBar(
+            selectedItemColor: Theme.of(context).primaryColor,
+            unselectedItemColor: Colors.grey,
+            backgroundColor: Theme.of(context).backgroundColor,
+            onTap: (index) {
+              layoutBloc.add(CurrentIndexAdminPanelChangeEvent(index));
+            },
+            currentIndex: state.currentIndexAdminPanel,
+            items: [
+              BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).backgroundColor,
+                icon: const Icon(Icons.people),
+                label: 'Users',
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).backgroundColor,
+                icon: const Icon(Icons.food_bank),
+                label: 'Recipes',
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).backgroundColor,
+                icon: const Icon(Icons.shopping_cart),
+                label: 'Orders',
+              ),
+            ],
+          );
         },
-        currentIndex: 0,
-        items: [
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).backgroundColor,
-            icon: const Icon(Icons.people),
-            label: 'Users',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).backgroundColor,
-            icon: const Icon(Icons.food_bank),
-            label: 'Recipes',
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).backgroundColor,
-            icon: const Icon(Icons.shopping_cart),
-            label: 'Orders',
-          ),
-        ],
       ),
       body: BlocBuilder<LayoutBloc, LayoutState>(
         builder: (context, state) {

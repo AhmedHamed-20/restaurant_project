@@ -21,7 +21,7 @@ class OrdersAdminDataModel extends Equatable {
 
   factory OrdersAdminDataModel.fromJson(Map<String, dynamic> json) {
     return OrdersAdminDataModel(
-      ordersContent: (json['ordersContent'] as List)
+      ordersContent: (json['orderContent'] as List)
           .map(
               (e) => OrderAdminContentModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -29,7 +29,7 @@ class OrdersAdminDataModel extends Equatable {
       customerName: json['customerName'] as String,
       customerPhoneNumber: json['customerPhoneNumber'] as String,
       customerAddress: json['customerAddress'] as String,
-      customeEmail: json['customeEmail'] as String,
+      customeEmail: json['customerEmail'] as String,
       id: json['_id'] as String,
     );
   }
