@@ -5,18 +5,22 @@ class OrdersAdminState extends Equatable {
   final String errorMessage;
   final OrdersAdminModel? ordersAdminModel;
   final OrdersAdminRequestStatues ordersAdminRequestStatues;
-
+  final OrdersAdminRequestStatues ordersAdminDeleteRequestStatues;
   const OrdersAdminState(
       {this.errorMessage = '',
       this.ordersAdminModel,
+      this.ordersAdminDeleteRequestStatues = OrdersAdminRequestStatues.loading,
       this.ordersAdminRequestStatues = OrdersAdminRequestStatues.loading});
 
   OrdersAdminState copyWith({
+    OrdersAdminRequestStatues? ordersAdminDeleteRequestStatues,
     String? errorMessage,
     OrdersAdminModel? ordersAdminModel,
     OrdersAdminRequestStatues? ordersAdminRequestStatues,
   }) {
     return OrdersAdminState(
+      ordersAdminDeleteRequestStatues: ordersAdminDeleteRequestStatues ??
+          this.ordersAdminDeleteRequestStatues,
       errorMessage: errorMessage ?? this.errorMessage,
       ordersAdminModel: ordersAdminModel ?? this.ordersAdminModel,
       ordersAdminRequestStatues:
@@ -25,6 +29,10 @@ class OrdersAdminState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [errorMessage, ordersAdminModel, ordersAdminRequestStatues];
+  List<Object?> get props => [
+        errorMessage,
+        ordersAdminModel,
+        ordersAdminRequestStatues,
+        ordersAdminDeleteRequestStatues
+      ];
 }

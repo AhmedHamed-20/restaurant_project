@@ -12,14 +12,14 @@ class RemoteAdminOrdersRepositoryImpl extends BaseAdminOrdersRepository {
       AdminOrdersCancleParams params) async {
     try {
       final response = await DioHelper.deleteData(
-          url: EndPoints.cancelOrder + params.orderId,
+          url: EndPoints.deleteOrder + params.orderId,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${params.adminToken}',
           });
-      return Right(response?.data['message']);
+      return const Right('Deleted Success');
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response!.data['message']));
     }
   }
 
@@ -34,7 +34,7 @@ class RemoteAdminOrdersRepositoryImpl extends BaseAdminOrdersRepository {
       });
       return Right(OrdersAdminModel.fromJson(resposne?.data));
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response!.data['message']));
     }
   }
 }

@@ -17,4 +17,5 @@ class EndPoints {
   static const String updatePassword = '$baseUrl/users/updateMyPassword';
   static const String forgetPassword = '$baseUrl/users/forgotPassword';
   static const String cancelOrder = '$baseUrl/orders/cancelOrder/';
+  static const String deleteOrder = '$baseUrl/orders/';
 }

@@ -86,6 +86,13 @@ enum AllUsersRequestStatues {
   error,
 }
 
+enum AllUsersUpdateDataRequestStatues {
+  idle,
+  loading,
+  success,
+  error,
+}
+
 enum ThemeModeValue {
   light,
   dark,

@@ -13,6 +13,8 @@ part 'allusers_state.dart';
 class AllUsersBloc extends Bloc<AllusersEvent, AllUsersState> {
   AllUsersBloc(this.baseAllUsersRepository) : super(const AllUsersState()) {
     on<AllUsersGetEvent>(_getAllUsers);
+    on<UserDeleteEvent>(_deleteUserByIdAndGetAllUsers);
+    on<UserDataUpdateByIdEvent>(_updateUserDataByIdAndGetAllUsers);
   }
   final BaseAllUsersRepository baseAllUsersRepository;
   FutureOr<void> _getAllUsers(
@@ -30,6 +32,62 @@ class AllUsersBloc extends Bloc<AllusersEvent, AllUsersState> {
         errorMessage: '',
         allUsersModel: r,
       ));
+    });
+  }
+
+  FutureOr<void> _deleteUserByIdAndGetAllUsers(
+      UserDeleteEvent event, Emitter<AllUsersState> emit) async {
+    final result = await baseAllUsersRepository.deleteUserById(
+      DeleteUserByIdParams(
+        adminToken: event.adminToken,
+        userId: event.userId,
+      ),
+    );
+
+    result.fold((l) {
+      emit(state.copyWith(
+        deleteUserByIdRequestStatues: AllUsersRequestStatues.error,
+        errorMessage: l.toString(),
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        deleteUserByIdRequestStatues: AllUsersRequestStatues.success,
+        errorMessage: '',
+      ));
+
+      add(AllUsersGetEvent(adminToken: event.adminToken));
+    });
+  }
+
+  FutureOr<void> _updateUserDataByIdAndGetAllUsers(
+      UserDataUpdateByIdEvent event, Emitter<AllUsersState> emit) async {
+    emit(state.copyWith(
+      updateUserDataByIdRequestStatues:
+          AllUsersUpdateDataRequestStatues.loading,
+    ));
+    final result = await baseAllUsersRepository.udpateUserDataById(
+      UpdateUserDataByIdParams(
+        adminToken: event.adminToken,
+        name: event.name,
+        userId: event.userId,
+        email: event.email,
+        role: event.role,
+      ),
+    );
+    result.fold((l) {
+      emit(state.copyWith(
+        updateUserDataByIdRequestStatues:
+            AllUsersUpdateDataRequestStatues.error,
+        errorMessage: l.toString(),
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        updateUserDataByIdRequestStatues:
+            AllUsersUpdateDataRequestStatues.success,
+        errorMessage: '',
+      ));
+
+      add(AllUsersGetEvent(adminToken: event.adminToken));
     });
   }
 }

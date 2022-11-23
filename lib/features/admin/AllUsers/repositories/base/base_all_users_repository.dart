@@ -5,6 +5,9 @@ import 'package:resturant/features/admin/AllUsers/models/all_users_model.dart';
 
 abstract class BaseAllUsersRepository {
   Future<Either<Failure, AllUsersModel>> getAllUsers(AllUsersGetParams params);
+  Future<Either<Failure, String>> deleteUserById(DeleteUserByIdParams params);
+  Future<Either<Failure, String>> udpateUserDataById(
+      UpdateUserDataByIdParams params);
 }
 
 class AllUsersGetParams extends Equatable {
@@ -14,4 +17,35 @@ class AllUsersGetParams extends Equatable {
 
   @override
   List<Object?> get props => [adminToken];
+}
+
+class DeleteUserByIdParams extends Equatable {
+  final String adminToken;
+  final String userId;
+
+  const DeleteUserByIdParams({
+    required this.adminToken,
+    required this.userId,
+  });
+
+  @override
+  List<Object?> get props => [adminToken, userId];
+}
+
+class UpdateUserDataByIdParams extends Equatable {
+  final String userId;
+  final String adminToken;
+  final String name;
+  final String email;
+  final String role;
+
+  const UpdateUserDataByIdParams(
+      {required this.adminToken,
+      required this.name,
+      required this.userId,
+      required this.email,
+      required this.role});
+
+  @override
+  List<Object?> get props => [adminToken, name, email, role, userId];
 }

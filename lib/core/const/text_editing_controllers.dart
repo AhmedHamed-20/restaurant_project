@@ -30,4 +30,8 @@ class TextEditingControllers {
       TextEditingController();
   static TextEditingController activeUserDataPasswordConfirmController =
       TextEditingController();
+  static TextEditingController allUsersNameController = TextEditingController();
+  static TextEditingController allUsersEmailController =
+      TextEditingController();
+  // static TextEditingController allUsersRoleController = TextEditingController();
 }

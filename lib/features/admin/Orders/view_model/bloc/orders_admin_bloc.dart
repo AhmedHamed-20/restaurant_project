@@ -43,12 +43,12 @@ class OrdersAdminBloc extends Bloc<OrdersAdminEvent, OrdersAdminState> {
     result.fold((l) {
       emit(state.copyWith(
         errorMessage: l.message,
-        ordersAdminRequestStatues: OrdersAdminRequestStatues.error,
+        ordersAdminDeleteRequestStatues: OrdersAdminRequestStatues.error,
       ));
     }, (r) {
       emit(state.copyWith(
         errorMessage: '',
-        ordersAdminRequestStatues: OrdersAdminRequestStatues.success,
+        ordersAdminDeleteRequestStatues: OrdersAdminRequestStatues.success,
       ));
       add(OrdersAdminGetEvent(adminToken: event.adminToken));
     });
