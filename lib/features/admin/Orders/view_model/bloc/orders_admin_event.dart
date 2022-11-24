@@ -19,3 +19,11 @@ class OrdersAdminCancleEvent extends OrdersAdminEvent {
   @override
   List<Object?> get props => [adminToken, orderId];
 }
+
+class OrdersAdminGetMoreEvent extends OrdersAdminEvent {
+  final String adminToken;
+  final String page;
+  const OrdersAdminGetMoreEvent({required this.adminToken, required this.page});
+  @override
+  List<Object?> get props => [adminToken, page];
+}

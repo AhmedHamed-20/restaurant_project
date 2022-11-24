@@ -85,7 +85,6 @@ class LoginMainWidget extends StatelessWidget {
           const SizedBox(
             height: AppHeight.h10,
           ),
-          const LoginAsAdminWidget(),
         ],
       ),
     );

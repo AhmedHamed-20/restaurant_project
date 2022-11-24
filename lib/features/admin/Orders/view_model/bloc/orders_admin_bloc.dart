@@ -14,6 +14,7 @@ class OrdersAdminBloc extends Bloc<OrdersAdminEvent, OrdersAdminState> {
       : super(const OrdersAdminState()) {
     on<OrdersAdminGetEvent>(_getAllOrdersAdmin);
     on<OrdersAdminCancleEvent>(_cancelOrderAdmin);
+    on<OrdersAdminGetMoreEvent>(_getMoreOrdersAdmin);
   }
   final BaseAdminOrdersRepository baseAdminOrdersRepository;
   FutureOr<void> _getAllOrdersAdmin(
@@ -51,6 +52,52 @@ class OrdersAdminBloc extends Bloc<OrdersAdminEvent, OrdersAdminState> {
         ordersAdminDeleteRequestStatues: OrdersAdminRequestStatues.success,
       ));
       add(OrdersAdminGetEvent(adminToken: event.adminToken));
+    });
+  }
+
+  FutureOr<void> _getMoreOrdersAdmin(
+      OrdersAdminGetMoreEvent event, Emitter<OrdersAdminState> emit) async {
+    final result = await baseAdminOrdersRepository.getMoreOrders(
+        AdminOrdersGetMoreParams(
+            adminToken: event.adminToken, page: event.page));
+
+    result.fold(
+        (l) => emit(
+              state.copyWith(
+                errorMessage: l.message,
+                isEndOfData: false,
+                ordersAdminGetMoreRequestStatues:
+                    OrdersAdminRequestStatues.error,
+              ),
+            ), (r) {
+      if (r.results == 0) {
+        emit(state.copyWith(
+          errorMessage: '',
+          isEndOfData: true,
+          ordersAdminGetMoreRequestStatues: OrdersAdminRequestStatues.success,
+        ));
+      } else if (r.results == 10) {
+        OrdersAdminModel myOrdersModel;
+        myOrdersModel = state.ordersAdminModel!;
+
+        myOrdersModel.ordersData.addAll(List.from(r.ordersData));
+
+        emit(state.copyWith(
+          errorMessage: '',
+          ordersAdminModel: myOrdersModel,
+          isEndOfData: false,
+          ordersAdminGetMoreRequestStatues: OrdersAdminRequestStatues.success,
+        ));
+      } else {
+        OrdersAdminModel myOrdersModel = state.ordersAdminModel!;
+        myOrdersModel.ordersData.addAll(List.from(r.ordersData));
+        emit(state.copyWith(
+          errorMessage: '',
+          ordersAdminModel: myOrdersModel,
+          isEndOfData: true,
+          ordersAdminGetMoreRequestStatues: OrdersAdminRequestStatues.success,
+        ));
+      }
     });
   }
 }

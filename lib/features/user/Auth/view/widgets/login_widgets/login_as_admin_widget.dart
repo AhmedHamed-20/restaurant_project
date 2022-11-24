@@ -9,26 +9,17 @@ class LoginAsAdminWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          'Continue as admin ?',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        MaterialButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(AppRoutesNames.loginAdminScreen);
-          },
-          child: Text(
-            'Login',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(color: Theme.of(context).primaryColor),
-          ),
-        ),
-      ],
+    return MaterialButton(
+      onPressed: () {
+        Navigator.of(context).pushNamed(AppRoutesNames.loginAdminScreen);
+      },
+      child: Text(
+        'Login As Admin',
+        style: Theme.of(context)
+            .textTheme
+            .titleMedium
+            ?.copyWith(color: Theme.of(context).primaryColor),
+      ),
     );
   }
 }

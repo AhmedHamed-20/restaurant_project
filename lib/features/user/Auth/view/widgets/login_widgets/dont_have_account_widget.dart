@@ -28,6 +28,18 @@ class DontHaveAccountWidget extends StatelessWidget {
                 ?.copyWith(color: Theme.of(context).primaryColor),
           ),
         ),
+        MaterialButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(AppRoutesNames.loginAdminScreen);
+          },
+          child: Text(
+            'Login As Admin',
+            style: Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(color: Theme.of(context).primaryColor),
+          ),
+        ),
       ],
     );
   }

@@ -37,4 +37,20 @@ class RemoteAdminOrdersRepositoryImpl extends BaseAdminOrdersRepository {
       return Left(ServerFailure(message: e.response!.data['message']));
     }
   }
+
+  @override
+  Future<Either<Failure, OrdersAdminModel>> getMoreOrders(
+      AdminOrdersGetMoreParams params) async {
+    try {
+      final resposne = await DioHelper.getData(
+          url: EndPoints.allOrdersPage + params.page,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${params.adminToken}',
+          });
+      return Right(OrdersAdminModel.fromJson(resposne?.data));
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.response!.data['message']));
+    }
+  }
 }

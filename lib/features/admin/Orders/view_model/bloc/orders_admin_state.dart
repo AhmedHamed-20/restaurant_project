@@ -5,20 +5,30 @@ class OrdersAdminState extends Equatable {
   final String errorMessage;
   final OrdersAdminModel? ordersAdminModel;
   final OrdersAdminRequestStatues ordersAdminRequestStatues;
+  final OrdersAdminRequestStatues ordersAdminGetMoreRequestStatues;
+
   final OrdersAdminRequestStatues ordersAdminDeleteRequestStatues;
+  final bool isEndOfData;
   const OrdersAdminState(
       {this.errorMessage = '',
       this.ordersAdminModel,
+      this.ordersAdminGetMoreRequestStatues = OrdersAdminRequestStatues.loading,
+      this.isEndOfData = false,
       this.ordersAdminDeleteRequestStatues = OrdersAdminRequestStatues.loading,
       this.ordersAdminRequestStatues = OrdersAdminRequestStatues.loading});
 
   OrdersAdminState copyWith({
+    OrdersAdminRequestStatues? ordersAdminGetMoreRequestStatues,
+    bool? isEndOfData,
     OrdersAdminRequestStatues? ordersAdminDeleteRequestStatues,
     String? errorMessage,
     OrdersAdminModel? ordersAdminModel,
     OrdersAdminRequestStatues? ordersAdminRequestStatues,
   }) {
     return OrdersAdminState(
+      ordersAdminGetMoreRequestStatues: ordersAdminDeleteRequestStatues ??
+          this.ordersAdminGetMoreRequestStatues,
+      isEndOfData: isEndOfData ?? this.isEndOfData,
       ordersAdminDeleteRequestStatues: ordersAdminDeleteRequestStatues ??
           this.ordersAdminDeleteRequestStatues,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -32,7 +42,10 @@ class OrdersAdminState extends Equatable {
   List<Object?> get props => [
         errorMessage,
         ordersAdminModel,
+        ordersAdminGetMoreRequestStatues,
+        isEndOfData,
         ordersAdminRequestStatues,
-        ordersAdminDeleteRequestStatues
+        ordersAdminDeleteRequestStatues,
+        identityHashCode(this)
       ];
 }

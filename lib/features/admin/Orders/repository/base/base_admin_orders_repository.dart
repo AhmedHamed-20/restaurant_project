@@ -6,6 +6,9 @@ import 'package:resturant/features/admin/Orders/models/orders_model.dart';
 abstract class BaseAdminOrdersRepository {
   Future<Either<Failure, OrdersAdminModel>> getAllOrders(
       AdminOrdersGetParams params);
+  Future<Either<Failure, OrdersAdminModel>> getMoreOrders(
+      AdminOrdersGetMoreParams params);
+
   Future<Either<Failure, String>> cancelOrder(AdminOrdersCancleParams params);
 }
 
@@ -26,4 +29,14 @@ class AdminOrdersCancleParams extends Equatable {
 
   @override
   List<Object?> get props => [adminToken, orderId];
+}
+
+class AdminOrdersGetMoreParams extends Equatable {
+  final String adminToken;
+  final String page;
+  const AdminOrdersGetMoreParams(
+      {required this.adminToken, required this.page});
+
+  @override
+  List<Object?> get props => [adminToken, page];
 }
