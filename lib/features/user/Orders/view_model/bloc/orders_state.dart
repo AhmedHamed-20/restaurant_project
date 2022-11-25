@@ -5,18 +5,20 @@ class OrdersState extends Equatable {
   final String errorMessage;
   final OrdersRequestStatues ordersRequestStatues;
   final OrdersRequestStatues ordersMoreRequestStatues;
-
+  final MyOrderCancelRequestStatues myOrderCancelRequestStatues;
   final bool isOrderedSuccessfully;
   final bool isEndOfData;
   const OrdersState(
       {this.myOrders = const [],
       this.isEndOfData = false,
+      this.myOrderCancelRequestStatues = MyOrderCancelRequestStatues.idle,
       this.ordersMoreRequestStatues = OrdersRequestStatues.loading,
       this.errorMessage = '',
       this.isOrderedSuccessfully = false,
       this.ordersRequestStatues = OrdersRequestStatues.loading});
 
   OrdersState copyWith({
+    MyOrderCancelRequestStatues? myOrderCancelRequestStatues,
     bool? isEndOfData,
     OrdersRequestStatues? ordersMoreRequestStatues,
     bool? isOrderedSuccessfully,
@@ -25,6 +27,8 @@ class OrdersState extends Equatable {
     OrdersRequestStatues? ordersRequestStatues,
   }) {
     return OrdersState(
+      myOrderCancelRequestStatues:
+          myOrderCancelRequestStatues ?? this.myOrderCancelRequestStatues,
       isEndOfData: isEndOfData ?? this.isEndOfData,
       ordersMoreRequestStatues:
           ordersMoreRequestStatues ?? this.ordersMoreRequestStatues,
@@ -39,11 +43,11 @@ class OrdersState extends Equatable {
   @override
   List<Object?> get props => [
         myOrders,
+        myOrderCancelRequestStatues,
         errorMessage,
         isOrderedSuccessfully,
         ordersRequestStatues,
         isEndOfData,
         ordersMoreRequestStatues,
-        identityHashCode(this)
       ];
 }

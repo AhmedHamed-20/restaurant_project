@@ -16,6 +16,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
     on<OrderRecipeEvent>(_orderRecipe);
     on<OrderResetBoolEvent>(_resetOrderBool);
     on<MoreMyOrdersGetEvent>(_getMoreMyOrders);
+    on<OrderCancelEvent>(_cancelOrder);
   }
   final BaseOrderRepository baseOrderRepository;
   FutureOr<void> _getMyOrders(
@@ -72,5 +73,25 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
             isEndOfData: false,
             ordersMoreRequestStatues: OrdersRequestStatues.error)),
         (r) => null);
+  }
+
+  FutureOr<void> _cancelOrder(
+      OrderCancelEvent event, Emitter<OrdersState> emit) async {
+    emit(state.copyWith(
+        myOrderCancelRequestStatues: MyOrderCancelRequestStatues.loading));
+    final result = await baseOrderRepository.cancelOrder(
+        CancelOrderParams(token: event.token, orderId: event.orderId));
+
+    result.fold((l) {
+      emit(state.copyWith(
+        errorMessage: l.message,
+        myOrderCancelRequestStatues: MyOrderCancelRequestStatues.error,
+      ));
+    }, (r) {
+      emit(state.copyWith(
+        errorMessage: '',
+        myOrderCancelRequestStatues: MyOrderCancelRequestStatues.success,
+      ));
+    });
   }
 }

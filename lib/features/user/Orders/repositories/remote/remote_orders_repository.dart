@@ -57,4 +57,19 @@ class RemoteOrdersRepository extends BaseOrderRepository {
       return Left(ServerFailure(message: e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> cancelOrder(CancelOrderParams params) async {
+    try {
+      final response = await DioHelper.deleteData(
+          url: EndPoints.cancelOrder + params.orderId,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${params.token}',
+          });
+      return Right(response?.data['message'] ?? 'success');
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.response?.data['message']));
+    }
+  }
 }

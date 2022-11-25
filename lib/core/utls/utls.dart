@@ -86,6 +86,13 @@ enum AllUsersRequestStatues {
   error,
 }
 
+enum MyOrderCancelRequestStatues {
+  idle,
+  loading,
+  success,
+  error,
+}
+
 enum AllUsersUpdateDataRequestStatues {
   idle,
   loading,

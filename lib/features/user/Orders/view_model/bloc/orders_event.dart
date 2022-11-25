@@ -45,3 +45,13 @@ class MoreMyOrdersGetEvent extends OrdersEvent {
   @override
   List<Object?> get props => [token, page];
 }
+
+class OrderCancelEvent extends OrdersEvent {
+  final String token;
+  final String orderId;
+
+  const OrderCancelEvent({required this.token, required this.orderId});
+
+  @override
+  List<Object?> get props => [token, orderId];
+}

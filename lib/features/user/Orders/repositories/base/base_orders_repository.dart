@@ -10,6 +10,7 @@ abstract class BaseOrderRepository {
       MyOrderMoreParams params);
 
   Future<Either<Failure, bool>> orderRecipe(OrderRecipeParams params);
+  Future<Either<Failure, String>> cancelOrder(CancelOrderParams params);
 }
 
 class MyOrderParams extends Equatable {
@@ -50,4 +51,17 @@ class MyOrderMoreParams extends Equatable {
 
   @override
   List<Object?> get props => [token, page];
+}
+
+class CancelOrderParams extends Equatable {
+  final String token;
+  final String orderId;
+
+  const CancelOrderParams({
+    required this.token,
+    required this.orderId,
+  });
+
+  @override
+  List<Object?> get props => [token, orderId];
 }

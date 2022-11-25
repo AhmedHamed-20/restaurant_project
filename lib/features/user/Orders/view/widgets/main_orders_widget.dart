@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/features/user/Orders/view_model/bloc/orders_bloc.dart';
 
 import '../../../../../core/const/const.dart';
+import '../../../../../core/utls/utls.dart';
 
 class MainOrdersWidget extends StatelessWidget {
   const MainOrdersWidget({
@@ -11,7 +12,25 @@ class MainOrdersWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OrdersBloc, OrdersState>(
+    var myOrdersBloc = BlocProvider.of<OrdersBloc>(context);
+    return BlocConsumer<OrdersBloc, OrdersState>(
+      listener: (context, state) {
+        if (state.myOrderCancelRequestStatues ==
+            MyOrderCancelRequestStatues.success) {
+          myOrdersBloc.add(MyOrdersEvent(token: accessTokenVar));
+          flutterToast(
+            msg: 'order canceled successfully',
+            backgroundColor: AppColors.toastSuccess,
+            textColor: AppColors.white,
+          );
+        } else if (state.myOrderCancelRequestStatues ==
+            MyOrderCancelRequestStatues.error) {
+          flutterToast(
+              msg: state.errorMessage,
+              backgroundColor: AppColors.toastError,
+              textColor: AppColors.white);
+        }
+      },
       builder: (context, state) => ListView.builder(
           itemCount: state.myOrders.length,
           itemBuilder: (context, index) {
@@ -47,7 +66,11 @@ class MainOrdersWidget extends StatelessWidget {
                         color: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(AppRadius.r25)),
-                        onPressed: () {},
+                        onPressed: () {
+                          myOrdersBloc.add(OrderCancelEvent(
+                              token: accessTokenVar,
+                              orderId: state.myOrders[index].id));
+                        },
                         child: Text(
                           'cancel',
                           style: Theme.of(context)
