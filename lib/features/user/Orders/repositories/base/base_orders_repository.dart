@@ -6,6 +6,9 @@ import '../../models/orders_model.dart';
 
 abstract class BaseOrderRepository {
   Future<Either<Failure, List<OrdersModel>>> getMyOrders(MyOrderParams params);
+  Future<Either<Failure, List<OrdersModel>>> getMoreMyOrders(
+      MyOrderMoreParams params);
+
   Future<Either<Failure, bool>> orderRecipe(OrderRecipeParams params);
 }
 
@@ -34,4 +37,17 @@ class OrderRecipeParams extends Equatable {
 
   @override
   List<Object?> get props => [token, orderContent, address, phoneNumber];
+}
+
+class MyOrderMoreParams extends Equatable {
+  final String token;
+  final String page;
+
+  const MyOrderMoreParams({
+    required this.token,
+    required this.page,
+  });
+
+  @override
+  List<Object?> get props => [token, page];
 }

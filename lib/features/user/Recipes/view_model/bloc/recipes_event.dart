@@ -132,3 +132,16 @@ class CartRemoveAllEvent extends RecipesEvent {
   @override
   List<Object?> get props => [];
 }
+
+class MoreRecipesGetEvent extends RecipesEvent {
+  final String page;
+
+  const MoreRecipesGetEvent({
+    required this.page,
+  });
+
+  @override
+  List<Object?> get props => [
+        page,
+      ];
+}

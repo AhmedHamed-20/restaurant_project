@@ -18,7 +18,7 @@ class RemoteCategoryRepositoryImpl extends BaseCategoryRepository {
       });
       return Right(CategoryModel.fromJson(respone?.data));
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response?.data['message']));
     }
   }
 
@@ -34,7 +34,39 @@ class RemoteCategoryRepositoryImpl extends BaseCategoryRepository {
       });
       return Right(CategoryRecipesModel.fromJson(response?.data));
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response?.data['message']));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CategoryModel>> getMoreCategories(
+      MoreCategoriesGetParams params) async {
+    try {
+      final respone = await DioHelper.getData(
+          url: EndPoints.categoriesPage + params.page,
+          headers: {
+            'Content-Type': 'application/json',
+          });
+      return Right(CategoryModel.fromJson(respone?.data));
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.response?.data['message']));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CategoryRecipesModel>> getMoreCategoryRecipes(
+      MoreCategoryRecipesParams params) async {
+    try {
+      final response =
+          await DioHelper.getData(url: EndPoints.categories, query: {
+        'category': params.categoryName,
+        'page': params.page,
+      }, headers: {
+        'Content-Type': 'application/json',
+      });
+      return Right(CategoryRecipesModel.fromJson(response?.data));
+    } on DioError catch (e) {
+      return Left(e.response?.data['message']);
     }
   }
 }

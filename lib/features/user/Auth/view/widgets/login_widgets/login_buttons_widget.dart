@@ -6,7 +6,6 @@ import 'package:resturant/core/const/const.dart';
 import '../../../../../../core/utls/utls.dart';
 import '../../../view_model/bloc/auth_bloc.dart';
 import 'dont_have_account_widget.dart';
-import 'login_as_admin_widget.dart';
 import 'login_button_design.dart';
 
 class LoginButtonsWidget extends StatelessWidget {

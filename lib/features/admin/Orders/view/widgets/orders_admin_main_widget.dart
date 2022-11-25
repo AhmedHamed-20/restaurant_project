@@ -6,7 +6,7 @@ import '../../../../../core/const/const.dart';
 import 'delete_order_alert_dialog_widget.dart';
 import 'orders_widget_model_bottom_sheet.dart';
 
-int page = 2;
+int ordersAdminPage = 2;
 
 class OrdersAdminMainWidget extends StatefulWidget {
   const OrdersAdminMainWidget({
@@ -20,7 +20,6 @@ class OrdersAdminMainWidget extends StatefulWidget {
 class _OrdersAdminMainWidgetState extends State<OrdersAdminMainWidget> {
   final ScrollController scrollController = ScrollController();
   bool isEnd = false;
-  bool isLoadingg = false;
   @override
   void initState() {
     super.initState();
@@ -28,11 +27,9 @@ class _OrdersAdminMainWidgetState extends State<OrdersAdminMainWidget> {
       if (scrollController.position.maxScrollExtent ==
               scrollController.offset &&
           isEnd == false) {
-        //  page++;
-        print(page);
         BlocProvider.of<OrdersAdminBloc>(context).add(OrdersAdminGetMoreEvent(
-            adminToken: accessTokenAdminVar, page: page.toString()));
-        page++;
+            adminToken: accessTokenAdminVar, page: ordersAdminPage.toString()));
+        ordersAdminPage++;
       }
     });
   }
@@ -40,7 +37,7 @@ class _OrdersAdminMainWidgetState extends State<OrdersAdminMainWidget> {
   @override
   void dispose() {
     scrollController.dispose();
-    page = 2;
+    ordersAdminPage = 2;
     isEnd = false;
     super.dispose();
   }
@@ -53,7 +50,6 @@ class _OrdersAdminMainWidgetState extends State<OrdersAdminMainWidget> {
         isEnd = state.isEndOfData;
       }),
       builder: (context, state) {
-        print('length is ${state.ordersAdminModel!.ordersData.length}');
         return ListView.builder(
           controller: scrollController,
           itemCount: state.ordersAdminModel!.ordersData.length + 1,

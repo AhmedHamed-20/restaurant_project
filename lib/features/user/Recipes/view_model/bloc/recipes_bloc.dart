@@ -28,6 +28,7 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     on<AddToCartResetBooleanEvent>(_resetAddToCartBoolean);
     on<CartRemoveEvent>(_removeFromCart);
     on<CartRemoveAllEvent>(_removeAllFromCart);
+    on<MoreRecipesGetEvent>(_getMoreRecipes);
   }
   final BaseRecipeRepository baseRecipeRepository;
   FutureOr<void> _getAllRecipes(
@@ -40,11 +41,21 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
         recipeRequestStatues: RecipeRequestStatues.error,
       ));
     }, (r) {
-      emit(state.copyWith(
-        recipesModel: r,
-        errorMessage: '',
-        recipeRequestStatues: RecipeRequestStatues.success,
-      ));
+      if (r.results < 10 || r.results == 0) {
+        emit(state.copyWith(
+          recipesModel: r,
+          errorMessage: '',
+          isEndOfData: true,
+          recipeRequestStatues: RecipeRequestStatues.success,
+        ));
+      } else {
+        emit(state.copyWith(
+          recipesModel: r,
+          errorMessage: '',
+          isEndOfData: false,
+          recipeRequestStatues: RecipeRequestStatues.success,
+        ));
+      }
       add(AmountRecipesGnerateEvent(recipesModel: r.recipeDataModel));
     });
   }
@@ -201,7 +212,6 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
     List<CartModel> mycartModel = [];
     bool isExist = false;
     if (state.cartModel.isEmpty) {
-      print('object');
       mycartModel.add(event.cartModel);
       emit(state.copyWith(
         cartModel: List.from(mycartModel),
@@ -258,5 +268,50 @@ class RecipesBloc extends Bloc<RecipesEvent, RecipesState> {
       cartModel: const [],
       errorMessage: '',
     ));
+  }
+
+  FutureOr<void> _getMoreRecipes(
+      MoreRecipesGetEvent event, Emitter<RecipesState> emit) async {
+    final result = await baseRecipeRepository.getMoreRecipes(
+      MoreRecipesGetParams(
+        page: event.page,
+      ),
+    );
+    result.fold(
+        (l) => emit(state.copyWith(
+              errorMessage: l.message,
+              isEndOfData: false,
+            )), (r) {
+      if (r.results == 0) {
+        emit(state.copyWith(
+          errorMessage: '',
+          isEndOfData: true,
+          moreRecipesGetRequestStatues: RecipeRequestStatues.success,
+        ));
+      } else if (r.results == 10) {
+        RecipesModel myRecipesModel;
+        myRecipesModel = state.recipesModel!;
+
+        myRecipesModel.recipeDataModel.addAll(List.from(r.recipeDataModel));
+
+        emit(state.copyWith(
+          errorMessage: '',
+          recipesModel: myRecipesModel,
+          isEndOfData: false,
+          moreRecipesGetRequestStatues: RecipeRequestStatues.success,
+        ));
+      } else {
+        RecipesModel myRecipesModel = state.recipesModel!;
+        myRecipesModel.recipeDataModel.addAll(List.from(r.recipeDataModel));
+        emit(
+          state.copyWith(
+            errorMessage: '',
+            recipesModel: myRecipesModel,
+            isEndOfData: true,
+            moreRecipesGetRequestStatues: RecipeRequestStatues.success,
+          ),
+        );
+      }
+    });
   }
 }

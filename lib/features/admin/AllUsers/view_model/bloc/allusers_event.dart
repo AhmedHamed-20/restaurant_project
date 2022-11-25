@@ -44,3 +44,16 @@ class UserDataUpdateByIdEvent extends AllusersEvent {
   @override
   List<Object> get props => [adminToken, userId, name, email, role];
 }
+
+class MoreUsersGetEvent extends AllusersEvent {
+  final String adminToken;
+  final String page;
+
+  const MoreUsersGetEvent({
+    required this.adminToken,
+    required this.page,
+  });
+
+  @override
+  List<Object> get props => [adminToken, page];
+}

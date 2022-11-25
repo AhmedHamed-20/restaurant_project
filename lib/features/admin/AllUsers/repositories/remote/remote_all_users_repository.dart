@@ -55,4 +55,20 @@ class RemoteAllUserRepositoryImpl extends BaseAllUsersRepository {
       return Left(ServerFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, AllUsersModel>> getMoreUsers(
+      MoreUsersGetParams params) async {
+    try {
+      final response = await DioHelper.getData(
+          url: EndPoints.allusersPage + params.page,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${params.adminToken}',
+          });
+      return Right(AllUsersModel.fromJson(response?.data));
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.response?.data['message']));
+    }
+  }
 }

@@ -6,16 +6,30 @@ class CategoriesState extends Equatable {
   final CategoryRecipesModel? categoryRecipesModel;
   final String errorMessage;
   final CategoryRequestStatues categoriesRequestState;
+  final CategoryRequestStatues categoriesGetMoreRequestState;
+  final CategoryRequestStatues categoriesRecipesGetMoreRequestState;
+
   final CategoryRequestStatues categoryRecipesRequestState;
+  final bool isEndOfData;
+  final bool isEndOfCategoryRecipesData;
 
   const CategoriesState(
       {this.categoryModel,
+      this.isEndOfData = false,
+      this.isEndOfCategoryRecipesData = false,
+      this.categoriesRecipesGetMoreRequestState =
+          CategoryRequestStatues.loading,
+      this.categoriesGetMoreRequestState = CategoryRequestStatues.loading,
       this.categoryRecipesModel,
       this.errorMessage = '',
       this.categoriesRequestState = CategoryRequestStatues.loading,
       this.categoryRecipesRequestState = CategoryRequestStatues.loading});
 
   CategoriesState copyWith({
+    bool? isEndOfCategoryRecipesData,
+    CategoryRequestStatues? categoriesRecipesGetMoreRequestState,
+    bool? isEndOfData,
+    CategoryRequestStatues? categoriesGetMoreRequestState,
     CategoryModel? categoryModel,
     CategoryRecipesModel? categoryRecipesModel,
     String? errorMessage,
@@ -23,6 +37,12 @@ class CategoriesState extends Equatable {
     CategoryRequestStatues? categoryRecipesRequestState,
   }) {
     return CategoriesState(
+      isEndOfCategoryRecipesData:
+          isEndOfCategoryRecipesData ?? this.isEndOfCategoryRecipesData,
+      categoriesRecipesGetMoreRequestState:
+          categoriesRecipesGetMoreRequestState ??
+              this.categoriesRecipesGetMoreRequestState,
+      isEndOfData: isEndOfData ?? this.isEndOfData,
       categoryModel: categoryModel ?? this.categoryModel,
       categoryRecipesModel: categoryRecipesModel ?? this.categoryRecipesModel,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -37,8 +57,13 @@ class CategoriesState extends Equatable {
   List<Object?> get props => [
         categoryModel,
         categoryRecipesModel,
+        isEndOfData,
+        isEndOfCategoryRecipesData,
+        categoriesRecipesGetMoreRequestState,
+        categoriesGetMoreRequestState,
         errorMessage,
         categoriesRequestState,
-        categoryRecipesRequestState
+        categoryRecipesRequestState,
+        identityHashCode(this)
       ];
 }

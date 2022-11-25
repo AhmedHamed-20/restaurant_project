@@ -41,7 +41,6 @@ class LayoutRepositoryImpl extends BaseLayoutRepository {
           'email': params.email,
         },
       );
-      print(resposne);
       return Right(UserModel.fromJson(resposne?.data['user']));
     } on DioError catch (e) {
       return Left(ServerFailure(message: e.message));

@@ -11,7 +11,7 @@ class RemoteAdminOrdersRepositoryImpl extends BaseAdminOrdersRepository {
   Future<Either<Failure, String>> cancelOrder(
       AdminOrdersCancleParams params) async {
     try {
-      final response = await DioHelper.deleteData(
+      await DioHelper.deleteData(
           url: EndPoints.deleteOrder + params.orderId,
           headers: {
             'Content-Type': 'application/json',

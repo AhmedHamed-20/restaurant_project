@@ -36,7 +36,6 @@ class LogoutAlertDialogWidget extends StatelessWidget {
                   context, AppRoutesNames.loginScreen, (route) => false);
             }
             if (state.logoutRequestState == LogoutRequestState.error) {
-              print(state.errorMessage);
               Navigator.pop(context);
               flutterToast(
                   msg: state.errorMessage == '' ? 'error' : state.errorMessage,

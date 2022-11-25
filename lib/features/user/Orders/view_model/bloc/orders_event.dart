@@ -35,3 +35,13 @@ class OrderResetBoolEvent extends OrdersEvent {
   @override
   List<Object?> get props => [];
 }
+
+class MoreMyOrdersGetEvent extends OrdersEvent {
+  final String token;
+  final String page;
+
+  const MoreMyOrdersGetEvent({required this.token, required this.page});
+
+  @override
+  List<Object?> get props => [token, page];
+}

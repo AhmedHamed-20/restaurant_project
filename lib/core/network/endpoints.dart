@@ -3,12 +3,16 @@ class EndPoints {
   static const String signUp = '$baseUrl/users/signup';
   static const String login = '$baseUrl/users/login';
   static const String getMe = '$baseUrl/users/me';
+
   static const String allRecipies = '$baseUrl/recipes/';
   static const String allRecipiesPage = '$baseUrl/recipes/?page=';
   static const String categories = '$baseUrl/categories/';
+  static const String categoriesPage = '$baseUrl/categories/?page=';
   static const String search = '$baseUrl/recipes/search';
   static const String updateMe = '$baseUrl/users/updateMe';
   static const String myOrder = '$baseUrl/orders/';
+  static const String myOrderPage = '$baseUrl/orders/?page=';
+
   static const String allusers = '$baseUrl/users/';
   static const String allusersPage = '$baseUrl/users/?page=';
   static const String allOrders = '$baseUrl/orders/all';

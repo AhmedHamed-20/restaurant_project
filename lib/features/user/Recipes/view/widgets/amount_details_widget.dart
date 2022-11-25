@@ -16,7 +16,6 @@ class AmountDetailsWidget extends StatelessWidget {
   final String userId;
   @override
   Widget build(BuildContext context) {
-    var recipesBloc = BlocProvider.of<RecipesBloc>(context);
     return StatefulBuilder(
       builder: (context, setState) => Card(
         child: Row(

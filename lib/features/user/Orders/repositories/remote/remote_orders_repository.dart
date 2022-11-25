@@ -40,4 +40,21 @@ class RemoteOrdersRepository extends BaseOrderRepository {
       return Left(ServerFailure(message: e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, List<OrdersModel>>> getMoreMyOrders(params) async {
+    try {
+      final respone = await DioHelper.getData(
+          url: EndPoints.myOrderPage + params.page,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${params.token}',
+          });
+      return Right(List.from(respone?.data['data'])
+          .map((e) => OrdersModel.fromJson(e))
+          .toList());
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.message));
+    }
+  }
 }

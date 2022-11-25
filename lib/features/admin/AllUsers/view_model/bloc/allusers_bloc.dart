@@ -15,6 +15,7 @@ class AllUsersBloc extends Bloc<AllusersEvent, AllUsersState> {
     on<AllUsersGetEvent>(_getAllUsers);
     on<UserDeleteEvent>(_deleteUserByIdAndGetAllUsers);
     on<UserDataUpdateByIdEvent>(_updateUserDataByIdAndGetAllUsers);
+    on<MoreUsersGetEvent>(_getMoreUsers);
   }
   final BaseAllUsersRepository baseAllUsersRepository;
   FutureOr<void> _getAllUsers(
@@ -88,6 +89,53 @@ class AllUsersBloc extends Bloc<AllusersEvent, AllUsersState> {
       ));
 
       add(AllUsersGetEvent(adminToken: event.adminToken));
+    });
+  }
+
+  FutureOr<void> _getMoreUsers(
+      MoreUsersGetEvent event, Emitter<AllUsersState> emit) async {
+    final result = await baseAllUsersRepository.getMoreUsers(
+      MoreUsersGetParams(
+        adminToken: event.adminToken,
+        page: event.page,
+      ),
+    );
+
+    result.fold((l) {
+      emit(state.copyWith(
+        allUsersGetMoreRequestStatues: AllUsersRequestStatues.error,
+        errorMessage: l.toString(),
+        isEndOfData: false,
+      ));
+    }, (r) {
+      if (r.results == 0) {
+        emit(state.copyWith(
+          errorMessage: '',
+          isEndOfData: true,
+          allUsersGetMoreRequestStatues: AllUsersRequestStatues.success,
+        ));
+      } else if (r.results == 10) {
+        AllUsersModel myAllUsersModel;
+        myAllUsersModel = state.allUsersModel!;
+
+        myAllUsersModel.usersData.addAll(r.usersData);
+
+        emit(state.copyWith(
+          errorMessage: '',
+          allUsersModel: myAllUsersModel,
+          isEndOfData: false,
+          allUsersGetMoreRequestStatues: AllUsersRequestStatues.success,
+        ));
+      } else {
+        AllUsersModel myAllUsersModel = state.allUsersModel!;
+        myAllUsersModel.usersData.addAll(r.usersData);
+        emit(state.copyWith(
+          errorMessage: '',
+          allUsersModel: myAllUsersModel,
+          isEndOfData: true,
+          allUsersGetMoreRequestStatues: AllUsersRequestStatues.success,
+        ));
+      }
     });
   }
 }

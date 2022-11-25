@@ -8,34 +8,55 @@ import 'package:resturant/core/const/params.dart';
 import '../../../../../core/utls/utls.dart';
 import '../../../../../core/widget/recipes_card_design_widget.dart';
 import '../../view_model/bloc/categories_bloc.dart';
+import '../widgets/main_category_recipes_widget.dart';
+
+bool isEndOfCategoryRecipesData = false;
+int recipesCategoryPage = 2;
 
 class CategoryRecipes extends StatefulWidget {
   const CategoryRecipes(
       {super.key, required this.categoryName, required this.categoriesBloc});
   final String categoryName;
+  final CategoriesBloc categoriesBloc;
+
   @override
   State<CategoryRecipes> createState() => _CategoryRecipesState();
-  final CategoriesBloc categoriesBloc;
 }
 
 class _CategoryRecipesState extends State<CategoryRecipes> {
+  final ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     widget.categoriesBloc
         .add(CategoryRecipesEvent(categoryName: widget.categoryName));
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent &&
+          isEndOfCategoryRecipesData == false) {
+        widget.categoriesBloc.add(CategoriesRecipesMoreGetEvent(
+            categoryName: widget.categoryName,
+            page: recipesCategoryPage.toString()));
+      }
+    });
   }
 
   @override
   void dispose() async {
     widget.categoriesBloc.add(const ValuesCategoryRecipesResetEvent());
+    scrollController.dispose();
+    isEndOfCategoryRecipesData = false;
+    recipesCategoryPage = 2;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoriesBloc, CategoriesState>(
-        builder: (context, state) {
+    return BlocConsumer<CategoriesBloc, CategoriesState>(
+        listener: (context, state) {
+      isEndOfCategoryRecipesData = state.isEndOfCategoryRecipesData;
+    }, builder: (context, state) {
       switch (state.categoryRecipesRequestState) {
         case CategoryRequestStatues.loading:
           return const Scaffold(
@@ -53,28 +74,8 @@ class _CategoryRecipesState extends State<CategoryRecipes> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
-            body: ListView.builder(
-              itemCount:
-                  state.categoryRecipesModel!.categoryRecipeDataModel.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, AppRoutesNames.detailsScreen,
-                        arguments: DetailScreenParams(
-                            baseRecipesDataModel: state.categoryRecipesModel!
-                                .categoryRecipeDataModel[index],
-                            amount: 1));
-                  },
-                  child: RecipesCardWidget(
-                    imageCover: state.categoryRecipesModel!
-                        .categoryRecipeDataModel[index].imageCover,
-                    name: state.categoryRecipesModel!
-                        .categoryRecipeDataModel[index].name,
-                    price: state.categoryRecipesModel!
-                        .categoryRecipeDataModel[index].price,
-                  ),
-                );
-              },
+            body: MainCategoryRecipesWidget(
+              scrollController: scrollController,
             ),
           );
         case CategoryRequestStatues.error:

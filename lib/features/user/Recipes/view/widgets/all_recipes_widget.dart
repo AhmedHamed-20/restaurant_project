@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:resturant/core/const/app_routes_names.dart';
 
 import '../../../../../core/utls/utls.dart';
-import '../../../../../core/widget/recipes_card_design_widget.dart';
 import '../../view_model/bloc/recipes_bloc.dart';
+import 'all_recipes_main_widget.dart';
 
 class AllRecipesWidget extends StatelessWidget {
   const AllRecipesWidget({
@@ -21,26 +20,7 @@ class AllRecipesWidget extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           case RecipeRequestStatues.success:
-            return Expanded(
-              child: ListView.builder(
-                  itemCount: state.recipesModel!.recipeDataModel.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(
-                          AppRoutesNames.detailsScreen,
-                          arguments: state.recipesModel!.recipeDataModel[index],
-                        );
-                      },
-                      child: RecipesCardWidget(
-                          imageCover: state
-                              .recipesModel!.recipeDataModel[index].imageCover,
-                          name: state.recipesModel!.recipeDataModel[index].name,
-                          price:
-                              state.recipesModel!.recipeDataModel[index].price),
-                    );
-                  }),
-            );
+            return const AllRecipesMainWidget();
           case RecipeRequestStatues.error:
             return Center(
               child: Text(

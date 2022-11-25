@@ -5,6 +5,7 @@ class RecipesState extends Equatable {
   final RecipesModel? recipesModel;
   final RecipesModel? searchModel;
   final RecipeRequestStatues recipeRequestStatues;
+  final RecipeRequestStatues moreRecipesGetRequestStatues;
   final RecipeRequestStatues searchRequestStatues;
   final List<FavouriteModel> favouriteModel;
   final RecipeRequestStatues favouriteRequestStatues;
@@ -12,10 +13,13 @@ class RecipesState extends Equatable {
   final bool inFavoritesDatabase;
   final List<CartModel> cartModel;
   final bool addedToCart;
+  final bool isEndOfData;
   const RecipesState(
       {this.errorMessage = '',
       this.recipesModel,
       this.searchModel,
+      this.moreRecipesGetRequestStatues = RecipeRequestStatues.loading,
+      this.isEndOfData = false,
       this.addedToCart = false,
       this.cartModel = const [],
       this.inFavoritesDatabase = false,
@@ -26,6 +30,8 @@ class RecipesState extends Equatable {
       this.searchRequestStatues = RecipeRequestStatues.loading});
 
   RecipesState copyWith({
+    bool? isEndOfData,
+    RecipeRequestStatues? moreRecipesGetRequestStatues,
     List<CartModel>? cartModel,
     bool? inFavoritesDatabase,
     List<FavouriteModel>? favouriteModel,
@@ -39,6 +45,9 @@ class RecipesState extends Equatable {
     RecipeRequestStatues? searchRequestStatues,
   }) {
     return RecipesState(
+      isEndOfData: isEndOfData ?? this.isEndOfData,
+      moreRecipesGetRequestStatues:
+          moreRecipesGetRequestStatues ?? this.moreRecipesGetRequestStatues,
       addedToCart: addedToCart ?? this.addedToCart,
       cartModel: cartModel ?? this.cartModel,
       inFavoritesDatabase: inFavoritesDatabase ?? this.inFavoritesDatabase,
@@ -63,9 +72,12 @@ class RecipesState extends Equatable {
         amount,
         cartModel,
         addedToCart,
+        isEndOfData,
         searchModel,
         inFavoritesDatabase,
         recipeRequestStatues,
-        searchRequestStatues
+        searchRequestStatues,
+        moreRecipesGetRequestStatues,
+        identityHashCode(this)
       ];
 }

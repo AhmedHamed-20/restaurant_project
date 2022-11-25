@@ -4,8 +4,9 @@ class AllUsersState extends Equatable {
   final AllUsersModel? allUsersModel;
   final AllUsersRequestStatues allUsersRequestStatues;
   final AllUsersRequestStatues deleteUserByIdRequestStatues;
+  final AllUsersRequestStatues allUsersGetMoreRequestStatues;
   final AllUsersUpdateDataRequestStatues updateUserDataByIdRequestStatues;
-
+  final bool isEndOfData;
   final String errorMessage;
 
   const AllUsersState(
@@ -13,10 +14,14 @@ class AllUsersState extends Equatable {
       this.deleteUserByIdRequestStatues = AllUsersRequestStatues.loading,
       this.updateUserDataByIdRequestStatues =
           AllUsersUpdateDataRequestStatues.idle,
+      this.allUsersGetMoreRequestStatues = AllUsersRequestStatues.loading,
+      this.isEndOfData = false,
       this.allUsersRequestStatues = AllUsersRequestStatues.loading,
       this.errorMessage = ''});
 
   AllUsersState copyWith({
+    AllUsersRequestStatues? allUsersGetMoreRequestStatues,
+    bool? isEndOfData,
     AllUsersUpdateDataRequestStatues? updateUserDataByIdRequestStatues,
     AllUsersRequestStatues? deleteUserByIdRequestStatues,
     AllUsersModel? allUsersModel,
@@ -24,6 +29,9 @@ class AllUsersState extends Equatable {
     String? errorMessage,
   }) {
     return AllUsersState(
+      allUsersGetMoreRequestStatues:
+          allUsersGetMoreRequestStatues ?? this.allUsersGetMoreRequestStatues,
+      isEndOfData: isEndOfData ?? this.isEndOfData,
       updateUserDataByIdRequestStatues: updateUserDataByIdRequestStatues ??
           this.updateUserDataByIdRequestStatues,
       deleteUserByIdRequestStatues:
@@ -39,8 +47,11 @@ class AllUsersState extends Equatable {
   List<Object?> get props => [
         allUsersModel,
         allUsersRequestStatues,
+        isEndOfData,
         errorMessage,
         deleteUserByIdRequestStatues,
         updateUserDataByIdRequestStatues,
+        allUsersGetMoreRequestStatues,
+        identityHashCode(this),
       ];
 }

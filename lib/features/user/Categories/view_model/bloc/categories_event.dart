@@ -26,3 +26,23 @@ class ValuesCategoryRecipesResetEvent extends CategoriesEvent {
   @override
   List<Object?> get props => [];
 }
+
+class CategoriesMoreGetEvent extends CategoriesEvent {
+  final String page;
+
+  const CategoriesMoreGetEvent(this.page);
+
+  @override
+  List<Object?> get props => [page];
+}
+
+class CategoriesRecipesMoreGetEvent extends CategoriesEvent {
+  final String categoryName;
+  final String page;
+
+  const CategoriesRecipesMoreGetEvent(
+      {required this.categoryName, required this.page});
+
+  @override
+  List<Object?> get props => [categoryName, page];
+}

@@ -7,6 +7,9 @@ import '../../models/recipes_model.dart';
 
 abstract class BaseRecipeRepository {
   Future<Either<Failure, RecipesModel>> getAllRecipes();
+  Future<Either<Failure, RecipesModel>> getMoreRecipes(
+      MoreRecipesGetParams params);
+
   Future<Either<Failure, RecipesModel>> searchInRecipes(SearchParams params);
   Future<Either<Failure, List<FavouriteModel>>> getAllFavorites(
       AllFavouritesParams params);
@@ -71,4 +74,17 @@ class FavoriteGetByRecipeIdParams extends Equatable {
 
   @override
   List<Object?> get props => [tableName, userId, recipeId];
+}
+
+class MoreRecipesGetParams extends Equatable {
+  final String page;
+
+  const MoreRecipesGetParams({
+    required this.page,
+  });
+
+  @override
+  List<Object?> get props => [
+        page,
+      ];
 }

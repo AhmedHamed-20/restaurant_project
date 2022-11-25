@@ -20,7 +20,7 @@ class RecipesRepositoryImpl extends BaseRecipeRepository {
 
       return Right(RecipesModel.fromJson(respone?.data));
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response?.data['message']));
     }
   }
 
@@ -36,7 +36,7 @@ class RecipesRepositoryImpl extends BaseRecipeRepository {
 
       return Right(RecipesModel.fromJson(respone?.data));
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response?.data['message']));
     }
   }
 
@@ -109,6 +109,21 @@ class RecipesRepositoryImpl extends BaseRecipeRepository {
           List.from(result).map((e) => FavouriteModel.fromMap(e)).toList());
     } on Exception catch (e) {
       return Left(DatabaseFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RecipesModel>> getMoreRecipes(
+      MoreRecipesGetParams params) async {
+    try {
+      final respone = await DioHelper.getData(
+          url: EndPoints.allRecipiesPage + params.page,
+          headers: {
+            'Content-Type': 'application/json',
+          });
+      return Right(RecipesModel.fromJson(respone?.data));
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.response?.data['message']));
     }
   }
 }
