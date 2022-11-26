@@ -8,10 +8,12 @@ class RecipesCardWidget extends StatelessWidget {
     required this.imageCover,
     required this.name,
     required this.price,
+    this.trailingWidget = const SizedBox.shrink(),
   });
   final String imageCover;
   final String name;
   final int price;
+  final Widget trailingWidget;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -44,6 +46,8 @@ class RecipesCardWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const Spacer(),
+            trailingWidget,
           ],
         ),
       ),

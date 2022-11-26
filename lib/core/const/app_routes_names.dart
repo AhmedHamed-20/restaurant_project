@@ -20,4 +20,6 @@ class AppRoutesNames {
 
   static const String allUsers =
       '/login_admin_screen/main_admin_layout/all_users';
+  static const String recipeAdminDetailsScreen =
+      '/login_admin_screen/main_admin_layout/recipe_admin_sreen/recipe_admin_details_screen';
 }

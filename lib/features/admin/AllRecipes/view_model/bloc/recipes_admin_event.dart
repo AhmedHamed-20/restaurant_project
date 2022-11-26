@@ -33,3 +33,18 @@ class UpdateRecipeAdminEvent extends RecipesAdminEvent {
   @override
   List<Object?> get props => [adminToken, recipeId, recipeData];
 }
+
+class RecipesAdminGetMoreEvent extends RecipesAdminEvent {
+  final String page;
+  const RecipesAdminGetMoreEvent({required this.page});
+
+  @override
+  List<Object> get props => [page];
+}
+
+class CategoryRecipeAdminGetEvent extends RecipesAdminEvent {
+  const CategoryRecipeAdminGetEvent();
+
+  @override
+  List<Object?> get props => [];
+}

@@ -7,6 +7,7 @@ import 'package:resturant/features/user/Auth/view/screens/forget_password.dart';
 import 'package:resturant/features/user/Auth/view/screens/login_screen.dart';
 import 'package:resturant/features/user/Auth/view/screens/sign_up_screen.dart';
 
+import '../../features/admin/AllRecipes/view/screens/recipe_details_admin_screen.dart';
 import '../../features/admin/Auth/view/screens/login_admin_screen.dart';
 import '../../features/user/Categories/view/screens/category_recipes.dart';
 import '../../features/user/Recipes/view/screens/home_screen.dart';
@@ -76,6 +77,14 @@ class AppRouter {
       case AppRoutesNames.allUsers:
         return MaterialPageRoute(
           builder: (_) => const AllUsersAdminScrenn(),
+        );
+      case AppRoutesNames.recipeAdminDetailsScreen:
+        DetailAdminScreenParams argumnet = args as DetailAdminScreenParams;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+              value: argumnet.recipesBloc,
+              child: RecipeDetailsAdminScreen(
+                  recipeDataModel: argumnet.recipeDataAdminModel)),
         );
       default:
         return MaterialPageRoute(

@@ -33,5 +33,13 @@ class TextEditingControllers {
   static TextEditingController allUsersNameController = TextEditingController();
   static TextEditingController allUsersEmailController =
       TextEditingController();
-  // static TextEditingController allUsersRoleController = TextEditingController();
+  static TextEditingController recipeNameAdminEditScreenController =
+      TextEditingController();
+  static TextEditingController recipePriceAdminEditScreenController =
+      TextEditingController();
+  static TextEditingController recipeCookingTimeAdminEditScreenController =
+      TextEditingController();
+
+  static List<TextEditingController> recipeEditIngredientsControllers =
+      <TextEditingController>[];
 }

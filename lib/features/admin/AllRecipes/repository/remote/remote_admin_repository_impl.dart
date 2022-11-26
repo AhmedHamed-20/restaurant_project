@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:resturant/features/admin/AllRecipes/models/category_admin_recipe_model.dart';
 import 'package:resturant/features/admin/AllRecipes/models/recipes_model_admin.dart';
 import 'package:resturant/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -18,7 +19,7 @@ class RemoteAdminRecipesRepository extends BaseAdminRecipesRepository {
 
       return Right(RecipesAdminModel.fromJson(respone?.data));
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response?.data['message']));
     }
   }
 
@@ -35,7 +36,7 @@ class RemoteAdminRecipesRepository extends BaseAdminRecipesRepository {
       );
       return Right(respone?.data['message']);
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response?.data['message']));
     }
   }
 
@@ -54,7 +55,38 @@ class RemoteAdminRecipesRepository extends BaseAdminRecipesRepository {
       );
       return Right(reponse?.data['message']);
     } on DioError catch (e) {
-      return Left(ServerFailure(message: e.message));
+      return Left(ServerFailure(message: e.response?.data['message']));
+    }
+  }
+
+  @override
+  Future<Either<Failure, RecipesAdminModel>> getMoreAdminRecipes(
+      MoreAdminRecipesGetParams params) async {
+    try {
+      final reponse = await DioHelper.getData(
+        url: EndPoints.allRecipiesPage + params.page,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      return Right(RecipesAdminModel.fromJson(reponse?.data));
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.response?.data['message']));
+    }
+  }
+
+  @override
+  Future<Either<Failure, CategoryRecipeAdminModel>> getCategories() async {
+    try {
+      final reponse = await DioHelper.getData(
+        url: EndPoints.categories,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+      return Right(CategoryRecipeAdminModel.fromJson(reponse?.data));
+    } on DioError catch (e) {
+      return Left(ServerFailure(message: e.response?.data['message']));
     }
   }
 }
