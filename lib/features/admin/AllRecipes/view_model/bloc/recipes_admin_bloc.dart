@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:resturant/features/admin/AllRecipes/models/recipes_model_admin.dart';
 import 'package:resturant/features/admin/AllRecipes/repository/base/base_admin_recipes_repository.dart';
 
@@ -19,6 +21,8 @@ class RecipesAdminBloc extends Bloc<RecipesAdminEvent, RecipesAdminState> {
     on<UpdateRecipeAdminEvent>(_updateRecipe);
     on<RecipesAdminGetMoreEvent>(_getMoreRecipes);
     on<CategoryRecipeAdminGetEvent>(_getCategories);
+    on<ImagePickEvent>(_imagePick);
+    on<ImagePickedResetEvent>(_imagePickedReset);
   }
   final BaseAdminRecipesRepository baseAdminRecipesRepository;
   FutureOr<void> _getAdminRecipes(
@@ -63,19 +67,25 @@ class RecipesAdminBloc extends Bloc<RecipesAdminEvent, RecipesAdminState> {
 
   FutureOr<void> _updateRecipe(
       UpdateRecipeAdminEvent event, Emitter<RecipesAdminState> emit) async {
+    emit(state.copyWith(
+      recipeAdminUpdateRequestStatues: RecipeAdminUpdateRequestStatues.loading,
+    ));
     final result = await baseAdminRecipesRepository.updateRecipe(
       RecipeAdimUpdateParams(
-          recipeId: event.recipeId,
-          adminToken: event.adminToken,
-          recipeData: event.recipeData),
+        recipeId: event.recipeId,
+        adminToken: event.adminToken,
+        recipeData: event.recipeData,
+      ),
     );
     result.fold(
         (l) => emit(state.copyWith(
             errorMessage: l.message,
-            recipeAdminRequestStatues: RecipeAdminRequestStatues.error)), (r) {
+            recipeAdminUpdateRequestStatues:
+                RecipeAdminUpdateRequestStatues.error)), (r) {
       emit(state.copyWith(
         errorMessage: '',
-        recipeAdminRequestStatues: RecipeAdminRequestStatues.success,
+        recipeAdminUpdateRequestStatues:
+            RecipeAdminUpdateRequestStatues.success,
       ));
       add(const GetRecipesAdminEvent());
     });
@@ -151,5 +161,46 @@ class RecipesAdminBloc extends Bloc<RecipesAdminEvent, RecipesAdminState> {
         ),
       );
     });
+  }
+
+  List<String> getIngredientsList(
+      {required List<TextEditingController> ingredients}) {
+    List<String> ingredientsList = [];
+    for (var ingredient in ingredients) {
+      ingredientsList.add(ingredient.text.trim());
+    }
+    return ingredientsList;
+  }
+
+  FutureOr<void> _imagePick(
+      ImagePickEvent event, Emitter<RecipesAdminState> emit) async {
+    try {
+      final image = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+      );
+      emit(
+        state.copyWith(
+          errorMessage: '',
+          imagePickRequestStatues: RecipeAdminRequestStatues.success,
+          pickedImage: image == null ? '' : image.files.first.path,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          errorMessage: e.toString(),
+          pickedImage: '',
+          imagePickRequestStatues: RecipeAdminRequestStatues.error,
+        ),
+      );
+    }
+  }
+
+  FutureOr<void> _imagePickedReset(
+      ImagePickedResetEvent event, Emitter<RecipesAdminState> emit) {
+    emit(state.copyWith(
+      pickedImage: '',
+      imagePickRequestStatues: RecipeAdminRequestStatues.loading,
+    ));
   }
 }

@@ -41,6 +41,13 @@ class _MainAdminRecipesWidgetState extends State<MainAdminRecipesWidget> {
   }
 
   @override
+  void dispose() {
+    recipesAdminPage = 2;
+    isEndOfRecipes = false;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var allRecipesAdminBloc = BlocProvider.of<RecipesAdminBloc>(context);
     return BlocConsumer<RecipesAdminBloc, RecipesAdminState>(

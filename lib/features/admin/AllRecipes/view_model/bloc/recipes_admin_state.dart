@@ -5,14 +5,21 @@ class RecipesAdminState extends Equatable {
   final String errorMessage;
   final RecipeAdminRequestStatues recipeAdminRequestStatues;
   final RecipeAdminRequestStatues categoiesRecipeAdminRequestStatues;
-
+  final RecipeAdminUpdateRequestStatues recipeAdminUpdateRequestStatues;
   final RecipeAdminDeleteRequestStatues recipeAdminDeleteRequestStatues;
   final bool isEndOfRecipes;
   final RecipeAdminRequestStatues moreRecipesGetRequestStatues;
   final List<String> categories;
+  final String pickedImage;
+  final RecipeAdminRequestStatues imagePickRequestStatues;
+
   const RecipesAdminState(
       {this.recipeData,
       this.errorMessage = '',
+      this.pickedImage = '',
+      this.recipeAdminUpdateRequestStatues =
+          RecipeAdminUpdateRequestStatues.idle,
+      this.imagePickRequestStatues = RecipeAdminRequestStatues.loading,
       this.categoiesRecipeAdminRequestStatues =
           RecipeAdminRequestStatues.loading,
       this.categories = const [],
@@ -23,6 +30,9 @@ class RecipesAdminState extends Equatable {
       this.recipeAdminRequestStatues = RecipeAdminRequestStatues.loading});
 
   RecipesAdminState copyWith({
+    RecipeAdminUpdateRequestStatues? recipeAdminUpdateRequestStatues,
+    RecipeAdminRequestStatues? imagePickRequestStatues,
+    String? pickedImage,
     RecipeAdminRequestStatues? categoiesRecipeAdminRequestStatues,
     List<String>? categories,
     RecipeAdminRequestStatues? moreRecipesGetRequestStatues,
@@ -33,6 +43,11 @@ class RecipesAdminState extends Equatable {
     RecipeAdminRequestStatues? recipeAdminRequestStatues,
   }) {
     return RecipesAdminState(
+      recipeAdminUpdateRequestStatues: recipeAdminUpdateRequestStatues ??
+          this.recipeAdminUpdateRequestStatues,
+      imagePickRequestStatues:
+          imagePickRequestStatues ?? this.imagePickRequestStatues,
+      pickedImage: pickedImage ?? this.pickedImage,
       categoiesRecipeAdminRequestStatues: categoiesRecipeAdminRequestStatues ??
           this.categoiesRecipeAdminRequestStatues,
       categories: categories ?? this.categories,
@@ -51,7 +66,10 @@ class RecipesAdminState extends Equatable {
   @override
   List<Object?> get props => [
         recipeData,
+        pickedImage,
         errorMessage,
+        recipeAdminUpdateRequestStatues,
+        imagePickRequestStatues,
         categoiesRecipeAdminRequestStatues,
         recipeAdminRequestStatues,
         recipeAdminDeleteRequestStatues,

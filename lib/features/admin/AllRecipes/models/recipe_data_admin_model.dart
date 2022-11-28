@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:http_parser/http_parser.dart';
 
 class RecipeAdminDataModel extends Equatable {
   final List<dynamic> ingredients;
@@ -32,15 +34,26 @@ class RecipeAdminDataModel extends Equatable {
       slug: json['slug'] as String,
     );
   }
-  Map<String, dynamic> toMap() {
+  Future<Map<String, dynamic>> toMapWithImage(String imagePath) async {
+    final imageName = imagePath.split('/').last;
     return {
       'ingredients': ingredients,
       'name': name,
-      'imageCover': imageCover,
+      'imageCover': await MultipartFile.fromFile(imagePath,
+          filename: imageName, contentType: MediaType('image', 'png')),
       'price': price,
       'category': category,
       'cookingTime': cookingTime,
-      'slug': slug,
+    };
+  }
+
+  Map<String, dynamic> toMapWithoutImage() {
+    return {
+      'ingredients': ingredients,
+      'name': name,
+      'price': price,
+      'category': category,
+      'cookingTime': cookingTime,
     };
   }
 

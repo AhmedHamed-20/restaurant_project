@@ -44,16 +44,30 @@ class RemoteAdminRecipesRepository extends BaseAdminRecipesRepository {
   Future<Either<Failure, String>> updateRecipe(
       RecipeAdimUpdateParams params) async {
     try {
-      final recipeMap = params.recipeData.toMap();
-      final reponse = await DioHelper.patchData(
-        url: EndPoints.allRecipies + params.recipeId,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${params.adminToken}',
-        },
-        data: recipeMap,
-      );
-      return Right(reponse?.data['message']);
+      if (params.recipeData.imageCover == '') {
+        final map = params.recipeData.toMapWithoutImage();
+        final reponse = await DioHelper.patchData(
+          url: EndPoints.allRecipies + params.recipeId,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${params.adminToken}',
+          },
+          data: map,
+        );
+        return Right(reponse?.data['message'] ?? '');
+      } else {
+        final map = await params.recipeData
+            .toMapWithImage(params.recipeData.imageCover);
+        final reponse = await DioHelper.patchData(
+          url: EndPoints.allRecipies + params.recipeId,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${params.adminToken}',
+          },
+          data: FormData.fromMap(map),
+        );
+        return Right(reponse?.data['message'] ?? '');
+      }
     } on DioError catch (e) {
       return Left(ServerFailure(message: e.response?.data['message']));
     }

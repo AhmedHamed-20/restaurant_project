@@ -48,3 +48,17 @@ class CategoryRecipeAdminGetEvent extends RecipesAdminEvent {
   @override
   List<Object?> get props => [];
 }
+
+class ImagePickEvent extends RecipesAdminEvent {
+  const ImagePickEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ImagePickedResetEvent extends RecipesAdminEvent {
+  const ImagePickedResetEvent();
+
+  @override
+  List<Object?> get props => [];
+}
