@@ -35,14 +35,14 @@ class RemoteAdminCategoryRepository extends BaseAdminCategoryRepository {
   Future<Either<Failure, String>> deleteCategory(
       CategoryAdminDeleteParams params) async {
     try {
-      final response = await DioHelper.deleteData(
+      await DioHelper.deleteData(
         url: EndPoints.categories + params.id,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ${params.adminToken}',
         },
       );
-      return Right(response?.data['message'] ?? 'deleted successfully');
+      return const Right('deleted successfully');
     } on DioError catch (e) {
       return Left(
           ServerFailure(message: e.response?.data['message'] ?? 'error'));
@@ -76,6 +76,7 @@ class RemoteAdminCategoryRepository extends BaseAdminCategoryRepository {
         },
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${params.adminToken}',
         },
       );
       return Right(response?.data['message'] ?? 'updated successfully');

@@ -39,7 +39,10 @@ class TextEditingControllers {
       TextEditingController();
   static TextEditingController recipeCookingTimeAdminEditScreenController =
       TextEditingController();
-
+  static TextEditingController categoryAdminEditNameController =
+      TextEditingController();
+  static TextEditingController categoryAdminAddNameController =
+      TextEditingController();
   static List<TextEditingController> recipeEditIngredientsControllers =
       <TextEditingController>[];
 }

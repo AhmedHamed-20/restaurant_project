@@ -25,16 +25,30 @@ class AdminCategoryBloc extends Bloc<AdminCategoryEvent, AdminCategoryState> {
       (failure) => emit(state.copyWith(
         errorMessage: failure.message,
         categoryAdminRequestStatues: CategoryAdminRequestStatues.error,
+        categoryAdminAddRequestStatues: CategoryAdminAddRequestStatues.idle,
+        categoryAdminDeleteRequestStatues:
+            CategoryAdminDeleteRequestStatues.idle,
+        categoryAdminUpdateRequestStatues:
+            CategoryAdminUpdateRequestStatues.idle,
       )),
       (data) => emit(state.copyWith(
         categoryModel: data,
         categoryAdminRequestStatues: CategoryAdminRequestStatues.success,
+        categoryAdminAddRequestStatues: CategoryAdminAddRequestStatues.idle,
+        categoryAdminDeleteRequestStatues:
+            CategoryAdminDeleteRequestStatues.idle,
+        categoryAdminUpdateRequestStatues:
+            CategoryAdminUpdateRequestStatues.idle,
       )),
     );
   }
 
   FutureOr<void> _addCategory(
       AddAdminCategoryEvent event, Emitter<AdminCategoryState> emit) async {
+    emit(state.copyWith(
+      errorMessage: '',
+      categoryAdminRequestStatues: CategoryAdminRequestStatues.loading,
+    ));
     final result = await baseAdminCategoryRepository.addCategory(
         CategoryAdminAddParams(name: event.name, adminToken: event.adminToken));
     result.fold(
@@ -47,13 +61,17 @@ class AdminCategoryBloc extends Bloc<AdminCategoryEvent, AdminCategoryState> {
         errorMessage: '',
         categoryAdminAddRequestStatues: CategoryAdminAddRequestStatues.success,
       ));
-
-      add(GetAdminCategoriesEvent());
     });
+    add(const GetAdminCategoriesEvent());
   }
 
   FutureOr<void> _updateCategory(
       UpdateAdminCategoryEvent event, Emitter<AdminCategoryState> emit) async {
+    emit(state.copyWith(
+      errorMessage: '',
+      categoryAdminUpdateRequestStatues:
+          CategoryAdminUpdateRequestStatues.loading,
+    ));
     final result = await baseAdminCategoryRepository.updateCategory(
       CategoryAdminUpdateParams(
         name: event.name,
@@ -72,9 +90,8 @@ class AdminCategoryBloc extends Bloc<AdminCategoryEvent, AdminCategoryState> {
         categoryAdminUpdateRequestStatues:
             CategoryAdminUpdateRequestStatues.success,
       ));
-
-      add(GetAdminCategoriesEvent());
     });
+    add(const GetAdminCategoriesEvent());
   }
 
   FutureOr<void> _deleteCategory(
@@ -96,7 +113,7 @@ class AdminCategoryBloc extends Bloc<AdminCategoryEvent, AdminCategoryState> {
         categoryAdminDeleteRequestStatues:
             CategoryAdminDeleteRequestStatues.success,
       ));
-      add(GetAdminCategoriesEvent());
+      add(const GetAdminCategoriesEvent());
     });
   }
 }
