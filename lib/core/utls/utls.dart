@@ -118,3 +118,30 @@ enum ThemeModeValue {
   light,
   dark,
 }
+
+enum CategoryAdminRequestStatues {
+  loading,
+  success,
+  error,
+}
+
+enum CategoryAdminDeleteRequestStatues {
+  idle,
+  loading,
+  success,
+  error,
+}
+
+enum CategoryAdminAddRequestStatues {
+  idle,
+  loading,
+  success,
+  error,
+}
+
+enum CategoryAdminUpdateRequestStatues {
+  idle,
+  loading,
+  success,
+  error,
+}

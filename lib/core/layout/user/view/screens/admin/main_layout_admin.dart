@@ -46,6 +46,11 @@ class MainLayoutAdmin extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 backgroundColor: Theme.of(context).backgroundColor,
+                icon: const Icon(Icons.category),
+                label: 'Caeegories',
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).backgroundColor,
                 icon: const Icon(Icons.shopping_cart),
                 label: 'Orders',
               ),

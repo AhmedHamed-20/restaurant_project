@@ -14,6 +14,7 @@ import 'package:resturant/features/user/Orders/view/screens/orders_screen.dart';
 import 'package:resturant/features/user/Recipes/view/screens/cart_screen.dart';
 import 'package:resturant/features/user/Recipes/view/screens/home_screen.dart';
 
+import '../../../../../features/admin/Category/view/screens/admin_category_screen.dart';
 import '../../../../const/params.dart';
 import '../../../../utls/utls.dart';
 import '../../../user/models/user_model.dart';
@@ -54,11 +55,13 @@ class LayoutBloc extends Bloc<LayoutEvent, LayoutState> {
   final List<Widget> adminScreens = [
     const AllUsersAdminScrenn(),
     const AllRecipesAdminScreen(),
+    const AdminCategoryScreen(),
     const AllOrdersAdminScreen(),
   ];
   final List<String> titlesAdminLayout = [
-    'Users',
+    'All Users',
     'All Recipes',
+    'All Categories',
     'All Orders',
   ];
   final List<String> titles = [
