@@ -6,7 +6,7 @@ import 'package:resturant/core/utls/utls.dart';
 import 'package:resturant/features/user/Recipes/models/cart_model.dart';
 import 'package:resturant/features/user/Recipes/models/recipe_data_model.dart';
 
-import '../../models/favourite_model.dart';
+import '../../models/favorite_model.dart';
 import '../../models/recipes_model.dart';
 import '../../repositories/base/base_recipe_repository.dart';
 

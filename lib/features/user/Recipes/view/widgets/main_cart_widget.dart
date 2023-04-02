@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/const/const.dart';
+import '../../../../../core/widget/cached_network_image_circle_photo.dart';
 import '../../view_model/bloc/recipes_bloc.dart';
 
 class MainCartWidget extends StatelessWidget {
@@ -59,11 +60,9 @@ class MainCartWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        state.cartModel[index].imageCover,
-                      ),
-                      radius: AppRadius.r40,
+                    leading: CachedNetworkImageCirclePhoto(
+                      photoRadius: 60,
+                      photoUrl: state.cartModel[index].imageCover,
                     ),
                     title: Text(
                       state.cartModel[index].name,

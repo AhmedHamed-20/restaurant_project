@@ -1,25 +1,26 @@
-import 'package:dio/dio.dart';
-import 'package:resturant/core/network/dio.dart';
-import 'package:resturant/core/network/endpoints.dart';
-import 'package:resturant/features/admin/Orders/models/orders_model.dart';
-import 'package:resturant/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:resturant/core/error/failure.dart';
+import 'package:resturant/core/network/endpoints.dart';
+import 'package:resturant/core/network/network_service.dart';
+import 'package:resturant/features/admin/Orders/models/orders_model.dart';
 import 'package:resturant/features/admin/Orders/repository/base/base_admin_orders_repository.dart';
 
 class RemoteAdminOrdersRepositoryImpl extends BaseAdminOrdersRepository {
+  final NetworkService _networkService;
+
+  RemoteAdminOrdersRepositoryImpl(this._networkService);
   @override
   Future<Either<Failure, String>> cancelOrder(
       AdminOrdersCancleParams params) async {
     try {
-      await DioHelper.deleteData(
-          url: EndPoints.deleteOrder + params.orderId,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${params.adminToken}',
-          });
+      await _networkService
+          .deleteData(url: EndPoints.deleteOrder + params.orderId, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${params.adminToken}',
+      });
       return const Right('Deleted Success');
-    } on DioError catch (e) {
-      return Left(ServerFailure(message: e.response!.data['message']));
+    } on Exception catch (e) {
+      return Left(ServerFailure.fromException(e));
     }
   }
 
@@ -28,13 +29,13 @@ class RemoteAdminOrdersRepositoryImpl extends BaseAdminOrdersRepository {
       AdminOrdersGetParams params) async {
     try {
       final resposne =
-          await DioHelper.getData(url: EndPoints.allOrders, headers: {
+          await _networkService.getData(url: EndPoints.allOrders, headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${params.adminToken}',
       });
-      return Right(OrdersAdminModel.fromJson(resposne?.data));
-    } on DioError catch (e) {
-      return Left(ServerFailure(message: e.response!.data['message']));
+      return Right(OrdersAdminModel.fromJson(resposne.data));
+    } on Exception catch (e) {
+      return Left(ServerFailure.fromException(e));
     }
   }
 
@@ -42,15 +43,14 @@ class RemoteAdminOrdersRepositoryImpl extends BaseAdminOrdersRepository {
   Future<Either<Failure, OrdersAdminModel>> getMoreOrders(
       AdminOrdersGetMoreParams params) async {
     try {
-      final resposne = await DioHelper.getData(
-          url: EndPoints.allOrdersPage + params.page,
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ${params.adminToken}',
-          });
-      return Right(OrdersAdminModel.fromJson(resposne?.data));
-    } on DioError catch (e) {
-      return Left(ServerFailure(message: e.response!.data['message']));
+      final resposne = await _networkService
+          .getData(url: EndPoints.allOrdersPage + params.page, headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${params.adminToken}',
+      });
+      return Right(OrdersAdminModel.fromJson(resposne.data));
+    } on Exception catch (e) {
+      return Left(ServerFailure.fromException(e));
     }
   }
 }

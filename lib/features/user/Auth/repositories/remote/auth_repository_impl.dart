@@ -1,27 +1,30 @@
-import 'package:dio/dio.dart';
-import 'package:resturant/core/cache/chache_setup.dart';
-import 'package:resturant/core/network/dio.dart';
-import 'package:resturant/core/network/endpoints.dart';
-import 'package:resturant/core/error/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:resturant/core/cache/chache_setup.dart';
+import 'package:resturant/core/error/failure.dart';
+import 'package:resturant/core/network/endpoints.dart';
+import 'package:resturant/core/network/network_service.dart';
 
 import '../../models/auth_model.dart';
 import '../base/base_auth_repository.dart';
 
 class AuthRepositoryImpl extends BaseAuthRepository {
+  final NetworkService _networkService;
+  final CacheService _cacheService;
+  AuthRepositoryImpl(this._networkService, this._cacheService);
   @override
   Future<Either<Failure, AuthModel>> login(LoginParams params) async {
     try {
-      final response = await DioHelper.postData(url: EndPoints.login, headers: {
+      final response =
+          await _networkService.postData(url: EndPoints.login, headers: {
         'Content-Type': 'application/json'
       }, data: {
         'email': params.email,
         'password': params.password,
       });
 
-      return Right(AuthModel.fromJson(response!.data));
-    } on DioError catch (e) {
-      return Left(ServerFailure(message: e.response?.data['message']));
+      return Right(AuthModel.fromJson(response.data));
+    } on Exception catch (e) {
+      return Left(ServerFailure.fromException(e));
     }
   }
 
@@ -29,7 +32,7 @@ class AuthRepositoryImpl extends BaseAuthRepository {
   Future<Either<Failure, AuthModel>> signUp(SignUpParams params) async {
     try {
       final response =
-          await DioHelper.postData(url: EndPoints.signUp, headers: {
+          await _networkService.postData(url: EndPoints.signUp, headers: {
         'Content-Type': 'application/json'
       }, data: {
         'email': params.email,
@@ -38,9 +41,9 @@ class AuthRepositoryImpl extends BaseAuthRepository {
         'passwordConfirm': params.passwordConfirmation,
       });
 
-      return Right(AuthModel.fromJson(response!.data));
-    } on DioError catch (e) {
-      return Left(ServerFailure(message: e.response?.data['message']));
+      return Right(AuthModel.fromJson(response.data));
+    } on Exception catch (e) {
+      return Left(ServerFailure.fromException(e));
     }
   }
 
@@ -48,14 +51,14 @@ class AuthRepositoryImpl extends BaseAuthRepository {
   Future<Either<Failure, String>> forgetPassword(
       ForgetPasswordParams params) async {
     try {
-      await DioHelper.postData(url: EndPoints.forgetPassword, headers: {
+      await _networkService.postData(url: EndPoints.forgetPassword, headers: {
         'Content-Type': 'application/json'
       }, data: {
         'email': params.email,
       });
       return const Right('Token sent to your email');
-    } on DioError catch (e) {
-      return Left(ServerFailure(message: e.response?.data['message']));
+    } on Exception catch (e) {
+      return Left(ServerFailure.fromException(e));
     }
   }
 
@@ -63,7 +66,8 @@ class AuthRepositoryImpl extends BaseAuthRepository {
   Future<Either<Failure, String>> cacheAccessToken(
       AccessTokenCacheParams params) async {
     try {
-      await CacheHelper.setData(key: 'accessToken', value: params.accessToken);
+      await _cacheService.setData(
+          key: 'accessToken', value: params.accessToken);
       return const Right('cached');
     } on Exception catch (e) {
       return Left(CacheFailure(message: e.toString()));

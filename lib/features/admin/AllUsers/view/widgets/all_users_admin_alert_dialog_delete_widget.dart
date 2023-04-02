@@ -34,7 +34,7 @@ class UserDeleteAlertDialogWidget extends StatelessWidget {
       },
       builder: (context, state) {
         return AlertDialog(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.background,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppRadius.r25),
           ),

@@ -43,7 +43,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               padding: const EdgeInsets.all(AppPadding.p20),
               height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
-                color: Theme.of(context).backgroundColor,
+                color: Theme.of(context).colorScheme.background,
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(AppRadius.r25),
                   topLeft: Radius.circular(AppRadius.r25),

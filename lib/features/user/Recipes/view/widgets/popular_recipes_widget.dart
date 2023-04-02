@@ -4,6 +4,7 @@ import 'package:resturant/core/const/app_routes_names.dart';
 
 import '../../../../../core/const/const.dart';
 import '../../../../../core/utls/utls.dart';
+import '../../../../../core/widget/cached_network_image_circle_photo.dart';
 import '../../view_model/bloc/recipes_bloc.dart';
 
 class PopularRecipesWidget extends StatelessWidget {
@@ -39,10 +40,10 @@ class PopularRecipesWidget extends StatelessWidget {
                         padding: const EdgeInsets.all(AppPadding.p10),
                         child: Column(
                           children: [
-                            CircleAvatar(
-                              radius: AppRadius.r40,
-                              backgroundImage: NetworkImage(state.recipesModel!
-                                  .recipeDataModel[index].imageCover),
+                            CachedNetworkImageCirclePhoto(
+                              photoRadius: 80,
+                              photoUrl: state.recipesModel!
+                                  .recipeDataModel[index].imageCover,
                             ),
                             const SizedBox(
                               height: AppHeight.h10,

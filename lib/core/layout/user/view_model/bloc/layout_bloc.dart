@@ -8,7 +8,7 @@ import 'package:resturant/core/layout/user/repository/base/layout_base_repositor
 import 'package:resturant/features/admin/AllRecipes/view/screens/all_recipes_admin_screen.dart';
 import 'package:resturant/features/admin/AllUsers/view/screens/all_users_admin_screen.dart';
 import 'package:resturant/features/admin/Orders/view/screens/all_orders_admin_screen.dart';
-import 'package:resturant/features/user/Recipes/view/screens/favourites_screen.dart';
+import 'package:resturant/features/user/Recipes/view/screens/favorites_screen.dart';
 import 'package:resturant/features/user/Categories/view/screens/categories_screen.dart';
 import 'package:resturant/features/user/Orders/view/screens/orders_screen.dart';
 import 'package:resturant/features/user/Recipes/view/screens/cart_screen.dart';

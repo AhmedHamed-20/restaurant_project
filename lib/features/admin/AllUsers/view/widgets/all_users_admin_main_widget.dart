@@ -70,7 +70,7 @@ class _AllUsersAdminMainWidgetState extends State<AllUsersAdminMainWidget> {
                         top: Radius.circular(AppRadius.r25),
                       ),
                     ),
-                    backgroundColor: Theme.of(context).backgroundColor,
+                    backgroundColor: Theme.of(context).colorScheme.background,
                     context: context,
                     builder: (context) {
                       return BlocProvider.value(

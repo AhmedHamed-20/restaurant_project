@@ -28,29 +28,29 @@ class MainLayoutAdmin extends StatelessWidget {
           return BottomNavigationBar(
             selectedItemColor: Theme.of(context).primaryColor,
             unselectedItemColor: Colors.grey,
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             onTap: (index) {
               layoutBloc.add(CurrentIndexAdminPanelChangeEvent(index));
             },
             currentIndex: state.currentIndexAdminPanel,
             items: [
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(Icons.people),
                 label: 'Users',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(Icons.food_bank),
                 label: 'Recipes',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(Icons.category),
                 label: 'Caeegories',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(Icons.shopping_cart),
                 label: 'Orders',
               ),

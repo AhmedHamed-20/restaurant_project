@@ -1,5 +1,6 @@
 class EndPoints {
-  static const String baseUrl = 'https://panda-restaurant.herokuapp.com/api/v1';
+  static const String baseUrl =
+      'https://restaurant-api-vxnd.onrender.com/api/v1';
   static const String signUp = '$baseUrl/users/signup';
   static const String login = '$baseUrl/users/login';
   static const String getMe = '$baseUrl/users/me';

@@ -7,7 +7,7 @@ class RecipesState extends Equatable {
   final RecipeRequestStatues recipeRequestStatues;
   final RecipeRequestStatues moreRecipesGetRequestStatues;
   final RecipeRequestStatues searchRequestStatues;
-  final List<FavouriteModel> favouriteModel;
+  final List<FavoriteModel> favouriteModel;
   final RecipeRequestStatues favouriteRequestStatues;
   final Map<String, int>? amount;
   final bool inFavoritesDatabase;
@@ -34,7 +34,7 @@ class RecipesState extends Equatable {
     RecipeRequestStatues? moreRecipesGetRequestStatues,
     List<CartModel>? cartModel,
     bool? inFavoritesDatabase,
-    List<FavouriteModel>? favouriteModel,
+    List<FavoriteModel>? favouriteModel,
     RecipeRequestStatues? favouriteRequestStatues,
     String? errorMessage,
     Map<String, int>? amount,

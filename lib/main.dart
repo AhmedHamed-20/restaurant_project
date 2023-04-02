@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/cache/chache_setup.dart';
 import 'package:resturant/core/const/app_routes_names.dart';
 import 'package:resturant/core/const/const.dart';
-import 'package:resturant/core/database/database_setup.dart';
-import 'package:resturant/core/network/dio.dart';
+import 'package:resturant/core/database/date_base_service.dart';
 import 'package:resturant/core/routes/app_router.dart';
 import 'package:resturant/core/services/service_locator.dart';
 import 'package:resturant/core/theme/app_theme.dart';
@@ -17,16 +16,17 @@ import 'features/user/Orders/view_model/bloc/orders_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await DioHelper.init();
-  await CacheHelper.init();
+  await ServiceLocator.initDio();
   ServiceLocator.init();
-  await DatabaseProvider.init(
+  ServiceLocator.initDataBase();
+  await ServiceLocator.initCacheHelper();
+  await serviceLocator<DataBaseService>().init(
       databasesName: 'favorite.db',
       version: 1,
       query:
           'CREATE TABLE favorite (id INTEGER PRIMARY KEY, userId TEXT,name TEXT, imageCover TEXT, price INTEGER, slug TEXT,recipeId TEXT,category TEXT,cookingTime INTEGER,ingredients TEXT)');
   final String accessToken =
-      await CacheHelper.getData(key: 'accessToken') ?? '';
+      await serviceLocator<CacheService>().getData(key: 'accessToken') ?? '';
   runApp(MyApp(
     appRouter: AppRouter(),
     accessToken: accessToken,

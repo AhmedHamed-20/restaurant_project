@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/const.dart';
+import 'package:resturant/core/widget/cached_network_image_circle_photo.dart';
 
 import '../../../../../core/const/base_recipes_data_model.dart';
 import '../../../../../core/layout/user/view_model/bloc/layout_bloc.dart';
@@ -36,13 +37,10 @@ class RecipeDetailsScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(
-                height: screenHeight(context) * 0.3,
-                width: screenWidth(context),
-                child: Image.network(
-                  recipeDataModel.imageCover,
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  height: screenHeight(context) * 0.3,
+                  width: screenWidth(context),
+                  child: CachedNetworkImageCirclePhoto(
+                      photoUrl: recipeDataModel.imageCover, photoRadius: 0)),
               const SizedBox(
                 height: AppHeight.h10,
               ),

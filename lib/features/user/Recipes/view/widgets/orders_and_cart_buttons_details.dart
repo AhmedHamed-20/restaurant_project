@@ -6,7 +6,7 @@ import 'package:resturant/features/user/Recipes/models/cart_model.dart';
 import 'package:resturant/features/user/Recipes/view/widgets/amount_details_widget.dart';
 
 import '../../../../../core/const/const.dart';
-import '../../models/favourite_model.dart';
+import '../../models/favorite_model.dart';
 import '../../view_model/bloc/recipes_bloc.dart';
 
 bool favourtiePressed = false;
@@ -46,7 +46,7 @@ class OrdersAndCartDetailsButtonsWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              backgroundColor: Theme.of(context).backgroundColor,
+              backgroundColor: Theme.of(context).colorScheme.background,
               isDismissible: true,
               isScrollControlled: true,
               context: context,
@@ -152,7 +152,7 @@ class OrdersAndCartDetailsButtonsWidget extends StatelessWidget {
                   tableName: 'favorite',
                   userId: userId,
                   recipeId: recipeDataModel.recipeId,
-                  favouriteModel: FavouriteModel(
+                  favouriteModel: FavoriteModel(
                     category: recipeDataModel.category,
                     recipeId: recipeDataModel.recipeId,
                     imageCover: recipeDataModel.imageCover,

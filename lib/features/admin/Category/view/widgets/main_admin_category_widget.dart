@@ -27,7 +27,7 @@ class MainAdminCategoryWidget extends StatelessWidget {
                       isDismissible: true,
                       isScrollControlled: true,
                       context: context,
-                      backgroundColor: Theme.of(context).backgroundColor,
+                      backgroundColor: Theme.of(context).colorScheme.background,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(AppRadius.r20),
@@ -81,7 +81,8 @@ class MainAdminCategoryWidget extends StatelessWidget {
                             top: Radius.circular(20),
                           ),
                         ),
-                        backgroundColor: Theme.of(context).backgroundColor,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.background,
                         context: context,
                         builder: (context) {
                           return BlocProvider.value(

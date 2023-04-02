@@ -6,6 +6,7 @@ import 'package:resturant/core/layout/user/view_model/bloc/layout_bloc.dart';
 
 import '../../../../const/const.dart';
 import '../../../../const/params.dart';
+import '../../../../widget/cached_network_image_circle_photo.dart';
 
 class LayoutMainWidget extends StatelessWidget {
   const LayoutMainWidget({super.key});
@@ -33,10 +34,9 @@ class LayoutMainWidget extends StatelessWidget {
                 Navigator.of(context)
                     .pushNamed(AppRoutesNames.activeUserDataInfoScreen);
               },
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  state.activeUser!.photo,
-                ),
+              child: CachedNetworkImageCirclePhoto(
+                photoRadius: 40,
+                photoUrl: state.activeUser!.photo,
               ),
             ),
           )
@@ -47,7 +47,7 @@ class LayoutMainWidget extends StatelessWidget {
           return BottomNavigationBar(
             selectedItemColor: Theme.of(context).primaryColor,
             unselectedItemColor: Colors.grey,
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             onTap: (index) {
               layoutBloc
                   .add(ChangeCurrentActiveBottomNavIndexEvent(index: index));
@@ -55,27 +55,27 @@ class LayoutMainWidget extends StatelessWidget {
             currentIndex: state.currentIndex,
             items: [
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(IconlyBroken.home),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(IconlyBroken.category),
                 label: 'Categories',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(IconlyBroken.buy),
                 label: 'Cart',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(IconlyBroken.bag),
                 label: 'Orders',
               ),
               BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).backgroundColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 icon: const Icon(IconlyBroken.heart),
                 label: 'Favorites',
               ),

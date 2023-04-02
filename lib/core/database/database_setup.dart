@@ -3,68 +3,78 @@ import 'dart:async';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseProvider {
-  static late Database database;
-  static Future init(
+import 'date_base_service.dart';
+
+class DatabaseProvider extends DataBaseService {
+  late Database _database;
+  @override
+  Future init(
       {required String databasesName,
       required int version,
       required String query}) async {
     final databasesPath = await getDatabasesPath();
     String path = join(databasesPath, databasesName);
-    database = await openDatabase(path, version: version,
+    _database = await openDatabase(path, version: version,
         onCreate: (Database db, int version) async {
       await db.execute(query);
     }, onOpen: (createdDatabase) async {
-      database = createdDatabase;
+      _database = createdDatabase;
     });
   }
 
-  static Future<List<Map<String, Object?>>> getAllDataFromDatabaseByUserId(
+  @override
+  Future<List<Map<String, Object?>>> getAllDataFromDatabaseByUserId(
       String tableName, String userId) async {
-    return await database
+    return await _database
         .rawQuery('SELECT * FROM $tableName WHERE userId = ?', [userId]);
   }
 
-  static Future<List<Map<String, Object?>>>
-      getAllDataFromDatabaseByRecipeIdAndUserId(
-          {required String tableName,
-          required String recipeId,
-          required String userId}) async {
-    return await database.rawQuery(
+  @override
+  Future<List<Map<String, Object?>>> getAllDataFromDatabaseByRecipeIdAndUserId(
+      {required String tableName,
+      required String recipeId,
+      required String userId}) async {
+    return await _database.rawQuery(
         'SELECT * FROM $tableName WHERE recipeId = ? AND userId= ?',
         [recipeId, userId]);
   }
 
-  static Future<int> deleteDataFromDatabaseByDataBaseIdAndUserId(
+  @override
+  Future<int> deleteDataFromDatabaseByDataBaseIdAndUserId(
       {required int dataBaseId,
       required String tableName,
       required String userId}) async {
-    return await database.rawDelete(
+    return await _database.rawDelete(
         'DELETE FROM $tableName WHERE id = "$dataBaseId" AND userId= "$userId');
   }
 
-  static Future<int> deleteAllDataFromDatabaseByUserId(
+  @override
+  Future<int> deleteAllDataFromDatabaseByUserId(
       {required String tableName, required String userId}) async {
-    return await database
+    return await _database
         .rawDelete('DELETE FROM $tableName WHERE userId= ?', [userId]);
   }
 
-  static Future<int> deleteAllDataCartsFromDatabase(
+  @override
+  Future<int> deleteAllDataCartsFromDatabase(
       {required String tableName}) async {
-    return await database.rawDelete('DELETE FROM $tableName');
+    return await _database.rawDelete('DELETE FROM $tableName');
   }
 
-  static Future<void> insertIntoDataBase(
+  @override
+  Future<void> insertIntoDataBase(
       {required List<Object?> data, required String query}) async {
-    await database.execute(
+    await _database.execute(
       query,
       data,
     );
   }
 
-  static Future<int> updateDataBase(String query, List arguments) async {
-    return await database.rawUpdate(query, arguments);
+  @override
+  Future<int> updateDataBase(String query, List arguments) async {
+    return await _database.rawUpdate(query, arguments);
   }
 
-  static Future close() async => database.close();
+  @override
+  Future close() async => _database.close();
 }

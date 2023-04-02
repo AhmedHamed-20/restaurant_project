@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../const/const.dart';
+import 'cached_network_image_circle_photo.dart';
 
 class RecipesCardWidget extends StatelessWidget {
   const RecipesCardWidget({
@@ -24,11 +25,9 @@ class RecipesCardWidget extends StatelessWidget {
         padding: const EdgeInsets.all(AppPadding.p10),
         child: Row(
           children: [
-            CircleAvatar(
-              radius: AppRadius.r40,
-              backgroundImage: NetworkImage(
-                imageCover,
-              ),
+            CachedNetworkImageCirclePhoto(
+              photoRadius: 80,
+              photoUrl: imageCover,
             ),
             const SizedBox(
               width: AppWidth.w10,

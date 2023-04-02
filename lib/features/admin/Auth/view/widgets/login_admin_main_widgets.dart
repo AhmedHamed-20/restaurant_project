@@ -20,7 +20,7 @@ class LoginAdminMainWidget extends StatelessWidget {
       height: screenHeight(context) * 0.7,
       padding: const EdgeInsets.all(AppPadding.p20),
       decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(AppRadius.r25),
           topRight: Radius.circular(AppRadius.r25),

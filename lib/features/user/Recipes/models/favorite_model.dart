@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:resturant/core/const/base_recipes_data_model.dart';
 
-class FavouriteModel extends BaseRecipesDataModel {
+class FavoriteModel extends BaseRecipesDataModel {
   final int databaseId;
 
-  const FavouriteModel(
+  const FavoriteModel(
       {required super.ingredients,
       required this.databaseId,
       required super.name,
@@ -16,8 +16,8 @@ class FavouriteModel extends BaseRecipesDataModel {
       required super.cookingTime,
       required super.slug});
 
-  factory FavouriteModel.fromMap(Map<String, dynamic> map) {
-    return FavouriteModel(
+  factory FavoriteModel.fromMap(Map<String, dynamic> map) {
+    return FavoriteModel(
       databaseId: map['id'],
       ingredients: json.decode(map['ingredients']) as List<dynamic>,
       name: map['name'] as String,

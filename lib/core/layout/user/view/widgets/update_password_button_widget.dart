@@ -16,7 +16,7 @@ class UpdatePasswordButtonWidget extends StatelessWidget {
         showModalBottomSheet(
             isDismissible: true,
             isScrollControlled: true,
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).colorScheme.background,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(AppRadius.r20),

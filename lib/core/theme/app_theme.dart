@@ -6,13 +6,15 @@ import '../const/const.dart';
 class AppTheme {
   static ThemeData lightMode = ThemeData(
     colorScheme: ColorScheme.light(
-        secondary: AppColors.primaryColor, primary: AppColors.primaryColor),
+        background: AppColors.backgroundColorWhite,
+        secondary: AppColors.primaryColor,
+        primary: AppColors.primaryColor),
     splashColor: AppColors.primaryColor,
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.transparent,
       modalBackgroundColor: Colors.transparent,
     ),
-    backgroundColor: AppColors.backgroundColorWhite,
+
     textTheme: TextTheme(
       bodyLarge: GoogleFonts.roboto(
           fontSize: AppFontSize.s18, color: AppColors.subtitleTextColor),
@@ -65,14 +67,15 @@ class AppTheme {
 
   static ThemeData darkMode = ThemeData(
     colorScheme: ColorScheme.dark(
-        secondary: AppColors.primaryColor, primary: AppColors.primaryColor),
+        background: AppColors.backgroundColorDark,
+        secondary: AppColors.primaryColor,
+        primary: AppColors.primaryColor),
     splashColor: AppColors.primaryColor,
     bottomSheetTheme: const BottomSheetThemeData(
       backgroundColor: Colors.transparent,
       modalBackgroundColor: Colors.transparent,
     ),
 
-    backgroundColor: AppColors.backgroundColorDark,
     textTheme: TextTheme(
       bodyLarge: GoogleFonts.roboto(
           fontSize: AppFontSize.s18, color: AppColors.subtitleTextColor),

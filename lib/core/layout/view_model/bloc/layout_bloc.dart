@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:resturant/core/layout/user/repository/base/layout_base_repository.dart';
-import 'package:resturant/features/user/Recipes/view/screens/favourites_screen.dart';
+import 'package:resturant/features/user/Recipes/view/screens/favorites_screen.dart';
 import 'package:resturant/features/user/Categories/view/screens/categories_screen.dart';
 import 'package:resturant/features/user/Orders/view/screens/orders_screen.dart';
 import 'package:resturant/features/user/Recipes/view/screens/cart_screen.dart';

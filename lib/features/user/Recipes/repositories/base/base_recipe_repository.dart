@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:resturant/core/error/failure.dart';
 
-import '../../models/favourite_model.dart';
+import '../../models/favorite_model.dart';
 import '../../models/recipes_model.dart';
 
 abstract class BaseRecipeRepository {
@@ -11,11 +11,11 @@ abstract class BaseRecipeRepository {
       MoreRecipesGetParams params);
 
   Future<Either<Failure, RecipesModel>> searchInRecipes(SearchParams params);
-  Future<Either<Failure, List<FavouriteModel>>> getAllFavorites(
+  Future<Either<Failure, List<FavoriteModel>>> getAllFavorites(
       AllFavouritesParams params);
   Future<Either<Failure, void>> insertFavourite(FavouriteInsertParams params);
   Future<Either<Failure, int>> deleteFavourite(FavouriteDeleteParams params);
-  Future<Either<Failure, List<FavouriteModel>>> getAllFavoritesByRecipeId(
+  Future<Either<Failure, List<FavoriteModel>>> getAllFavoritesByRecipeId(
       FavoriteGetByRecipeIdParams params);
 }
 
@@ -39,7 +39,7 @@ class AllFavouritesParams extends Equatable {
 }
 
 class FavouriteInsertParams extends Equatable {
-  final FavouriteModel favouriteModel;
+  final FavoriteModel favouriteModel;
   final String tableName;
   final String userId;
 

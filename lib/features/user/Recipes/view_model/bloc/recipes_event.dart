@@ -21,7 +21,7 @@ class RecipesSearchEvent extends RecipesEvent {
 }
 
 class FavouriteAddToDataBaseEvent extends RecipesEvent {
-  final FavouriteModel favouriteModel;
+  final FavoriteModel favouriteModel;
   final String tableName;
   final String userId;
 
@@ -82,7 +82,7 @@ class FavouriteCheckIfInDatabaseThenAddEvent extends RecipesEvent {
   final String tableName;
   final String userId;
   final String recipeId;
-  final FavouriteModel favouriteModel;
+  final FavoriteModel favouriteModel;
   const FavouriteCheckIfInDatabaseThenAddEvent(
       {required this.tableName,
       required this.userId,

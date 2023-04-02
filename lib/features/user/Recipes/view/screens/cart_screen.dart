@@ -32,7 +32,7 @@ class CartScreen extends StatelessWidget {
               ),
               onPressed: () {
                 showModalBottomSheet(
-                    backgroundColor: Theme.of(context).backgroundColor,
+                    backgroundColor: Theme.of(context).colorScheme.background,
                     enableDrag: true,
                     isScrollControlled: true,
                     shape: const RoundedRectangleBorder(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/const.dart';
+import 'package:resturant/core/widget/cached_network_image_circle_photo.dart';
 import 'package:resturant/core/widget/defaults.dart';
 
 import '../../../../../const/text_editing_controllers.dart';
@@ -44,12 +45,8 @@ class ActiveUserDataInfoScreen extends StatelessWidget {
             children: [
               BlocBuilder<LayoutBloc, LayoutState>(
                 builder: (context, state) {
-                  return CircleAvatar(
-                    radius: AppRadius.r70,
-                    backgroundImage: NetworkImage(
-                      state.activeUser!.photo,
-                    ),
-                  );
+                  return CachedNetworkImageCirclePhoto(
+                      photoUrl: state.activeUser!.photo, photoRadius: 120);
                 },
               ),
               const SizedBox(height: AppHeight.h10),
