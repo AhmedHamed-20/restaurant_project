@@ -23,22 +23,12 @@ class _OrdersAdminMainWidgetState extends State<OrdersAdminMainWidget> {
   @override
   void initState() {
     super.initState();
-    scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent ==
-              scrollController.offset &&
-          isEnd == false) {
-        BlocProvider.of<OrdersAdminBloc>(context).add(OrdersAdminGetMoreEvent(
-            adminToken: accessTokenAdminVar, page: ordersAdminPage.toString()));
-        ordersAdminPage++;
-      }
-    });
+    scrollListener();
   }
 
   @override
   void dispose() {
-    scrollController.dispose();
-    ordersAdminPage = 2;
-    isEnd = false;
+    disposeData();
     super.dispose();
   }
 
@@ -119,5 +109,27 @@ class _OrdersAdminMainWidgetState extends State<OrdersAdminMainWidget> {
         );
       },
     );
+  }
+
+  void scrollListener() {
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent ==
+              scrollController.offset &&
+          isEnd == false) {
+        BlocProvider.of<OrdersAdminBloc>(context).add(
+          OrdersAdminGetMoreEvent(
+            adminToken: accessTokenAdminVar,
+            page: ordersAdminPage,
+          ),
+        );
+        ordersAdminPage++;
+      }
+    });
+  }
+
+  void disposeData() {
+    scrollController.dispose();
+    ordersAdminPage = 2;
+    isEnd = false;
   }
 }

@@ -7,13 +7,12 @@ import '../../../../../core/error/failure.dart';
 import '../../models/category_admin_recipe_model.dart';
 
 abstract class BaseAdminRecipesRepository {
-  Future<Either<Failure, RecipesAdminModel>> getAdminRecipes();
-  Future<Either<Failure, RecipesAdminModel>> getMoreAdminRecipes(
-      MoreAdminRecipesGetParams params);
-
+  Future<Either<Failure, RecipesAdminModel>> getAdminRecipes(
+      AdminRecipesGetParams params);
   Future<Either<Failure, String>> deleteRecipe(RecipeAdimDeleteParams params);
   Future<Either<Failure, String>> updateRecipe(RecipeAdimUpdateParams params);
   Future<Either<Failure, CategoryRecipeAdminModel>> getCategories();
+  Future<Either<Failure, void>> addRecipe(RecipeAddParams params);
 }
 
 class RecipeAdimDeleteParams extends Equatable {
@@ -40,11 +39,25 @@ class RecipeAdimUpdateParams extends Equatable {
   List<Object?> get props => [adminToken, recipeId, recipeData];
 }
 
-class MoreAdminRecipesGetParams extends Equatable {
-  final String page;
+class AdminRecipesGetParams extends Equatable {
+  final int page;
 
-  const MoreAdminRecipesGetParams({required this.page});
+  const AdminRecipesGetParams({required this.page});
 
   @override
   List<Object> get props => [page];
+}
+
+class RecipeAddParams extends Equatable {
+  final String adminToken;
+  final String imagePath;
+  final RecipeAdminDataModel recipeData;
+
+  const RecipeAddParams(
+      {required this.adminToken,
+      required this.recipeData,
+      required this.imagePath});
+
+  @override
+  List<Object?> get props => [adminToken, recipeData];
 }

@@ -184,4 +184,5 @@ String accessTokenAdminVar = '';
 
 class AssetsPath {
   static const String noImage = 'assets/images/noImage.jpg';
+  static const String addImage = 'assets/images/add.png';
 }

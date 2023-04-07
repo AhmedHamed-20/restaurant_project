@@ -46,6 +46,13 @@ enum RecipeAdminDeleteRequestStatues {
   error,
 }
 
+enum RecipeAdminAddRequestStatues {
+  idle,
+  loading,
+  success,
+  error,
+}
+
 enum OrdersAdminRequestStatues {
   loading,
   success,

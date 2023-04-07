@@ -5,15 +5,36 @@ import 'package:resturant/features/admin/AllRecipes/view_model/bloc/recipes_admi
 import '../../../../../core/const/const.dart';
 import '../../../../../core/const/text_editing_controllers.dart';
 import '../../../../../core/widget/defaults.dart';
+import '../../models/recipe_data_admin_model.dart';
 
 String newCategory = '';
 
-class RecipeMainInformationWidget extends StatelessWidget {
+class RecipeMainInformationWidget extends StatefulWidget {
   const RecipeMainInformationWidget({
-    required this.category,
+    this.recipeAdminDataModel,
     Key? key,
   }) : super(key: key);
-  final String category;
+  final RecipeAdminDataModel? recipeAdminDataModel;
+
+  @override
+  State<RecipeMainInformationWidget> createState() =>
+      _RecipeMainInformationWidgetState();
+}
+
+class _RecipeMainInformationWidgetState
+    extends State<RecipeMainInformationWidget> {
+  @override
+  void initState() {
+    super.initState();
+    initTextEditingControllers();
+  }
+
+  @override
+  void dispose() {
+    disposeTextEditingControllers();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,8 +43,7 @@ class RecipeMainInformationWidget extends StatelessWidget {
       children: [
         Defaults.defaultTextField(
           context: context,
-          controller:
-              TextEditingControllers.recipeNameAdminEditScreenController,
+          controller: TextEditingControllers.recipeNameAdminScreenController,
           title: 'Name',
           prefixIcon:
               Icon(Icons.text_fields, color: Theme.of(context).iconTheme.color),
@@ -33,8 +53,7 @@ class RecipeMainInformationWidget extends StatelessWidget {
         ),
         Defaults.defaultTextField(
           context: context,
-          controller:
-              TextEditingControllers.recipePriceAdminEditScreenController,
+          controller: TextEditingControllers.recipePriceAdminScreenController,
           title: 'price',
           prefixIcon: Icon(Icons.monetization_on,
               color: Theme.of(context).iconTheme.color),
@@ -45,7 +64,7 @@ class RecipeMainInformationWidget extends StatelessWidget {
         Defaults.defaultTextField(
           context: context,
           controller:
-              TextEditingControllers.recipeCookingTimeAdminEditScreenController,
+              TextEditingControllers.recipeCookingTimeAdminScreenController,
           title: 'Cooking Time',
           prefixIcon:
               Icon(Icons.timelapse, color: Theme.of(context).iconTheme.color),
@@ -85,5 +104,30 @@ class RecipeMainInformationWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void initTextEditingControllers() {
+    TextEditingControllers.recipeCookingTimeAdminScreenController =
+        TextEditingController();
+    TextEditingControllers.recipePriceAdminScreenController =
+        TextEditingController();
+    TextEditingControllers.recipeNameAdminScreenController =
+        TextEditingController();
+    newCategory = 'drinks';
+    if (widget.recipeAdminDataModel != null) {
+      TextEditingControllers.recipeCookingTimeAdminScreenController.text =
+          widget.recipeAdminDataModel!.cookingTime.toString();
+      TextEditingControllers.recipePriceAdminScreenController.text =
+          widget.recipeAdminDataModel!.price.toString();
+      TextEditingControllers.recipeNameAdminScreenController.text =
+          widget.recipeAdminDataModel!.name;
+      newCategory = widget.recipeAdminDataModel!.category;
+    }
+  }
+
+  void disposeTextEditingControllers() {
+    TextEditingControllers.recipeCookingTimeAdminScreenController.dispose();
+    TextEditingControllers.recipePriceAdminScreenController.dispose();
+    TextEditingControllers.recipeNameAdminScreenController.dispose();
   }
 }

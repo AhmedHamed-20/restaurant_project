@@ -8,15 +8,12 @@ abstract class BaseAllUsersRepository {
   Future<Either<Failure, String>> deleteUserById(DeleteUserByIdParams params);
   Future<Either<Failure, String>> udpateUserDataById(
       UpdateUserDataByIdParams params);
-
-  Future<Either<Failure, AllUsersModel>> getMoreUsers(
-      MoreUsersGetParams params);
 }
 
 class AllUsersGetParams extends Equatable {
   final String adminToken;
-
-  const AllUsersGetParams({required this.adminToken});
+  final int page;
+  const AllUsersGetParams({required this.adminToken, required this.page});
 
   @override
   List<Object?> get props => [adminToken];
@@ -51,17 +48,4 @@ class UpdateUserDataByIdParams extends Equatable {
 
   @override
   List<Object?> get props => [adminToken, name, email, role, userId];
-}
-
-class MoreUsersGetParams extends Equatable {
-  final String adminToken;
-  final String page;
-
-  const MoreUsersGetParams({
-    required this.adminToken,
-    required this.page,
-  });
-
-  @override
-  List<Object?> get props => [adminToken, page];
 }

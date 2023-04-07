@@ -23,11 +23,13 @@ class RecipesAdminBloc extends Bloc<RecipesAdminEvent, RecipesAdminState> {
     on<CategoryRecipeAdminGetEvent>(_getCategories);
     on<ImagePickEvent>(_imagePick);
     on<ImagePickedResetEvent>(_imagePickedReset);
+    on<AddRecipeAdminEvent>(_addRecipe);
   }
   final BaseAdminRecipesRepository baseAdminRecipesRepository;
   FutureOr<void> _getAdminRecipes(
       GetRecipesAdminEvent event, Emitter<RecipesAdminState> emit) async {
-    final result = await baseAdminRecipesRepository.getAdminRecipes();
+    final result = await baseAdminRecipesRepository
+        .getAdminRecipes(const AdminRecipesGetParams(page: 1));
     result.fold(
       (l) => emit(state.copyWith(
         errorMessage: l.message,
@@ -94,7 +96,7 @@ class RecipesAdminBloc extends Bloc<RecipesAdminEvent, RecipesAdminState> {
   FutureOr<void> _getMoreRecipes(
       RecipesAdminGetMoreEvent event, Emitter<RecipesAdminState> emit) async {
     final result = await baseAdminRecipesRepository
-        .getMoreAdminRecipes(MoreAdminRecipesGetParams(page: event.page));
+        .getAdminRecipes(AdminRecipesGetParams(page: event.page));
 
     result.fold(
         (l) => emit(
@@ -202,5 +204,30 @@ class RecipesAdminBloc extends Bloc<RecipesAdminEvent, RecipesAdminState> {
       pickedImage: '',
       imagePickRequestStatues: RecipeAdminRequestStatues.loading,
     ));
+  }
+
+  FutureOr<void> _addRecipe(
+      AddRecipeAdminEvent event, Emitter<RecipesAdminState> emit) async {
+    emit(state.copyWith(
+      recipeAdminAddRequestStatues: RecipeAdminAddRequestStatues.loading,
+    ));
+    final result = await baseAdminRecipesRepository.addRecipe(
+      RecipeAddParams(
+        adminToken: event.adminToken,
+        recipeData: event.recipeData,
+        imagePath: event.imagePath,
+      ),
+    );
+    result.fold(
+        (l) => emit(state.copyWith(
+            errorMessage: l.message,
+            recipeAdminAddRequestStatues: RecipeAdminAddRequestStatues.error)),
+        (r) {
+      emit(state.copyWith(
+        errorMessage: '',
+        recipeAdminAddRequestStatues: RecipeAdminAddRequestStatues.success,
+      ));
+      add(const GetRecipesAdminEvent());
+    });
   }
 }

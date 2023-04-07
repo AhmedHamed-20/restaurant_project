@@ -25,7 +25,7 @@ class _CategoryUpdateModelBottomSheetWidgetState
   @override
   void initState() {
     super.initState();
-    TextEditingControllers.categoryAdminEditNameController.text =
+    TextEditingControllers.categoryAdminNameController.text =
         widget.categoryDataModel.name;
   }
 
@@ -56,8 +56,7 @@ class _CategoryUpdateModelBottomSheetWidgetState
                 color: Theme.of(context).iconTheme.color,
               ),
               context: context,
-              controller:
-                  TextEditingControllers.categoryAdminEditNameController,
+              controller: TextEditingControllers.categoryAdminNameController,
               title: 'Name',
             ),
             const SizedBox(

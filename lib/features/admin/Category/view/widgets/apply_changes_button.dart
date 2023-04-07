@@ -43,7 +43,7 @@ class ApplyChangesButton extends StatelessWidget {
                   UpdateAdminCategoryEvent(
                       adminToken: accessTokenAdminVar,
                       name: TextEditingControllers
-                          .categoryAdminEditNameController.text
+                          .categoryAdminNameController.text
                           .trim(),
                       id: categoryId),
                 );
@@ -60,7 +60,7 @@ class ApplyChangesButton extends StatelessWidget {
                   UpdateAdminCategoryEvent(
                       adminToken: accessTokenAdminVar,
                       name: TextEditingControllers
-                          .categoryAdminEditNameController.text
+                          .categoryAdminNameController.text
                           .trim(),
                       id: categoryId),
                 );
@@ -75,7 +75,7 @@ class ApplyChangesButton extends StatelessWidget {
                   UpdateAdminCategoryEvent(
                       adminToken: accessTokenAdminVar,
                       name: TextEditingControllers
-                          .categoryAdminEditNameController.text
+                          .categoryAdminNameController.text
                           .trim(),
                       id: categoryId),
                 );

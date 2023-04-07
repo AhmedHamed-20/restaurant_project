@@ -7,6 +7,7 @@ class RecipesAdminState extends Equatable {
   final RecipeAdminRequestStatues categoiesRecipeAdminRequestStatues;
   final RecipeAdminUpdateRequestStatues recipeAdminUpdateRequestStatues;
   final RecipeAdminDeleteRequestStatues recipeAdminDeleteRequestStatues;
+  final RecipeAdminAddRequestStatues recipeAdminAddRequestStatues;
   final bool isEndOfRecipes;
   final RecipeAdminRequestStatues moreRecipesGetRequestStatues;
   final List<String> categories;
@@ -17,6 +18,7 @@ class RecipesAdminState extends Equatable {
       {this.recipeData,
       this.errorMessage = '',
       this.pickedImage = '',
+      this.recipeAdminAddRequestStatues = RecipeAdminAddRequestStatues.idle,
       this.recipeAdminUpdateRequestStatues =
           RecipeAdminUpdateRequestStatues.idle,
       this.imagePickRequestStatues = RecipeAdminRequestStatues.loading,
@@ -30,6 +32,7 @@ class RecipesAdminState extends Equatable {
       this.recipeAdminRequestStatues = RecipeAdminRequestStatues.loading});
 
   RecipesAdminState copyWith({
+    RecipeAdminAddRequestStatues? recipeAdminAddRequestStatues,
     RecipeAdminUpdateRequestStatues? recipeAdminUpdateRequestStatues,
     RecipeAdminRequestStatues? imagePickRequestStatues,
     String? pickedImage,
@@ -43,6 +46,8 @@ class RecipesAdminState extends Equatable {
     RecipeAdminRequestStatues? recipeAdminRequestStatues,
   }) {
     return RecipesAdminState(
+      recipeAdminAddRequestStatues:
+          recipeAdminAddRequestStatues ?? this.recipeAdminAddRequestStatues,
       recipeAdminUpdateRequestStatues: recipeAdminUpdateRequestStatues ??
           this.recipeAdminUpdateRequestStatues,
       imagePickRequestStatues:
@@ -68,6 +73,7 @@ class RecipesAdminState extends Equatable {
         recipeData,
         pickedImage,
         errorMessage,
+        recipeAdminAddRequestStatues,
         recipeAdminUpdateRequestStatues,
         imagePickRequestStatues,
         categoiesRecipeAdminRequestStatues,

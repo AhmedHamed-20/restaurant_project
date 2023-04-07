@@ -22,7 +22,7 @@ class OrdersAdminCancleEvent extends OrdersAdminEvent {
 
 class OrdersAdminGetMoreEvent extends OrdersAdminEvent {
   final String adminToken;
-  final String page;
+  final int page;
   const OrdersAdminGetMoreEvent({required this.adminToken, required this.page});
   @override
   List<Object?> get props => [adminToken, page];

@@ -32,21 +32,8 @@ class RemoteAdminOrdersRepositoryImpl extends BaseAdminOrdersRepository {
           await _networkService.getData(url: EndPoints.allOrders, headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${params.adminToken}',
-      });
-      return Right(OrdersAdminModel.fromJson(resposne.data));
-    } on Exception catch (e) {
-      return Left(ServerFailure.fromException(e));
-    }
-  }
-
-  @override
-  Future<Either<Failure, OrdersAdminModel>> getMoreOrders(
-      AdminOrdersGetMoreParams params) async {
-    try {
-      final resposne = await _networkService
-          .getData(url: EndPoints.allOrdersPage + params.page, headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${params.adminToken}',
+      }, query: {
+        'page': params.page
       });
       return Right(OrdersAdminModel.fromJson(resposne.data));
     } on Exception catch (e) {

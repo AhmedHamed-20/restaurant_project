@@ -35,7 +35,7 @@ class UpdateRecipeAdminEvent extends RecipesAdminEvent {
 }
 
 class RecipesAdminGetMoreEvent extends RecipesAdminEvent {
-  final String page;
+  final int page;
   const RecipesAdminGetMoreEvent({required this.page});
 
   @override
@@ -61,4 +61,17 @@ class ImagePickedResetEvent extends RecipesAdminEvent {
 
   @override
   List<Object?> get props => [];
+}
+
+class AddRecipeAdminEvent extends RecipesAdminEvent {
+  final String adminToken;
+  final RecipeAdminDataModel recipeData;
+  final String imagePath;
+  const AddRecipeAdminEvent(
+      {required this.adminToken,
+      required this.recipeData,
+      required this.imagePath});
+
+  @override
+  List<Object?> get props => [adminToken, recipeData, imagePath];
 }

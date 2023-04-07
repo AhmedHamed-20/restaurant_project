@@ -26,30 +26,18 @@ class _MainAdminRecipesWidgetState extends State<MainAdminRecipesWidget> {
   @override
   void initState() {
     super.initState();
-    scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent ==
-              scrollController.offset &&
-          isEndOfRecipes == false) {
-        BlocProvider.of<RecipesAdminBloc>(context).add(
-          RecipesAdminGetMoreEvent(
-            page: recipesAdminPage.toString(),
-          ),
-        );
-        recipesAdminPage++;
-      }
-    });
+    scrollListener();
   }
 
   @override
   void dispose() {
-    recipesAdminPage = 2;
-    isEndOfRecipes = false;
     super.dispose();
+    disposeData();
   }
 
   @override
   Widget build(BuildContext context) {
-    var allRecipesAdminBloc = BlocProvider.of<RecipesAdminBloc>(context);
+    final allRecipesAdminBloc = BlocProvider.of<RecipesAdminBloc>(context);
     return BlocConsumer<RecipesAdminBloc, RecipesAdminState>(
         listener: (context, state) {
       if (state.recipeAdminDeleteRequestStatues ==
@@ -69,62 +57,97 @@ class _MainAdminRecipesWidgetState extends State<MainAdminRecipesWidget> {
       }
       isEndOfRecipes = state.isEndOfRecipes;
     }, builder: (context, state) {
-      return ListView.builder(
-        controller: scrollController,
-        itemCount: state.recipeData!.recipeDataModel.length + 1,
-        itemBuilder: (context, index) {
-          if (index < state.recipeData!.recipeDataModel.length) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                  AppRoutesNames.recipeAdminDetailsScreen,
-                  arguments: DetailAdminScreenParams(
-                    recipeDataAdminModel:
-                        state.recipeData!.recipeDataModel[index],
-                    recipesBloc: allRecipesAdminBloc,
-                  ),
-                );
-              },
-              child: RecipesCardWidget(
-                imageCover: state.recipeData!.recipeDataModel[index].imageCover,
-                name: state.recipeData!.recipeDataModel[index].name,
-                price: state.recipeData!.recipeDataModel[index].price,
-                trailingWidget: IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return BlocProvider.value(
-                          value: allRecipesAdminBloc,
-                          child: DeleteRecipeAlertDialogWidget(
-                            recipeId:
-                                state.recipeData!.recipeDataModel[index].id,
-                            recipeName:
-                                state.recipeData!.recipeDataModel[index].name,
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-              ),
-            );
-          } else {
-            return state.isEndOfRecipes == false
-                ? const Padding(
-                    padding: EdgeInsets.all(AppPadding.p10),
-                    child: Center(
-                      child: CircularProgressIndicator(),
+      return Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.add,
+            color: Theme.of(context).colorScheme.background,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, AppRoutesNames.addNewRecipeScreen,
+                arguments: allRecipesAdminBloc);
+          },
+        ),
+        body: ListView.builder(
+          controller: scrollController,
+          itemCount: state.recipeData!.recipeDataModel.length + 1,
+          itemBuilder: (context, index) {
+            if (index < state.recipeData!.recipeDataModel.length) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    AppRoutesNames.recipeAdminDetailsScreen,
+                    arguments: DetailAdminScreenParams(
+                      recipeDataAdminModel:
+                          state.recipeData!.recipeDataModel[index],
+                      recipesBloc: allRecipesAdminBloc,
                     ),
-                  )
-                : const SizedBox.shrink();
-          }
-        },
+                  );
+                },
+                child: RecipesCardWidget(
+                  imageCover:
+                      state.recipeData!.recipeDataModel[index].imageCover,
+                  name: state.recipeData!.recipeDataModel[index].name,
+                  price: state.recipeData!.recipeDataModel[index].price,
+                  trailingWidget: IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return BlocProvider.value(
+                            value: allRecipesAdminBloc,
+                            child: DeleteRecipeAlertDialogWidget(
+                              recipeId:
+                                  state.recipeData!.recipeDataModel[index].id,
+                              recipeName:
+                                  state.recipeData!.recipeDataModel[index].name,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            } else {
+              return state.isEndOfRecipes == false
+                  ? const Padding(
+                      padding: EdgeInsets.all(AppPadding.p10),
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : const SizedBox.shrink();
+            }
+          },
+        ),
       );
     });
+  }
+
+  void scrollListener() {
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent ==
+              scrollController.offset &&
+          isEndOfRecipes == false) {
+        BlocProvider.of<RecipesAdminBloc>(context).add(
+          RecipesAdminGetMoreEvent(
+            page: recipesAdminPage,
+          ),
+        );
+        recipesAdminPage++;
+      }
+    });
+  }
+
+  void disposeData() {
+    recipesAdminPage = 2;
+    isEndOfRecipes = false;
+    scrollController.dispose();
   }
 }

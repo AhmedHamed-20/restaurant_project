@@ -17,6 +17,8 @@ class RemoteAllUserRepositoryImpl extends BaseAllUsersRepository {
           await _networkService.getData(url: EndPoints.allusers, headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${params.adminToken}',
+      }, query: {
+        'page': params.page,
       });
       return Right(AllUsersModel.fromJson(respone.data));
     } on Exception catch (e) {
@@ -53,21 +55,6 @@ class RemoteAllUserRepositoryImpl extends BaseAllUsersRepository {
         'Authorization': 'Bearer ${params.adminToken}',
       });
       return const Right('Updated Successfully');
-    } on Exception catch (e) {
-      return Left(ServerFailure.fromException(e));
-    }
-  }
-
-  @override
-  Future<Either<Failure, AllUsersModel>> getMoreUsers(
-      MoreUsersGetParams params) async {
-    try {
-      final response = await _networkService
-          .getData(url: EndPoints.allusersPage + params.page, headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ${params.adminToken}',
-      });
-      return Right(AllUsersModel.fromJson(response.data));
     } on Exception catch (e) {
       return Left(ServerFailure.fromException(e));
     }

@@ -33,16 +33,11 @@ class TextEditingControllers {
   static TextEditingController allUsersNameController = TextEditingController();
   static TextEditingController allUsersEmailController =
       TextEditingController();
-  static TextEditingController recipeNameAdminEditScreenController =
-      TextEditingController();
-  static TextEditingController recipePriceAdminEditScreenController =
-      TextEditingController();
-  static TextEditingController recipeCookingTimeAdminEditScreenController =
-      TextEditingController();
-  static TextEditingController categoryAdminEditNameController =
-      TextEditingController();
+  static late TextEditingController recipeNameAdminScreenController;
+  static late TextEditingController recipePriceAdminScreenController;
+  static late TextEditingController recipeCookingTimeAdminScreenController;
+  static late TextEditingController categoryAdminNameController;
   static TextEditingController categoryAdminAddNameController =
       TextEditingController();
-  static List<TextEditingController> recipeEditIngredientsControllers =
-      <TextEditingController>[];
+  static late List<TextEditingController> recipeEditIngredientsControllers;
 }

@@ -65,17 +65,17 @@ class SaveEditDialogWidget extends StatelessWidget {
                     category: newCategory,
                     cookingTime: int.parse(
                       TextEditingControllers
-                          .recipeCookingTimeAdminEditScreenController.text
+                          .recipeCookingTimeAdminScreenController.text
                           .trim(),
                     ),
                     id: recipeId,
                     price: int.parse(
                       TextEditingControllers
-                          .recipePriceAdminEditScreenController.text
+                          .recipePriceAdminScreenController.text
                           .trim(),
                     ),
                     name: TextEditingControllers
-                        .recipeNameAdminEditScreenController.text
+                        .recipeNameAdminScreenController.text
                         .trim(),
                     slug: '',
                   ),

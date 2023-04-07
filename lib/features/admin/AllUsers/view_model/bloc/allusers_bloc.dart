@@ -21,7 +21,7 @@ class AllUsersBloc extends Bloc<AllusersEvent, AllUsersState> {
   FutureOr<void> _getAllUsers(
       AllUsersGetEvent event, Emitter<AllUsersState> emit) async {
     final result = await baseAllUsersRepository
-        .getAllUsers(AllUsersGetParams(adminToken: event.adminToken));
+        .getAllUsers(AllUsersGetParams(adminToken: event.adminToken, page: 1));
     result.fold((l) {
       emit(state.copyWith(
         allUsersRequestStatues: AllUsersRequestStatues.error,
@@ -56,7 +56,7 @@ class AllUsersBloc extends Bloc<AllusersEvent, AllUsersState> {
         errorMessage: '',
       ));
 
-      add(AllUsersGetEvent(adminToken: event.adminToken));
+      add(AllUsersGetEvent(adminToken: event.adminToken, page: 1));
     });
   }
 
@@ -88,14 +88,14 @@ class AllUsersBloc extends Bloc<AllusersEvent, AllUsersState> {
         errorMessage: '',
       ));
 
-      add(AllUsersGetEvent(adminToken: event.adminToken));
+      add(AllUsersGetEvent(adminToken: event.adminToken, page: 1));
     });
   }
 
   FutureOr<void> _getMoreUsers(
       MoreUsersGetEvent event, Emitter<AllUsersState> emit) async {
-    final result = await baseAllUsersRepository.getMoreUsers(
-      MoreUsersGetParams(
+    final result = await baseAllUsersRepository.getAllUsers(
+      AllUsersGetParams(
         adminToken: event.adminToken,
         page: event.page,
       ),

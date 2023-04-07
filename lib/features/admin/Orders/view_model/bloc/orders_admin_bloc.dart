@@ -19,8 +19,8 @@ class OrdersAdminBloc extends Bloc<OrdersAdminEvent, OrdersAdminState> {
   final BaseAdminOrdersRepository baseAdminOrdersRepository;
   FutureOr<void> _getAllOrdersAdmin(
       OrdersAdminGetEvent event, Emitter<OrdersAdminState> emit) async {
-    final result = await baseAdminOrdersRepository
-        .getAllOrders(AdminOrdersGetParams(adminToken: event.adminToken));
+    final result = await baseAdminOrdersRepository.getAllOrders(
+        AdminOrdersGetParams(adminToken: event.adminToken, page: 1));
 
     result.fold((l) {
       emit(state.copyWith(
@@ -57,9 +57,8 @@ class OrdersAdminBloc extends Bloc<OrdersAdminEvent, OrdersAdminState> {
 
   FutureOr<void> _getMoreOrdersAdmin(
       OrdersAdminGetMoreEvent event, Emitter<OrdersAdminState> emit) async {
-    final result = await baseAdminOrdersRepository.getMoreOrders(
-        AdminOrdersGetMoreParams(
-            adminToken: event.adminToken, page: event.page));
+    final result = await baseAdminOrdersRepository.getAllOrders(
+        AdminOrdersGetParams(adminToken: event.adminToken, page: event.page));
 
     result.fold(
         (l) => emit(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant/core/const/base_recipes_data_model.dart';
 import 'package:resturant/core/layout/user/view/screens/user/main_layout_screen.dart';
+import 'package:resturant/features/admin/AllRecipes/view/screens/create_new_recipe_screen.dart';
+import 'package:resturant/features/admin/AllRecipes/view_model/bloc/recipes_admin_bloc.dart';
 import 'package:resturant/features/admin/AllUsers/view/screens/all_users_admin_screen.dart';
 import 'package:resturant/features/user/Auth/view/screens/forget_password.dart';
 import 'package:resturant/features/user/Auth/view/screens/login_screen.dart';
@@ -85,6 +87,12 @@ class AppRouter {
               value: argumnet.recipesBloc,
               child: RecipeDetailsAdminScreen(
                   recipeDataModel: argumnet.recipeDataAdminModel)),
+        );
+      case AppRoutesNames.addNewRecipeScreen:
+        RecipesAdminBloc argumnet = args as RecipesAdminBloc;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider.value(
+              value: argumnet, child: const CreateNewRecipeScreen()),
         );
       default:
         return MaterialPageRoute(

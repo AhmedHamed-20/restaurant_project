@@ -13,11 +13,14 @@ class RemoteAdminRecipesRepository extends BaseAdminRecipesRepository {
 
   RemoteAdminRecipesRepository(this._networkService);
   @override
-  Future<Either<Failure, RecipesAdminModel>> getAdminRecipes() async {
+  Future<Either<Failure, RecipesAdminModel>> getAdminRecipes(
+      AdminRecipesGetParams params) async {
     try {
       final respone =
           await _networkService.getData(url: EndPoints.allRecipies, headers: {
         'Content-Type': 'application/json',
+      }, query: {
+        'page': params.page,
       });
 
       return Right(RecipesAdminModel.fromJson(respone.data));
@@ -77,22 +80,6 @@ class RemoteAdminRecipesRepository extends BaseAdminRecipesRepository {
   }
 
   @override
-  Future<Either<Failure, RecipesAdminModel>> getMoreAdminRecipes(
-      MoreAdminRecipesGetParams params) async {
-    try {
-      final reponse = await _networkService.getData(
-        url: EndPoints.allRecipiesPage + params.page,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      );
-      return Right(RecipesAdminModel.fromJson(reponse.data));
-    } on Exception catch (e) {
-      return Left(ServerFailure.fromException(e));
-    }
-  }
-
-  @override
   Future<Either<Failure, CategoryRecipeAdminModel>> getCategories() async {
     try {
       final reponse = await _networkService.getData(
@@ -102,6 +89,23 @@ class RemoteAdminRecipesRepository extends BaseAdminRecipesRepository {
         },
       );
       return Right(CategoryRecipeAdminModel.fromJson(reponse.data));
+    } on Exception catch (e) {
+      return Left(ServerFailure.fromException(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addRecipe(RecipeAddParams params) async {
+    try {
+      final recipeData =
+          await params.recipeData.toMapWithImage(params.imagePath);
+      await _networkService.postData(
+          url: EndPoints.allRecipies,
+          data: FormData.fromMap(recipeData),
+          headers: {
+            'Authorization': 'Bearer ${params.adminToken}',
+          });
+      return const Right(null);
     } on Exception catch (e) {
       return Left(ServerFailure.fromException(e));
     }

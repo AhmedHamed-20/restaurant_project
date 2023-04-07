@@ -6,8 +6,8 @@ abstract class AllusersEvent extends Equatable {
 
 class AllUsersGetEvent extends AllusersEvent {
   final String adminToken;
-
-  const AllUsersGetEvent({required this.adminToken});
+  final int page;
+  const AllUsersGetEvent({required this.adminToken, required this.page});
 
   @override
   List<Object> get props => [adminToken];
@@ -47,7 +47,7 @@ class UserDataUpdateByIdEvent extends AllusersEvent {
 
 class MoreUsersGetEvent extends AllusersEvent {
   final String adminToken;
-  final String page;
+  final int page;
 
   const MoreUsersGetEvent({
     required this.adminToken,

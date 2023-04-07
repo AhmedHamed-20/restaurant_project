@@ -14,7 +14,7 @@ class AllUsersAdminScrenn extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => serviceLocator<AllUsersBloc>()
-        ..add(AllUsersGetEvent(adminToken: accessTokenAdminVar)),
+        ..add(AllUsersGetEvent(adminToken: accessTokenAdminVar, page: 1)),
       child: BlocBuilder<AllUsersBloc, AllUsersState>(
         builder: (context, state) {
           switch (state.allUsersRequestStatues) {

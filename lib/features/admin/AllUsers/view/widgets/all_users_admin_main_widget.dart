@@ -24,26 +24,12 @@ class _AllUsersAdminMainWidgetState extends State<AllUsersAdminMainWidget> {
   @override
   void initState() {
     super.initState();
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-              scrollController.position.maxScrollExtent &&
-          isEndOfData == false) {
-        BlocProvider.of<AllUsersBloc>(context).add(
-          MoreUsersGetEvent(
-            adminToken: accessTokenAdminVar,
-            page: allUsersPage.toString(),
-          ),
-        );
-        allUsersPage++;
-      }
-    });
+    scrollListener();
   }
 
   @override
   void dispose() {
-    scrollController.dispose();
-    isEndOfData = false;
-    allUsersPage = 2;
+    disposeData();
     super.dispose();
   }
 
@@ -129,5 +115,27 @@ class _AllUsersAdminMainWidgetState extends State<AllUsersAdminMainWidget> {
         );
       },
     );
+  }
+
+  void scrollListener() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent &&
+          isEndOfData == false) {
+        BlocProvider.of<AllUsersBloc>(context).add(
+          MoreUsersGetEvent(
+            adminToken: accessTokenAdminVar,
+            page: allUsersPage,
+          ),
+        );
+        allUsersPage++;
+      }
+    });
+  }
+
+  void disposeData() {
+    scrollController.dispose();
+    isEndOfData = false;
+    allUsersPage = 2;
   }
 }
